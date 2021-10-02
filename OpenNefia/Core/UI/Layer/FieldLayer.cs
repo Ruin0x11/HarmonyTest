@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Data.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,12 +46,12 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine($"Got back: {result}");
             Message = result;
 
-            this.Keys.BindKey(UI.Keys.Up, (state) => this.MoveUp(state), trackReleased: true);
-            this.Keys.BindKey(UI.Keys.Down, (state) => this.MoveDown(state), trackReleased: true);
-            this.Keys.BindKey(UI.Keys.Left, (state) => this.MoveLeft(state), trackReleased: true);
-            this.Keys.BindKey(UI.Keys.Right, (state) => this.MoveRight(state), trackReleased: true);
-            this.Keys.BindKey(UI.Keys.Ctrl | UI.Keys.K, (state) => this.QueryLayer());
-            this.Keys.BindKey(UI.Keys.Escape, (_) =>
+            this.Keys.BindKey(Keybind.Entries.UIUp, (state) => this.MoveUp(state), trackReleased: true);
+            this.Keys.BindKey(Keybind.Entries.UIDown, (state) => this.MoveDown(state), trackReleased: true);
+            this.Keys.BindKey(Keybind.Entries.UILeft, (state) => this.MoveLeft(state), trackReleased: true);
+            this.Keys.BindKey(Keybind.Entries.UIRight, (state) => this.MoveRight(state), trackReleased: true);
+            this.Keys.BindKey(Keybind.Entries.Identify, (state) => this.QueryLayer());
+            this.Keys.BindKey(Keybind.Entries.Escape, (_) =>
             {
                 this.Finished = true;
                 return null;
@@ -108,8 +109,8 @@ namespace OpenNefia.Core.UI.Layer
 
             var delta = 1000f;
             var amount = (int)(dt * delta);
-            DrawX += (int)(dt * delta) * dx;
-            DrawY += (int)(dt * delta) * dy;
+            DrawX += amount * dx;
+            DrawY += amount * dy;
         }
 
         public override UiResult<int>? GetResult()

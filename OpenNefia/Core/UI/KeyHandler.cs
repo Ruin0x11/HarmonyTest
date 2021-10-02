@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Data.Types;
+using System;
 using System.Collections.Generic;
 
 namespace OpenNefia.Core.UI
@@ -19,12 +20,13 @@ namespace OpenNefia.Core.UI
             public KeyActionResult? Run(KeyPressState state) => this.Callback(state);
         }
 
-        private HashSet<Love.KeyConstant> Pressed;
-        private Dictionary<Love.KeyConstant, float> RepeatDelays;
-        private HashSet<Love.KeyConstant> UnpressedThisFrame;
+        private HashSet<Keys> Pressed;
+        private Dictionary<Keys, float> RepeatDelays;
+        private HashSet<Keys> UnpressedThisFrame;
         private Keys Modifiers;
         private List<IKeyHandler> Forwards;
-        private Dictionary<Keys, KeyAction> Actions;
+        private Dictionary<Keybind, KeyAction> Actions;
+        private KeybindTranslator Keybinds;
         private bool Halted;
         private bool StopHalt;
 
@@ -32,33 +34,39 @@ namespace OpenNefia.Core.UI
 
         public KeyHandler()
         {
-            this.Pressed = new HashSet<Love.KeyConstant>();
-            this.RepeatDelays = new Dictionary<Love.KeyConstant, float>();  
-            this.UnpressedThisFrame = new HashSet<Love.KeyConstant>();
+            this.Pressed = new HashSet<Keys>();
+            this.RepeatDelays = new Dictionary<Keys, float>();  
+            this.UnpressedThisFrame = new HashSet<Keys>();
             this.Modifiers = Keys.None;
             this.Forwards = new List<IKeyHandler>();
-            this.Actions = new Dictionary<Keys, KeyAction>();
+            this.Actions = new Dictionary<Keybind, KeyAction>();
+            this.Keybinds = new KeybindTranslator();
             this.Halted = false;
             this.StopHalt = false;
             this.KeyHeldFrames = 0;
         }
 
         /// <inheritdoc />
-        public void OnKeyPressed(Love.KeyConstant key, bool is_repeat)
+        public void OnKeyPressed(Love.KeyConstant loveKey, bool is_repeat)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.OnKeyPressed(key, is_repeat);
+                forward.OnKeyPressed(loveKey, is_repeat);
             }
 
             if (this.Halted && is_repeat) {
                 return;
             }
 
-            var modifier = InputUtils.GetModifier(key);
+            var key = (Keys)loveKey;
+
+            var modifier = InputUtils.GetModifier(loveKey);
             if (modifier.HasValue)
             {
                 this.Modifiers |= modifier.Value;
+
+                // Treat LShift and RShift as Shift, etc.
+                key = modifier.Value;
             }
 
             this.Pressed.Add(key);
@@ -68,17 +76,22 @@ namespace OpenNefia.Core.UI
         }
 
         /// <inheritdoc />
-        public void OnKeyReleased(Love.KeyConstant key)
+        public void OnKeyReleased(Love.KeyConstant loveKey)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.OnKeyReleased(key);
+                forward.OnKeyReleased(loveKey);
             }
 
-            var modifier = InputUtils.GetModifier(key);
+            var key = (Keys)loveKey;
+
+            var modifier = InputUtils.GetModifier(loveKey);
             if (modifier.HasValue)
             {
                 this.Modifiers &= ~modifier.Value;
+
+                // Treat LShift and RShift as Shift, etc.
+                key = modifier.Value;
             }
 
             this.UnpressedThisFrame.Add(key);
@@ -95,6 +108,11 @@ namespace OpenNefia.Core.UI
 
         public void HaltInput()
         {
+            foreach (var key in this.Pressed)
+            {
+                this.ReleaseKey(key);
+            }
+
             this.RepeatDelays.Clear();
             this.Modifiers = Keys.None;
             this.Pressed.Clear();
@@ -114,23 +132,31 @@ namespace OpenNefia.Core.UI
             this.Forwards.Add(handler);
         }
 
-        public bool RunKeyAction(Love.KeyConstant key, KeyPressState state)
+        public bool RunKeyAction(Keys keyAndModifiers, KeyPressState state)
         {
-            var keyAndModifiers = ((Keys)key | this.Modifiers);
-            if (this.Actions.TryGetValue(keyAndModifiers, out KeyAction? action)) {
-                if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
+            var keybind = this.Keybinds.KeyToKeybind(keyAndModifiers);
+
+            if (keybind != null)
+            {
+                if (this.Actions.TryGetValue(keybind, out KeyAction? action))
                 {
-                    var result = action.Run(state);
-                    if (result == null || result == KeyActionResult.Complete)
+                    // BUG: Release events won't be counted properly for modifiers,
+                    // since they only look at the modifier state when the key is
+                    // released, not when any modifier is released.
+                    if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
                     {
-                        return true;
+                        var result = action.Run(state);
+                        if (result == null || result == KeyActionResult.Complete)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
             foreach (var forward in this.Forwards)
             {
-                if (forward.RunKeyAction(key, state))
+                if (forward.RunKeyAction(keyAndModifiers, state))
                 {
                     return true;
                 }
@@ -139,14 +165,16 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public void BindKey(Keys key, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false)
+        public void BindKey(Keybind keybind, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false)
         {
-            this.Actions[key] = new KeyAction(func, trackReleased);
+            this.Actions[keybind] = new KeyAction(func, trackReleased);
+            this.Keybinds.Enable(keybind);
         }
 
-        public bool UnbindKey(Keys key)
+        public void UnbindKey(Keybind keybind)
         {
-            return this.Actions.Remove(key);
+            this.Actions.Remove(keybind);
+            this.Keybinds.Disable(keybind);
         }
 
         public bool IsModifierHeld(Keys modifier)
@@ -154,12 +182,12 @@ namespace OpenNefia.Core.UI
             return (this.Modifiers & modifier) == modifier;
         }
 
-        public void ReleaseKey(Love.KeyConstant key)
+        public void ReleaseKey(Keys key)
         {
             this.Pressed.Remove(key);
             this.RepeatDelays.Remove(key);
 
-            if (this.RunKeyAction(key, KeyPressState.Released))
+            if (this.RunKeyAction(key | this.Modifiers, KeyPressState.Released))
             {
                 return;
             }
@@ -193,7 +221,7 @@ namespace OpenNefia.Core.UI
                 var pressed = pair.Value == 0.0f;
                 if (pressed) {
                     var key = pair.Key;
-                    ran = this.RunKeyAction(key, KeyPressState.Pressed);
+                    ran = this.RunKeyAction(key | this.Modifiers, KeyPressState.Pressed);
                     if (ran)
                     {
                         // Only run the first key action.

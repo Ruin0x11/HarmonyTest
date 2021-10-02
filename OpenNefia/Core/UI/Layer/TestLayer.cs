@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Data.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public TestLayer()
         {
-            this.Keys.BindKey(UI.Keys.Escape, (_) =>
+            this.Keys.BindKey(Keybind.Entries.Escape, (_) =>
             {
                 this.Finished = true;
                 return null;

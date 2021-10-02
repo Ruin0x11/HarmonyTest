@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Data.Types;
 using System;
 
 namespace OpenNefia.Core.UI
@@ -32,14 +33,14 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="key"></param>
         /// <param name="func"></param>
-        void BindKey(Keys key, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false);
+        void BindKey(Keybind keybind, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        bool UnbindKey(Keys key);
+        void UnbindKey(Keybind keybind);
 
         /// <summary>
         /// 
@@ -65,12 +66,12 @@ namespace OpenNefia.Core.UI
         /// <param name="key"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        bool RunKeyAction(KeyConstant key, KeyPressState state);
+        bool RunKeyAction(Keys key, KeyPressState state);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
-        void ReleaseKey(KeyConstant key);
+        void ReleaseKey(Keys key);
     }
 }

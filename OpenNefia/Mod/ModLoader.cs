@@ -51,6 +51,23 @@ namespace OpenNefia.Mod
             if (!Directory.Exists(modsDirectory))
                 Directory.CreateDirectory(modsDirectory);
 
+            Action<string> ScanDllAtPath = (dllPath) =>
+            {
+                using var stream = new MemoryStream(File.ReadAllBytes(dllPath));
+                using var assembly = AssemblyDefinition.ReadAssembly(stream, AssemblyReaderParams);
+
+                if (HasMod(assembly))
+                {
+                    var modInfos = assembly.MainModule.Types.Select(t => GetModInfo(t, dllPath)).WhereNonNull().ToList();
+                    LoadedMods.AddRange(modInfos);
+                }
+            };
+
+            // Scan our own assembly so the Core mod is picked up.
+            ScanDllAtPath(Assembly.GetExecutingAssembly().Location);
+
+            Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories).ForEach(ScanDllAtPath);
+
             foreach (var dll in Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories))
             {
                 using var stream = new MemoryStream(File.ReadAllBytes(dll));
