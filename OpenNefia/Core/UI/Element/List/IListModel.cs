@@ -10,9 +10,8 @@ namespace OpenNefia.Core.UI.Element.List
     public interface IListModel<T> : ICollection<T>, IEnumerable<T>, IList<T>
     {
         public int SelectedIndex { get; }
-        public T? SelectedItem { get; }
+        public T? SelectedChoice { get; }
 
-        string GetItemText(T item);
         bool CanSelect(int index);
         void IncrementIndex(int delta);
         void Select(int index);

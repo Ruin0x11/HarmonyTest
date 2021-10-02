@@ -11,13 +11,19 @@ namespace OpenNefia.Core.UI.Element
 {
     public class UiWindowBacking : BaseUiElement
     {
+        public enum WindowBackingType
+        {
+            Normal,
+            Shadow
+        }
+
         private AssetDrawable? AssetWindow;
         private Love.SpriteBatch? Batch;
-        private bool Shadow;
+        private WindowBackingType Type;
 
-        public UiWindowBacking(bool shadow)
+        public UiWindowBacking(WindowBackingType type = WindowBackingType.Normal)
         {
-            this.Shadow = shadow;
+            this.Type = type;
         }
 
         public override void Relayout(int x, int y, int width, int height)
@@ -31,7 +37,7 @@ namespace OpenNefia.Core.UI.Element
 
             var parts = new List<AssetBatchPart>();
 
-            if (!this.Shadow)
+            if (this.Type != WindowBackingType.Shadow)
             {
                 parts.Add(new AssetBatchPart("top_left", x, y));
             }
@@ -42,7 +48,7 @@ namespace OpenNefia.Core.UI.Element
             for (int dx = 8; dx < width / 8 - 8; dx++)
             {
                 var tile = Math.Abs((dx - 8) % 18);
-                if (!this.Shadow)
+                if (this.Type != WindowBackingType.Shadow)
                 {
                     parts.Add(new AssetBatchPart($"top_mid_{tile}", dx * 8 + x, y));
                 }
@@ -52,7 +58,7 @@ namespace OpenNefia.Core.UI.Element
             for (int dy = 0; dy < height / 8 - 13; dy++)
             {
                 var tile_y = dy % 12;
-                if (!this.Shadow)
+                if (this.Type != WindowBackingType.Shadow)
                 {
                     parts.Add(new AssetBatchPart($"mid_left_{tile_y}", x, dy * 8 + y + 48));
 
@@ -75,8 +81,8 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            Drawing.DrawImage(this.AssetWindow!.Image!);
-            Drawing.DrawSpriteBatch(this.Batch!, 0, 0);
+            GraphicsEx.DrawImage(this.AssetWindow!.Image!);
+            GraphicsEx.DrawSpriteBatch(this.Batch!, 0, 0);
         }
     }
 }

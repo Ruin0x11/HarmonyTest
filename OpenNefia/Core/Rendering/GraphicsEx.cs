@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public static class Drawing
+    public static class GraphicsEx
     {
         public static void DrawImage(Love.Image image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
@@ -209,12 +209,12 @@ namespace OpenNefia.Core.Rendering
             if (bgColor == null)
                 bgColor = Love.Color.Black;
 
-            Drawing.SetColor(bgColor.Value);
+            GraphicsEx.SetColor(bgColor.Value);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
                     Love.Graphics.Print(text, x + dx, y + dy);
 
-            Drawing.SetColor(fgColor.Value);
+            GraphicsEx.SetColor(fgColor.Value);
             Love.Graphics.Print(text, x, y);
         }
     }

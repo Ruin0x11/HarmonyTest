@@ -57,14 +57,14 @@ namespace OpenNefia.Core.Rendering
             var scissor = Love.Graphics.GetScissor();
             var color = Love.Graphics.GetColor();
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-            Drawing.SetScissor();
+            GraphicsEx.SetScissor();
             Love.Graphics.SetColor(1f, 1f, 1f, 1f);
             Love.Graphics.SetCanvas(canvas);
 
             Love.Graphics.Draw(quad, parentImage, 0, 0);
 
             Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            Drawing.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged.
+            GraphicsEx.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged.
             Love.Graphics.SetColor(color);
             Love.Graphics.SetCanvas(oldCanvas);
 
@@ -181,7 +181,7 @@ namespace OpenNefia.Core.Rendering
         
         public void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
-            Drawing.DrawImage(this.Image, x, y, width, height, centered, rotation);
+            GraphicsEx.DrawImage(this.Image, x, y, width, height, centered, rotation);
         }
 
         public void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
@@ -192,7 +192,7 @@ namespace OpenNefia.Core.Rendering
                 throw new ArgumentException($"Invalid region ID {regionId}");
             }
 
-            Drawing.DrawImageRegion(this.Image, quad, x, y, width, height, centered, rotation);
+            GraphicsEx.DrawImageRegion(this.Image, quad, x, y, width, height, centered, rotation);
         }
 
         public void Dispose()

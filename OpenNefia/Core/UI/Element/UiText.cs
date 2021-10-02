@@ -3,7 +3,7 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiText : BaseUiElement
+    public class UiText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
         private ColorAsset Color;
@@ -42,6 +42,11 @@ namespace OpenNefia.Core.UI.Element
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.Color = color;
         }
+
+        public UiText(FontAsset font, ColorAsset? color = null) : this(string.Empty, font, color)
+        {
+        }
+
 #pragma warning restore CS8618
 
         public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0)
@@ -58,7 +63,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            Drawing.SetColor(this.Color);
+            GraphicsEx.SetColor(this.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

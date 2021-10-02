@@ -45,6 +45,9 @@ namespace OpenNefia.Core.Data.Types
 
             public static ColorAsset ListSelectedAdd = new ColorAsset($"Core.{nameof(ListSelectedAdd)}", 50, 50, 50);
             public static ColorAsset ListSelectedSub = new ColorAsset($"Core.{nameof(ListSelectedSub)}", 30, 10, 0);
+
+            public static ColorAsset WindowBottomLine1 = new ColorAsset($"Core.{nameof(WindowBottomLine1)}", 194, 170, 146);
+            public static ColorAsset WindowBottomLine2 = new ColorAsset($"Core.{nameof(WindowBottomLine2)}", 234, 220, 188);
         }
     }
 }

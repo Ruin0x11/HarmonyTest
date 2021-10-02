@@ -13,30 +13,29 @@ namespace OpenNefia.Core.UI.Element.List
     public class UiList<T> : BaseInputUiElement, IUiList<T>
     {
         protected IListModel<T> Model { get; }
-        public uint ItemHeight { get; }
+        public int ItemHeight { get; }
         public int ItemOffsetX { get; }
         public int ItemOffsetY { get; }
 
         protected AssetDrawable AssetSelectKey;
         protected AssetDrawable AssetListBullet;
-        protected List<UiShadowedText> KeyNameTexts;
-        protected List<UiText> ItemTexts;
-
         protected ColorAsset ColorSelectedAdd;
         protected ColorAsset ColorSelectedSub;
-
         protected FontAsset FontListText;
         protected FontAsset FontListKeyName;
 
+        protected List<IUiText> KeyNameTexts;
+        protected List<IUiText> ItemTexts;
+
         public int SelectedIndex { get => this.Model.SelectedIndex; }
-        public T? SelectedItem { get => this.Model.SelectedItem; }
+        public T? SelectedChoice { get => this.Model.SelectedChoice; }
 
         public int Count => this.Model.Count;
         public bool IsReadOnly => this.Model.IsReadOnly;
 
         public T this[int index] { get => this.Model[index]; set => this.Model[index] = value; }
 
-        public UiList(IListModel<T> choices, uint itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+        public UiList(IListModel<T> choices, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
         {
             this.Model = choices;
             this.ItemHeight = itemHeight;
@@ -50,22 +49,33 @@ namespace OpenNefia.Core.UI.Element.List
             this.FontListText = FontAsset.Entries.ListText;
             this.FontListKeyName = FontAsset.Entries.ListKeyName;
 
-            var font = Drawing.GetFont(this.FontListKeyName);
-            this.KeyNameTexts = new List<UiShadowedText>();
+            var font = GraphicsEx.GetFont(this.FontListKeyName);
+            this.KeyNameTexts = new List<IUiText>();
             for (int i = 0; i < Keybind.Entries.SelectionKeys.Length; i++)
             {
+                var key = this.GetChoiceKey(i);
                 this.KeyNameTexts.Add(new UiShadowedText("a", font));
             }
 
-            this.ItemTexts = new List<UiText>();
+            this.ItemTexts = new List<IUiText>();
 
             this.RefreshTexts();
             this.BindKeys();
         }
 
+        public UiList(List<T> choices, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+            : this(new ListModel<T>(choices), itemHeight, itemOffsetX, itemOffsetY)
+        {
+        }
+
+        public UiList(int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+            : this(new ListModel<T>(), itemHeight, itemOffsetX, itemOffsetY)
+        {
+        }
+
         private void RefreshTexts()
         {
-            this.ItemTexts = this.Model.Select(x => new UiText(this.GetItemText(x), this.FontListText, this.GetItemColor(x))).ToList();
+            this.ItemTexts = this.Model.Select((x, i) => new UiText(this.GetChoiceText(i), this.FontListText, this.GetChoiceColor(i))).ToList<IUiText>();
         }
 
         protected virtual void BindKeys()
@@ -89,8 +99,10 @@ namespace OpenNefia.Core.UI.Element.List
             return new List<UiKeyHint>();
         }
 
-        public virtual string GetItemText(T choice) => this.Model.GetItemText(choice);
-        public virtual ColorAsset GetItemColor(T item) => ColorAsset.Entries.TextBackground;
+
+        public virtual string GetChoiceText(int index) => this[index]!.ToString()!;
+        public virtual ColorAsset GetChoiceColor(int index) => ColorAsset.Entries.TextBackground;
+        public virtual Keys GetChoiceKey(int index) => Keys.A + index;
 
         public void IncrementIndex(int delta) => this.Model.IncrementIndex(delta);
         public virtual bool CanSelect(int index) => this.Model.CanSelect(index);
@@ -106,43 +118,63 @@ namespace OpenNefia.Core.UI.Element.List
             base.Relayout(x, y, width, height);
         }
 
-        protected void DrawSelectKey(int index, string keyName, int x, int y)
+        protected virtual void DrawSelectKey(int index, int x, int y)
         {
-            Drawing.SetColor(Color.White);
+            GraphicsEx.SetColor(Color.White);
             this.AssetSelectKey.Draw(x, y);
 
             var text = this.KeyNameTexts[index];
-            text.X = x + (this.AssetSelectKey.Width - Drawing.GetTextWidth(text.Text)) / 2 - 2;
-            text.Y = y + (this.AssetSelectKey.Height - Drawing.GetTextHeight()) / 2;
+            text.X = x + (this.AssetSelectKey.Width - GraphicsEx.GetTextWidth(text.Text)) / 2 - 2;
+            text.Y = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
             this.KeyNameTexts[index].Draw();
         }
 
-        protected void DrawItemText(int index, UiText text, int x, int y, int xOffset = 0, Love.Color? textColor = null)
+        protected virtual void DrawItemText(int index, int x, int y, int xOffset = 0)
         {
+            var text = this.ItemTexts[index];
+
             if (index == this.SelectedIndex)
             {
                 var width = Math.Clamp(text.Width + 32 + xOffset, 10, 480);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                Drawing.SetColor(this.ColorSelectedSub);
-                Drawing.DrawFilledRect(x, y - 2, width, 19);
+                GraphicsEx.SetColor(this.ColorSelectedSub);
+                GraphicsEx.DrawFilledRect(x, y - 2, width, 19);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Add);
-                Drawing.SetColor(this.ColorSelectedAdd);
-                Drawing.DrawFilledRect(x + 1, y - 1, width - 2, 17);
+                GraphicsEx.SetColor(this.ColorSelectedAdd);
+                GraphicsEx.DrawFilledRect(x + 1, y - 1, width - 2, 17);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-                Drawing.SetColor(Love.Color.White);
+                GraphicsEx.SetColor(Love.Color.White);
                 this.AssetListBullet.Draw(x + width - 20, y + 2);
             }
+
             text.X = x + 4 + xOffset;
             text.Y = y + 1;
             text.Draw();
         }
 
+        protected virtual void DrawItem(int index, int x, int y)
+        {
+            this.DrawSelectKey(index, x, y);
+            this.DrawItemText(index, x + 26, y + 1, 0);
+        }
+
         public override void Update(float dt)
         {
+            foreach (var text in this.KeyNameTexts)
+                text.Update(dt);
+
+            foreach (var text in this.ItemTexts)
+                text.Update(dt);
         }
 
         public override void Draw()
         {
+            for (int index = 0; index < this.Count; index++)
+            {
+                var x = this.X + this.ItemOffsetX;
+                var y = index * this.ItemHeight + this.Y + this.ItemOffsetY;
+                this.DrawItem(index, x, y);
+            }
         }
 
         public int IndexOf(T item) => this.Model.IndexOf(item);

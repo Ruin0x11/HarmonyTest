@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenNefia.Core.Rendering.Drawing;
+using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiShadowedText : BaseUiElement
+    public class UiShadowedText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
         private Love.Color FgColor;
@@ -66,12 +66,12 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            Drawing.SetColor(this.BgColor);
+            GraphicsEx.SetColor(this.BgColor);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
                     Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
 
-            Drawing.SetColor(this.FgColor);
+            GraphicsEx.SetColor(this.FgColor);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

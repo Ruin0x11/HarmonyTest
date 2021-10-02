@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenNefia.Core.Rendering.Drawing;
+using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.Data.Types
 {
@@ -36,7 +36,7 @@ namespace OpenNefia.Core.Data.Types
             get
             {
                 if (_LoveObject == null)
-                    _LoveObject = Drawing.GetFont(this);
+                    _LoveObject = GraphicsEx.GetFont(this);
                 return _LoveObject;
             }
         }
@@ -49,6 +49,9 @@ namespace OpenNefia.Core.Data.Types
         {
             public static FontAsset ListText = new FontAsset($"Core.{nameof(ListText)}", 14, 12);
             public static FontAsset ListKeyName = new FontAsset($"Core.{nameof(ListKeyName)}", 15, 13);
+
+            public static FontAsset WindowTitle = new FontAsset($"Core.{nameof(WindowTitle)}", 15, 14);
+            public static FontAsset WindowKeyHints = new FontAsset($"Core.{nameof(WindowKeyHints)}", 15, 14);
         }
     }
 }

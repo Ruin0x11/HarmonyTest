@@ -26,6 +26,17 @@ namespace OpenNefia.Core.UI.Layer
                 this.Finished = true;
                 return null;
             });
+            this.BindKey(Keybind.Entries.Identify, (_) =>
+            {
+                var choices = new List<PromptChoice<int>>()
+                {
+                    new PromptChoice<int>(0),
+                    new PromptChoice<int>(0),
+                    new PromptChoice<int>(0)
+                };
+                var prompt = new Prompt(choices);
+                return null;
+            });
         }
 
         public override void Relayout(int x, int y, int width, int height)

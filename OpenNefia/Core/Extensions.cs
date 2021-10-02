@@ -8,17 +8,17 @@ namespace OpenNefia.Core
 {
     public static class Extensions
     {
-		public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+		public static void ForEach<T>(this IEnumerable<T> iterator, Action<T> action)
 		{
-			foreach (T item in enumeration)
+			foreach (T item in iterator)
 			{
 				action(item);
 			}
 		}
 
-		public static IEnumerable<T> WhereNonNull<T>(this IEnumerable<T?> items)
+		public static IEnumerable<T> WhereNonNull<T>(this IEnumerable<T?> iterator)
 		{
-			foreach (var item in items)
+			foreach (var item in iterator)
 			{
 				if (item != null)
 					yield return item;

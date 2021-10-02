@@ -92,6 +92,12 @@ namespace OpenNefia.Core.Data.Types
             {
                 ImageRegion = new ImageRegion(InterfaceBmp, 48, 360, 16, 16)
             };
+
+            public static Asset TipIcons = new Asset($"Core.{nameof(TipIcons)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 96, 360, 24 * 8, 16),
+                CountX = 8
+            };
         }
     }
 }
