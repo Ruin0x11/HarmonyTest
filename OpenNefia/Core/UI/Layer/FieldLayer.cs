@@ -13,6 +13,12 @@ namespace OpenNefia.Core.UI.Layer
         public int DrawX { get; private set; }
         public int DrawY { get; private set; }
 
+        private bool Up;
+        private bool Down;
+        private bool Left;
+        private bool Right;
+        private bool Finished;
+
         public string Message { get; private set; }
 
         public List<Thing> Things;
@@ -38,6 +44,17 @@ namespace OpenNefia.Core.UI.Layer
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
             Message = result;
+
+            this.Keys.BindKey(UI.Keys.Up, (state) => this.MoveUp(state), trackReleased: true);
+            this.Keys.BindKey(UI.Keys.Down, (state) => this.MoveDown(state), trackReleased: true);
+            this.Keys.BindKey(UI.Keys.Left, (state) => this.MoveLeft(state), trackReleased: true);
+            this.Keys.BindKey(UI.Keys.Right, (state) => this.MoveRight(state), trackReleased: true);
+            this.Keys.BindKey(UI.Keys.Ctrl | UI.Keys.K, (state) => this.QueryLayer());
+            this.Keys.BindKey(UI.Keys.Escape, (_) =>
+            {
+                this.Finished = true;
+                return null;
+            });
         }
 
         public string PrintMessage(string dood)
@@ -46,44 +63,60 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
+        private KeyActionResult? MoveUp(KeyPressState state)
+        {
+            this.Up = (state != KeyPressState.Released);
+            return null;
+        }
+
+        private KeyActionResult? MoveDown(KeyPressState state)
+        {
+            this.Down = (state != KeyPressState.Released);
+            return null;
+        }
+
+        private KeyActionResult? MoveLeft(KeyPressState state)
+        {
+            this.Left = (state != KeyPressState.Released);
+            return null;
+        }
+
+        private KeyActionResult? MoveRight(KeyPressState state)
+        {
+            this.Right = (state != KeyPressState.Released) ;
+            return null;
+        }
+
+        private KeyActionResult? QueryLayer()
+        {
+            Console.WriteLine("Query layer!");
+            var result = new TestLayer().Query();
+            Console.WriteLine($"Get result: {result.Result}");
+
+            return null;
+        }
+
         public override void Update(float dt)
         {
-            if (!this.IsQuerying())
-            {
-                return;
-            }
+            var dx = 0;
+            var dy = 0;
+
+            if (this.Up) dy += 1;
+            if (this.Down) dy -= 1;
+            if (this.Left) dx += 1;
+            if (this.Right) dx -= 1;
 
             var delta = 1000f;
             var amount = (int)(dt * delta);
-            if (Love.Keyboard.IsDown(Love.KeyConstant.Up))
-            {
-                DrawY += amount;
-            }
-            if (Love.Keyboard.IsDown(Love.KeyConstant.Down))
-            {
-                DrawY -= amount;
-            }
-            if (Love.Keyboard.IsDown(Love.KeyConstant.Left))
-            {
-                DrawX += amount;
-            }
-            if (Love.Keyboard.IsDown(Love.KeyConstant.Right))
-            {
-                DrawX -= amount;
-            }
-
-            if (Love.Keyboard.IsPressed(Love.KeyConstant.K))
-            {
-                Console.WriteLine("Query layer!");
-                var result = new TestLayer().Query();
-                Console.WriteLine($"Get result: {result.Result}");
-            }
+            DrawX += (int)(dt * delta) * dx;
+            DrawY += (int)(dt * delta) * dy;
         }
 
         public override UiResult<int>? GetResult()
         {
-            if (Love.Keyboard.IsPressed(Love.KeyConstant.Escape))
+            if (this.Finished)
             {
+                this.Finished = false;
                 return UiResult<int>.Finished(42);
             }
 

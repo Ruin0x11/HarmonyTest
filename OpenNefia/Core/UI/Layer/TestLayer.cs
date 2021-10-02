@@ -11,6 +11,16 @@ namespace OpenNefia.Core.UI.Layer
     {
         private int X = 100;
         private int Y = 100;
+        private bool Finished = false;
+
+        public TestLayer()
+        {
+            this.Keys.BindKey(UI.Keys.Escape, (_) =>
+            {
+                this.Finished = true;
+                return null;
+            });
+        }
 
         public override void Update(float dt)
         {
@@ -23,8 +33,9 @@ namespace OpenNefia.Core.UI.Layer
 
         public override UiResult<int>? GetResult()
         {
-            if (Keyboard.IsPressed(KeyConstant.W))
+            if (this.Finished)
             {
+                this.Finished = false;
                 return UiResult<int>.Finished(42);
             }
 

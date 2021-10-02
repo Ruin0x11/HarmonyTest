@@ -25,7 +25,7 @@ namespace OpenNefia.Game
 
         public GameWrapper()
         {
-            Scene = new GameScene();
+            Scene = new GameScene(this);
             Layers = new List<IUiLayer>();
         }
 
@@ -84,6 +84,17 @@ namespace OpenNefia.Game
         internal void PopLayer(IUiLayer layer)
         {
             Layers.Remove(layer);
+        }
+
+        public IUiLayer? CurrentLayer {
+            get
+            {
+                if (Layers.Count == 0)
+                {
+                    return null;
+                }
+                return Layers.Last();
+            }
         }
 
         public void MainCode(string[] args)
