@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
 
 namespace OpenNefia.Core.UI
 {
-    public abstract class BaseUiLayer<T> : IUiLayer where T : struct
+    public abstract class BaseUiLayer<T> : BaseUiElement, IUiLayer where T : struct
     {
-        public abstract void Draw();
-        public abstract void Update(float dt);
         public abstract UiResult<T>? GetResult();
 
         protected IKeyHandler Keys = new KeyHandler();

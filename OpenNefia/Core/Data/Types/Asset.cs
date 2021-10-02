@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Data.Types.Assets;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,10 @@ namespace OpenNefia.Core.Data.Types
 
         public static class Entries
         {
-
+            public static Asset Window = new WindowAsset($"Core.{nameof(Window)}")
+            {
+                ImageRegion = new ImageRegion(new ModLocalPath(typeof(Core), "graphic/interface.png"), 0, 48, 264, 192)
+            };
         }
     }
 }

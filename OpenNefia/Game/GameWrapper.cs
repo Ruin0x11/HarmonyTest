@@ -78,6 +78,7 @@ namespace OpenNefia.Game
 
         internal void PushLayer(IUiLayer layer)
         {
+            layer.Relayout(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Layers.Add(layer);
         }
 
@@ -97,8 +98,18 @@ namespace OpenNefia.Game
             }
         }
 
+        public void OnWindowResize(int width, int height)
+        {
+            foreach (var layer in this.Layers)
+            {
+                layer.Relayout(0, 0, width, height);
+            }
+        }
+
         public void MainCode(string[] args)
         {
+            this.ModLoader.Execute();
+
             var layer = new Core.UI.Layer.FieldLayer();
             layer.Query();
         }

@@ -14,6 +14,11 @@ namespace OpenNefia.Game
             this.Parent = parent;
         }
 
+        public override void WindowResize(int w, int h)
+        {
+            this.Parent.OnWindowResize(w, h);
+        }
+
         public override void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
         {
             var layer = GameWrapper.Instance.CurrentLayer;

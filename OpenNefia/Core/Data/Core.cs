@@ -8,6 +8,10 @@ namespace OpenNefia.Core.Data
     [ModEntry("b34942ac-aefe-459c-907c-d544196d6627", "Core", "0.1.0")]
     public class Core : BaseMod
     {
+        public Core()
+        {
+        }
+
         public override void Load()
         {
         }

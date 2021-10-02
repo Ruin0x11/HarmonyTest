@@ -13,7 +13,7 @@ namespace OpenNefia.Core.UI.Element
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
 
-        public void Relayout(int x, int y, int width, int height)
+        public virtual void Relayout(int x, int y, int width, int height)
         {
             this.X = x;
             this.Y = y;

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DotNetCustomAttributeData = System.Reflection.CustomAttributeData;
+
 namespace OpenNefia.Mod
 {
     [AttributeUsage(AttributeTargets.Class)]
@@ -48,6 +50,19 @@ namespace OpenNefia.Mod
                                    (string)attr.ConstructorArguments[1].Value,
                                    (string)attr.ConstructorArguments[2].Value);
         }
+
+        internal static ModEntry? FromDotNetType(Type td)
+        {
+            var attr = MetadataHelper.GetCustomAttributes<ModEntry>(td, false).FirstOrDefault();
+
+            if (attr == null)
+                return null;
+
+            return new ModEntry((string)attr.ConstructorArguments[0].Value!,
+                                   (string)attr.ConstructorArguments[1].Value!,
+                                   (string)attr.ConstructorArguments[2].Value!);
+        }
+
         public static class MetadataHelper
         {
             internal static IEnumerable<CustomAttribute> GetCustomAttributes<T>(TypeDefinition td, bool inherit)
@@ -61,6 +76,23 @@ namespace OpenNefia.Mod
                 {
                     result.AddRange(currentType!.CustomAttributes.Where(ca => ca.AttributeType.FullName == type.FullName));
                     currentType = currentType.BaseType?.Resolve();
+                } while (inherit && currentType?.FullName != "System.Object");
+
+
+                return result;
+            }
+
+            internal static IEnumerable<DotNetCustomAttributeData> GetCustomAttributes<T>(Type type, bool inherit)
+                where T : Attribute
+            {
+                var result = new List<DotNetCustomAttributeData>();
+                var attributeType = typeof(T);
+                var currentType = type;
+
+                do
+                {
+                    result.AddRange(currentType!.CustomAttributes.Where(ca => ca.AttributeType.FullName == attributeType.FullName));
+                    currentType = currentType.BaseType;
                 } while (inherit && currentType?.FullName != "System.Object");
 
 

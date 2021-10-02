@@ -10,6 +10,6 @@ namespace OpenNefia.Core.Rendering
     {
         public Love.FilterMode Min { get; set; } = Love.FilterMode.None;
         public Love.FilterMode Mag { get; set; } = Love.FilterMode.None;
-        public float Anisotropy { get; set; } = Love.FilterMode.None;
+        public float Anisotropy { get; set; } = 1f;
     }
 }

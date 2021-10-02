@@ -47,6 +47,7 @@ namespace OpenNefia.Mod
         {
             var path = Directory.GetCurrentDirectory();
             var modsDirectory = Path.GetFullPath(Path.Combine(path, MOD_PATH));
+            var scannedMods = new List<ModInfo>();
 
             if (!Directory.Exists(modsDirectory))
                 Directory.CreateDirectory(modsDirectory);
@@ -59,37 +60,40 @@ namespace OpenNefia.Mod
                 if (HasMod(assembly))
                 {
                     var modInfos = assembly.MainModule.Types.Select(t => GetModInfo(t, dllPath)).WhereNonNull().ToList();
-                    LoadedMods.AddRange(modInfos);
+                    scannedMods.AddRange(modInfos);
                 }
             };
 
-            // Scan our own assembly so the Core mod is picked up.
-            ScanDllAtPath(Assembly.GetExecutingAssembly().Location);
-
             Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories).ForEach(ScanDllAtPath);
 
-            foreach (var dll in Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories))
-            {
-                using var stream = new MemoryStream(File.ReadAllBytes(dll));
-                using var assembly = AssemblyDefinition.ReadAssembly(stream, AssemblyReaderParams);
+            // The Core mod is special since it's a part of our own assembly, not one loaded by Cecil.
+            // Trying to load it with Cecil ends up creating two separate instances of every type in the assembly, and they won't be equivalent to one another.
+            var coreModInfo = LoadCoreMod();
+            LoadedMods.Add(coreModInfo);
 
-                if (HasMod(assembly))
-                {
-                    var modInfos = assembly.MainModule.Types.Select(t => GetModInfo(t, dll)).WhereNonNull().ToList();
-                    LoadedMods.AddRange(modInfos);
-                }
-            }
-
-            foreach (var mod in LoadedMods)
+            foreach (var mod in scannedMods)
             {
                 if (!LoadedAssemblies.TryGetValue(mod.AssemblyLocation, out var ass))
                     LoadedAssemblies[mod.AssemblyLocation] = ass = Assembly.LoadFile(mod.AssemblyLocation);
 
                 var inst = LoadMod(mod, ass);
                 mod.Instance = inst;
+
+                LoadedMods.Add(mod);
             }
 
             HarmonyInstance.PatchAll();
+        }
+
+        private static ModInfo LoadCoreMod()
+        {
+            var modInfo = GetModInfo(typeof(Core.Data.Core), Assembly.GetExecutingAssembly().Location);
+
+            var core = new Core.Data.Core();
+            core.Load();
+
+            modInfo!.Instance = core;
+            return modInfo;
         }
 
         private static BaseMod LoadMod(ModInfo info, Assembly assembly)
@@ -113,7 +117,7 @@ namespace OpenNefia.Mod
             return true;
         }
 
-        private ModInfo? GetModInfo(TypeDefinition type, string assemblyLocation)
+        private static ModInfo? GetModInfo(TypeDefinition type, string assemblyLocation)
         {
             if (type.IsInterface || type.IsAbstract)
                 return null;
@@ -157,10 +161,56 @@ namespace OpenNefia.Mod
             }
 
             var coreVersion =
-                type.Module.AssemblyReferences.FirstOrDefault(reference => reference.Name == "HarmonyTest")?.Version ??
+                type.Module.AssemblyReferences.FirstOrDefault(reference => reference.Name == CurrentAssemblyName)?.Version ??
                 new Version();
 
             return new ModInfo(type.FullName, metadata, coreVersion, assemblyLocation, null);
+        }
+
+        private static ModInfo? GetModInfo(Type type, string assemblyLocation)
+        {
+            if (type.IsInterface || type.IsAbstract)
+                return null;
+
+            try
+            {
+                if (!type.IsSubclassOf(typeof(BaseMod)))
+                    return null;
+            }
+            catch (AssemblyResolutionException)
+            {
+                // Can happen if this type inherits a type from an assembly that can't be found. Safe to assume it's not a plugin.
+                return null;
+            }
+
+            var metadata = ModEntry.FromDotNetType(type);
+
+            // Perform checks that will prevent the plugin from being loaded in ALL cases
+            if (metadata == null)
+            {
+                Console.WriteLine($"Skipping over type [{type.FullName}] as no metadata attribute is specified");
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(metadata.Guid) || !allowedGuidRegex.IsMatch(metadata.Guid))
+            {
+                Console.WriteLine($"Skipping type [{type.FullName}] because its GUID [{metadata.Guid}] is of an illegal format.");
+                return null;
+            }
+
+            if (metadata.Version == null)
+            {
+                Console.WriteLine($"Skipping type [{type.FullName}] because its version is invalid.");
+                return null;
+            }
+
+            if (metadata.Name == null)
+            {
+                Console.WriteLine($"Skipping type [{type.FullName}] because its name is null.");
+                return null;
+            }
+
+            return new ModInfo(type.FullName!, metadata, CurrentAssemblyVersion, assemblyLocation, null);
         }
     }
 }

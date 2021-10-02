@@ -1,14 +1,18 @@
-﻿using System;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Core.Rendering.AssetDrawable;
 
 namespace OpenNefia.Core.UI.Element
 {
     public class UiWindowBacking : BaseUiElement
     {
-        // private Love.SpriteBatch Window;
+        private AssetDrawable? Drawable;
+        private Love.SpriteBatch? Batch;
         private bool Shadow;
 
         public UiWindowBacking(bool shadow)
@@ -16,21 +20,7 @@ namespace OpenNefia.Core.UI.Element
             this.Shadow = shadow;
         }
 
-        class AssetBatchPart
-        {
-            public AssetBatchPart(string id, int x, int y)
-            {
-                Id = id;
-                X = x;
-                Y = y;
-            }
-
-            public string Id { get; set; } = string.Empty;
-            public int X { get; set; } = 0;
-            public int Y { get; set; } = 0;
-        }
-
-        public void Relayout(int x, int y, int width, int height)
+        public override void Relayout(int x, int y, int width, int height)
         {
             base.Relayout(x, y, width, height);
 
@@ -75,6 +65,8 @@ namespace OpenNefia.Core.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
             }
 
+            this.Drawable = new AssetDrawable(Asset.Entries.Window, this.Width, this.Height);
+            this.Batch = this.Drawable.MakeBatch(parts);
         }
 
         public override void Update(float dt)
@@ -83,6 +75,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
+            Drawing.DrawSpriteBatch(this.Batch!, 0, 0);
         }
     }
 }
