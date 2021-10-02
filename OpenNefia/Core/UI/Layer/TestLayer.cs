@@ -17,8 +17,11 @@ namespace OpenNefia.Core.UI.Layer
         public TestLayer()
         {
             this.WindowBacking = new UiWindowBacking(false);
+        }
 
-            this.Keys.BindKey(Keybind.Entries.Escape, (_) =>
+        protected virtual void BindKeys()
+        {
+            this.BindKey(Keybind.Entries.Escape, (_) =>
             {
                 this.Finished = true;
                 return null;

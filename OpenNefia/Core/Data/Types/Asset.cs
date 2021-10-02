@@ -78,7 +78,12 @@ namespace OpenNefia.Core.Data.Types
         {
             public static Asset Window = new WindowAsset($"Core.{nameof(Window)}")
             {
-                ImageRegion = new ImageRegion(new ModLocalPath(typeof(Core), "Assets/interface.bmp"), 0, 48, 264, 192)
+                ImageRegion = new ImageRegion(new ModLocalPath(typeof(CoreMod), "Assets/interface.bmp"), 0, 48, 264, 192)
+            };
+
+            public static Asset SelectKey = new Asset($"Core.{nameof(SelectKey)}")
+            {
+                ImageRegion = new ImageRegion(new ModLocalPath(typeof(CoreMod), "Assets/interface.bmp"), 0, 30, 24, 18)
             };
         }
     }

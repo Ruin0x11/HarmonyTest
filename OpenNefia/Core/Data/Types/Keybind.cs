@@ -39,6 +39,47 @@ namespace OpenNefia.Core.Data.Types
             public static Keybind Mode2 = new Keybind($"Base.{nameof(Mode2)}");
 
             public static Keybind Repl = new Keybind($"Base.{nameof(Repl)}");
+
+            public static Keybind SelectionA = new Keybind($"Base.{nameof(SelectionA)}");
+            public static Keybind SelectionB = new Keybind($"Base.{nameof(SelectionB)}");
+            public static Keybind SelectionC = new Keybind($"Base.{nameof(SelectionC)}");
+            public static Keybind SelectionD = new Keybind($"Base.{nameof(SelectionD)}");
+            public static Keybind SelectionE = new Keybind($"Base.{nameof(SelectionE)}");
+            public static Keybind SelectionF = new Keybind($"Base.{nameof(SelectionF)}");
+            public static Keybind SelectionG = new Keybind($"Base.{nameof(SelectionG)}");
+            public static Keybind SelectionH = new Keybind($"Base.{nameof(SelectionH)}");
+            public static Keybind SelectionI = new Keybind($"Base.{nameof(SelectionI)}");
+            public static Keybind SelectionJ = new Keybind($"Base.{nameof(SelectionJ)}");
+            public static Keybind SelectionK = new Keybind($"Base.{nameof(SelectionK)}");
+            public static Keybind SelectionL = new Keybind($"Base.{nameof(SelectionL)}");
+            public static Keybind SelectionM = new Keybind($"Base.{nameof(SelectionM)}");
+            public static Keybind SelectionN = new Keybind($"Base.{nameof(SelectionN)}");
+            public static Keybind SelectionO = new Keybind($"Base.{nameof(SelectionO)}");
+            public static Keybind SelectionP = new Keybind($"Base.{nameof(SelectionP)}");
+            public static Keybind SelectionQ = new Keybind($"Base.{nameof(SelectionQ)}");
+            public static Keybind SelectionR = new Keybind($"Base.{nameof(SelectionR)}");
+
+            public static Keybind[] SelectionKeys =
+            {
+                SelectionA,
+                SelectionB,
+                SelectionC,
+                SelectionD,
+                SelectionE,
+                SelectionF,
+                SelectionG,
+                SelectionH,
+                SelectionI,
+                SelectionJ,
+                SelectionK,
+                SelectionL,
+                SelectionM,
+                SelectionN,
+                SelectionO,
+                SelectionP,
+                SelectionQ,
+                SelectionR,
+            };
         }
     }
 }

@@ -38,6 +38,9 @@ namespace OpenNefia.Core.Rendering
         public int? BatchWidth { get; private set; }
         public int? BatchHeight { get; private set; }
 
+        public int Width { get => this.Image.GetWidth(); }
+        public int Height { get => this.Image.GetHeight(); }
+
         private static Image LoadImageSource(ImageRegion imageRegion)
         {
             var path = imageRegion.ParentImagePath.Resolve();
@@ -175,16 +178,13 @@ namespace OpenNefia.Core.Rendering
 
             return batch;
         }
-
-        public int GetWidth() => this.Image.GetWidth();
-        public int GetHeight() => this.Image.GetWidth();
         
-        public void Draw(float x, float y, float width, float height, bool centered, float rotation)
+        public void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             Drawing.DrawImage(this.Image, x, y, width, height, centered, rotation);
         }
 
-        public void DrawRegion(string regionId, float x, float y, float width, float height, bool centered, float rotation)
+        public void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var quad = this.Quads[regionId];
             if (quad == null)

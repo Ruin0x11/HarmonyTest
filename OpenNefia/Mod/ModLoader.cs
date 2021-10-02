@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using OpenNefia.Core;
+using OpenNefia.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -87,9 +88,9 @@ namespace OpenNefia.Mod
 
         private static ModInfo LoadCoreMod()
         {
-            var modInfo = GetModInfo(typeof(Core.Data.Core), Assembly.GetExecutingAssembly().Location);
+            var modInfo = GetModInfo(typeof(CoreMod), Assembly.GetExecutingAssembly().Location);
 
-            var core = new Core.Data.Core();
+            var core = new CoreMod();
             core.Load();
 
             modInfo!.Instance = core;

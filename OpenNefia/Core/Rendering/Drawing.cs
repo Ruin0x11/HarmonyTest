@@ -1,4 +1,6 @@
 ﻿using Love;
+using OpenNefia.Core.Data;
+using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +78,86 @@ namespace OpenNefia.Core.Rendering
         }
 
         /// <summary>
+        /// Like <see cref="Love.Graphics.SetColor"/>, but uses byte values.
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <param name="a"></param>
+        public static void SetColor(int r, int g, int b, int a = 255)
+        {
+            Love.Graphics.SetColor((float)r / 255f, (float)g / 255f, (float)b / 255f, (float)a / 255f);
+        }
+
+        public static int GetTextWidth(string text)
+        {
+            return Love.Graphics.GetFont().GetWidth(text);
+        }
+
+        public static int GetTextHeight()
+        {
+            return Love.Graphics.GetFont().GetHeight();
+        }
+
+        public enum FontStyle
+        {
+            None = 0x0,
+            Bold = 0x1,
+            Italic = 0x2,
+            Underline = 0x4,
+            Strikethrough = 0x8
+        }
+
+        public class FontSpec
+        {
+            public int size { get; set; }
+            public FontStyle style { get; set; }
+            public string? fontId { get; set; }
+        }
+        
+        private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
+        private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/MS-Gothic.ttf");
+
+        public static void SetFont(int size, FontStyle style = FontStyle.None, string? fontId = null)
+        {
+            Love.Graphics.SetFont(GetFont(size, style, fontId));
+        }
+
+        public static void SetFont(FontSpec spec)
+        {
+            SetFont(spec.size, spec.style, spec.fontId);
+        }
+
+        public static Love.Text NewText(string text, int size, FontStyle style = FontStyle.None, string? fontId = null)
+        {
+            return Love.Graphics.NewText(GetFont(size, style, fontId), text);
+        }
+
+        public static Love.Text NewText(string text, FontSpec spec)
+        {
+            return NewText(text, spec.size, spec.style, spec.fontId);
+        }
+
+        public static Love.Font GetFont(int size, FontStyle style = FontStyle.None, string? fontId = null)
+        {
+            if (FontCache.TryGetValue(size, out Love.Font? cachedFont))
+            {
+                return cachedFont;
+            }
+
+            var font = Love.Graphics.NewFont(FONT_PATH.Resolve());
+            FontCache[size] = font;
+            return font;
+        }
+
+        public static Font GetFont(FontSpec spec)
+        {
+            return GetFont(spec.size, spec.style, spec.fontId);
+        }
+
+        public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
+
+        /// <summary>
         /// BUG: <see cref="Love.Graphics.SetScissor"/> doesn't distinguish between a zero-sized Rectangle and no scissor.
         /// This function is a temporary workaround.
         /// </summary>
@@ -103,6 +185,32 @@ namespace OpenNefia.Core.Rendering
             {
                 Love.Graphics.SetScissor(x, y, width, height);
             }
+        }
+
+        /// <summary>
+        /// Draws shadowed text.
+        /// 
+        /// NOTE: It's highly recommended to use <see cref="UI.Element.UiShadowedText"/> instead, for performance reasons.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="fgColor"></param>
+        /// <param name="bgColor"></param>
+        public static void DrawTextShadowed(string text, int x, int y, Love.Color? fgColor = null, Love.Color? bgColor = null)
+        {
+            if (fgColor == null)
+                fgColor = Love.Color.White;
+            if (bgColor == null)
+                bgColor = Love.Color.Black;
+
+            Drawing.SetColor(bgColor.Value);
+            for (int dx = -1; dx <= 1; dx++)
+                for (int dy = -1; dy <= 1; dy++)
+                    Love.Graphics.Print(text, x + dx, y + dy);
+
+            Drawing.SetColor(fgColor.Value);
+            Love.Graphics.Print(text, x, y);
         }
     }
 }

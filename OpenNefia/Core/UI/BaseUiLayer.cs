@@ -9,7 +9,7 @@ using OpenNefia.Game;
 
 namespace OpenNefia.Core.UI
 {
-    public abstract class BaseUiLayer<T> : BaseUiElement, IUiLayer where T : struct
+    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayer where T : struct
     {
         public abstract UiResult<T>? GetResult();
 
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.UI
 
         protected void RunKeyActions(float dt)
         {
-            this.Keys.RunActions(dt);
+            this.Keys.RunKeyActions(dt);
         }
 
         public void HaltInput()

@@ -206,7 +206,7 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public void RunActions(float dt)
+        public void RunKeyActions(float dt)
         {
             foreach (var key in this.UnpressedThisFrame)
             {

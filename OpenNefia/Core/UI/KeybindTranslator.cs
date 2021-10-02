@@ -51,6 +51,27 @@ namespace OpenNefia.Core.UI
             this.BindKey(Keys.Z, Keybind.Entries.Mode);
             this.BindKey(Keys.KeypadMultiply, Keybind.Entries.Mode2);
 
+            this.BindKey(Keys.A, Keybind.Entries.SelectionA);
+            this.BindKey(Keys.B, Keybind.Entries.SelectionB);
+            this.BindKey(Keys.C, Keybind.Entries.SelectionC);
+            this.BindKey(Keys.D, Keybind.Entries.SelectionD);
+            this.BindKey(Keys.E, Keybind.Entries.SelectionE);
+            this.BindKey(Keys.F, Keybind.Entries.SelectionF);
+            this.BindKey(Keys.G, Keybind.Entries.SelectionG);
+            this.BindKey(Keys.H, Keybind.Entries.SelectionH);
+            this.BindKey(Keys.I, Keybind.Entries.SelectionI);
+            this.BindKey(Keys.J, Keybind.Entries.SelectionJ);
+            this.BindKey(Keys.K, Keybind.Entries.SelectionK);
+            this.BindKey(Keys.L, Keybind.Entries.SelectionL);
+            this.BindKey(Keys.M, Keybind.Entries.SelectionM);
+            this.BindKey(Keys.N, Keybind.Entries.SelectionN);
+            this.BindKey(Keys.O, Keybind.Entries.SelectionO);
+            this.BindKey(Keys.P, Keybind.Entries.SelectionP);
+            this.BindKey(Keys.Q, Keybind.Entries.SelectionQ);
+            this.BindKey(Keys.R, Keybind.Entries.SelectionR);
+
+            this.BindKey(Keys.Backquote, Keybind.Entries.Repl);
+
             this.Dirty = false;
         }
 

@@ -46,12 +46,17 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine($"Got back: {result}");
             Message = result;
 
-            this.Keys.BindKey(Keybind.Entries.UIUp, (state) => this.MoveUp(state), trackReleased: true);
-            this.Keys.BindKey(Keybind.Entries.UIDown, (state) => this.MoveDown(state), trackReleased: true);
-            this.Keys.BindKey(Keybind.Entries.UILeft, (state) => this.MoveLeft(state), trackReleased: true);
-            this.Keys.BindKey(Keybind.Entries.UIRight, (state) => this.MoveRight(state), trackReleased: true);
-            this.Keys.BindKey(Keybind.Entries.Identify, (state) => this.QueryLayer());
-            this.Keys.BindKey(Keybind.Entries.Escape, (_) =>
+            this.BindKeys();
+        }
+
+        protected virtual void BindKeys()
+        {
+            this.BindKey(Keybind.Entries.UIUp, (state) => this.MoveUp(state), trackReleased: true);
+            this.BindKey(Keybind.Entries.UIDown, (state) => this.MoveDown(state), trackReleased: true);
+            this.BindKey(Keybind.Entries.UILeft, (state) => this.MoveLeft(state), trackReleased: true);
+            this.BindKey(Keybind.Entries.UIRight, (state) => this.MoveRight(state), trackReleased: true);
+            this.BindKey(Keybind.Entries.Identify, (state) => this.QueryLayer());
+            this.BindKey(Keybind.Entries.Escape, (_) =>
             {
                 this.Finished = true;
                 return null;
