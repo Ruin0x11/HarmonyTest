@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenNefia.Core.Data.Types;
 
 namespace OpenNefia.Core.UI.Element.List
 {
     public interface IUiList<T> : IListModel<T>
     {
+        ColorAsset GetItemColor(T item);
     }
 }

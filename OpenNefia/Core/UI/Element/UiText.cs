@@ -1,22 +1,15 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OpenNefia.Core.Rendering.Drawing;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiShadowedText : BaseUiElement
+    public class UiText : BaseUiElement
     {
         private Love.Text BakedText;
-        private Love.Color FgColor;
-        private Love.Color BgColor;
+        private ColorAsset Color;
 
-        private Love.Font _Font;
-        public Love.Font Font
+        private FontAsset _Font;
+        public FontAsset Font
         {
             get => _Font;
             set
@@ -27,9 +20,11 @@ namespace OpenNefia.Core.UI.Element
         }
 
         private string _Text = string.Empty;
-        public string Text {
+        public string Text
+        {
             get => _Text;
-            set {
+            set
+            {
                 this._Text = value;
                 this.BakedText = Love.Graphics.NewText(this.Font, value);
             }
@@ -37,18 +32,15 @@ namespace OpenNefia.Core.UI.Element
 
 #pragma warning disable CS8618
 
-        public UiShadowedText(string text, Love.Font font, Love.Color? fgColor = null, Love.Color? bgColor = null)
+        public UiText(string text, FontAsset font, ColorAsset? color = null)
         {
-            if (fgColor == null)
-                fgColor = ColorAsset.Entries.TextForeground;
-            if (bgColor == null)
-                bgColor = ColorAsset.Entries.TextBackground;
+            if (color == null)
+                color = ColorAsset.Entries.TextBackground;
 
             this.Text = text;
             this.Font = font;
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.FgColor = fgColor.Value;
-            this.BgColor = bgColor.Value;
+            this.Color = color;
         }
 #pragma warning restore CS8618
 
@@ -66,12 +58,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            Drawing.SetColor(this.BgColor);
-            for (int dx = -1; dx <= 1; dx++)
-                for (int dy = -1; dy <= 1; dy++)
-                    Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
-
-            Drawing.SetColor(this.FgColor);
+            Drawing.SetColor(this.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

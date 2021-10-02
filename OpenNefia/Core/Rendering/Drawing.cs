@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -89,6 +90,9 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor((float)r / 255f, (float)g / 255f, (float)b / 255f, (float)a / 255f);
         }
 
+        public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
+        public static void SetColor(ColorAsset color) => SetColor(color.R, color.G, color.B, color.A);
+
         public static int GetTextWidth(string text)
         {
             return Love.Graphics.GetFont().GetWidth(text);
@@ -107,38 +111,41 @@ namespace OpenNefia.Core.Rendering
             Underline = 0x4,
             Strikethrough = 0x8
         }
-
-        public class FontSpec
-        {
-            public int size { get; set; }
-            public FontStyle style { get; set; }
-            public string? fontId { get; set; }
-        }
         
         private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
         private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/MS-Gothic.ttf");
 
-        public static void SetFont(int size, FontStyle style = FontStyle.None, string? fontId = null)
+        public static void SetFont(int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
         {
-            Love.Graphics.SetFont(GetFont(size, style, fontId));
+            Love.Graphics.SetFont(GetFont(size, style, fontFilepath));
         }
 
-        public static void SetFont(FontSpec spec)
+        public static void SetFont(FontAsset spec)
         {
-            SetFont(spec.size, spec.style, spec.fontId);
+            SetFont(spec.Size, spec.Style, spec.FontFilepath);
         }
 
-        public static Love.Text NewText(string text, int size, FontStyle style = FontStyle.None, string? fontId = null)
+        internal static void DrawFilledRect(int x, int y, int width, int height)
         {
-            return Love.Graphics.NewText(GetFont(size, style, fontId), text);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
         }
 
-        public static Love.Text NewText(string text, FontSpec spec)
+        internal static void DrawLineRect(int x, int y, int width, int height)
         {
-            return NewText(text, spec.size, spec.style, spec.fontId);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
         }
 
-        public static Love.Font GetFont(int size, FontStyle style = FontStyle.None, string? fontId = null)
+        public static Love.Text NewText(string text, int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
+        {
+            return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
+        }
+
+        public static Love.Text NewText(string text, FontAsset spec)
+        {
+            return NewText(text, spec.Size, spec.Style, spec.FontFilepath);
+        }
+
+        public static Love.Font GetFont(int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
         {
             if (FontCache.TryGetValue(size, out Love.Font? cachedFont))
             {
@@ -150,12 +157,10 @@ namespace OpenNefia.Core.Rendering
             return font;
         }
 
-        public static Font GetFont(FontSpec spec)
+        public static Font GetFont(FontAsset spec)
         {
-            return GetFont(spec.size, spec.style, spec.fontId);
+            return GetFont(spec.Size, spec.Style, spec.FontFilepath);
         }
-
-        public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
 
         /// <summary>
         /// BUG: <see cref="Love.Graphics.SetScissor"/> doesn't distinguish between a zero-sized Rectangle and no scissor.
