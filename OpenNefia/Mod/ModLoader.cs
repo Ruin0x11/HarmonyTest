@@ -18,7 +18,7 @@ namespace OpenNefia.Mod
 
         public ModInfo? GetModFromAssemblyLocation(string location)
         {
-            return LoadedMods.Find(mod => mod.Location == location);
+            return LoadedMods.Find(mod => mod.AssemblyLocation == location);
         }
 
         protected static readonly Version CurrentAssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version!;
@@ -65,8 +65,8 @@ namespace OpenNefia.Mod
 
             foreach (var mod in LoadedMods)
             {
-                if (!LoadedAssemblies.TryGetValue(mod.Location, out var ass))
-                    LoadedAssemblies[mod.Location] = ass = Assembly.LoadFile(mod.Location);
+                if (!LoadedAssemblies.TryGetValue(mod.AssemblyLocation, out var ass))
+                    LoadedAssemblies[mod.AssemblyLocation] = ass = Assembly.LoadFile(mod.AssemblyLocation);
 
                 var inst = LoadMod(mod, ass);
                 mod.Instance = inst;
@@ -77,7 +77,7 @@ namespace OpenNefia.Mod
 
         private static BaseMod LoadMod(ModInfo info, Assembly assembly)
         {
-            var type = assembly.GetType(info.TypeName)!;
+            var type = assembly.GetType(info.AssemblyTypeName)!;
 
             var modInstance = (BaseMod) Activator.CreateInstance(type)!;
 
@@ -143,13 +143,7 @@ namespace OpenNefia.Mod
                 type.Module.AssemblyReferences.FirstOrDefault(reference => reference.Name == "HarmonyTest")?.Version ??
                 new Version();
 
-            return new ModInfo
-            {
-                Metadata = metadata,
-                TypeName = type.FullName,
-                TargetedCoreVersion = coreVersion,
-                Location = assemblyLocation
-            };
+            return new ModInfo(type.FullName, metadata, coreVersion, assemblyLocation, null);
         }
     }
 }

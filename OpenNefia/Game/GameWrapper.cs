@@ -15,7 +15,7 @@ namespace OpenNefia.Game
     /// </summary>
     public class GameWrapper
     {
-        public static GameWrapper Instance { get; private set; }
+        public static GameWrapper Instance { get; private set; } = new GameWrapper();
 
         public GameScene Scene { get; private set; }
 
@@ -26,6 +26,7 @@ namespace OpenNefia.Game
         public GameWrapper()
         {
             Scene = new GameScene();
+            Layers = new List<IUiLayer>();
         }
 
         public void Draw()
@@ -49,6 +50,27 @@ namespace OpenNefia.Game
             }
         }
 
+        public void Update(float dt)
+        {
+            UpdateLayers(dt);
+        }
+
+        internal void SystemStep()
+        {
+            if (Boot.QuitFlag)
+            {
+                Quit();
+            }
+
+            Boot.SystemStep(this.Scene);
+        }
+
+        internal void Quit()
+        {
+            Console.WriteLine("Quitting game.");
+            Environment.Exit(0);
+        }
+
         internal bool IsQuerying(IUiLayer layer)
         {
             return Layers.Count() != 0 && Layers.Last() == layer;
@@ -64,15 +86,14 @@ namespace OpenNefia.Game
             Layers.Remove(layer);
         }
 
-        public void MainCode()
+        public void MainCode(string[] args)
         {
             var layer = new Core.UI.Layer.FieldLayer();
             layer.Query();
         }
 
-        public void Update()
+        private void UpdateLayers(float dt)
         {
-            var dt = Timer.GetDelta();
             for (int i = 0; i < this.Layers.Count; i++)
             {
                 this.Layers[i].Update(dt);

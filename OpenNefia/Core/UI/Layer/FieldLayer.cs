@@ -92,6 +92,8 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Draw()
         {
+            Love.Graphics.SetColor(255, 255, 255);
+
             Map.Draw(Batch, DrawX, DrawY);
 
             foreach (var thing in Things)

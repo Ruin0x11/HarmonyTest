@@ -23,7 +23,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override UiResult<int>? GetResult()
         {
-            if (Keyboard.IsPressed(KeyConstant.Escape))
+            if (Keyboard.IsPressed(KeyConstant.W))
             {
                 return UiResult<int>.Finished(42);
             }
@@ -36,7 +36,7 @@ namespace OpenNefia.Core.UI.Layer
             Graphics.SetColor(255, 255, 255);
             Graphics.Rectangle(DrawMode.Fill, 100, 100, 100, 100);
             Graphics.SetColor(255, 0, 255);
-            Graphics.Rectangle(DrawMode.Fill, 150 + X, 150, 100, 100);
+            Graphics.Rectangle(DrawMode.Fill, 50 + X, 50 + Y, 100, 100);
         }
     }
 }

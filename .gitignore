@@ -97,3 +97,4 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+/OpenNefia/Assets/map1.png

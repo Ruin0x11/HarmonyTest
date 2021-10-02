@@ -12,7 +12,7 @@ namespace OpenNefia.Mod
         {
             this.Guid = Guid;
             this.Name = Name;
-            this.Version = TryParseLongVersion(Version);
+            this.Version = TryParseLongVersion(Version)!;
         }
 
         public string Guid { get; protected set; }

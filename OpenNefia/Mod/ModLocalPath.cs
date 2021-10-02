@@ -16,7 +16,7 @@ namespace OpenNefia.Mod
         public ModLocalPath(Type modType, string subpath)
         {
             var location = modType.Assembly.Location;
-            var modInfo = GameWrapper.Instance.ModLoader.GetModFromAssemblyLocation(location);
+            var modInfo = GameWrapper.Instance.ModLoader.GetModFromAssemblyLocation(location)!;
             ModInfo = modInfo;
             Subpath = subpath;
         }

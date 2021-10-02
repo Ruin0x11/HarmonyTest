@@ -23,7 +23,7 @@ namespace OpenNefia.Core.UI
             while (true)
             {
                 var dt = Timer.GetDelta();
-                GameWrapper.Instance.Update();
+                GameWrapper.Instance.Update(dt);
                 result = this.GetResult();
                 if (result != null && result.Type != UiResult<T>.ResultType.Continuing)
                 {
@@ -31,6 +31,7 @@ namespace OpenNefia.Core.UI
                 }
 
                 GameWrapper.Instance.Draw();
+                GameWrapper.Instance.SystemStep();
             }
 
             GameWrapper.Instance.PopLayer(this);
