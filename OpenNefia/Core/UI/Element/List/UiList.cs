@@ -19,10 +19,10 @@ namespace OpenNefia.Core.UI.Element.List
 
         protected AssetDrawable AssetSelectKey;
         protected AssetDrawable AssetListBullet;
-        protected ColorAsset ColorSelectedAdd;
-        protected ColorAsset ColorSelectedSub;
-        protected FontAsset FontListText;
-        protected FontAsset FontListKeyName;
+        public ColorAsset ColorSelectedAdd;
+        public ColorAsset ColorSelectedSub;
+        public FontAsset FontListText;
+        public FontAsset FontListKeyName;
 
         protected List<IUiText> KeyNameTexts;
         protected List<IUiText> ItemTexts;
@@ -51,7 +51,7 @@ namespace OpenNefia.Core.UI.Element.List
 
             var font = GraphicsEx.GetFont(this.FontListKeyName);
             this.KeyNameTexts = new List<IUiText>();
-            for (int i = 0; i < Keybind.Entries.SelectionKeys.Length; i++)
+            for (int i = 0; i < this.Count; i++)
             {
                 var key = this.GetChoiceKey(i);
                 this.KeyNameTexts.Add(new UiShadowedText("a", font));

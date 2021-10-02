@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,12 @@ namespace OpenNefia.Core.UI.Layer
     {
         public T Result;
         public string? Text = null;
-        public uint Index;
+        public uint? Index = null;
         public Keys Key = Keys.None;
 
         public PromptChoice(T result) : this()
         {
+            this.Result = result;
         }
     }
 
@@ -24,7 +26,7 @@ namespace OpenNefia.Core.UI.Layer
     {
         public class UiPromptList : UiList<PromptChoice<T>>
         {
-            public UiPromptList(List<PromptChoice<T>> choices) : base(choices)
+            public UiPromptList(List<PromptChoice<T>> choices) : base(choices, itemHeight: 20)
             {
             }
 
@@ -47,19 +49,60 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        public UiPromptList List { get; }
-        private bool Finished;
+        public struct PromptOptions
+        {
+            public int Width = 160;
+            public bool IsCancellable = true;
+        }
 
-        public Prompt(List<PromptChoice<T>> choices)
+        private PromptOptions Options;
+
+        public UiPromptList List { get; }
+        public UiTopicWindow Window { get; }
+
+        private bool Finished;
+        private bool Cancelled;
+
+        public Prompt(List<PromptChoice<T>> choices, PromptOptions options)
         {
             this.List = new UiPromptList(choices);
+            this.Window = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Zero);
+            this.Options = options;
+
+            this.Width = this.Options.Width;
+
+            var font = List.FontListText;
+            for (int i = 0; i < this.List.Count; i++)
+            {
+                this.Width = Math.Max(this.Width, font.GetWidth(List.GetChoiceText(i)) + 26 + 33 + 44);
+            }
 
             this.BindKeys();
         }
 
+        public Prompt(List<PromptChoice<T>> choices) : this(choices, new PromptOptions()) { }
+
         protected virtual void BindKeys()
         {
-            this.BindKey(Keybind.Entries.Escape, (_) => { this.Finished = true; return null; });
+            Func<KeyPressState, KeyActionResult?> cancel = (_) => {
+                if (this.Options.IsCancellable)
+                    this.Cancelled = true;
+                return null;
+            };
+
+            this.BindKey(Keybind.Entries.Cancel, cancel);
+            this.BindKey(Keybind.Entries.Escape, cancel);
+        }
+
+        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
+        {
+            width = this.Width;
+            height = this.List.Count * this.List.ItemHeight + 42;
+
+            base.Relayout(x, y, width, height);
+
+            this.Window.Relayout(x + 8, y + 8, width - 16, height - 16);
+            this.List.Relayout(x + 30, y + 24, width, height);
         }
 
         public override void Update(float dt)

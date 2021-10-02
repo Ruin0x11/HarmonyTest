@@ -48,6 +48,14 @@ namespace OpenNefia.Core.Data.Types
 
             public static ColorAsset WindowBottomLine1 = new ColorAsset($"Core.{nameof(WindowBottomLine1)}", 194, 170, 146);
             public static ColorAsset WindowBottomLine2 = new ColorAsset($"Core.{nameof(WindowBottomLine2)}", 234, 220, 188);
+
+            public static ColorAsset TopicWindowStyle0 = new ColorAsset($"Core.{nameof(TopicWindowStyle0)}", 255, 255, 255);
+            public static ColorAsset TopicWindowStyle1 = new ColorAsset($"Core.{nameof(TopicWindowStyle1)}", 255 - 195, 255 - 205, 255 - 195);
+            public static ColorAsset TopicWindowStyle2 = new ColorAsset($"Core.{nameof(TopicWindowStyle2)}", 255 - 210, 255 - 215, 255 - 205);
+            public static ColorAsset TopicWindowStyle3 = new ColorAsset($"Core.{nameof(TopicWindowStyle3)}", 255 - 10, 255 - 13, 255 - 16);
+            public static ColorAsset TopicWindowStyle4 = new ColorAsset($"Core.{nameof(TopicWindowStyle4)}", 255 - 195, 255 - 205, 255 - 195);
+            public static ColorAsset TopicWindowStyle5 = new ColorAsset($"Core.{nameof(TopicWindowStyle5)}", 255, 255, 255);
+            public static ColorAsset TopicWindowStyle6 = new ColorAsset($"Core.{nameof(TopicWindowStyle6)}", 255, 255, 255, 180);
         }
     }
 }

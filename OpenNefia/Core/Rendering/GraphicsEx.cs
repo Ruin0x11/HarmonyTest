@@ -130,6 +130,16 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
         }
 
+        internal static void SetColor(object colorWindowStyle0)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void SetColor(object colorWindowStyle1)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static void DrawLineRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);

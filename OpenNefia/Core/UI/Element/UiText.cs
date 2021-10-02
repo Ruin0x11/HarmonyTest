@@ -37,8 +37,8 @@ namespace OpenNefia.Core.UI.Element
             if (color == null)
                 color = ColorAsset.Entries.TextBackground;
 
-            this.Text = text;
-            this.Font = font;
+            this._Text = text;
+            this._Font = font;
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.Color = color;
         }

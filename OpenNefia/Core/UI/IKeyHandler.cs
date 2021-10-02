@@ -22,5 +22,11 @@ namespace OpenNefia.Core.UI
         /// <param name="state"></param>
         /// <returns></returns>
         bool RunKeyAction(Keys key, KeyPressState state);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        void ReleaseKey(Keys key);
     }
 }

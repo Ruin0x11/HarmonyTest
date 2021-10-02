@@ -44,8 +44,8 @@ namespace OpenNefia.Core.UI.Element
             if (bgColor == null)
                 bgColor = ColorAsset.Entries.TextBackground;
 
-            this.Text = text;
-            this.Font = font;
+            this._Text = text;
+            this._Font = font;
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.FgColor = fgColor.Value;
             this.BgColor = bgColor.Value;

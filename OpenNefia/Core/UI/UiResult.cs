@@ -27,5 +27,7 @@ namespace OpenNefia.Core.UI
 
         public static UiResult<T> Finished(T result) => new UiResult<T>(ResultType.Finished, result);
         public static UiResult<T> Cancelled(T result) => new UiResult<T>(ResultType.Cancelled, result);
+
+        public override string ToString() => $"{this.Type}({this.Result?.ToString()})";    
     }
 }

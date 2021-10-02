@@ -13,6 +13,11 @@ namespace OpenNefia.Core.UI
     {
         public abstract UiResult<T>? GetResult();
 
+        public bool IsQuerying()
+        {
+            return GameWrapper.Instance.IsQuerying(this);
+        }
+
         public UiResult<T> Query()
         {
             GameWrapper.Instance.CurrentLayer?.HaltInput();
@@ -40,36 +45,6 @@ namespace OpenNefia.Core.UI
             this.HaltInput();
 
             return result;
-        }
-
-        protected void RunKeyActions(float dt)
-        {
-            this.KeyInput.RunKeyActions(dt);
-        }
-
-        public void HaltInput()
-        {
-            this.KeyInput.HaltInput();
-        }
-
-        public bool IsQuerying()
-        {
-            return GameWrapper.Instance.IsQuerying(this);
-        }
-
-        public void OnKeyPressed(KeyConstant key, bool is_repeat)
-        {
-            KeyInput.OnKeyPressed(key, is_repeat);
-        }
-
-        public void OnKeyReleased(KeyConstant key)
-        {
-            KeyInput.OnKeyReleased(key);
-        }
-
-        public void OnTextInput(string text)
-        {
-            KeyInput.OnTextInput(text);
         }
     }
 }

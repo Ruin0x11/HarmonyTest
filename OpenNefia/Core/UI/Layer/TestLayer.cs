@@ -16,7 +16,9 @@ namespace OpenNefia.Core.UI.Layer
 
         public TestLayer()
         {
-            this.WindowBacking = new UiWindowBacking(false);
+            this.WindowBacking = new UiWindowBacking(UiWindowBacking.WindowBackingType.Normal);
+
+            this.BindKeys();
         }
 
         protected virtual void BindKeys()
@@ -31,10 +33,13 @@ namespace OpenNefia.Core.UI.Layer
                 var choices = new List<PromptChoice<int>>()
                 {
                     new PromptChoice<int>(0),
-                    new PromptChoice<int>(0),
-                    new PromptChoice<int>(0)
+                    new PromptChoice<int>(24),
+                    new PromptChoice<int>(42)
                 };
-                var prompt = new Prompt(choices);
+                var prompt = new Prompt<int>(choices);
+                Console.WriteLine($"Prompt start");
+                var result = prompt.Query();
+                Console.WriteLine($"Prompt result: {result}");
                 return null;
             });
         }
@@ -43,7 +48,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.Relayout(x, y, width, height);
 
-            this.WindowBacking.Relayout(x, y, width, height);
+            this.WindowBacking.Relayout(x + width / 4, y + height / 4, width / 2, height / 2);
         }
 
         public override void Update(float dt)

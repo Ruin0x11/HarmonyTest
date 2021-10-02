@@ -73,10 +73,11 @@ namespace OpenNefia.Game
             Love.Graphics.Clear();
 
             DrawLayers();
-            
-            Love.Graphics.SetCanvas();
 
+            Love.Graphics.SetCanvas();
+            Love.Graphics.SetColor(Love.Color.White);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha, Love.BlendAlphaMode.PreMultiplied);
+
             Love.Graphics.Draw(this.TargetCanvas);
         }
 

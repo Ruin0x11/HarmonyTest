@@ -83,6 +83,31 @@ namespace OpenNefia.Core.Data.Types
                 ImageRegion = new ImageRegion(InterfaceBmp, 0, 48, 264, 192)
             };
 
+            public static Asset TopicWindow0 = new TopicWindowAsset($"Core.{nameof(TopicWindow0)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 0, 240, 48, 48),
+            };
+            public static Asset TopicWindow1 = new TopicWindowAsset($"Core.{nameof(TopicWindow1)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 1, 240, 48, 48),
+            };
+            public static Asset TopicWindow2 = new TopicWindowAsset($"Core.{nameof(TopicWindow2)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 2, 240, 48, 48),
+            };
+            public static Asset TopicWindow3 = new TopicWindowAsset($"Core.{nameof(TopicWindow3)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 3, 240, 48, 48),
+            };
+            public static Asset TopicWindow4 = new TopicWindowAsset($"Core.{nameof(TopicWindow4)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 4, 240, 48, 48),
+            };
+            public static Asset TopicWindow5 = new TopicWindowAsset($"Core.{nameof(TopicWindow5)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48 * 5, 240, 48, 48),
+            };
+
             public static Asset SelectKey = new Asset($"Core.{nameof(SelectKey)}")
             {
                 ImageRegion = new ImageRegion(InterfaceBmp, 0, 30, 24, 18)
