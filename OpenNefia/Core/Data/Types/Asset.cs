@@ -72,13 +72,13 @@ namespace OpenNefia.Core.Data.Types
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public virtual Dictionary<string, Region> GetRegions(int width, int height) => Regions;
+        public virtual Dictionary<string, Region> GetRegions(int width, int height) => new Dictionary<string, Region>(Regions);
 
         public static class Entries
         {
             public static Asset Window = new WindowAsset($"Core.{nameof(Window)}")
             {
-                ImageRegion = new ImageRegion(new ModLocalPath(typeof(Core), "graphic/interface.png"), 0, 48, 264, 192)
+                ImageRegion = new ImageRegion(new ModLocalPath(typeof(Core), "Assets/interface.bmp"), 0, 48, 264, 192)
             };
         }
     }

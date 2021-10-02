@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,12 +12,12 @@
     <PackageReference Include="Lib.Harmony" Version="2.1.1" />
     <PackageReference Include="Love2dCS" Version="11.0.50" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="NetVips" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\map1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+	<Content Include="Assets\**">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

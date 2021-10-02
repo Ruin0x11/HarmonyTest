@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace OpenNefia
 
         public TileAtlas()
         {
-            Texture = Love.Graphics.NewImage("Assets/map1.png");
+            Texture = ImageLoader.NewImage("Assets/map1.bmp");
             Quads = new List<Love.Quad>();
 
             for (int x = 0; x < 33; x++)

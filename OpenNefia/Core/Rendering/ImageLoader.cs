@@ -6,46 +6,66 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VipsImage = NetVips.Image;
 
 namespace OpenNefia.Core.Rendering
 {
     public static class ImageLoader
     {
-        private static byte[] GdiImageToBytes(Image img)
+        private static Dictionary<string, Love.Image> Cache = new Dictionary<string, Love.Image>();
+
+        public static void ClearCache()
         {
-            using (var stream = new MemoryStream())
-            {
-                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
+            Cache.Clear();
         }
 
-        private static Love.Image LoadBitmap(string filepath)
+        private static VipsImage RemoveKeyColor(VipsImage image, Love.Color keyColor)
         {
-            var original = new Bitmap(filepath);
-            var converted = new Bitmap(original.Width, original.Height, PixelFormat.Format32bppArgb);
-
-            using (Graphics gr = Graphics.FromImage(converted))
+            if (image.Bands == 4)
             {
-                gr.DrawImage(original, new Rectangle(0, 0, converted.Width, converted.Height));
+                image = image.Flatten();
             }
 
-            var bytes = GdiImageToBytes(converted);
-            var imageData = Love.Image.NewImageData(converted.Width, converted.Height, Love.ImageDataPixelFormat.RGBA32F, bytes);
+            var compare = new int[] { keyColor.r, keyColor.g, keyColor.b };
+            var alpha = image.Equal(compare).Ifthenelse(0, 255).BandOr();
+            return image.Bandjoin(alpha);
+        }
 
-            return Love.Graphics.NewImage(imageData);
+        private static Love.Image LoadBitmap(string filepath, Love.Color? keyColor)
+        {
+            if (Cache.TryGetValue(filepath, out var cachedImage))
+            {
+                return cachedImage;
+            }
+
+            var image = VipsImage.NewFromFile(filepath);
+
+            if (!keyColor.HasValue)
+            {
+                keyColor = Love.Color.Black;
+            }
+
+            image = RemoveKeyColor(image, keyColor.Value);
+
+            var memory = image.WriteToMemory();
+            var imageData = Love.Image.NewImageData(image.Width, image.Height, Love.ImageDataPixelFormat.RGBA8, memory);
+
+            var loveImage = Love.Graphics.NewImage(imageData);
+            Cache[filepath] = loveImage;
+
+            return loveImage;
         }
 
         /// <summary>
-        /// Extension to <see cref="Love.Graphics.NewImage"/> that also supports loading .BMP files.
+        /// Wrapper around <see cref="Love.Graphics.NewImage"/> that also supports loading .BMP files.
         /// </summary>
         /// <param name="filepath">Path to image file.</param>
         /// <returns></returns>
-        public static Love.Image Load(string filepath)
+        public static Love.Image NewImage(string filepath, Love.Color? keyColor = null)
         {
-            if (Path.GetExtension(filepath) == "bmp")
+            if (Path.GetExtension(filepath) == ".bmp")
             {
-                return LoadBitmap(filepath);
+                return LoadBitmap(filepath, keyColor);
             }
 
             return Love.Graphics.NewImage(filepath);

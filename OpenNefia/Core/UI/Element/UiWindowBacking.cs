@@ -41,7 +41,7 @@ namespace OpenNefia.Core.UI.Element
 
             for (int dx = 8; dx < width / 8 - 8; dx++)
             {
-                var tile = (dx - 8) % 18;
+                var tile = Math.Abs((dx - 8) % 18);
                 if (!this.Shadow)
                 {
                     parts.Add(new AssetBatchPart($"top_mid_{tile}", dx * 8 + x, y));
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.UI.Element
 
                     for (int dx = 0; dx < width / 8 - 14; dx++)
                     {
-                        var tile_x = (dx - 8) % 18;
+                        var tile_x = Math.Abs((dx - 8) % 18);
                         parts.Add(new AssetBatchPart($"mid_mid_{tile_y}_{tile_x}", dx * 8 + x + 56, dy * 8 + y + 48));
                     }
                 }
@@ -75,6 +75,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
+            Drawing.DrawImage(this.Drawable!.Image!);
             Drawing.DrawSpriteBatch(this.Batch!, 0, 0);
         }
     }

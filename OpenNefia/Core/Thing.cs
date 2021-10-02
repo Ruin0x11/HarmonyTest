@@ -1,4 +1,6 @@
-﻿namespace OpenNefia
+﻿using OpenNefia.Core.Rendering;
+
+namespace OpenNefia
 {
     public class Thing
     {
@@ -14,7 +16,7 @@
             Data = data;
             PosX = x;
             PosY = y;
-            Texture = Love.Graphics.NewImage(data.Image.Resolve());
+            Texture = ImageLoader.NewImage(data.Image.Resolve());
         }
     }
 }

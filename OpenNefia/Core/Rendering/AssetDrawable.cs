@@ -41,26 +41,27 @@ namespace OpenNefia.Core.Rendering
         private static Image LoadImageSource(ImageRegion imageRegion)
         {
             var path = imageRegion.ParentImagePath.Resolve();
-            var parentImage = Love.Graphics.NewImage(path);
+            var parentImage = ImageLoader.NewImage(path);
 
+            
             var quad = Love.Graphics.NewQuad(imageRegion.X, imageRegion.Y, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
 
             var canvas = Love.Graphics.NewCanvas(imageRegion.Width, imageRegion.Height);
             var oldCanvas = Love.Graphics.GetCanvas();
 
-            // Reset global drawing state to be clean so the asset gets copied correctly
+            //// Reset global drawing state to be clean so the asset gets copied correctly
             Love.Graphics.GetBlendMode(out Love.BlendMode blendMode, out Love.BlendAlphaMode blendAlphaMode);
             var scissor = Love.Graphics.GetScissor();
             var color = Love.Graphics.GetColor();
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-            Love.Graphics.SetScissor();
+            Drawing.SetScissor();
             Love.Graphics.SetColor(1f, 1f, 1f, 1f);
             Love.Graphics.SetCanvas(canvas);
 
             Love.Graphics.Draw(quad, parentImage, 0, 0);
 
             Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            Love.Graphics.SetScissor(scissor);
+            Drawing.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged.
             Love.Graphics.SetColor(color);
             Love.Graphics.SetCanvas(oldCanvas);
 
@@ -68,7 +69,7 @@ namespace OpenNefia.Core.Rendering
 
             quad.Dispose();
             canvas.Dispose();
-
+            
             return image;
         }
 
@@ -79,7 +80,7 @@ namespace OpenNefia.Core.Rendering
             if (asset.ImagePath != null)
             {
                 var path = asset.ImagePath.Resolve();
-                image = Love.Graphics.NewImage(path);
+                image = ImageLoader.NewImage(path);
             }
             else if (asset.ImageRegion != null)
             {
@@ -105,7 +106,7 @@ namespace OpenNefia.Core.Rendering
             this.Quads = new Dictionary<string, Quad>();
             this.CountX = this.Asset.CountX;
             this.CountY = this.Asset.CountY;
-            this.Regions = this.Asset.Regions;
+            this.Regions = new Dictionary<string, Asset.Region>(this.Asset.Regions);
 
             this.SetupQuads();
         }
@@ -114,7 +115,6 @@ namespace OpenNefia.Core.Rendering
         {
             this.Asset = asset;
             this.Image = LoadImage(this.Asset);
-            this.Regions = this.Asset.Regions;
             this.Quads = new Dictionary<string, Quad>();
             this.CountX = this.Asset.CountX;
             this.CountY = this.Asset.CountY;
@@ -161,7 +161,7 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public Love.SpriteBatch MakeBatch(List<AssetBatchPart> parts, int maxSprites = 256)
+        public Love.SpriteBatch MakeBatch(List<AssetBatchPart> parts, int maxSprites = 2048)
         {
             var batch = Love.Graphics.NewSpriteBatch(this.Image, maxSprites, Love.SpriteBatchUsage.Static);
             batch.Clear();
