@@ -20,7 +20,7 @@ namespace OpenNefia
         public void Register(IThingData thing)
         {
             // TODO readable modName.ID
-            var modName = "ModName";
+            // var modName = "ModName";
 
             if (Storage.ContainsKey(thing.ID))
             {

@@ -46,6 +46,8 @@ namespace OpenNefia.Mod
 
         public void Execute()
         {
+            HarmonyLib.Harmony.DEBUG = true;
+
             var path = Directory.GetCurrentDirectory();
             var modsDirectory = Path.GetFullPath(Path.Combine(path, MOD_PATH));
             var scannedMods = new List<ModInfo>();
@@ -80,10 +82,11 @@ namespace OpenNefia.Mod
                 var inst = LoadMod(mod, ass);
                 mod.Instance = inst;
 
+                Logger.Info($"Running patches in {mod.Metadata.Name}.");
+                HarmonyInstance.PatchAll(LoadedAssemblies[mod.AssemblyLocation]);
+
                 LoadedMods.Add(mod);
             }
-
-            HarmonyInstance.PatchAll();
         }
 
         private static ModInfo LoadCoreMod()

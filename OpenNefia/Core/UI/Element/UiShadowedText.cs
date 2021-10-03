@@ -11,11 +11,9 @@ namespace OpenNefia.Core.UI.Element
     public class UiShadowedText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
-        private ColorAsset FgColor;
-        private ColorAsset BgColor;
 
-        private Love.Font _Font;
-        public Love.Font Font
+        private FontAsset _Font;
+        public FontAsset Font
         {
             get => _Font;
             set
@@ -34,18 +32,11 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        public UiShadowedText(string text, Love.Font font, ColorAsset? fgColor = null, ColorAsset? bgColor = null)
+        public UiShadowedText(FontAsset font, string text = "")
         {
-            if (fgColor == null)
-                fgColor = ColorAsset.Entries.TextForeground;
-            if (bgColor == null)
-                bgColor = ColorAsset.Entries.TextBackground;
-
             this._Text = text;
             this._Font = font;
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.FgColor = fgColor;
-            this.BgColor = bgColor;
         }
 
         public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
@@ -62,12 +53,12 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.BgColor);
+            GraphicsEx.SetColor(this.Font.ExtraColors[FontAsset.ColorKinds.Background]);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
                     Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
 
-            GraphicsEx.SetColor(this.FgColor);
+            GraphicsEx.SetColor(this.Font.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

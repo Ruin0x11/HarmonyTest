@@ -14,7 +14,7 @@ namespace OpenNefia.Core.UI
             return Enum.GetName(typeof(Keys), keyAndModifiers)!.ToLowerInvariant();
         }
 
-        internal static Rectangle GetCenteredParams(int width, int height)
+        public static Rectangle GetCenteredParams(int width, int height)
         {
             var ingame = false;
             var x = (Love.Graphics.GetWidth() - width) / 2;

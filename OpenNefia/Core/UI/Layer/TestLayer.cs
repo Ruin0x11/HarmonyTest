@@ -41,9 +41,9 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Keybinds[Keybind.Entries.Mode] += (_) =>
             {
-                var listTest = new ListTestLayer();
-                listTest.Query();
-                Console.WriteLine();
+                var numberPrompt = new NumberPrompt(min: 2, max: 100, initial: 50);
+                var result = numberPrompt.Query();
+                Console.WriteLine($"Number prompt result: {result}");
             };
         }
 

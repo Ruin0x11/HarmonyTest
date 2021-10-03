@@ -294,9 +294,6 @@ namespace OpenNefia.Core.UI
                     {
                         if (this.Actions.TryGetValue(keybind, out KeyAction? action))
                         {
-                            // BUG: Release events won't be counted properly for modifiers,
-                            // since they only look at the modifier state when the key is
-                            // released, not when any modifier is released.
                             if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
                             {
                                 if (isRepeating && state == KeyPressState.Pressed)
@@ -353,8 +350,11 @@ namespace OpenNefia.Core.UI
                 {
                     if (this.Actions.TryGetValue(activeKeybind, out KeyAction? action))
                     {
-                        var evt = new KeyInputEvent(KeyPressState.Released);
-                        action.Run(evt);
+                        if (action.TrackReleased)
+                        {
+                            var evt = new KeyInputEvent(KeyPressState.Released);
+                            action.Run(evt);
+                        }
                     }
                 }
 

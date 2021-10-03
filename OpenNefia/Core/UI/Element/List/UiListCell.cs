@@ -40,7 +40,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         protected virtual IUiText MakeUIText(T data, string rawText)
         {
-            return new UiText(rawText, this.FontListText);
+            return new UiText(this.FontListText, rawText);
         }
 
         public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)

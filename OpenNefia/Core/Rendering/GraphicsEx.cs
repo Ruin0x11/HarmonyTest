@@ -93,6 +93,11 @@ namespace OpenNefia.Core.Rendering
         public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
         public static void SetColor(ColorAsset color) => SetColor(color.R, color.G, color.B, color.A);
 
+        public static void SetColor(object colorBackground)
+        {
+            throw new NotImplementedException();
+        }
+
         public static int GetTextWidth(string text)
         {
             return Love.Graphics.GetFont().GetWidth(text);
@@ -120,17 +125,19 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetFont(GetFont(size, style, fontFilepath));
         }
 
-        public static void SetFont(FontAsset spec)
+        public static void SetFont(FontAsset spec, bool noColor = false)
         {
             SetFont(spec.Size, spec.Style, spec.FontFilepath);
+            if (!noColor)
+                SetColor(spec.Color);
         }
 
-        internal static void DrawFilledRect(int x, int y, int width, int height)
+        public static void DrawFilledRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
         }
 
-        internal static void DrawLineRect(int x, int y, int width, int height)
+        public static void DrawLineRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
         }

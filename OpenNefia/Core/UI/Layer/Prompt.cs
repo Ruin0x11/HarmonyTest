@@ -92,7 +92,7 @@ namespace OpenNefia.Core.UI.Layer
             
         }
 
-        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)
+        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
         {
             width = this.Width;
             height = this.List.Count * this.List.ItemHeight + 42;
@@ -101,13 +101,10 @@ namespace OpenNefia.Core.UI.Layer
 
             this.List.Relayout(x + 30, y + 24, width, height);
 
-            if (x == -1)
+            if (mode == RelayoutMode.Free)
             {
                 var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
                 x = promptX - width / 2;
-            }
-            if (y == -1)
-            {
                 var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
                 y = promptY - this.List.Height / 2;
             }

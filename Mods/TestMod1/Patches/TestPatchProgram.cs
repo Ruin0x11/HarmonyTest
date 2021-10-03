@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestMod1
 {
-    [HarmonyPatch(typeof(FieldLayer), "PrintMessage")]
+    [HarmonyPatch(typeof(FieldLayer), nameof(FieldLayer.PrintMessage))]
     class TestPatchProgram
     {
         static bool Prefix(ref string __result, string dood)

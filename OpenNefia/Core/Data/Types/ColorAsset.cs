@@ -40,8 +40,8 @@ namespace OpenNefia.Core.Data.Types
 
         public static class Entries
         {
-            public static ColorAsset TextForeground = new ColorAsset($"Core.{nameof(TextForeground)}", Color.White);
-            public static ColorAsset TextBackground = new ColorAsset($"Core.{nameof(TextBackground)}", Color.Black);
+            public static ColorAsset TextWhite = new ColorAsset($"Core.{nameof(TextWhite)}", Color.White);
+            public static ColorAsset TextBlack = new ColorAsset($"Core.{nameof(TextBlack)}", Color.Black);
 
             public static ColorAsset ListSelectedAdd = new ColorAsset($"Core.{nameof(ListSelectedAdd)}", 50, 50, 50);
             public static ColorAsset ListSelectedSub = new ColorAsset($"Core.{nameof(ListSelectedSub)}", 30, 10, 0);

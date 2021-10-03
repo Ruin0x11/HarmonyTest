@@ -47,7 +47,7 @@ namespace OpenNefia.Core.UI.Element
             this.FontWindowKeyHints = FontAsset.Entries.WindowKeyHints;
 
             if (this.Title != null)
-                this.TitleText = new UiShadowedText(this.Title!, this.FontWindowTitle);
+                this.TitleText = new UiShadowedText(this.FontWindowTitle, this.Title!);
             this.KeyHintText = new UiText(this.FontWindowKeyHints);
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);

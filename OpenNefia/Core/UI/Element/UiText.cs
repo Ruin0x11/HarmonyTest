@@ -6,7 +6,6 @@ namespace OpenNefia.Core.UI.Element
     public class UiText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
-        private ColorAsset Color;
 
         private FontAsset _Font;
         public FontAsset Font
@@ -15,7 +14,7 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Font = value;
-                this.BakedText = Love.Graphics.NewText(value, this.Text);
+                this.RebakeText();
             }
         }
 
@@ -26,23 +25,26 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Text = value;
-                this.BakedText = Love.Graphics.NewText(this.Font, value);
+                this.RebakeText();
             }
         }
 
-        public UiText(string text, FontAsset font, ColorAsset? color = null)
+#pragma warning disable CS8618
+        
+        public UiText(FontAsset font, string text = "")
         {
-            if (color == null)
-                color = ColorAsset.Entries.TextBackground;
-
             this._Text = text;
             this._Font = font;
-            this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.Color = color;
+            this.RebakeText();
         }
 
-        public UiText(FontAsset font, ColorAsset? color = null) : this(string.Empty, font, color)
+#pragma warning restore CS8618
+
+        private void RebakeText()
         {
+            this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
+            this.Width = this.Font.GetWidth(this.Text);
+            this.Height = this.Font.GetHeight();
         }
 
         public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
@@ -59,7 +61,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.Color);
+            GraphicsEx.SetColor(this.Font.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

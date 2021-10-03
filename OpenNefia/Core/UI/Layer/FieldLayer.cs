@@ -97,6 +97,8 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
+            this.PrintMessage("dood");
+
             var dx = 0;
             var dy = 0;
 

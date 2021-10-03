@@ -60,7 +60,6 @@ namespace OpenNefia.Core.UI.Element.List
 
             this.Choices = choices.Select((c, i) => this.MakeChoiceCell(c, i)).ToList();
 
-            var font = GraphicsEx.GetFont(this.FontListKeyName);
             this.ChoiceKeys = new List<UiListChoiceKey>();
             this.KeyNameTexts = new List<IUiText>();
             for (int i = 0; i < this.Count; i++)
@@ -68,7 +67,7 @@ namespace OpenNefia.Core.UI.Element.List
                 var choiceKey = this.GetChoiceKey(this[i].Data, i);
                 var keyName = UiUtils.GetKeyName(choiceKey.Key);
                 this.ChoiceKeys.Add(choiceKey);
-                this.KeyNameTexts.Add(new UiShadowedText(keyName, font));
+                this.KeyNameTexts.Add(new UiShadowedText(this.FontListKeyName, keyName));
             }
 
             this.BindKeys();
