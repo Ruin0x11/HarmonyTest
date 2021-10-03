@@ -12,6 +12,8 @@ namespace OpenNefia.Core.Data.Types
 
         public Keybind(string id) { this.Id = id; }
 
+        public bool IsShiftDelayed { get; private set; } = false;
+
         public static class Entries
         {
             public static Keybind Enter = new Keybind($"Base.{nameof(Enter)}");
@@ -19,19 +21,19 @@ namespace OpenNefia.Core.Data.Types
             public static Keybind Quit = new Keybind($"Base.{nameof(Quit)}");
             public static Keybind Escape = new Keybind($"Base.{nameof(Escape)}");
 
-            public static Keybind UIUp = new Keybind($"Base.{nameof(UIUp)}");
-            public static Keybind UIDown = new Keybind($"Base.{nameof(UIDown)}");
-            public static Keybind UILeft = new Keybind($"Base.{nameof(UILeft)}");
-            public static Keybind UIRight = new Keybind($"Base.{nameof(UIRight)}");
+            public static Keybind UIUp = new Keybind($"Base.{nameof(UIUp)}") { IsShiftDelayed = true };
+            public static Keybind UIDown = new Keybind($"Base.{nameof(UIDown)}") { IsShiftDelayed = true };
+            public static Keybind UILeft = new Keybind($"Base.{nameof(UILeft)}") { IsShiftDelayed = true };
+            public static Keybind UIRight = new Keybind($"Base.{nameof(UIRight)}") { IsShiftDelayed = true };
 
-            public static Keybind North = new Keybind($"Base.{nameof(North)}");
-            public static Keybind South = new Keybind($"Base.{nameof(South)}");
-            public static Keybind West = new Keybind($"Base.{nameof(West)}");
-            public static Keybind East = new Keybind($"Base.{nameof(East)}");
-            public static Keybind Northwest = new Keybind($"Base.{nameof(Northwest)}");
-            public static Keybind Northeast = new Keybind($"Base.{nameof(Northeast)}");
-            public static Keybind Southwest = new Keybind($"Base.{nameof(Southwest)}");
-            public static Keybind Southeast = new Keybind($"Base.{nameof(Southeast)}");
+            public static Keybind North = new Keybind($"Base.{nameof(North)}") { IsShiftDelayed = true };
+            public static Keybind South = new Keybind($"Base.{nameof(South)}") { IsShiftDelayed = true };
+            public static Keybind West = new Keybind($"Base.{nameof(West)}") { IsShiftDelayed = true };
+            public static Keybind East = new Keybind($"Base.{nameof(East)}") { IsShiftDelayed = true };
+            public static Keybind Northwest = new Keybind($"Base.{nameof(Northwest)}") { IsShiftDelayed = true };
+            public static Keybind Northeast = new Keybind($"Base.{nameof(Northeast)}") { IsShiftDelayed = true };
+            public static Keybind Southwest = new Keybind($"Base.{nameof(Southwest)}") { IsShiftDelayed = true };
+            public static Keybind Southeast = new Keybind($"Base.{nameof(Southeast)}") { IsShiftDelayed = true };
 
             public static Keybind Wait = new Keybind($"Base.{nameof(Wait)}");
             public static Keybind Identify = new Keybind($"Base.{nameof(Identify)}");

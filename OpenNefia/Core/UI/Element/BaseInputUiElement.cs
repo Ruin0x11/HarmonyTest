@@ -34,6 +34,7 @@ namespace OpenNefia.Core.UI.Element
         public void ClearAllForwards() => KeyInput.ClearAllForwards();
         public void HaltInput() => KeyInput.HaltInput();
         public bool IsModifierHeld(Keys modifier) => KeyInput.IsModifierHeld(modifier);
+        public void UpdateKeyRepeats(float dt) => KeyInput.UpdateKeyRepeats(dt);
         public void RunKeyActions(float dt) => KeyInput.RunKeyActions(dt);
         public bool RunKeyAction(Keys key, KeyPressState state) => KeyInput.RunKeyAction(key, state);
         public void ReleaseKey(Keys key) => KeyInput.ReleaseKey(key);

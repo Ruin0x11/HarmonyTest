@@ -40,6 +40,12 @@ namespace OpenNefia.Core.UI
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="dt"></param>
+        public void UpdateKeyRepeats(float dt);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="key"></param>
         /// <param name="state"></param>
         /// <returns></returns>
@@ -56,6 +62,5 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="dt">Frame delta time.</param>
         void RunKeyActions(float dt);
-
     }
 }

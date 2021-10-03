@@ -20,8 +20,28 @@ namespace OpenNefia.Core.UI
             public void Run(KeyInputEvent evt) => this.Callback(evt);
         }
 
+        private class KeyRepeatDelay
+        {
+            public float WaitRemain = 0.0f;
+            public float Delay = 0.0f;
+            public bool IsPressed = false;
+            public bool IsRepeating = false;
+            public bool IsFast = false;
+            public bool FirstPress = true;
+
+            public void Reset()
+            {
+                this.Delay = 0.0f;
+                this.WaitRemain = 0.0f;
+                this.IsPressed = false;
+                this.IsRepeating = false;
+                this.IsFast = false;
+                this.FirstPress = true;
+            }
+        }
+
         private HashSet<Keys> Pressed;
-        private Dictionary<Keys, float> RepeatDelays;
+        private Dictionary<Keys, KeyRepeatDelay> RepeatDelays;
         private HashSet<Keys> UnpressedThisFrame;
         private Keys Modifiers;
         private List<IKeyInput> Forwards;
@@ -30,12 +50,13 @@ namespace OpenNefia.Core.UI
         private bool Halted;
         private bool StopHalt;
 
+        public bool NoShiftDelay { get; set; }
         public int KeyHeldFrames { get; private set; }
 
         public KeyHandler()
         {
             this.Pressed = new HashSet<Keys>();
-            this.RepeatDelays = new Dictionary<Keys, float>();  
+            this.RepeatDelays = new Dictionary<Keys, KeyRepeatDelay>();  
             this.UnpressedThisFrame = new HashSet<Keys>();
             this.Modifiers = Keys.None;
             this.Forwards = new List<IKeyInput>();
@@ -43,18 +64,19 @@ namespace OpenNefia.Core.UI
             this.Keybinds = new KeybindTranslator();
             this.Halted = false;
             this.StopHalt = false;
+            this.NoShiftDelay = false;
             this.KeyHeldFrames = 0;
         }
 
         /// <inheritdoc />
-        public void ReceiveKeyPressed(Love.KeyConstant loveKey, bool is_repeat)
+        public void ReceiveKeyPressed(Love.KeyConstant loveKey, bool isRepeat)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.ReceiveKeyPressed(loveKey, is_repeat);
+                forward.ReceiveKeyPressed(loveKey, isRepeat);
             }
 
-            if (this.Halted && is_repeat) {
+            if (this.Halted && isRepeat) {
                 return;
             }
 
@@ -71,8 +93,8 @@ namespace OpenNefia.Core.UI
 
             this.Pressed.Add(key);
 
-            //TEMP
-            this.RepeatDelays[key] = 0.0f;
+            if (!this.RepeatDelays.ContainsKey(key))
+                this.RepeatDelays[key] = new KeyRepeatDelay();
         }
 
         /// <inheritdoc />
@@ -127,8 +149,62 @@ namespace OpenNefia.Core.UI
             }
         }
 
+        public void UpdateKeyRepeats(float dt)
+        {
+            foreach (var key in this.Pressed)
+            {
+                var keyRepeat = this.RepeatDelays[key];
+                var keybind = this.Keybinds.KeyToKeybind(key | this.Modifiers);
+                var isShiftDelayed = keybind != null && keybind.IsShiftDelayed;
+
+                if (keyRepeat.FirstPress)
+                {
+                    keyRepeat.FirstPress = false;
+
+                    if (isShiftDelayed)
+                    {
+                        if (this.NoShiftDelay)
+                        {
+                            keyRepeat.WaitRemain = 0;
+                            keyRepeat.Delay = 40;
+                        }
+                        else
+                        {
+                            keyRepeat.WaitRemain = 3;
+                            keyRepeat.Delay = 200;
+                        }
+                    }
+                    else
+                    {
+                        keyRepeat.WaitRemain = 0;
+                        keyRepeat.Delay = 600;
+                    }
+                    keyRepeat.IsPressed = true;
+                }
+
+                keyRepeat.Delay -= dt * 1000f;
+                if (keyRepeat.Delay <= 0)
+                {
+                    keyRepeat.IsPressed = true;
+                }
+
+                if (isShiftDelayed && (this.Modifiers & Keys.Shift) == Keys.Shift)
+                {
+                    keyRepeat.Delay = 10;
+                }
+            }
+
+            foreach (var forward in this.Forwards)
+            {
+                forward.UpdateKeyRepeats(dt);
+            }
+        }
+
         public void ForwardTo(IKeyInput keys, int? priority = null)
         {
+            if (this == keys)
+                throw new ArgumentException("Cannot forward key handler to itself");
+
             this.Forwards.Add(keys);
         }
 
@@ -142,24 +218,89 @@ namespace OpenNefia.Core.UI
             this.Forwards.Clear();
         }
 
+        private bool AddKeyDelay(Keys keyWithoutModifiers, bool isShiftDelayed)
+        {
+            if (!this.RepeatDelays.ContainsKey(keyWithoutModifiers))
+                this.RepeatDelays[keyWithoutModifiers] = new KeyRepeatDelay();
+            var keyRepeat = this.RepeatDelays[keyWithoutModifiers]!;
+
+            keyRepeat!.WaitRemain--;
+            if (keyRepeat.WaitRemain <= 0)
+            {
+                if (isShiftDelayed)
+                {
+                    if (this.NoShiftDelay)
+                    {
+                        keyRepeat.Delay = 100;
+                    }
+                    else
+                    {
+                        keyRepeat.Delay = 20;
+                    }
+                }
+                if (keyRepeat.IsFast)
+                {
+                    keyRepeat.IsRepeating = true;
+                }
+                keyRepeat.IsFast = true;
+            }
+            else if (keyRepeat.IsFast)
+            {
+                if (isShiftDelayed)
+                {
+                    // TODO
+                    if (this.NoShiftDelay)
+                    {
+                        keyRepeat.Delay = 100;
+                    }
+                    else
+                    {
+                        keyRepeat.Delay = 20;
+                    }
+                }
+                else
+                {
+                    keyRepeat.Delay = 10;
+                }
+            }
+            else
+            {
+                keyRepeat.Delay = 200;
+            }
+            keyRepeat.IsPressed = false;
+
+            return keyRepeat.IsRepeating;
+        }
+
         public bool RunKeyAction(Keys keyAndModifiers, KeyPressState state)
         {
-            var keybind = this.Keybinds.KeyToKeybind(keyAndModifiers);
+            var keyWithoutModifiers = keyAndModifiers & (~Keys.AllModifiers);
 
-            if (keybind != null)
+            if (this.RepeatDelays.TryGetValue(keyWithoutModifiers, out KeyRepeatDelay? repeatDelay) && repeatDelay.IsPressed)
             {
-                if (this.Actions.TryGetValue(keybind, out KeyAction? action))
+                var keybind = this.Keybinds.KeyToKeybind(keyAndModifiers);
+                var isShiftDelayed = keybind != null && keybind.IsShiftDelayed;
+
+                var isRepeating = this.AddKeyDelay(keyWithoutModifiers, isShiftDelayed);
+
+                if (keybind != null)
                 {
-                    // BUG: Release events won't be counted properly for modifiers,
-                    // since they only look at the modifier state when the key is
-                    // released, not when any modifier is released.
-                    if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
+                    if (this.Actions.TryGetValue(keybind, out KeyAction? action))
                     {
-                        var evt = new KeyInputEvent(state);
-                        action.Run(evt);
-                        if (!evt.Vetoed)
+                        // BUG: Release events won't be counted properly for modifiers,
+                        // since they only look at the modifier state when the key is
+                        // released, not when any modifier is released.
+                        if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
                         {
-                            return true;
+                            if (isRepeating)
+                                state = KeyPressState.Repeated;
+
+                            var evt = new KeyInputEvent(state);
+                            action.Run(evt);
+                            if (!evt.Vetoed)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -196,7 +337,8 @@ namespace OpenNefia.Core.UI
         public void ReleaseKey(Keys key)
         {
             this.Pressed.Remove(key);
-            this.RepeatDelays.Remove(key);
+            if (this.RepeatDelays.TryGetValue(key, out var repeatDelay))
+                repeatDelay.Reset();
 
             if (this.RunKeyAction(key | this.Modifiers, KeyPressState.Released))
             {
@@ -206,14 +348,6 @@ namespace OpenNefia.Core.UI
             foreach (var forward in this.Forwards)
             {
                 forward.ReleaseKey(key);
-            }
-        }
-        
-        public void UpdateRepeats(float dt)
-        {
-            foreach (var key in this.RepeatDelays.Keys)
-            {
-                this.RepeatDelays[key] += dt;
             }
         }
 
@@ -228,22 +362,18 @@ namespace OpenNefia.Core.UI
 
             foreach (var pair in this.RepeatDelays)
             {
-                // TEMP
-                var pressed = pair.Value == 0.0f;
-                if (pressed) {
-                    var key = pair.Key;
-                    ran = this.RunKeyAction(key | this.Modifiers, KeyPressState.Pressed);
-                    if (ran)
-                    {
-                        // Only run the first key action.
-                        break;
-                    }
+                var key = pair.Key;
+                ran = this.RunKeyAction(key | this.Modifiers, KeyPressState.Pressed);
+                if (ran)
+                {
+                    // Only run the first key action.
+                    break;
                 }
             }
 
             this.UnpressedThisFrame.Clear();
 
-            this.UpdateRepeats(dt);
+            this.UpdateKeyRepeats(dt);
 
             this.Halted = this.Halted && !this.StopHalt;
 
