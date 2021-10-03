@@ -1,4 +1,6 @@
-﻿using OpenNefia;
+﻿using HarmonyLib;
+using OpenNefia;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Mod;
 using System;
 
@@ -11,6 +13,17 @@ namespace TestMod1
         {
             ThingRepo.Instance.Register(new PutitThing());
             Console.WriteLine("Loaded mod 1.");
+
+
+
+            //var harmony = new Harmony("com.example.patch");
+
+            ////
+            //var mOriginal = AccessTools.Method(typeof(NumberPrompt), nameof(NumberPrompt.Query));
+            //var mPrefix = SymbolExtensions.GetMethodInfo(() => new MyNumberPrompt().Query());
+            //// in general, add null checks here (new HarmonyMethod() does it for you too)
+
+            //harmony.Patch(mOriginal, new HarmonyMethod(mPrefix));
         }
     }
 }

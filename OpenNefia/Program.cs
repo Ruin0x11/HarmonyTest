@@ -3,6 +3,8 @@ using Love;
 using System;
 using System.Collections.Generic;
 using OpenNefia.Game;
+using Mono.Cecil;
+using System.Reflection;
 
 namespace OpenNefia
 {
@@ -24,6 +26,13 @@ namespace OpenNefia
             Boot.Init(bootConfig);
             Timer.Step();
             GameWrapper.Instance.SystemStep();
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                Console.WriteLine(type.FullName);
+                Console.WriteLine(type.BaseType?.FullName);
+            }
+            return;
 
             GameWrapper.Instance.MainCode(args);
         }

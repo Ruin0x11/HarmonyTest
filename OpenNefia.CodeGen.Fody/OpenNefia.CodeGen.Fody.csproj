@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Fody" Version="6.5.3">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="FodyHelpers" Version="6.5.3">
+	  <Aliases>fodyhelpers</Aliases>
+	</PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenNefia\OpenNefia.csproj">
+	  <Aliases>onassemblies</Aliases>
+	</ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+	
+  <Target Name="AfterBuild">
+	<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)\packages\OpenNefia.Codegen.Fody.1.0.0" />
+  </Target>
+</Project>

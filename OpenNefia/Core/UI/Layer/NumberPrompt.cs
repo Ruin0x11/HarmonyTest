@@ -4,6 +4,7 @@ using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -103,6 +104,9 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(this.Value);
         }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public override UiResult<int> Query() => base.Query();
 
         public override void OnQuery()
         {
