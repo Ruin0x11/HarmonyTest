@@ -40,7 +40,7 @@ namespace OpenNefia.Core.UI.Element
 
 #pragma warning restore CS8618
 
-        private void RebakeText()
+        protected void RebakeText()
         {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.Width = this.Font.GetWidth(this.Text);

@@ -19,7 +19,7 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Font = value;
-                this.BakedText = Love.Graphics.NewText(value, this.Text);
+                this.RebakeText();
             }
         }
 
@@ -28,15 +28,26 @@ namespace OpenNefia.Core.UI.Element
             get => _Text;
             set {
                 this._Text = value;
-                this.BakedText = Love.Graphics.NewText(this.Font, value);
+                this.RebakeText();
             }
         }
+
+#pragma warning disable CS8618
 
         public UiShadowedText(FontAsset font, string text = "")
         {
             this._Text = text;
             this._Font = font;
+            this.RebakeText();
+        }
+
+#pragma warning restore CS8618
+
+        protected void RebakeText()
+        {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
+            this.Width = this.Font.GetWidth(this.Text);
+            this.Height = this.Font.GetHeight();
         }
 
         public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)

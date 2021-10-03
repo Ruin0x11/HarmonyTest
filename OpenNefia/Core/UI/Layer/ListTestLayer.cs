@@ -37,6 +37,18 @@ namespace OpenNefia.Core.UI.Layer
             this.List2.EventOnActivate += printIt;
             this.List3.EventOnActivate += printIt;
 
+            UiListEventHandler<string> selectIt = (_, evt) =>
+            {
+                this.List1.SelectedIndex = evt.SelectedIndex;
+                this.List2.SelectedIndex = evt.SelectedIndex;
+                this.List3.SelectedIndex = evt.SelectedIndex;
+            };
+            this.List1.EventOnSelect += selectIt;
+            this.List2.EventOnSelect += selectIt;
+            this.List3.EventOnSelect += selectIt;
+
+            this.List2.Keybinds[Keybind.Entries.Mode] += (_) => Console.WriteLine("Dood!");
+
             this.Index = 1;
             this.SelectList(this.List1);
         }

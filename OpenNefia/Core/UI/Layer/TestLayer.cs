@@ -45,6 +45,11 @@ namespace OpenNefia.Core.UI.Layer
                 var result = numberPrompt.Query();
                 Console.WriteLine($"Number prompt result: {result}");
             };
+
+            this.Keybinds[Keys.Ctrl | Keys.C] += (_) =>
+            {
+                new ListTestLayer().Query();
+            };
         }
 
         public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
