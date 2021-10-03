@@ -101,13 +101,14 @@ namespace OpenNefia.Core.UI.Element.List
                     keybind = new RawKey(choiceKey.Key);
                 }
 
+                // C# doesn't capture locals in closures like Lua does with upvalues.
                 var indexCopy = i;
-                this.BindKey(keybind, (_) => this.Activate(indexCopy));
+                this.Keybinds[keybind] += (_) => this.Activate(indexCopy);
             }
 
-            this.BindKey(Keybind.Entries.UIUp, (_) => this.IncrementIndex(-1));
-            this.BindKey(Keybind.Entries.UIDown, (_) => this.IncrementIndex(1));
-            this.BindKey(Keybind.Entries.Enter, (_) => this.Activate(this.SelectedIndex));
+            this.Keybinds[Keybind.Entries.UIUp] += (_) => this.IncrementIndex(-1);
+            this.Keybinds[Keybind.Entries.UIDown] += (_) => this.IncrementIndex(1);
+            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Activate(this.SelectedIndex);
         }
 
         #region Data Creation

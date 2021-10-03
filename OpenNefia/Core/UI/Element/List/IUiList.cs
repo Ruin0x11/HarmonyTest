@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.UI.Element.List
 {
-    public interface IUiList<T> : IList<IUiListCell<T>>
+    public interface IUiList<T> : IList<IUiListCell<T>>, IUiInput
     {
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }

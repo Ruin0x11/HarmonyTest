@@ -58,7 +58,7 @@ namespace OpenNefia.Core.UI
             this._Cache = new Dictionary<IKeybind, KeybindDelegateWrapper>();
         }
 
-        public KeybindDelegateWrapper this[Keybind index]
+        public KeybindDelegateWrapper this[IKeybind index]
         {
             get {
                 if (!this._Cache.ContainsKey(index))
