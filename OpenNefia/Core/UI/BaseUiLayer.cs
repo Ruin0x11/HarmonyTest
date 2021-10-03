@@ -9,13 +9,38 @@ using OpenNefia.Game;
 
 namespace OpenNefia.Core.UI
 {
-    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayer where T : struct
+    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: struct
     {
         public IUiFocusManager FocusManager { get; } = new UiFocusManager();
 
-        public abstract UiResult<T>? GetResult();
+        public bool WasCancelled { get; private set; }
+        public T? Result { get; private set; }
 
-        public bool IsQuerying()
+        public virtual void Cancel()
+        {
+            this.WasCancelled = true;
+        }
+
+        public virtual void Finish(T result)
+        {
+            this.Result = result;
+        }
+
+        public virtual UiResult<T>? GetResult()
+        {
+            if (this.Result.HasValue)
+                return UiResult<T>.Finished(this.Result.Value);
+            if (this.WasCancelled)
+                return UiResult<T>.Cancelled();
+
+            return null;
+        }
+
+        public virtual void OnQuery() 
+        {
+        }
+
+        public virtual bool IsQuerying()
         {
             return GameWrapper.Instance.IsQuerying(this);
         }
@@ -35,7 +60,7 @@ namespace OpenNefia.Core.UI
             this.FocusManager.FocusedElement?.ReceieveTextInput(text);
         }
 
-        public UiResult<T> Query()
+        public virtual UiResult<T> Query()
         {
             GameWrapper.Instance.CurrentLayer?.HaltInput();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public class UiResult<T>
+    public class UiResult<T> where T: struct
     {
         public enum ResultType
         {
@@ -16,17 +16,17 @@ namespace OpenNefia.Core.UI
             Error
         }
 
-        public T Result;
+        public T? Result;
         public UiResult<T>.ResultType Type;
 
-        public UiResult(UiResult<T>.ResultType type, T result)
+        public UiResult(UiResult<T>.ResultType type, T? result)
         {
             this.Result = result;
             this.Type = type;
         }
 
         public static UiResult<T> Finished(T result) => new UiResult<T>(ResultType.Finished, result);
-        public static UiResult<T> Cancelled(T result) => new UiResult<T>(ResultType.Cancelled, result);
+        public static UiResult<T> Cancelled() => new UiResult<T>(ResultType.Cancelled, null);
 
         public override string ToString() => $"{this.Type}({this.Result?.ToString()})";    
     }

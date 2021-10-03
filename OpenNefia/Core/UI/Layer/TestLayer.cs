@@ -23,11 +23,7 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.BindKey(Keybind.Entries.Escape, (_) =>
-            {
-                this.Finished = true;
-                return null;
-            });
+            this.BindKey(Keybind.Entries.Escape, (_) => this.Cancel());
             this.BindKey(Keybind.Entries.Identify, (_) =>
             {
                 var choices = new List<PromptChoice<int>>()
@@ -59,17 +55,6 @@ namespace OpenNefia.Core.UI.Layer
             }
 
             this.WindowBacking.Update(dt);
-        }
-
-        public override UiResult<int>? GetResult()
-        {
-            if (this.Finished)
-            {
-                this.Finished = false;
-                return UiResult<int>.Finished(42);
-            }
-
-            return null;
         }
 
         public override void Draw()

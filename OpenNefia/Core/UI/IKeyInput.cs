@@ -47,9 +47,35 @@ namespace OpenNefia.Core.UI
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="keys"></param>
+        void ForwardTo(IKeyInput keys, int? priority = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="modifier"></param>
         /// <returns></returns>
         bool IsModifierHeld(Keys modifier);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        bool RunKeyAction(Keys key, KeyPressState state);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        void ReleaseKey(Keys key);
+
+        /// <summary>
+        /// Run key actions based on the current state of the key handler.
+        /// </summary>
+        /// <param name="dt">Frame delta time.</param>
+        void RunKeyActions(float dt);
 
     }
 }

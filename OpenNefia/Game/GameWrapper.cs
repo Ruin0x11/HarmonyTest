@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Love;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Mod;
 
 namespace OpenNefia.Game

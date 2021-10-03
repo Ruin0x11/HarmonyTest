@@ -56,11 +56,8 @@ namespace OpenNefia.Core.UI.Layer
             this.BindKey(Keybind.Entries.UILeft, (state) => this.MoveLeft(state), trackReleased: true);
             this.BindKey(Keybind.Entries.UIRight, (state) => this.MoveRight(state), trackReleased: true);
             this.BindKey(Keybind.Entries.Identify, (state) => this.QueryLayer());
-            this.BindKey(Keybind.Entries.Escape, (_) =>
-            {
-                this.Finished = true;
-                return null;
-            });
+            this.BindKey(Keybind.Entries.Escape, (_) => this.Cancel());
+            this.BindKey(Keybind.Entries.Cancel, (_) => this.Cancel());
         }
 
         public string PrintMessage(string dood)
@@ -69,28 +66,24 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
-        private KeyActionResult? MoveUp(KeyPressState state)
+        private void MoveUp(KeyInputEvent evt)
         {
-            this.Up = (state != KeyPressState.Released);
-            return null;
+            this.Up = (evt.State != KeyPressState.Released);
         }
 
-        private KeyActionResult? MoveDown(KeyPressState state)
+        private void MoveDown(KeyInputEvent evt)
         {
-            this.Down = (state != KeyPressState.Released);
-            return null;
+            this.Down = (evt.State != KeyPressState.Released);
         }
 
-        private KeyActionResult? MoveLeft(KeyPressState state)
+        private void MoveLeft(KeyInputEvent evt)
         {
-            this.Left = (state != KeyPressState.Released);
-            return null;
+            this.Left = (evt.State != KeyPressState.Released);
         }
 
-        private KeyActionResult? MoveRight(KeyPressState state)
+        private void MoveRight(KeyInputEvent evt)
         {
-            this.Right = (state != KeyPressState.Released) ;
-            return null;
+            this.Right = (evt.State != KeyPressState.Released) ;
         }
 
         private KeyActionResult? QueryLayer()

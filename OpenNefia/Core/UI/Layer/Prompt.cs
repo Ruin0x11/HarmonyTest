@@ -58,9 +58,6 @@ namespace OpenNefia.Core.UI.Layer
         public UiPromptList List { get; }
         public UiTopicWindow Window { get; }
 
-        private bool Finished;
-        private bool Cancelled;
-
         public Prompt(List<PromptChoice<T>> choices, PromptOptions options)
         {
             this.List = new UiPromptList(choices);
@@ -81,14 +78,18 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Func<KeyPressState, KeyActionResult?> cancel = (_) => {
+            Action<KeyInputEvent> cancel = (_) => {
                 if (this.Options.IsCancellable)
-                    this.Cancelled = true;
-                return null;
+                    this.Cancel();
             };
 
             this.BindKey(Keybind.Entries.Cancel, cancel);
             this.BindKey(Keybind.Entries.Escape, cancel);
+
+            this.ForwardTo(this.List);
+
+            this.List.EventOnActivate += (o, e) => this.Finish(e.SelectedChoice.Data);
+            
         }
 
         public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
@@ -111,26 +112,16 @@ namespace OpenNefia.Core.UI.Layer
                 y = promptY - this.List.Height / 2;
             }
 
-            this.Window.Relayout(x + 8, y + 8, width - 16, height - 16);
-            this.List.Relayout(x + 30, y + 24, width, height);
+            this.Width = Math.Max(this.Width, this.List.Width);
 
+            this.Window.Relayout(x + 8, y + 8, this.Width - 16, this.Height - 16);
+            this.List.Relayout(x + 30, y + 24, this.Width, this.Height);
         }
 
         public override void Update(float dt)
         {
             this.Window.Update(dt);
             this.List.Update(dt);
-        }
-
-        public override UiResult<PromptChoice<T>>? GetResult()
-        {
-            if (this.Finished)
-            {
-                this.Finished = false;
-                return UiResult<PromptChoice<T>>.Finished(this.List.SelectedChoice.Data);
-            }
-
-            return null;
         }
 
         public override void Draw()

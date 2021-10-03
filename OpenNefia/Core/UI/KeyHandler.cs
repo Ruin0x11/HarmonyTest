@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.UI
 {
-    internal class KeyHandler : IKeyHandler
+    internal class KeyHandler : IKeyInput
     {
         private class KeyAction
         {
@@ -24,7 +24,7 @@ namespace OpenNefia.Core.UI
         private Dictionary<Keys, float> RepeatDelays;
         private HashSet<Keys> UnpressedThisFrame;
         private Keys Modifiers;
-        private List<IKeyHandler> Forwards;
+        private List<IKeyInput> Forwards;
         private Dictionary<Keybind, KeyAction> Actions;
         private KeybindTranslator Keybinds;
         private bool Halted;
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.UI
             this.RepeatDelays = new Dictionary<Keys, float>();  
             this.UnpressedThisFrame = new HashSet<Keys>();
             this.Modifiers = Keys.None;
-            this.Forwards = new List<IKeyHandler>();
+            this.Forwards = new List<IKeyInput>();
             this.Actions = new Dictionary<Keybind, KeyAction>();
             this.Keybinds = new KeybindTranslator();
             this.Halted = false;
@@ -127,9 +127,9 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public void ForwardTo(IKeyHandler handler, int priority)
+        public void ForwardTo(IKeyInput keys, int? priority = null)
         {
-            this.Forwards.Add(handler);
+            this.Forwards.Add(keys);
         }
 
         public bool RunKeyAction(Keys keyAndModifiers, KeyPressState state)
