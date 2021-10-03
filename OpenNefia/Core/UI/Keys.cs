@@ -8,8 +8,9 @@ namespace OpenNefia.Core.UI
 {
     public enum Keys : int
     {
+        None = 0,
+
         // Modifiers
-        None         = 0b0000000000000,
         Ctrl         = 0b0000100000000,
         Alt          = 0b0001000000000,
         Shift        = 0b0010000000000,

@@ -14,10 +14,10 @@ namespace OpenNefia.Core.UI
     {
         public class KeybindDelegateWrapper : IKeyBinder
         {
-            public Keybind Keybind { get; }
+            public IKeybind Keybind { get; }
             public KeybindWrapper Parent { get; }
 
-            public KeybindDelegateWrapper(KeybindWrapper parent, Keybind keybind)
+            public KeybindDelegateWrapper(KeybindWrapper parent, IKeybind keybind)
             {
                 this.Parent = parent;
                 this.Keybind = keybind;
@@ -37,12 +37,12 @@ namespace OpenNefia.Core.UI
             public void BindKey(Action<KeyInputEvent> func, bool trackReleased = false)
                 => this.BindKey(this.Keybind, func, trackReleased);
 
-            public void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
+            public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
             {
                 this.Parent.KeyInput.BindKey(keybind, func, trackReleased);
             }
 
-            public void UnbindKey(Keybind keybind)
+            public void UnbindKey(IKeybind keybind)
             {
                 this.Parent.KeyInput.UnbindKey(keybind);
             }
@@ -50,12 +50,12 @@ namespace OpenNefia.Core.UI
 
         public IKeyInput KeyInput { get; }
 
-        private Dictionary<Keybind, KeybindDelegateWrapper> _Cache;
+        private Dictionary<IKeybind, KeybindDelegateWrapper> _Cache;
 
         public KeybindWrapper(IKeyInput parent)
         {
             this.KeyInput = parent;
-            this._Cache = new Dictionary<Keybind, KeybindDelegateWrapper>();
+            this._Cache = new Dictionary<IKeybind, KeybindDelegateWrapper>();
         }
 
         public KeybindDelegateWrapper this[Keybind index]

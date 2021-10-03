@@ -38,12 +38,12 @@ namespace OpenNefia.Core.UI.Layer
                 return $"{choice.Result}";
             }
 
-            public override Keys GetChoiceKey(PromptChoice<T> choice, int index)
+            public override UiListChoiceKey GetChoiceKey(PromptChoice<T> choice, int index)
             {
                 if (choice.Key != Keys.None)
-                    return choice.Key;
+                    return new UiListChoiceKey(choice.Key, useKeybind: false);
 
-                return Keys.A + index;
+                return new UiListChoiceKey(Keys.A + index, useKeybind: true);
             }
         }
 

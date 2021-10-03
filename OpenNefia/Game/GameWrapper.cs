@@ -146,6 +146,8 @@ namespace OpenNefia.Game
         {
             this.ModLoader.Execute();
 
+            var _ = RawKey.AllKeys.Value;
+
             var layer = new Core.UI.Layer.FieldLayer();
             layer.Query();
         }

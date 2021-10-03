@@ -6,24 +6,24 @@ namespace OpenNefia.Core.UI
 {
     public class KeybindTranslator
     {
-        private Dictionary<Keys, Keybind> Translations;
-        private HashSet<Keybind> AcceptedKeybinds;
+        private Dictionary<Keys, IKeybind> Translations;
+        private HashSet<IKeybind> AcceptedKeybinds;
         private bool Dirty;
 
         public KeybindTranslator()
         {
-            this.Translations = new Dictionary<Keys, Keybind>();
-            this.AcceptedKeybinds = new HashSet<Keybind>();
+            this.Translations = new Dictionary<Keys, IKeybind>();
+            this.AcceptedKeybinds = new HashSet<IKeybind>();
             this.Dirty = true;
         }
 
-        internal void Enable(Keybind keybind)
+        internal void Enable(IKeybind keybind)
         {
             this.AcceptedKeybinds.Add(keybind);
             this.Dirty = true;
         }
 
-        internal void Disable(Keybind keybind)
+        internal void Disable(IKeybind keybind)
         {
             this.AcceptedKeybinds.Remove(keybind);
             this.Dirty = true;
@@ -83,7 +83,7 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public Keybind? KeyToKeybind(Keys keyAndModifiers)
+        public IKeybind? KeyToKeybind(Keys keyAndModifiers)
         {
             if (this.Dirty)
             {
@@ -91,9 +91,14 @@ namespace OpenNefia.Core.UI
                 this.Reload();
             }
 
-            if (this.Translations.TryGetValue(keyAndModifiers, out Keybind? keybind))
+            if (this.Translations.TryGetValue(keyAndModifiers, out IKeybind? keybind))
             {
                 return keybind;
+            }
+
+            if (RawKey.AllKeys.Value.TryGetValue(keyAndModifiers, out RawKey? rawKey))
+            {
+                return rawKey;
             }
 
             return null;

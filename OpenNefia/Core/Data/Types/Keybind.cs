@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class Keybind : IDataType
+    public record Keybind : IDataType, IKeybind
     {
         public string Id { get; private set; }
 
@@ -61,26 +62,26 @@ namespace OpenNefia.Core.Data.Types
             public static Keybind SelectionQ = new Keybind($"Base.{nameof(SelectionQ)}");
             public static Keybind SelectionR = new Keybind($"Base.{nameof(SelectionR)}");
 
-            public static Keybind[] SelectionKeys =
+            public static Dictionary<Keys, Keybind> SelectionKeys = new Dictionary<Keys, Keybind>()
             {
-                SelectionA,
-                SelectionB,
-                SelectionC,
-                SelectionD,
-                SelectionE,
-                SelectionF,
-                SelectionG,
-                SelectionH,
-                SelectionI,
-                SelectionJ,
-                SelectionK,
-                SelectionL,
-                SelectionM,
-                SelectionN,
-                SelectionO,
-                SelectionP,
-                SelectionQ,
-                SelectionR,
+                { Keys.A, SelectionA },
+                { Keys.B, SelectionB },
+                { Keys.C, SelectionC },
+                { Keys.D, SelectionD },
+                { Keys.E, SelectionE },
+                { Keys.F, SelectionF },
+                { Keys.G, SelectionG },
+                { Keys.H, SelectionH },
+                { Keys.I, SelectionI },
+                { Keys.J, SelectionJ },
+                { Keys.K, SelectionK },
+                { Keys.L, SelectionL },
+                { Keys.M, SelectionM },
+                { Keys.N, SelectionN },
+                { Keys.O, SelectionO },
+                { Keys.P, SelectionP },
+                { Keys.Q, SelectionQ },
+                { Keys.R, SelectionR },
             };
         }
     }

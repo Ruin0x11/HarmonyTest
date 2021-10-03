@@ -14,13 +14,13 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="key"></param>
         /// <param name="func"></param>
-        void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false);
+        void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        void UnbindKey(Keybind keybind);
+        void UnbindKey(IKeybind keybind);
     }
 }

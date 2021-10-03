@@ -27,8 +27,8 @@ namespace OpenNefia.Core.UI.Element
         public void ReceiveKeyReleased(KeyConstant key) => KeyInput.ReceiveKeyReleased(key);
         public void ReceieveTextInput(string text) => KeyInput.ReceieveTextInput(text);
 
-        public void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false) => KeyInput.BindKey(keybind, func, trackReleased);
-        public void UnbindKey(Keybind keybind) => KeyInput.UnbindKey(keybind);
+        public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false) => KeyInput.BindKey(keybind, func, trackReleased);
+        public void UnbindKey(IKeybind keybind) => KeyInput.UnbindKey(keybind);
         public void ForwardTo(IKeyInput keys, int? priority = null) => KeyInput.ForwardTo(keys, priority);
         public void UnforwardTo(IKeyInput keys) => KeyInput.UnforwardTo(keys);
         public void ClearAllForwards() => KeyInput.ClearAllForwards();

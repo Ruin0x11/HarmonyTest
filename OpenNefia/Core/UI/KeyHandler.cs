@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI
         private HashSet<Keys> UnpressedThisFrame;
         private Keys Modifiers;
         private List<IKeyInput> Forwards;
-        private Dictionary<Keybind, KeyAction> Actions;
+        private Dictionary<IKeybind, KeyAction> Actions;
         private KeybindTranslator Keybinds;
         private bool Halted;
         private bool StopHalt;
@@ -60,7 +60,7 @@ namespace OpenNefia.Core.UI
             this.UnpressedThisFrame = new HashSet<Keys>();
             this.Modifiers = Keys.None;
             this.Forwards = new List<IKeyInput>();
-            this.Actions = new Dictionary<Keybind, KeyAction>();
+            this.Actions = new Dictionary<IKeybind, KeyAction>();
             this.Keybinds = new KeybindTranslator();
             this.Halted = false;
             this.StopHalt = false;
@@ -317,13 +317,13 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
+        public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
         {
             this.Actions[keybind] = new KeyAction(func, trackReleased);
             this.Keybinds.Enable(keybind);
         }
 
-        public void UnbindKey(Keybind keybind)
+        public void UnbindKey(IKeybind keybind)
         {
             this.Actions.Remove(keybind);
             this.Keybinds.Disable(keybind);
