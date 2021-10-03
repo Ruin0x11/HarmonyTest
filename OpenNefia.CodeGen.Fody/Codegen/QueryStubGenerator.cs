@@ -1,11 +1,13 @@
 ﻿extern alias fodyhelpers;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using fodyhelpers::Fody;
 using fodyhelpers::Mono.Cecil;
 using fodyhelpers::Mono.Cecil.Rocks;
 
-namespace OpenNefia.CodeGen.Fody.Codegen
+namespace OpenNefia.CodeGen
 {
     public class QueryStubGenerator : BaseModuleWeaver
     {
@@ -43,35 +45,7 @@ namespace OpenNefia.CodeGen.Fody.Codegen
             var matchingTypes = GetMatchingTypes().ToArray();
             foreach (var type in matchingTypes)
             {
-
-            }
-        }
-
-        void CheckForInvalidAttributes()
-        {
-            foreach (var type in ModuleDefinition.GetTypes())
-            {
-                foreach (var method in type.Methods)
-                {
-                    if (method.CustomAttributes.Any(x => x.AttributeType.Name == customEqualsInternalAttribute))
-                    {
-                        WriteError($"Method `{type.FullName}.{method.Name}` contains {customEqualsInternalAttribute} but has no `[Equals]` attribute.", method);
-                    }
-
-                    if (method.CustomAttributes.Any(x => x.AttributeType.Name == CustomGetHashCodeAttribute))
-                    {
-                        WriteError($"Method `{type.FullName}.{method.Name}` contains {CustomGetHashCodeAttribute} but has no `[Equals]` attribute.", method);
-                    }
-                }
-
-                foreach (var property in type.Properties)
-                {
-                    if (property.CustomAttributes.Any(x => x.AttributeType.Name == ignoreDuringEqualsAttributeName))
-                    {
-                        //TODO: add sequence point
-                        WriteError($"Property `{type.FullName}.{property.Name}` contains {ignoreDuringEqualsAttributeName} but has no `[Equals]` attribute.");
-                    }
-                }
+                Console.WriteLine($"Found type: {type}");
             }
         }
 

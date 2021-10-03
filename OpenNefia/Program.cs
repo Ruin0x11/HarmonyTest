@@ -10,7 +10,6 @@ namespace OpenNefia
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             var bootConfig = new BootConfig()
@@ -26,13 +25,6 @@ namespace OpenNefia
             Boot.Init(bootConfig);
             Timer.Step();
             GameWrapper.Instance.SystemStep();
-
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                Console.WriteLine(type.FullName);
-                Console.WriteLine(type.BaseType?.FullName);
-            }
-            return;
 
             GameWrapper.Instance.MainCode(args);
         }

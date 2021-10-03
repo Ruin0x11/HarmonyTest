@@ -13,7 +13,7 @@ namespace TestMod1
     {
         static bool Prefix(ref string __result, string dood)
         {
-            Console.WriteLine($"I'm in yr callback {dood} doooooooooooooood");
+            Console.WriteLine($"I'm in yr callback {dood}");
             __result = "Asdfg!";
             return true;
         }

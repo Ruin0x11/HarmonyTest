@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		OpenNefia.ruleset = OpenNefia.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.CodeGen.Fody", "OpenNefia.CodeGen.Fody\OpenNefia.CodeGen.Fody.csproj", "{168237DB-608D-4440-BA3B-8758A7CEF295}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,10 +42,6 @@ Global
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{168237DB-608D-4440-BA3B-8758A7CEF295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{168237DB-608D-4440-BA3B-8758A7CEF295}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{168237DB-608D-4440-BA3B-8758A7CEF295}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{168237DB-608D-4440-BA3B-8758A7CEF295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
