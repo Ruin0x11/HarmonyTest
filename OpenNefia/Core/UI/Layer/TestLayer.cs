@@ -29,7 +29,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     new PromptChoice<int>(0),
                     new PromptChoice<int>(24),
-                    new PromptChoice<int>(42)
+                    new PromptChoice<int>(42142132)
                 };
                 var prompt = new Prompt<int>(choices);
                 Console.WriteLine($"Prompt start");

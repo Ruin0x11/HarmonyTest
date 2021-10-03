@@ -45,10 +45,8 @@ namespace OpenNefia.Core.UI.Element.List
 
         public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
         {
+            this.UiText.Relayout(x + 4 + this.XOffset, y + 1, width, height);
             base.Relayout(x, y, this.UiText.Width, height);
-
-            this.UiText.X = this.X + 4 + this.XOffset;
-            this.UiText.Y = this.Y + 1;
         }
 
         public override void Draw()

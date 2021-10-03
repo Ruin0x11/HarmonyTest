@@ -81,7 +81,6 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.DrawImage(this.AssetWindow!.Image!);
             GraphicsEx.DrawSpriteBatch(this.Batch!, 0, 0);
         }
     }
