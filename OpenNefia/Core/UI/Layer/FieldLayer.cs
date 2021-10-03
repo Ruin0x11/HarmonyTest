@@ -51,13 +51,13 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.BindKey(Keybind.Entries.UIUp, (state) => this.MoveUp(state), trackReleased: true);
-            this.BindKey(Keybind.Entries.UIDown, (state) => this.MoveDown(state), trackReleased: true);
-            this.BindKey(Keybind.Entries.UILeft, (state) => this.MoveLeft(state), trackReleased: true);
-            this.BindKey(Keybind.Entries.UIRight, (state) => this.MoveRight(state), trackReleased: true);
-            this.BindKey(Keybind.Entries.Identify, (state) => this.QueryLayer());
-            this.BindKey(Keybind.Entries.Escape, (_) => this.Cancel());
-            this.BindKey(Keybind.Entries.Cancel, (_) => this.Cancel());
+            this.Keybinds[Keybind.Entries.UIUp].BindKey((state) => this.MoveUp(state), trackReleased: true);
+            this.Keybinds[Keybind.Entries.UIDown].BindKey((state) => this.MoveDown(state), trackReleased: true);
+            this.Keybinds[Keybind.Entries.UILeft].BindKey((state) => this.MoveLeft(state), trackReleased: true);
+            this.Keybinds[Keybind.Entries.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
+            this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
+            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
         }
 
         public string PrintMessage(string dood)

@@ -4,7 +4,7 @@ using System;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IKeyInput
+    public interface IKeyInput : IKeyBinder, IKeyForwarder
     {
         /// <summary>
         /// 
@@ -28,27 +28,7 @@ namespace OpenNefia.Core.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="func"></param>
-        void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        void UnbindKey(Keybind keybind);
-
-        /// <summary>
-        /// 
-        /// </summary>
         void HaltInput();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="keys"></param>
-        void ForwardTo(IKeyInput keys, int? priority = null);
 
         /// <summary>
         /// 

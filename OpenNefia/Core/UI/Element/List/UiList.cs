@@ -17,6 +17,8 @@ namespace OpenNefia.Core.UI.Element.List
         public int ItemOffsetX { get; }
         public int ItemOffsetY { get; }
 
+        public bool HighlightSelected { get; set; }
+
         private int _SelectedIndex;
         public int SelectedIndex { 
             get => _SelectedIndex; 
@@ -45,6 +47,7 @@ namespace OpenNefia.Core.UI.Element.List
             this.ItemHeight = itemHeight;
             this.ItemOffsetX = 0;
             this.ItemOffsetY = -2;
+            this.HighlightSelected = true;
 
             this.AssetSelectKey = new AssetDrawable(Asset.Entries.SelectKey);
             this.AssetListBullet = new AssetDrawable(Asset.Entries.ListBullet);
@@ -195,6 +198,22 @@ namespace OpenNefia.Core.UI.Element.List
             text.Y = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
             this.KeyNameTexts[index].Draw();
         }
+        
+        protected virtual void DrawHighlight(int index)
+        {
+            var cell = this.Choices[index];
+
+            var width = Math.Clamp(cell.Width + 32 + cell.XOffset, 10, 480);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
+            GraphicsEx.SetColor(this.ColorSelectedSub);
+            GraphicsEx.DrawFilledRect(cell.X, cell.Y - 2, width, 19);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Add);
+            GraphicsEx.SetColor(this.ColorSelectedAdd);
+            GraphicsEx.DrawFilledRect(cell.X + 1, cell.Y - 1, width - 2, 17);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
+            GraphicsEx.SetColor(Love.Color.White);
+            this.AssetListBullet.Draw(cell.X + width - 20, cell.Y + 2);
+        }
 
         public override void Update(float dt)
         {
@@ -209,18 +228,9 @@ namespace OpenNefia.Core.UI.Element.List
                 var cell = this.Choices[index];
                 cell.Draw();
 
-                if (index == this.SelectedIndex)
+                if (this.HighlightSelected && index == this.SelectedIndex)
                 {
-                    var width = Math.Clamp(cell.Width + 32 + cell.XOffset, 10, 480);
-                    Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                    GraphicsEx.SetColor(this.ColorSelectedSub);
-                    GraphicsEx.DrawFilledRect(cell.X, cell.Y - 2, width, 19);
-                    Love.Graphics.SetBlendMode(Love.BlendMode.Add);
-                    GraphicsEx.SetColor(this.ColorSelectedAdd);
-                    GraphicsEx.DrawFilledRect(cell.X + 1, cell.Y - 1, width - 2, 17);
-                    Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-                    GraphicsEx.SetColor(Love.Color.White);
-                    this.AssetListBullet.Draw(cell.X + width - 20, cell.Y + 2);
+                    this.DrawHighlight(index);
                 }
             }
         }

@@ -7,6 +7,8 @@ namespace OpenNefia.Core.UI.Element.List
 {
     public interface IUiList<T> : IList<IUiListCell<T>>
     {
+        public bool HighlightSelected { get; set; }
+
         string GetChoiceText(T choice, int index);
         Keys GetChoiceKey(T choice, int index);
         IUiListCell<T> MakeChoiceCell(T choice, int index);

@@ -11,7 +11,6 @@ namespace OpenNefia.Core.UI.Layer
 {
     public class TestLayer : BaseUiLayer<int>
     {
-        private bool Finished = false;
         private UiWindowBacking WindowBacking;
 
         public TestLayer()
@@ -23,8 +22,8 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.BindKey(Keybind.Entries.Escape, (_) => this.Cancel());
-            this.BindKey(Keybind.Entries.Identify, (_) =>
+            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Entries.Identify] += (_) =>
             {
                 var choices = new List<PromptChoice<int>>()
                 {
@@ -36,7 +35,7 @@ namespace OpenNefia.Core.UI.Layer
                 Console.WriteLine($"Prompt start");
                 var result = prompt.Query();
                 Console.WriteLine($"Prompt result: {result}");
-            });
+            };
         }
 
         public override void Relayout(int x, int y, int width, int height)

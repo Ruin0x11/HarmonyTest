@@ -83,10 +83,10 @@ namespace OpenNefia.Core.UI.Layer
                     this.Cancel();
             };
 
-            this.BindKey(Keybind.Entries.Cancel, cancel);
-            this.BindKey(Keybind.Entries.Escape, cancel);
+            this.Keybinds[Keybind.Entries.Cancel] += cancel;
+            this.Keybinds[Keybind.Entries.Escape] += cancel;
 
-            this.ForwardTo(this.List);
+            this.Forwards += this.List;
 
             this.List.EventOnActivate += (o, e) => this.Finish(e.SelectedChoice.Data);
             

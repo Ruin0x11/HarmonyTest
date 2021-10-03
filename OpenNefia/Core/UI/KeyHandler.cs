@@ -132,6 +132,16 @@ namespace OpenNefia.Core.UI
             this.Forwards.Add(keys);
         }
 
+        public void UnforwardTo(IKeyInput keys)
+        {
+            this.Forwards.Remove(keys);
+        }
+        
+        public void ClearAllForwards()
+        {
+            this.Forwards.Clear();
+        }
+
         public bool RunKeyAction(Keys keyAndModifiers, KeyPressState state)
         {
             var keybind = this.Keybinds.KeyToKeybind(keyAndModifiers);

@@ -1,0 +1,73 @@
+﻿using OpenNefia.Core.Data.Types;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OpenNefia.Core.UI
+{
+    /// <summary>
+    /// Provides some convenient syntax for defining key bindings on UI classes that support them.
+    /// </summary>
+    public class KeybindWrapper
+    {
+        public class KeybindDelegateWrapper : IKeyBinder
+        {
+            public Keybind Keybind { get; }
+            public KeybindWrapper Parent { get; }
+
+            public KeybindDelegateWrapper(KeybindWrapper parent, Keybind keybind)
+            {
+                this.Parent = parent;
+                this.Keybind = keybind;
+            }
+
+            public static KeybindDelegateWrapper operator +(KeybindDelegateWrapper delegateWrapper, Action<KeyInputEvent> evt)
+            {
+                delegateWrapper.BindKey(delegateWrapper.Keybind, evt);
+                return delegateWrapper;
+            }
+
+            public void Unbind()
+            {
+                this.UnbindKey(this.Keybind);
+            }
+
+            public void BindKey(Action<KeyInputEvent> func, bool trackReleased = false)
+                => this.BindKey(this.Keybind, func, trackReleased);
+
+            public void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
+            {
+                this.Parent.KeyInput.BindKey(keybind, func, trackReleased);
+            }
+
+            public void UnbindKey(Keybind keybind)
+            {
+                this.Parent.KeyInput.UnbindKey(keybind);
+            }
+        }
+
+        public IKeyInput KeyInput { get; }
+
+        private Dictionary<Keybind, KeybindDelegateWrapper> _Cache;
+
+        public KeybindWrapper(IKeyInput parent)
+        {
+            this.KeyInput = parent;
+            this._Cache = new Dictionary<Keybind, KeybindDelegateWrapper>();
+        }
+
+        public KeybindDelegateWrapper this[Keybind index]
+        {
+            get {
+                if (!this._Cache.ContainsKey(index))
+                    this._Cache[index] = new KeybindDelegateWrapper(this, index);
+                return this._Cache[index];
+            }
+            set
+            {
+            }
+        }
+    }
+}
