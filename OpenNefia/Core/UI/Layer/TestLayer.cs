@@ -40,7 +40,6 @@ namespace OpenNefia.Core.UI.Layer
                 Console.WriteLine($"Prompt start");
                 var result = prompt.Query();
                 Console.WriteLine($"Prompt result: {result}");
-                return null;
             });
         }
 

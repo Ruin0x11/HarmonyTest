@@ -22,13 +22,13 @@ namespace OpenNefia.Game
         public override void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
         {
             var layer = GameWrapper.Instance.CurrentLayer;
-            layer?.OnKeyPressed(key, isRepeat);
+            layer?.OnLoveKeyPressed(key, isRepeat);
         }
 
         public override void KeyReleased(KeyConstant key, Scancode scancode)
         {
             var layer = GameWrapper.Instance.CurrentLayer;
-            layer?.OnKeyReleased(key);
+            layer?.OnLoveKeyReleased(key);
         }
 
         public override void TextEditing(string text, int start, int end)
@@ -38,7 +38,7 @@ namespace OpenNefia.Game
         public override void TextInput(string text)
         {
             var layer = GameWrapper.Instance.CurrentLayer;
-            layer?.OnTextInput(text);
+            layer?.OnLoveTextInput(text);
         }
     }
 }

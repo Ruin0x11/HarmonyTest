@@ -3,10 +3,10 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.UI.Element.List
 {
-    public interface IUiList<T> : IListModel<T>
+    public interface IUiList<T> : IListModel<IUiListCell<T>>
     {
-        string GetChoiceText(int index);
-        ColorAsset GetChoiceColor(int index);
-        Keys GetChoiceKey(int index);
+        string GetChoiceText(T choice, int index);
+        Keys GetChoiceKey(T choice, int index);
+        IUiListCell<T> MakeChoiceCell(T choice, int index); 
     }
 }

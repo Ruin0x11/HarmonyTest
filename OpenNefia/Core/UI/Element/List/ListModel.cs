@@ -11,7 +11,7 @@ namespace OpenNefia.Core.UI.Element.List
     {
         public List<T> Choices;
         public int SelectedIndex { get; private set; }
-        public T? SelectedChoice { get => this.Choices[SelectedIndex]; }
+        public T SelectedChoice { get => this.Choices[SelectedIndex]!; }
 
         public ListModel() : this(new List<T>()) 
         { 
@@ -20,6 +20,11 @@ namespace OpenNefia.Core.UI.Element.List
         public ListModel(List<T> choices)
         {
             this.Choices = choices;
+        }
+
+        public ListModel(IEnumerable<T> choices)
+        {
+            this.Choices = choices.ToList();
         }
 
         public virtual bool CanSelect(int index)

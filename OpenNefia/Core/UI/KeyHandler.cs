@@ -8,16 +8,16 @@ namespace OpenNefia.Core.UI
     {
         private class KeyAction
         {
-            private Func<KeyPressState, KeyActionResult?> Callback;
+            private Action<KeyInputEvent> Callback;
             public bool TrackReleased { get; private set; }
 
-            public KeyAction(Func<KeyPressState, KeyActionResult?> func, bool trackReleased)
+            public KeyAction(Action<KeyInputEvent> func, bool trackReleased)
             {
                 this.Callback = func;
                 this.TrackReleased = trackReleased;
             }
 
-            public KeyActionResult? Run(KeyPressState state) => this.Callback(state);
+            public void Run(KeyInputEvent evt) => this.Callback(evt);
         }
 
         private HashSet<Keys> Pressed;
@@ -47,11 +47,11 @@ namespace OpenNefia.Core.UI
         }
 
         /// <inheritdoc />
-        public void OnKeyPressed(Love.KeyConstant loveKey, bool is_repeat)
+        public void ReceiveKeyPressed(Love.KeyConstant loveKey, bool is_repeat)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.OnKeyPressed(loveKey, is_repeat);
+                forward.ReceiveKeyPressed(loveKey, is_repeat);
             }
 
             if (this.Halted && is_repeat) {
@@ -76,11 +76,11 @@ namespace OpenNefia.Core.UI
         }
 
         /// <inheritdoc />
-        public void OnKeyReleased(Love.KeyConstant loveKey)
+        public void ReceiveKeyReleased(Love.KeyConstant loveKey)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.OnKeyReleased(loveKey);
+                forward.ReceiveKeyReleased(loveKey);
             }
 
             var key = (Keys)loveKey;
@@ -98,11 +98,11 @@ namespace OpenNefia.Core.UI
         }
 
         /// <inheritdoc />
-        public void OnTextInput(string text)
+        public void ReceieveTextInput(string text)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.OnTextInput(text);
+                forward.ReceieveTextInput(text);
             }
         }
 
@@ -145,8 +145,9 @@ namespace OpenNefia.Core.UI
                     // released, not when any modifier is released.
                     if (state != KeyPressState.Released || (state == KeyPressState.Released && action.TrackReleased))
                     {
-                        var result = action.Run(state);
-                        if (result == null || result == KeyActionResult.Complete)
+                        var evt = new KeyInputEvent(state);
+                        action.Run(evt);
+                        if (!evt.Vetoed)
                         {
                             return true;
                         }
@@ -165,7 +166,7 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public void BindKey(Keybind keybind, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false)
+        public void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
         {
             this.Actions[keybind] = new KeyAction(func, trackReleased);
             this.Keybinds.Enable(keybind);

@@ -104,7 +104,7 @@ namespace OpenNefia.Game
             this.TargetCanvas = Love.Graphics.NewCanvas(width, height);
             foreach (var layer in this.Layers)
             {
-                layer.Relayout(0, 0, width, height);
+                layer.Relayout(-1, -1, width, height);
             }
         }
 
@@ -121,7 +121,7 @@ namespace OpenNefia.Game
 
         internal void PushLayer(IUiLayer layer)
         {
-            layer.Relayout(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            layer.Relayout(-1, -1, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Layers.Add(layer);
         }
 

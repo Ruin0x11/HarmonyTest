@@ -2,7 +2,8 @@
 
 namespace OpenNefia.Core.UI
 {
-    public interface IUiLayer : IUiInput, IUiElement
+    public interface IUiLayer : IUiInput, IUiElement, ILoveEventReceiever
     {
+        public IUiFocusManager FocusManager { get; }
     }
 }

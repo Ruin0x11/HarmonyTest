@@ -42,23 +42,23 @@ namespace OpenNefia.Core.UI.Element
         protected ColorAsset ColorTopicWindowStyle6;
         protected Love.SpriteBatch TopicWindowBatch;
 
-        private static AssetDrawable GetTopicWindowAsset(FrameStyle frameStyle)
+        private AssetDrawable GetTopicWindowAsset(FrameStyle frameStyle)
         {
             switch (frameStyle)
             {
                 case FrameStyle.Zero:
                 default:
-                    return new AssetDrawable(Asset.Entries.TopicWindow0);
+                    return new AssetDrawable(Asset.Entries.TopicWindow0, this.Width, this.Height);
                 case FrameStyle.One:
-                    return new AssetDrawable(Asset.Entries.TopicWindow1);
+                    return new AssetDrawable(Asset.Entries.TopicWindow1, this.Width, this.Height);
                 case FrameStyle.Two:
-                    return new AssetDrawable(Asset.Entries.TopicWindow2);
+                    return new AssetDrawable(Asset.Entries.TopicWindow2, this.Width, this.Height);
                 case FrameStyle.Three:
-                    return new AssetDrawable(Asset.Entries.TopicWindow3);
+                    return new AssetDrawable(Asset.Entries.TopicWindow3, this.Width, this.Height);
                 case FrameStyle.Four:
-                    return new AssetDrawable(Asset.Entries.TopicWindow4);
+                    return new AssetDrawable(Asset.Entries.TopicWindow4, this.Width, this.Height);
                 case FrameStyle.Five:
-                    return new AssetDrawable(Asset.Entries.TopicWindow5);
+                    return new AssetDrawable(Asset.Entries.TopicWindow5, this.Width, this.Height);
             }
         }
 
@@ -67,7 +67,7 @@ namespace OpenNefia.Core.UI.Element
             this.FrameStyle_ = frameStyle;
             this.WindowStyle_ = windowStyle;
 
-            this.AssetTopicWindow = GetTopicWindowAsset(this.FrameStyle_);
+            this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle_);
             this.AssetWindow = new AssetDrawable(Asset.Entries.Window);
             this.ColorTopicWindowStyle0 = ColorAsset.Entries.TopicWindowStyle0;
             this.ColorTopicWindowStyle1 = ColorAsset.Entries.TopicWindowStyle1;
@@ -99,7 +99,7 @@ namespace OpenNefia.Core.UI.Element
             for (int i = 0; i < this.Height / 16 - 1; i++)
             {
                 parts.Add(new AssetBatchPart("left_mid", 0, i * 16 + 16));
-                parts.Add(new AssetBatchPart("right_mid", 0, i * 16 + 16));
+                parts.Add(new AssetBatchPart("right_mid", this.Width - 16, i * 16 + 16));
             }
 
             parts.Add(new AssetBatchPart("left_mid2", 0, innerY));
@@ -110,7 +110,14 @@ namespace OpenNefia.Core.UI.Element
             parts.Add(new AssetBatchPart("top_right", this.Width - 16, 0));
             parts.Add(new AssetBatchPart("bottom_right", this.Width - 16, this.Height - 16));
 
+            this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle_);
             return this.AssetTopicWindow.MakeBatch(parts);
+        }
+
+        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
+        {
+            base.Relayout(x, y, width, height);
+            this.TopicWindowBatch = this.MakeBatch();
         }
 
         public override void Update(float dt)
@@ -122,7 +129,7 @@ namespace OpenNefia.Core.UI.Element
             if (this.WindowStyle_ == WindowStyle.Six)
             {
                 GraphicsEx.SetColor(this.ColorTopicWindowStyle6);
-                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.x, this.y, this.Width - 4, this.Height - 4);
+                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X, this.Y, this.Width - 4, this.Height - 4);
             }
             else
             {

@@ -24,5 +24,10 @@ namespace OpenNefia.Core
 					yield return item;
 			}
 		}
+
+		public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> dicToAdd)
+		{
+			dicToAdd.ForEach(x => dic.Add(x.Key, x.Value));
+		}
 	}
 }

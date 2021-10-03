@@ -11,26 +11,26 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="key"></param>
         /// <param name="is_repeat"></param>
-        void OnKeyPressed(KeyConstant key, bool is_repeat);
+        void ReceiveKeyPressed(KeyConstant key, bool is_repeat);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
-        void OnKeyReleased(KeyConstant key);
+        void ReceiveKeyReleased(KeyConstant key);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
-        void OnTextInput(string text);
+        void ReceieveTextInput(string text);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <param name="func"></param>
-        void BindKey(Keybind keybind, Func<KeyPressState, KeyActionResult?> func, bool trackReleased = false);
+        void BindKey(Keybind keybind, Action<KeyInputEvent> func, bool trackReleased = false);
 
         /// <summary>
         /// 

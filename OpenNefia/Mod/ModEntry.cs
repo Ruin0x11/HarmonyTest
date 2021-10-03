@@ -78,7 +78,6 @@ namespace OpenNefia.Mod
                     currentType = currentType.BaseType?.Resolve();
                 } while (inherit && currentType?.FullName != "System.Object");
 
-
                 return result;
             }
 

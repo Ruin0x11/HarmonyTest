@@ -102,19 +102,7 @@ namespace OpenNefia.Core.Rendering
             return image;
         }
 
-        public AssetDrawable(Asset asset)
-        {
-            this.Asset = asset;
-            this.Image = LoadImage(this.Asset);
-            this.Quads = new Dictionary<string, Quad>();
-            this.CountX = this.Asset.CountX;
-            this.CountY = this.Asset.CountY;
-            this.Regions = new Dictionary<string, Asset.Region>(this.Asset.Regions);
-
-            this.SetupQuads();
-        }
-
-        public AssetDrawable(Asset asset, int batchWidth, int batchHeight) : this(asset)
+        public AssetDrawable(Asset asset, int batchWidth, int batchHeight)
         {
             this.Asset = asset;
             this.Image = LoadImage(this.Asset);
@@ -127,6 +115,8 @@ namespace OpenNefia.Core.Rendering
 
             this.SetupQuads();
         }
+
+        public AssetDrawable(Asset asset) : this(asset, 1, 1) { }
 
         private void SetupQuads()
         {

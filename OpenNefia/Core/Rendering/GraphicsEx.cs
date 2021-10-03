@@ -63,7 +63,7 @@ namespace OpenNefia.Core.Rendering
             }
             if (height > 0)
             {
-                sx = height / viewport.Height;
+                sy = height / viewport.Height;
             }
 
             var ox = 0f;
@@ -130,16 +130,6 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
         }
 
-        internal static void SetColor(object colorWindowStyle0)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static void SetColor(object colorWindowStyle1)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static void DrawLineRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
@@ -192,7 +182,7 @@ namespace OpenNefia.Core.Rendering
         /// <param name="height"></param>
         public static void SetScissor(int x = 0, int y = 0, int width = 0, int height = 0)
         {
-            if (x == 0 && y == 0 && width == 0 && height == 0)
+            if (width <= 0 && height <= 0)
             {
                 Love.Graphics.SetScissor();
             }

@@ -30,18 +30,16 @@ namespace OpenNefia.Core.UI.Layer
             {
             }
 
-            public override string GetChoiceText(int index)
+            public override string GetChoiceText(PromptChoice<T> choice, int index)
             {
-                var choice = this[index];
                 if (choice.Text != null)
                     return choice.Text;
 
-                return choice.Result.ToString()!;
+                return $"{choice.Result}";
             }
 
-            public override Keys GetChoiceKey(int index)
+            public override Keys GetChoiceKey(PromptChoice<T> choice, int index)
             {
-                var choice = this[index];
                 if (choice.Key != Keys.None)
                     return choice.Key;
 
@@ -71,10 +69,9 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Width = this.Options.Width;
 
-            var font = List.FontListText;
-            for (int i = 0; i < this.List.Count; i++)
+            foreach (var cell in this.List)
             {
-                this.Width = Math.Max(this.Width, font.GetWidth(List.GetChoiceText(i)) + 26 + 33 + 44);
+                this.Width = Math.Max(this.Width, cell.Width + 26 + 33 + 44);
             }
 
             this.BindKeys();
@@ -101,12 +98,27 @@ namespace OpenNefia.Core.UI.Layer
 
             base.Relayout(x, y, width, height);
 
+            this.List.Relayout(x + 30, y + 24, width, height);
+
+            if (x == -1)
+            {
+                var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
+                x = promptX - width / 2;
+            }
+            if (y == -1)
+            {
+                var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
+                y = promptY - this.List.Height / 2;
+            }
+
             this.Window.Relayout(x + 8, y + 8, width - 16, height - 16);
             this.List.Relayout(x + 30, y + 24, width, height);
+
         }
 
         public override void Update(float dt)
         {
+            this.Window.Update(dt);
             this.List.Update(dt);
         }
 
@@ -115,7 +127,7 @@ namespace OpenNefia.Core.UI.Layer
             if (this.Finished)
             {
                 this.Finished = false;
-                return UiResult<PromptChoice<T>>.Finished(this.List.SelectedChoice);
+                return UiResult<PromptChoice<T>>.Finished(this.List.SelectedChoice.Data);
             }
 
             return null;
@@ -123,6 +135,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Draw()
         {
+            this.Window.Draw();
             this.List.Draw();
         }
     }
