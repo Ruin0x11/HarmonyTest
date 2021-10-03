@@ -83,7 +83,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void MoveRight(KeyInputEvent evt)
         {
-            this.Right = (evt.State != KeyPressState.Released) ;
+            this.Right = (evt.State != KeyPressState.Released);
         }
 
         private KeyActionResult? QueryLayer()

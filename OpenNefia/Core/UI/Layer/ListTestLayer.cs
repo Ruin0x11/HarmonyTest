@@ -77,17 +77,17 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
         {
-            width = 600;
-            height = 500;
+            width = 400;
+            height = 170;
 
             var rect = UiUtils.GetCenteredParams(width, height);
             
             base.Relayout(rect.X, rect.Y, rect.Width, rect.Height);
 
             this.Window.Relayout(this.X, this.Y, this.Width, this.Height);
-            this.List1.Relayout(this.X + 20, this.Y + 20, 20, this.Height - 20);
-            this.List2.Relayout(this.X + 20, this.Y + 20, 20 + (int)((this.Width - 40) * 0.33), this.Height - 20);
-            this.List3.Relayout(this.X + 20, this.Y + 20, 20 + (int)((this.Width - 40) * 0.66), this.Height - 20);
+            this.List1.Relayout(this.X + 20, this.Y + 40, this.Width - 40, this.Height - 40);
+            this.List2.Relayout(this.X + 20 + (int)((this.Width - 40) * 0.33), this.Y + 40, this.Width - 40, this.Height - 40);
+            this.List3.Relayout(this.X + 20 + (int)((this.Width - 40) * 0.66), this.Y + 40, this.Width - 40, this.Height - 40);
         }
 
         public override void Update(float dt)

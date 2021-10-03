@@ -67,8 +67,8 @@ namespace OpenNefia.Core.UI.Element
 
             if (this.TitleText != null)
             {
-                this.TopicWindow.Relayout(x + 34, y - 4, 45 * width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200));
-                this.TitleText.Relayout(x + 45 * width / 200 + 34 - this.TitleText.Width / 2);
+                this.TopicWindow.Relayout(x + 34, y - 4, 45 * width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
+                this.TitleText.Relayout(x + 45 * width / 200 + 34 - this.TitleText.Width / 2, this.Y + 4);
             }
 
             this.KeyHintText.Relayout(x + 58 + this.XOffset, y + height - 43 - height % 8);
