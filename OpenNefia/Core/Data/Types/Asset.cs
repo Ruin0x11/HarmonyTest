@@ -123,6 +123,19 @@ namespace OpenNefia.Core.Data.Types
                 ImageRegion = new ImageRegion(InterfaceBmp, 96, 360, 24 * 8, 16),
                 CountX = 8
             };
+
+            public static Asset LabelInput = new Asset($"Core.{nameof(LabelInput)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 128, 288, 128, 32),
+            };
+            public static Asset ArrowLeft = new Asset($"Core.{nameof(ArrowLeft)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 312, 336, 24, 24),
+            };
+            public static Asset ArrowRight = new Asset($"Core.{nameof(ArrowRight)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 336, 336, 24, 24),
+            };
         }
     }
 }

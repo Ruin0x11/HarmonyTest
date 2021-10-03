@@ -114,7 +114,7 @@ namespace OpenNefia.Core.UI.Element
             return this.AssetTopicWindow.MakeBatch(parts);
         }
 
-        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
+        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)
         {
             base.Relayout(x, y, width, height);
             this.TopicWindowBatch = this.MakeBatch();

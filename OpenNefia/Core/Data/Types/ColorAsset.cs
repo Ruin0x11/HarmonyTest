@@ -56,6 +56,8 @@ namespace OpenNefia.Core.Data.Types
             public static ColorAsset TopicWindowStyle4 = new ColorAsset($"Core.{nameof(TopicWindowStyle4)}", 255 - 195, 255 - 205, 255 - 195);
             public static ColorAsset TopicWindowStyle5 = new ColorAsset($"Core.{nameof(TopicWindowStyle5)}", 255, 255, 255);
             public static ColorAsset TopicWindowStyle6 = new ColorAsset($"Core.{nameof(TopicWindowStyle6)}", 255, 255, 255, 180);
+
+            public static ColorAsset PromptBackground = new ColorAsset($"Core.{nameof(PromptBackground)}", 0, 0, 0, 127);
         }
     }
 }

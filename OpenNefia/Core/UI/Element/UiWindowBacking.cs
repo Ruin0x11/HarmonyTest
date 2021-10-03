@@ -26,7 +26,7 @@ namespace OpenNefia.Core.UI.Element
             this.Type = type;
         }
 
-        public override void Relayout(int x, int y, int width, int height)
+        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
         {
             base.Relayout(x, y, width, height);
 

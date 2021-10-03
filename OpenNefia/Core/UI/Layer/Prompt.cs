@@ -92,7 +92,7 @@ namespace OpenNefia.Core.UI.Layer
             
         }
 
-        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
+        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)
         {
             width = this.Width;
             height = this.List.Count * this.List.ItemHeight + 42;

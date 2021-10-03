@@ -19,7 +19,7 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        private string _Text = string.Empty;
+        private string _Text;
         public string Text
         {
             get => _Text;
@@ -29,8 +29,6 @@ namespace OpenNefia.Core.UI.Element
                 this.BakedText = Love.Graphics.NewText(this.Font, value);
             }
         }
-
-#pragma warning disable CS8618
 
         public UiText(string text, FontAsset font, ColorAsset? color = null)
         {
@@ -47,9 +45,7 @@ namespace OpenNefia.Core.UI.Element
         {
         }
 
-#pragma warning restore CS8618
-
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0)
+        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
         {
             base.Relayout(x, y, width, height);
 

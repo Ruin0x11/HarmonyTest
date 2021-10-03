@@ -52,6 +52,8 @@ namespace OpenNefia.Core.Data.Types
 
             public static FontAsset WindowTitle = new FontAsset($"Core.{nameof(WindowTitle)}", 15, 14);
             public static FontAsset WindowKeyHints = new FontAsset($"Core.{nameof(WindowKeyHints)}", 15, 14);
+
+            public static FontAsset PromptText = new FontAsset($"Core.{nameof(WindowKeyHints)}", 16, 14);
         }
     }
 }

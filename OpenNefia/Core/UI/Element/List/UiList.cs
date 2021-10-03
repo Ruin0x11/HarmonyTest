@@ -196,7 +196,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         #region UI Handling
 
-        public override void Relayout(int x, int y, int width, int height)
+        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
         {
             base.Relayout(x, y, width, height);
 

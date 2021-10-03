@@ -75,7 +75,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += list;
         }
 
-        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1)
+        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)
         {
             width = 400;
             height = 170;

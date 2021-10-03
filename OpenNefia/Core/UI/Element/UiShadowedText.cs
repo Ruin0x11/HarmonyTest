@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.UI.Element
 {
     public class UiShadowedText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
-        private Love.Color FgColor;
-        private Love.Color BgColor;
+        private ColorAsset FgColor;
+        private ColorAsset BgColor;
 
         private Love.Font _Font;
         public Love.Font Font
@@ -26,7 +25,7 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        private string _Text = string.Empty;
+        private string _Text;
         public string Text {
             get => _Text;
             set {
@@ -35,9 +34,7 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-#pragma warning disable CS8618
-
-        public UiShadowedText(string text, Love.Font font, Love.Color? fgColor = null, Love.Color? bgColor = null)
+        public UiShadowedText(string text, Love.Font font, ColorAsset? fgColor = null, ColorAsset? bgColor = null)
         {
             if (fgColor == null)
                 fgColor = ColorAsset.Entries.TextForeground;
@@ -47,12 +44,11 @@ namespace OpenNefia.Core.UI.Element
             this._Text = text;
             this._Font = font;
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.FgColor = fgColor.Value;
-            this.BgColor = bgColor.Value;
+            this.FgColor = fgColor;
+            this.BgColor = bgColor;
         }
-#pragma warning restore CS8618
 
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0)
+        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
         {
             base.Relayout(x, y, width, height);
 
