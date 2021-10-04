@@ -195,38 +195,45 @@ namespace OpenNefia.Core.UI.Element.List
 
         #region UI Handling
 
-        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetPosition(int x, int y)
         {
-            base.Relayout(x, y, width, height);
+            base.SetPosition(x, y);
 
+            for (int index = 0; index < this.Count; index++)
+            {
+                var cell = this.Choices[index];
+                var ix = this.X + this.ItemOffsetX;
+                var iy = index * this.ItemHeight + this.Y + this.ItemOffsetY;
+
+                cell.SetPosition(ix + 26, iy + 1);
+
+                var text = this.KeyNameTexts[index];
+                var textX = ix + (this.AssetSelectKey.Width - GraphicsEx.GetTextWidth(text.Text)) / 2 - 2;
+                var textY = iy + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
+                text.SetPosition(textX, textY);
+            }
+        }
+
+        public override void SetSize(int width, int height)
+        {
             var totalHeight = 0;
 
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Choices[index];
-                var ix = this.X + this.ItemOffsetX + 26;
-                var iy = index * this.ItemHeight + this.Y + this.ItemOffsetY + 1;
-
-                cell.Relayout(ix, iy, width, this.ItemHeight);
+                cell.SetSize(0, this.ItemHeight);
                 totalHeight += cell.Height;
-                this.Width = Math.Max(this.Width, cell.Width);
+                width = Math.Max(width, cell.Width);
             }
 
-            this.Height = Math.Max(this.Height, totalHeight);
+            base.SetSize(width, Math.Max(height, totalHeight));
         }
 
         protected virtual void DrawSelectKey(int index)
         {
             var cell = this.Choices[index];
-            var x = cell.X - 26;
-            var y = cell.Y - 1;
-
             GraphicsEx.SetColor(Color.White);
-            this.AssetSelectKey.Draw(x, y);
-
-            var text = this.KeyNameTexts[index];
-            text.X = x + (this.AssetSelectKey.Width - GraphicsEx.GetTextWidth(text.Text)) / 2 - 2;
-            text.Y = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
+            this.AssetSelectKey.Draw(cell.X - 26, cell.Y - 1);
             this.KeyNameTexts[index].Draw();
         }
         
@@ -287,7 +294,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         public bool IsFixedSize => false;
         public bool IsSynchronized => false;
-        public object SyncRoot => this.SyncRoot;
+        public object SyncRoot => this;
 
         public IEnumerator<IUiListCell<T>> GetEnumerator() => this.Choices.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.Choices.GetEnumerator();

@@ -56,24 +56,19 @@ namespace TestMod1
         protected virtual void UpdateText()
         {
             this.Text.Text = $"{this.Value}({this.Value})";
-            this.Text.Relayout(this.X + 20, this.Y + 20);
         }
 
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetDefaultSize()
         {
-            if (mode == RelayoutMode.Free)
-            {
-                width = 400;
-                height = 400;
-                var rect = UiUtils.GetCenteredParams(width, height);
-                base.Relayout(rect.X, rect.Y, rect.Width, rect.Height);
-            }
-            else
-            {
-                base.Relayout(x, y, width, height);
-            }
+            var size = UiUtils.GetCenteredParams(400, 400);
+            this.SetSize(size.Width, size.Height);
+            this.SetPosition(size.X, size.Y);
+        }
 
-            this.UpdateText();
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            this.Text.SetPosition(x, y);
         }
 
         public override void Update(float dt)

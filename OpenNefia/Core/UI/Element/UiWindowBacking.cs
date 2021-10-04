@@ -26,9 +26,12 @@ namespace OpenNefia.Core.UI.Element
             this.Type = type;
         }
 
-        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetSize(int width, int height)
         {
-            base.Relayout(x, y, width, height);
+            base.SetSize(width, height);
+
+            var x = 0;
+            var y = 0;
 
             var x_inner = width + x - width % 8 - 64;
             var y_inner = height + y - height % 8 - 64;
@@ -81,7 +84,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.DrawSpriteBatch(this.Batch!, 0, 0);
+            GraphicsEx.DrawSpriteBatch(this.Batch!, this.X, this.Y);
         }
     }
 }

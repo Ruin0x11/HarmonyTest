@@ -46,16 +46,12 @@ namespace OpenNefia.Core.UI.Element
         protected void RebakeText()
         {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.Width = this.Font.GetWidth(this.Text);
-            this.Height = this.Font.GetHeight();
+            this.SetSize(0, 0);
         }
 
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetSize(int width = 0, int height = 0)
         {
-            base.Relayout(x, y, width, height);
-
-            this.Width = this.Font.GetWidth(this.Text);
-            this.Height = this.Font.GetHeight();
+            base.SetSize(this.Font.GetWidth(this.Text), this.Font.GetHeight());
         }
 
         public override void Update(float dt)

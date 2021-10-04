@@ -20,6 +20,8 @@ namespace OpenNefia.Core.UI.Layer
             this.BindKeys();
         }
 
+        private int SquareX = 0;
+
         protected virtual void BindKeys()
         {
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
@@ -52,19 +54,35 @@ namespace OpenNefia.Core.UI.Layer
             };
         }
 
-        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetDefaultSize()
         {
-            base.Relayout(x, y, width, height);
+            var rect = UiUtils.GetCenteredParams(400, 300);
+            this.SetSizeAndPosition(rect);
+        }
 
-            this.WindowBacking.Relayout(x + width / 4, y + height / 4, width / 2, height / 2);
+        public override void SetSize(int width, int height)
+        {
+            base.SetSize(width, height);
+
+            this.WindowBacking.SetSize(width, height);
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+
+            this.WindowBacking.SetPosition(this.X, this.Y);
         }
 
         public override void Update(float dt)
         {
-            X = X + 1;
-            if (X > 200)
+            if (this.SquareX > 200)
             {
-                X = 100;
+                this.SquareX = 0;
+            }
+            else
+            {
+                this.SquareX++;
             }
 
             this.WindowBacking.Update(dt);
@@ -75,7 +93,7 @@ namespace OpenNefia.Core.UI.Layer
             Graphics.SetColor(1f, 1f, 1f);
             Graphics.Rectangle(DrawMode.Fill, 100, 100, 100, 100);
             Graphics.SetColor(1f, 0, 1f);
-            Graphics.Rectangle(DrawMode.Fill, 50 + X, 50 + Y, 100, 100);
+            Graphics.Rectangle(DrawMode.Fill, 50 + this.SquareX, 50, 100, 100);
 
             Graphics.SetColor(1f, 1f, 1f);
             this.WindowBacking.Draw();

@@ -9,17 +9,27 @@ namespace OpenNefia.Core.UI.Element
 {
     public abstract class BaseUiElement : IUiElement
     {
-        public int X { get; set; } = 0;
-        public int Y { get; set; } = 0;
-        public int Width { get; set; } = 0;
-        public int Height { get; set; } = 0;
+        public int Width { get; private set; } = 0;
+        public int Height { get; private set; } = 0;
+        public int X { get; private set; } = 0;
+        public int Y { get; private set; } = 0;
 
-        public virtual void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
+        public void SetSizeAndPosition(Rectangle rect)
+        {
+            this.SetSize(rect.Width, rect.Height);
+            this.SetPosition(rect.X, rect.Y);
+        }
+
+        public virtual void SetSize(int width = 0, int height = 0)
+        {
+            this.Width = width;
+            this.Height = height;
+        }
+
+        public virtual void SetPosition(int x = 0, int y = 0)
         {
             this.X = x;
             this.Y = y;
-            this.Width = width;
-            this.Height = height;
         }
 
         public abstract void Update(float dt);

@@ -116,25 +116,32 @@ namespace OpenNefia.Core.UI.Layer
         protected virtual void UpdateText()
         {
             this.Text.Text = $"{this.Value}({this.Value})";
-            this.Text.Relayout(this.X + this.Width - 70 - Text.Width + 8, this.Y + 11);
         }
 
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
-        {
-            if (mode == RelayoutMode.Free)
-            {
-                width = 8 * 16 + 60;
-                height = 36;
-                var rect = UiUtils.GetCenteredParams(width, height);
-                base.Relayout(rect.X, rect.Y, rect.Width, rect.Height);
-            }
-            else
-            {
-                base.Relayout(x, y, width, height);
-            }
+        public const int DEFAULT_WIDTH = 8 * 16 + 60;
+        public const int DEFAULT_HEIGHT = 36;
 
-            this.TopicWindow.Relayout(this.X + 20, this.Y, this.Width - 40, this.Height);
-            this.UpdateText();
+        public override void SetDefaultSize()
+        {
+            var rect = UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            this.SetSize(rect.Width, rect.Height);
+            this.SetPosition(rect.X, rect.Y);
+        }
+
+        public override void SetSize(int width = 0, int height = 0)
+        {
+            base.SetSize(width, height);
+
+            this.TopicWindow.SetSize(this.Width - 40, this.Height);
+            this.Text.SetSize();
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+
+            this.TopicWindow.SetPosition(this.X + 20, this.Y);
+            this.Text.SetPosition(this.X + this.Width - 70 - Text.Width + 8, this.Y + 11);
         }
 
         public override void Update(float dt)

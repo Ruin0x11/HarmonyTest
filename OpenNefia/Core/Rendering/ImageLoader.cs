@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetVips.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -38,7 +39,7 @@ namespace OpenNefia.Core.Rendering
                 return cachedImage;
             }
 
-            var image = VipsImage.NewFromFile(filepath);
+            var image = new Bitmap(filepath).ToVips();
 
             if (!keyColor.HasValue)
             {

@@ -43,10 +43,16 @@ namespace OpenNefia.Core.UI.Element.List
             return new UiText(this.FontListText, rawText);
         }
 
-        public override void Relayout(int x = -1, int y = -1, int width = -1, int height = -1, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetPosition(int x, int y)
         {
-            this.UiText.Relayout(x + 4 + this.XOffset, y + 1, width, height);
-            base.Relayout(x, y, this.UiText.Width, height);
+            base.SetPosition(x, y);
+            this.UiText.SetPosition(x + 4 + this.XOffset, y + 1);
+        }
+
+        public override void SetSize(int width = -1, int height = -1)
+        {
+            this.UiText.SetSize(width, height);
+            base.SetSize(Math.Max(width, this.UiText.Width), height);
         }
 
         public override void Draw()

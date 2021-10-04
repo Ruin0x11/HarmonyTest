@@ -56,22 +56,40 @@ namespace OpenNefia.Core.UI.Element
             this.KeyHintText.Text = "hogepiyo";
         }
 
-        public override void Relayout(int x, int y, int width, int height, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetPosition(int x, int y)
         {
-            base.Relayout(x, y, width, height);
+            base.SetPosition(x, y);
 
             if (this.HasShadow)
-                this.WindowShadow.Relayout(x + 4, y + 4, width, height);
+                this.WindowShadow.SetPosition(this.X + 4, this.Y + 4);
 
-            this.Window.Relayout(x, y, width, height);
+            this.Window.SetPosition(x, y);
 
             if (this.TitleText != null)
             {
-                this.TopicWindow.Relayout(x + 34, y - 4, 45 * width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
-                this.TitleText.Relayout(x + 45 * width / 200 + 34 - this.TitleText.Width / 2, this.Y + 4);
+                this.TopicWindow.SetPosition(x + 34, y - 4);
+                this.TitleText.SetPosition(x + 45 * this.Width / 200 + 34 - this.TitleText.Width / 2, this.Y + 4);
             }
 
-            this.KeyHintText.Relayout(x + 58 + this.XOffset, y + height - 43 - height % 8);
+            this.KeyHintText.SetPosition(x + 58 + this.XOffset, y + this.Height - 43 - this.Height % 8);
+        }
+
+        public override void SetSize(int width, int height)
+        {
+            base.SetSize(width, height);
+
+            if (this.HasShadow)
+                this.WindowShadow.SetSize(this.Width, this.Height);
+
+            this.Window.SetSize(this.Width, this.Height);
+
+            if (this.TitleText != null)
+            {
+                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
+                this.TitleText.SetSize();
+            }
+
+            this.KeyHintText.SetSize();
         }
 
         public override void Update(float dt)

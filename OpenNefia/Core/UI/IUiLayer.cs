@@ -9,5 +9,6 @@ namespace OpenNefia.Core.UI
 {
     public interface IUiLayer : IUiInput, IUiElement, ILoveEventReceiever
     {
+        void SetDefaultSize();
     }
 }

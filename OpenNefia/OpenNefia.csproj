@@ -6,6 +6,7 @@
     <RootNamespace>OpenNefia</RootNamespace>
 	<Nullable>enable</Nullable>
 	<CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
+    <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,8 @@
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
     <PackageReference Include="MonoMod" Version="21.9.19.1" />
     <PackageReference Include="NetVips" Version="2.0.1" />
+    <PackageReference Include="NetVips.Extensions" Version="2.0.0" />
+    <PackageReference Include="NetVips.Native" Version="8.11.4" />
   </ItemGroup>
 
   <ItemGroup>

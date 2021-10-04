@@ -58,18 +58,15 @@ namespace OpenNefia.Core.UI.Layer
         public UiPromptList List { get; }
         public UiTopicWindow Window { get; }
 
+        private int DefaultWidth;
+
         public Prompt(List<PromptChoice<T>> choices, PromptOptions options)
         {
             this.List = new UiPromptList(choices);
             this.Window = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Zero);
             this.Options = options;
 
-            this.Width = this.Options.Width;
-
-            foreach (var cell in this.List)
-            {
-                this.Width = Math.Max(this.Width, cell.Width + 26 + 33 + 44);
-            }
+            this.DefaultWidth = this.Options.Width;
 
             this.BindKeys();
         }
@@ -89,30 +86,43 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += this.List;
 
             this.List.EventOnActivate += (o, e) => this.Finish(e.SelectedChoice.Data);
-            
         }
 
-        public override void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout)
+        public override void SetDefaultSize()
         {
-            width = this.Width;
-            height = this.List.Count * this.List.ItemHeight + 42;
+            this.SetSize(this.DefaultWidth, 0);
 
-            base.Relayout(x, y, width, height);
+            var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
+            var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
 
-            this.List.Relayout(x + 30, y + 24, width, height);
+            var x = promptX - this.Width / 2;
+            var y = promptY - this.List.Height / 2;
 
-            if (mode == RelayoutMode.Free)
+            this.SetPosition(x, y);
+        }
+
+        public override void SetSize(int width = 0, int height = 0)
+        {
+            width = Math.Max(this.DefaultWidth, width);
+
+            this.List.SetSize(width, height);
+
+            foreach (var cell in this.List)
             {
-                var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
-                x = promptX - width / 2;
-                var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
-                y = promptY - this.List.Height / 2;
+                width = Math.Max(width, cell.Width + 26 + 33 + 44);
             }
 
-            this.Width = Math.Max(this.Width, this.List.Width);
+            base.SetSize(Math.Max(width, this.List.Width), this.List.Count * this.List.ItemHeight + 42);
 
-            this.Window.Relayout(x + 8, y + 8, this.Width - 16, this.Height - 16);
-            this.List.Relayout(x + 30, y + 24, this.Width, this.Height);
+            this.Window.SetSize(this.Width - 16, this.Height - 16);
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+
+            this.List.SetPosition(this.X + 30, this.Y + 24);
+            this.Window.SetPosition(this.X + 8, this.Y + 8);
         }
 
         public override void Update(float dt)

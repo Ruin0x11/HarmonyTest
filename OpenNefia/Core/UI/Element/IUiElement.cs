@@ -2,13 +2,15 @@
 {
     public interface IUiElement
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        int Width { get; }
+        int Height { get; }
+        int X { get; }
+        int Y { get; }
 
-        public void Relayout(int x = 0, int y = 0, int width = 0, int height = 0, RelayoutMode mode = RelayoutMode.Layout);
-        public void Update(float dt);
-        public void Draw();
+        void SetSize(int width = 0, int height = 0);
+        void SetPosition(int x, int y);
+
+        void Update(float dt);
+        void Draw();
     }
 }
