@@ -75,7 +75,7 @@ namespace OpenNefia.Core.Data.Types
 
         public static class Entries
         {
-            private static IResourcePath InterfaceBmp = new ModLocalPath(typeof(CoreMod), "Assets/interface.bmp");
+            private static IResourcePath InterfaceBmp = new ModLocalPath(typeof(CoreMod), "Assets/Graphic/interface.bmp");
 
             public static Asset Window = new WindowAsset($"Core.{nameof(Window)}")
             {

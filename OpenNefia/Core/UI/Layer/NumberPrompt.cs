@@ -66,16 +66,16 @@ namespace OpenNefia.Core.UI.Layer
         protected ColorAsset ColorPromptBackground;
         protected FontAsset FontPromptText;
 
-        public NumberPrompt(int max = 1, int min = 1, int? initial = null, bool isCancellable = true)
+        public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
         {
-            this._MinValue = min;
-            this._MaxValue = max;
-            if (initial == null)
-                initial = this.MaxValue;
+            this._MinValue = minValue;
+            this._MaxValue = maxValue;
+            if (initialValue == null)
+                initialValue = this.MaxValue;
 
-            initial = Math.Clamp(initial.Value, this.MinValue, this.MaxValue);
+            initialValue = Math.Clamp(initialValue.Value, this.MinValue, this.MaxValue);
 
-            this._Value = initial.Value;
+            this._Value = initialValue.Value;
             this.IsCancellable = isCancellable;
 
             this.AssetLabelInput = new AssetDrawable(Asset.Entries.LabelInput);
@@ -125,7 +125,7 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void UpdateText()
         {
-            this.Text.Text = $"{this.Value}({this.Value})";
+            this.Text.Text = $"{this.Value}({this.MaxValue})";
         }
 
         public const int DEFAULT_WIDTH = 8 * 16 + 60;

@@ -10,8 +10,8 @@
     <ProjectReference Include="..\..\OpenNefia\OpenNefia.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)&quot;&#xD;&#xA;xcopy /Y /S &quot;$(ProjectDir)Assets&quot; &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)\$(ProjectName).dll&quot;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="mkdir &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)&quot;&#xD;&#xA;xcopy /Y /S &quot;$(ProjectDir)Assets&quot; &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)OpenNefia\$(OutDir)Mods\$(ProjectName)\$(ProjectName).dll&quot;" />
+	</Target>
 
 </Project>

@@ -49,7 +49,7 @@ namespace OpenNefia.Mod
         {
             HarmonyLib.Harmony.DEBUG = true;
 
-            var path = Directory.GetCurrentDirectory();
+            var path = AppDomain.CurrentDomain.BaseDirectory;
             var modsDirectory = Path.GetFullPath(Path.Combine(path, MOD_PATH));
             var scannedMods = new List<ModInfo>();
 

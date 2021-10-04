@@ -8,7 +8,6 @@ namespace OpenNefia.Core.Data.Types
 {
     public class SoundDef : Def
     {
-        [DefField]
         public string Filepath { get; } = string.Empty;
 
         public SoundDef(string id) : base(id) { }

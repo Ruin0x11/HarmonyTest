@@ -37,11 +37,7 @@ namespace OpenNefia.Core.UI
             return null;
         }
 
-        public virtual void SetDefaultSize()
-        {
-            this.SetPosition(0, 0);
-            this.SetSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-        }
+        public abstract void SetDefaultSize();
 
         public virtual void OnQuery() 
         {

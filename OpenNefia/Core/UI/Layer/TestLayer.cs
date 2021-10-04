@@ -43,7 +43,7 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Keybinds[Keybind.Entries.Mode] += (_) =>
             {
-                var numberPrompt = new NumberPrompt(min: 2, max: 100, initial: 50);
+                var numberPrompt = new NumberPrompt(minValue: 2, maxValue: 100, initialValue: 50);
                 var result = numberPrompt.Query();
                 Console.WriteLine($"Number prompt result: {result}");
             };

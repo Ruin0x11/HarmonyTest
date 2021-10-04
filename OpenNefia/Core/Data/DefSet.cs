@@ -37,6 +37,7 @@ namespace OpenNefia.Core.Data
                 throw new DefLoadException("'Defs' element not found in root");
             }
 
+            /*
             var deserializer = new DefDeserializer();
 
             foreach (var elem in root.ChildNodes)
@@ -50,6 +51,7 @@ namespace OpenNefia.Core.Data
 
                 var defInstance = deserializer.DeserializeDef(defType, node);
             }
+            */
         }
     }
 }

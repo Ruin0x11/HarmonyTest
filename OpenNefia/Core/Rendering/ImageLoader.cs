@@ -39,6 +39,9 @@ namespace OpenNefia.Core.Rendering
                 return cachedImage;
             }
 
+            if (!File.Exists(filepath))
+                throw new FileNotFoundException($"File {filepath} does not exist.");
+
             var image = new Bitmap(filepath).ToVips();
 
             if (!keyColor.HasValue)

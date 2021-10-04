@@ -65,6 +65,12 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
+        public override void SetDefaultSize()
+        {
+            this.SetSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            this.SetPosition(0, 0);
+        }
+
         private void MoveUp(KeyInputEvent evt)
         {
             this.Up = (evt.State != KeyPressState.Released);
