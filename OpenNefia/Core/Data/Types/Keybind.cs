@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public record Keybind : IDataType, IKeybind
+    public class Keybind : Def, IKeybind
     {
-        public string Id { get; private set; }
-
-        public Keybind(string id) { this.Id = id; }
+        public Keybind(string id) : base(id) { }
 
         public bool IsShiftDelayed { get; private set; } = false;
 

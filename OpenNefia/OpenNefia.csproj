@@ -23,10 +23,9 @@
 	<Content Include="Assets\**">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Assets\MS-Gothic.ttf" />
+	  <Content Include="Defs\**">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
     
   <ItemGroup>

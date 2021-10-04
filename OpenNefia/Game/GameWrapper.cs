@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
+using OpenNefia.Core.Data;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Mod;
@@ -23,6 +24,7 @@ namespace OpenNefia.Game
         public List<IUiLayer> Layers { get; private set; }
 
         public ModLoader ModLoader = new ModLoader();
+        public DefStore DefStore = new DefStore();
 
         private Love.Canvas TargetCanvas;
 
@@ -145,6 +147,7 @@ namespace OpenNefia.Game
         public void MainCode(string[] args)
         {
             this.ModLoader.Execute();
+            this.DefStore.LoadAll();
 
             var _ = RawKey.AllKeys.Value;
 

@@ -12,7 +12,7 @@ namespace TestMod1
     [HarmonyPatch(typeof(NumberPrompt), nameof(NumberPrompt.Query))]
     class PatchNumberPrompt
     {
-        static bool Prefix(NumberPrompt __instance, ref UiResult<int> __result)
+        static bool Prefix(NumberPrompt __instance, ref UiResult<NumberPromptResult> __result)
         {
             Console.WriteLine("Running custom number prompt!");
             var myNumberPrompt = new MyNumberPrompt();

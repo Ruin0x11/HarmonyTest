@@ -3,11 +3,12 @@ using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Layer;
 using System;
 
 namespace TestMod1
 {
-    internal class MyNumberPrompt : BaseUiLayer<int>
+    internal class MyNumberPrompt : BaseUiLayer<NumberPromptResult>
     {
         private int _Value;
         public int Value
@@ -45,7 +46,7 @@ namespace TestMod1
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(this.Value);
+            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
         }
 
         public override void OnQuery()

@@ -10,20 +10,18 @@ using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class FontAsset : IDataType
+    public class FontAsset : Def
     {
         public static class ColorKinds
         {
             public const string Background = nameof(Background);
         }
 
-        public string Id { get; private set; }
-        public FontAsset(string id, int size, int? smallSize = null, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null, ColorAsset? fgColor = null, ColorAsset? bgColor = null)
+        public FontAsset(string id, int size, int? smallSize = null, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null, ColorAsset? fgColor = null, ColorAsset? bgColor = null) : base(id)
         {
             if (smallSize == null)
                 smallSize = size;
 
-            this.Id = id;
             this.Size = size;
             this.SmallSize = smallSize.Value;
             this.Style = style; 

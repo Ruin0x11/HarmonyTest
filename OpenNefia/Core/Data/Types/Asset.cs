@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class Asset : IDataType
+    public class Asset : Def
     {
         /// <summary>
         /// Region in an image to use when making an asset instance.
@@ -30,8 +30,7 @@ namespace OpenNefia.Core.Data.Types
             }
         }
 
-        public string Id { get; private set; }
-        public Asset(string id) { this.Id = id; }
+        public Asset(string id) : base(id) { }
 
         /// <summary>
         /// Path of an image to use.

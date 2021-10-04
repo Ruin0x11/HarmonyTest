@@ -16,7 +16,7 @@ namespace OpenNefia
 
         public TileAtlas()
         {
-            Texture = ImageLoader.NewImage("Assets/map1.bmp");
+            Texture = ImageLoader.NewImage("Assets/Graphic/map1.bmp");
             Quads = new List<Love.Quad>();
 
             for (int x = 0; x < 33; x++)

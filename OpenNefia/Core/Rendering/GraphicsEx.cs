@@ -113,7 +113,7 @@ namespace OpenNefia.Core.Rendering
         }
         
         private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
-        private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/MS-Gothic.ttf");
+        private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/Font/MS-Gothic.ttf");
 
         public static void SetFont(int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
         {
@@ -154,7 +154,10 @@ namespace OpenNefia.Core.Rendering
                 return cachedFont;
             }
 
-            var font = Love.Graphics.NewFont(FONT_PATH.Resolve(), size);
+            if (fontFilepath == null)
+                fontFilepath = FONT_PATH;
+
+            var font = Love.Graphics.NewFont(fontFilepath.Resolve(), size);
             FontCache[size] = font;
             return font;
         }

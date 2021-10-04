@@ -13,6 +13,11 @@ namespace OpenNefia.Core.UI.Layer
     public class NumberPromptResult
     {
         public int Value = 0;
+
+        public NumberPromptResult(int value)
+        {
+            Value = value;
+        }
     }
 
     public class NumberPrompt : BaseUiLayer<NumberPromptResult>
@@ -107,7 +112,7 @@ namespace OpenNefia.Core.UI.Layer
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Entries.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new NumberPromptResult() { Value = this.Value });
+            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

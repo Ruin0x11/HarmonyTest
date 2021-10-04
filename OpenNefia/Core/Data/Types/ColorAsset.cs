@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class ColorAsset : IDataType
+    public class ColorAsset : Def
     {
-        public string Id { get; private set; }
-        public ColorAsset(string id, byte r, byte g, byte b, byte a = 255)
+        public ColorAsset(string id, byte r, byte g, byte b, byte a = 255) : base(id)
         {
-            this.Id = id;
             this.R = r;
             this.G = g;
             this.B = b;
