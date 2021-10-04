@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public class UiResult<T> where T: struct
+    public class UiResult<T> where T: class
     {
         public enum ResultType
         {

@@ -53,9 +53,12 @@ namespace OpenNefia.Core.UI
         private KeybindTranslator Keybinds;
         private bool Halted;
         private bool StopHalt;
+        private string? TextInputThisFrame;
+        private Action<TextInputEvent>? TextInputHandler;
 
         public bool NoShiftDelay { get; set; }
         public int KeyHeldFrames { get; private set; }
+        public bool TextInputEnabled { get; set; }
 
         public KeyHandler()
         {
@@ -70,6 +73,9 @@ namespace OpenNefia.Core.UI
             this.StopHalt = false;
             this.NoShiftDelay = false;
             this.KeyHeldFrames = 0;
+            this.TextInputEnabled = false;
+            this.TextInputThisFrame = null;
+            this.TextInputHandler = null;
         }
 
         /// <inheritdoc />
@@ -131,6 +137,11 @@ namespace OpenNefia.Core.UI
             {
                 forward.ReceieveTextInput(text);
             }
+
+            if (!this.TextInputEnabled)
+                return;
+
+            this.TextInputThisFrame = text;
         }
 
         public void HaltInput()
@@ -147,6 +158,7 @@ namespace OpenNefia.Core.UI
             this.Halted = true;
             this.StopHalt = false;
             this.KeyHeldFrames = 0;
+            this.TextInputThisFrame = null;
 
             foreach (var forward in this.Forwards)
             {
@@ -323,9 +335,32 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
+        public bool RunTextInputAction(string text)
         {
-            this.Actions[keybind] = new KeyAction(func, trackReleased);
+            if (this.TextInputHandler != null)
+            {
+                var evt = new TextInputEvent(text);
+                this.TextInputHandler(evt);
+                if (!evt.Vetoed)
+                {
+                    return true;
+                }
+            }
+
+            foreach (var forward in this.Forwards)
+            {
+                if (forward.RunTextInputAction(text))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void BindKey(IKeybind keybind, Action<KeyInputEvent> handler, bool trackReleased = false)
+        {
+            this.Actions[keybind] = new KeyAction(handler, trackReleased);
             this.Keybinds.Enable(keybind);
         }
 
@@ -333,6 +368,16 @@ namespace OpenNefia.Core.UI
         {
             this.Actions.Remove(keybind);
             this.Keybinds.Disable(keybind);
+        }
+
+        public void BindTextInput(Action<TextInputEvent> handler)
+        {
+            this.TextInputHandler = handler;
+        }
+
+        public void UnbindTextInput()
+        {
+            this.TextInputHandler = null;
         }
 
         public bool IsModifierHeld(Keys modifier)
@@ -387,6 +432,16 @@ namespace OpenNefia.Core.UI
                         break;
                     }
                 }
+            }
+
+            if (this.TextInputThisFrame != null)
+            {
+                if (this.TextInputEnabled)
+                {
+                    this.RunTextInputAction(this.TextInputThisFrame);
+                }
+
+                this.TextInputThisFrame = null;
             }
 
             this.UnpressedThisFrame.Clear();

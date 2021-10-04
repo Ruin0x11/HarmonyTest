@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public struct PromptChoice<T> where T : struct
+    public class PromptChoice<T> where T : struct
     {
         public T Result;
         public string? Text = null;
         public uint? Index = null;
         public Keys Key = Keys.None;
 
-        public PromptChoice(T result) : this()
+        public PromptChoice(T result)
         {
             this.Result = result;
         }

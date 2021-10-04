@@ -10,16 +10,26 @@ namespace OpenNefia.Core.UI.Element
         protected IKeyInput KeyInput;
         public KeybindWrapper Keybinds { get; }
 
+        // The empty setters are to support += syntax.
+
+        public TextInputWrapper TextInput { get; }
+
         private KeyForwardsWrapper _Forwards;
         public KeyForwardsWrapper Forwards { 
             get => _Forwards; 
             set {}
         }
 
+        public bool TextInputEnabled {
+            get => this.KeyInput.TextInputEnabled;
+            set => this.KeyInput.TextInputEnabled = value;
+        }
+
         public BaseInputUiElement()
         {
             this.KeyInput = new KeyHandler();
             this.Keybinds = new KeybindWrapper(this.KeyInput);
+            this.TextInput = new TextInputWrapper(this.KeyInput);
             this._Forwards = new KeyForwardsWrapper(this.KeyInput);
         }
 
@@ -38,6 +48,9 @@ namespace OpenNefia.Core.UI.Element
         public void RunKeyActions(float dt) => KeyInput.RunKeyActions(dt);
         public bool RunKeyAction(Keys key, KeyPressState state) => KeyInput.RunKeyAction(key, state);
         public void ReleaseKey(Keys key) => KeyInput.ReleaseKey(key);
+        public bool RunTextInputAction(string text) => KeyInput.RunTextInputAction(text);
+        public void BindTextInput(Action<TextInputEvent> evt) => KeyInput.BindTextInput(evt);
+        public void UnbindTextInput() => KeyInput.UnbindTextInput();
 
         public virtual List<UiKeyHint> MakeKeyHints() => new List<UiKeyHint>();
     }

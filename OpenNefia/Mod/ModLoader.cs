@@ -1,6 +1,7 @@
 ﻿using Mono.Cecil;
 using OpenNefia.Core;
 using OpenNefia.Core.Data;
+using OpenNefia.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;

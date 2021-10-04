@@ -32,4 +32,9 @@
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
+    
+	<!-- Uncommment after .NET 6 is released. -->
+  <!--<ItemGroup>
+    <ProjectReference Include="..\OpenNefia.Codegen\OpenNefia.Codegen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+  </ItemGroup>-->
 </Project>

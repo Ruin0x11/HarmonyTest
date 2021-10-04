@@ -93,11 +93,6 @@ namespace OpenNefia.Core.Rendering
         public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
         public static void SetColor(ColorAsset color) => SetColor(color.R, color.G, color.B, color.A);
 
-        public static void SetColor(object colorBackground)
-        {
-            throw new NotImplementedException();
-        }
-
         public static int GetTextWidth(string text)
         {
             return Love.Graphics.GetFont().GetWidth(text);

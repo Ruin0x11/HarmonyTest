@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class FieldLayer : BaseUiLayer<int>
+    public class FieldLayer : BaseUiLayer<string>
     {
         public TileAtlas Atlas { get; private set; }
         public TileBatch Batch { get; private set; }
@@ -18,7 +18,6 @@ namespace OpenNefia.Core.UI.Layer
         private bool Down;
         private bool Left;
         private bool Right;
-        private bool Finished;
 
         public string Message { get; private set; }
 
@@ -109,17 +108,6 @@ namespace OpenNefia.Core.UI.Layer
             var amount = (int)(dt * delta);
             DrawX += amount * dx;
             DrawY += amount * dy;
-        }
-
-        public override UiResult<int>? GetResult()
-        {
-            if (this.Finished)
-            {
-                this.Finished = false;
-                return UiResult<int>.Finished(42);
-            }
-
-            return null;
         }
 
         public override void Draw()

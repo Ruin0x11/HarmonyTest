@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    internal class ListTestLayer : BaseUiLayer<int>
+    internal class ListTestLayer : BaseUiLayer<string>
     {
         public UiWindow Window { get; }
         public UiList<string> List1 { get; }

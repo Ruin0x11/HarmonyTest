@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class TestLayer : BaseUiLayer<int>
+    public class TestLayer : BaseUiLayer<string>
     {
         private UiWindowBacking WindowBacking;
 
@@ -51,6 +51,12 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keys.Ctrl | Keys.C] += (_) =>
             {
                 new ListTestLayer().Query();
+            };
+
+            this.Keybinds[Keys.Ctrl | Keys.D] += (_) =>
+            {
+                var text = new TextPrompt().Query();
+                Console.WriteLine($"Get: {text}");
             };
         }
 

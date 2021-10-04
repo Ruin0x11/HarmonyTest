@@ -4,7 +4,7 @@ using System;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IKeyInput : IKeyBinder, IKeyForwarder
+    public interface IKeyInput : IKeyBinder, ITextInputBinder, IKeyForwarder
     {
         /// <summary>
         /// 
@@ -50,6 +50,13 @@ namespace OpenNefia.Core.UI
         /// <param name="state"></param>
         /// <returns></returns>
         bool RunKeyAction(Keys key, KeyPressState state);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        bool RunTextInputAction(string text);
 
         /// <summary>
         /// 

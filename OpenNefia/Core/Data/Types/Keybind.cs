@@ -15,6 +15,13 @@ namespace OpenNefia.Core.Data.Types
 
         public bool IsShiftDelayed { get; private set; } = false;
 
+        public static class Special
+        {
+            public static Keybind TextEntered = new Keybind($"Base.{nameof(TextEntered)}");
+            public static Keybind TextSubmitted = new Keybind($"Base.{nameof(TextSubmitted)}");
+            public static Keybind TextCancelled = new Keybind($"Base.{nameof(TextCancelled)}");
+        }
+
         public static class Entries
         {
             public static Keybind Enter = new Keybind($"Base.{nameof(Enter)}");

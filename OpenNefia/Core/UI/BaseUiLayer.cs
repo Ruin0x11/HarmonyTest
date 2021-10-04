@@ -10,7 +10,7 @@ using OpenNefia.Game;
 
 namespace OpenNefia.Core.UI
 {
-    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: struct
+    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: class
     {
         public IUiFocusManager FocusManager { get; } = new UiFocusManager();
 
@@ -29,8 +29,8 @@ namespace OpenNefia.Core.UI
 
         public virtual UiResult<T>? GetResult()
         {
-            if (this.Result.HasValue)
-                return UiResult<T>.Finished(this.Result.Value);
+            if (this.Result != null)
+                return UiResult<T>.Finished(this.Result);
             if (this.WasCancelled)
                 return UiResult<T>.Cancelled();
 

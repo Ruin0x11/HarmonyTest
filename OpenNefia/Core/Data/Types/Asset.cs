@@ -136,6 +136,24 @@ namespace OpenNefia.Core.Data.Types
             {
                 ImageRegion = new ImageRegion(InterfaceBmp, 336, 336, 24, 24),
             };
+
+            public static Asset ImeStatusEnglish = new Asset($"Core.{nameof(ImeStatusEnglish)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 24, 336, 24, 24),
+            };
+            public static Asset ImeStatusJapanese = new Asset($"Core.{nameof(ImeStatusJapanese)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 48, 336, 24, 24),
+            };
+            public static Asset ImeStatusNone = new Asset($"Core.{nameof(ImeStatusNone)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 72, 336, 24, 24),
+            };
+
+            public static Asset InputCaret = new Asset($"Core.{nameof(InputCaret)}")
+            {
+                ImageRegion = new ImageRegion(InterfaceBmp, 0, 336, 12, 24),
+            };
         }
     }
 }

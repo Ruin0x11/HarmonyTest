@@ -10,7 +10,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class NumberPrompt : BaseUiLayer<int>
+    public class NumberPromptResult
+    {
+        public int Value = 0;
+    }
+
+    public class NumberPrompt : BaseUiLayer<NumberPromptResult>
     {
         private int _MinValue;
         public int MinValue
@@ -102,11 +107,11 @@ namespace OpenNefia.Core.UI.Layer
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Entries.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(this.Value);
+            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new NumberPromptResult() { Value = this.Value });
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public override UiResult<int> Query() => base.Query();
+        public override UiResult<NumberPromptResult> Query() => base.Query();
 
         public override void OnQuery()
         {

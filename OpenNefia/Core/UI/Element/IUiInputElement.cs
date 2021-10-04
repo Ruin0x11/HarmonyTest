@@ -3,6 +3,7 @@
     public interface IUiInputElement : IUiElement, IUiInput
     {
         KeybindWrapper Keybinds { get; }
-        KeyForwardsWrapper Forwards { get; }
+        TextInputWrapper TextInput { get; }
+        KeyForwardsWrapper Forwards { get; set; }
     }
 }
