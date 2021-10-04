@@ -154,7 +154,7 @@ namespace OpenNefia.Core.Rendering
                 return cachedFont;
             }
 
-            var font = Love.Graphics.NewFont(FONT_PATH.Resolve());
+            var font = Love.Graphics.NewFont(FONT_PATH.Resolve(), size);
             FontCache[size] = font;
             return font;
         }

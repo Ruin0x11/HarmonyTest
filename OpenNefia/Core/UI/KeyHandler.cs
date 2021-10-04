@@ -54,6 +54,7 @@ namespace OpenNefia.Core.UI
         private bool Halted;
         private bool StopHalt;
         private string? TextInputThisFrame;
+        private bool EnterReceivedThisFrame;
         private Action<TextInputEvent>? TextInputHandler;
 
         public bool NoShiftDelay { get; set; }
@@ -75,6 +76,7 @@ namespace OpenNefia.Core.UI
             this.KeyHeldFrames = 0;
             this.TextInputEnabled = false;
             this.TextInputThisFrame = null;
+            this.EnterReceivedThisFrame = false;
             this.TextInputHandler = null;
         }
 
@@ -106,6 +108,17 @@ namespace OpenNefia.Core.UI
             if (!this.RepeatDelays.ContainsKey(key))
                 this.RepeatDelays[key] = new KeyRepeatDelay();
             this.RepeatDelays[key].IsActive = true;
+
+            // When IME input is sent, LÖVE first sends the keypress event of
+            // the user pressing "return" to confirm the IME submission, then
+            // it sends a text event with the text the IME entered in the same
+            // frame. Therefore, text shouldn't be submitted if a "return"
+            // keypress event is not the very last event received in this
+            // frame.
+            if (this.TextInputThisFrame == null && loveKey == Love.KeyConstant.Enter)
+            {
+                this.EnterReceivedThisFrame = true;
+            }
         }
 
         /// <inheritdoc />
@@ -141,6 +154,15 @@ namespace OpenNefia.Core.UI
             if (!this.TextInputEnabled)
                 return;
 
+            // Prevent Enter from being received if it is followed by an IME
+            // text input event in the same frame.
+            if (this.EnterReceivedThisFrame)
+            {
+                this.Pressed.Remove(Keys.Enter);
+                this.RepeatDelays[Keys.Enter].Reset();
+                this.EnterReceivedThisFrame = false;
+            }
+
             this.TextInputThisFrame = text;
         }
 
@@ -159,6 +181,7 @@ namespace OpenNefia.Core.UI
             this.StopHalt = false;
             this.KeyHeldFrames = 0;
             this.TextInputThisFrame = null;
+            this.EnterReceivedThisFrame = false;
 
             foreach (var forward in this.Forwards)
             {
@@ -445,6 +468,7 @@ namespace OpenNefia.Core.UI
             }
 
             this.UnpressedThisFrame.Clear();
+            this.EnterReceivedThisFrame = false;
 
             this.UpdateKeyRepeats(dt);
 

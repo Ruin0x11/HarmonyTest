@@ -168,7 +168,6 @@ namespace OpenNefia.Core.UI.Layer
         {
             this.Dt += (dt / Constants.SCREEN_REFRESH) * 4;
             this.CaretAlpha = Math.Sin(this.Dt) * 255f * 1f;
-            Console.WriteLine($"Alpha {this.CaretAlpha}");
             this.TopicWindow.Update(dt);
             this.Text.Update(dt);
         }
