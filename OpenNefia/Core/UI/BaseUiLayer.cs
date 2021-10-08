@@ -12,8 +12,6 @@ namespace OpenNefia.Core.UI
 {
     public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: class
     {
-        public IUiFocusManager FocusManager { get; } = new UiFocusManager();
-
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
 
@@ -50,17 +48,29 @@ namespace OpenNefia.Core.UI
 
         public void OnLoveKeyPressed(KeyConstant key, bool isRepeat)
         {
-            this.FocusManager.FocusedElement?.ReceiveKeyPressed(key, isRepeat);
+            this.ReceiveKeyPressed(key, isRepeat);
         }
 
         public void OnLoveKeyReleased(KeyConstant key)
         {
-            this.FocusManager.FocusedElement?.ReceiveKeyReleased(key);
+            this.ReceiveKeyReleased(key);
         }
 
         public void OnLoveTextInput(string text)
         {
-            this.FocusManager.FocusedElement?.ReceieveTextInput(text);
+            this.ReceieveTextInput(text);
+        }
+
+        public void OnLoveMouseMoved(float x, float y, float dx, float dy, bool isTouch)
+        {
+        }
+
+        public void OnLoveMousePressed(float x, float y, int button, bool isTouch)
+        {
+        }
+
+        public void OnLoveMouseReleased(float x, float y, int button, bool isTouch)
+        {
         }
 
         public virtual UiResult<T> Query()

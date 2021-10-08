@@ -22,5 +22,11 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="text"></param>
         void OnLoveTextInput(string text);
+
+        void OnLoveMouseMoved(float x, float y, float dx, float dy, bool isTouch);
+
+        void OnLoveMousePressed(float x, float y, int button, bool isTouch);
+
+        void OnLoveMouseReleased(float x, float y, int button, bool isTouch);
     }
 }

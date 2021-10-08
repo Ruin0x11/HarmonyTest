@@ -40,5 +40,23 @@ namespace OpenNefia.Game
             var layer = GameWrapper.Instance.CurrentLayer;
             layer?.OnLoveTextInput(text);
         }
+
+        public override void MouseMoved(float x, float y, float dx, float dy, bool isTouch)
+        {
+            var layer = GameWrapper.Instance.CurrentLayer;
+            layer?.OnLoveMouseMoved(x, y, dx, dy, isTouch);
+        }
+
+        public override void MousePressed(float x, float y, int button, bool isTouch)
+        {
+            var layer = GameWrapper.Instance.CurrentLayer;
+            layer?.OnLoveMousePressed(x, y, button, isTouch);
+        }
+
+        public override void MouseReleased(float x, float y, int button, bool isTouch)
+        {
+            var layer = GameWrapper.Instance.CurrentLayer;
+            layer?.OnLoveMouseReleased(x, y, button, isTouch);
+        }
     }
 }

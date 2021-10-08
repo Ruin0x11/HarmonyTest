@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Data.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,10 @@ namespace OpenNefia.Core
 {
     public static class Gui
     {
-        public static void PlaySound(string id)
+        public static void PlaySound(SoundDef soundDef)
         {
+            var sound = Love.Audio.NewSource(soundDef.Filepath.Resolve(), Love.SourceType.Static);
+            Love.Audio.Play(sound);
         }
     }
 }
