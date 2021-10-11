@@ -11,11 +11,11 @@ namespace OpenNefia.Core.UI
         None = 0,
 
         // Modifiers
-        Ctrl         = 0b0000100000000,
-        Alt          = 0b0001000000000,
-        Shift        = 0b0010000000000,
-        GUI          = 0b0100000000000,
-        AllModifiers = 0b0111100000000,
+        Ctrl         = 0b0001000000000,
+        Alt          = 0b0010000000000,
+        Shift        = 0b0100000000000,
+        GUI          = 0b1000000000000,
+        AllModifiers = 0b1111000000000,
 
         // Keys (compatible with LOVE)
         Unknown = 0,

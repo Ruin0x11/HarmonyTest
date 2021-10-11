@@ -96,19 +96,19 @@ namespace OpenNefia.Core.UI.Layer
         {
             this.Keybinds[Keybind.Entries.UIUp] += (_) => {
                 this.Value = this.MaxValue;
-                Gui.PlaySound("Core.Cursor1");
+                // Gui.PlaySound("Core.Cursor1");
             };
             this.Keybinds[Keybind.Entries.UIDown] += (_) => {
                 this.Value = this.MinValue;
-                Gui.PlaySound("Core.Cursor1");
+                // Gui.PlaySound("Core.Cursor1");
             };
             this.Keybinds[Keybind.Entries.UILeft] += (_) => {
                 this.Value = Math.Max(this.Value - 1, this.MinValue);
-                Gui.PlaySound("Core.Cursor1");
+                // Gui.PlaySound("Core.Cursor1");
             };
             this.Keybinds[Keybind.Entries.UIRight] += (_) => {
                 this.Value = Math.Min(this.Value + 1, this.MaxValue);
-                Gui.PlaySound("Core.Cursor1");
+                // Gui.PlaySound("Core.Cursor1");
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Entries.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
@@ -120,7 +120,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Gui.PlaySound("Core.Pop2");
+            // Gui.PlaySound("Core.Pop2");
         }
 
         protected virtual void UpdateText()

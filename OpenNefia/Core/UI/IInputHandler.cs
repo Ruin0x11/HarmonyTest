@@ -4,7 +4,7 @@ using System;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IKeyInput : IKeyBinder, ITextInputBinder, IKeyForwarder
+    public interface IInputHandler : IKeyBinder, IMouseBinder, IMouseMovedBinder, ITextInputBinder, IInputForwarder
     {
         /// <summary>
         /// 
@@ -23,7 +23,35 @@ namespace OpenNefia.Core.UI
         /// 
         /// </summary>
         /// <param name="text"></param>
-        void ReceieveTextInput(string text);
+        void ReceiveTextInput(string text);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <param name="isTouch"></param>
+        void ReceiveMouseMoved(float x, float y, float dx, float dy, bool isTouch);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="button"></param>
+        /// <param name="isTouch"></param>
+        void ReceiveMousePressed(float x, float y, int button, bool isTouch);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="button"></param>
+        /// <param name="isTouch"></param>
+        void ReceiveMouseReleased(float x, float y, int button, bool isTouch);
 
         /// <summary>
         /// 
@@ -65,9 +93,17 @@ namespace OpenNefia.Core.UI
         void ReleaseKey(Keys key);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="press"></param>
+        void ReleaseMouseButton(MouseButtonPress press);
+
+        /// <summary>
         /// Run key actions based on the current state of the key handler.
         /// </summary>
         /// <param name="dt">Frame delta time.</param>
         void RunKeyActions(float dt);
+        bool RunMouseMovedAction(int x, int y, int dx, int dy);
+        bool RunMouseAction(MouseButtonPress press);
     }
 }

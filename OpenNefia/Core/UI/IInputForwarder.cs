@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IKeyForwarder
+    public interface IInputForwarder
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="keys"></param>
         /// <param name="priority"></param>
-        void ForwardTo(IKeyInput keys, int? priority = null);
+        void ForwardTo(IInputHandler keys, int? priority = null);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="keys"></param>
-        void UnforwardTo(IKeyInput keys);
+        void UnforwardTo(IInputHandler keys);
 
         /// <summary>
         /// 

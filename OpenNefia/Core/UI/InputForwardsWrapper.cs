@@ -9,22 +9,22 @@ namespace OpenNefia.Core.UI
     /// <summary>
     /// Provides some convenient syntax for defining key forwards on UI classes that support them.
     /// </summary>
-    public class KeyForwardsWrapper : IKeyForwarder
+    public class InputForwardsWrapper : IInputForwarder
     {
-        public IKeyInput Parent { get; }
+        public IInputHandler Parent { get; }
 
-        public KeyForwardsWrapper(IKeyInput parent)
+        public InputForwardsWrapper(IInputHandler parent)
         {
             this.Parent = parent;
         }
 
-        public static KeyForwardsWrapper operator +(KeyForwardsWrapper forwardsWrapper, IKeyInput child)
+        public static InputForwardsWrapper operator +(InputForwardsWrapper forwardsWrapper, IInputHandler child)
         {
             forwardsWrapper.ForwardTo(child);
             return forwardsWrapper;
         }
 
-        public static KeyForwardsWrapper operator -(KeyForwardsWrapper forwardsWrapper, IKeyInput child)
+        public static InputForwardsWrapper operator -(InputForwardsWrapper forwardsWrapper, IInputHandler child)
         {
             forwardsWrapper.UnforwardTo(child);
             return forwardsWrapper;
@@ -32,12 +32,12 @@ namespace OpenNefia.Core.UI
 
         public void Clear() => this.ClearAllForwards();
 
-        public void ForwardTo(IKeyInput child, int? priority = null)
+        public void ForwardTo(IInputHandler child, int? priority = null)
         {
             this.Parent.ForwardTo(child, priority);
         }
 
-        public void UnforwardTo(IKeyInput child)
+        public void UnforwardTo(IInputHandler child)
         {
             this.Parent.UnforwardTo(child);
         }

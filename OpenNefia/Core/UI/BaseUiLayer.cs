@@ -58,19 +58,22 @@ namespace OpenNefia.Core.UI
 
         public void OnLoveTextInput(string text)
         {
-            this.ReceieveTextInput(text);
+            this.ReceiveTextInput(text);
         }
 
         public void OnLoveMouseMoved(float x, float y, float dx, float dy, bool isTouch)
         {
+            this.ReceiveMouseMoved(x, y, dx, dy, isTouch);
         }
 
         public void OnLoveMousePressed(float x, float y, int button, bool isTouch)
         {
+            this.ReceiveMousePressed(x, y, button, isTouch);
         }
 
         public void OnLoveMouseReleased(float x, float y, int button, bool isTouch)
         {
+            this.ReceiveMouseReleased(x, y, button, isTouch);
         }
 
         public virtual UiResult<T> Query()
@@ -78,7 +81,6 @@ namespace OpenNefia.Core.UI
             GameWrapper.Instance.CurrentLayer?.HaltInput();
 
             GameWrapper.Instance.PushLayer(this);
-            this.FocusManager.FocusedElement = this;
 
             UiResult<T>? result;
 

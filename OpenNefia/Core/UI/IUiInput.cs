@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.UI.Element
+namespace OpenNefia.Core.UI
 {
-    public interface IUiInput : IKeyInput
+    public interface IUiInput : IInputHandler
     {
         List<UiKeyHint> MakeKeyHints();
     }

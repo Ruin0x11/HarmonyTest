@@ -23,10 +23,32 @@ namespace OpenNefia.Core.UI
         /// <param name="text"></param>
         void OnLoveTextInput(string text);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <param name="isTouch"></param>
         void OnLoveMouseMoved(float x, float y, float dx, float dy, bool isTouch);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="button"></param>
+        /// <param name="isTouch"></param>
         void OnLoveMousePressed(float x, float y, int button, bool isTouch);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="button"></param>
+        /// <param name="isTouch"></param>
         void OnLoveMouseReleased(float x, float y, int button, bool isTouch);
     }
 }

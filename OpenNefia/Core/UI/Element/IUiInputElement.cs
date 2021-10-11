@@ -4,6 +4,8 @@
     {
         KeybindWrapper Keybinds { get; }
         TextInputWrapper TextInput { get; }
-        KeyForwardsWrapper Forwards { get; set; }
+        InputForwardsWrapper Forwards { get; set; }
+        MouseBindWrapper MouseButtons { get; }
+        MouseMovedWrapper MouseMoved { get; set; }
     }
 }

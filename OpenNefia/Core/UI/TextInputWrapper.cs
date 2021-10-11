@@ -29,18 +29,18 @@ namespace OpenNefia.Core.UI
 
             public void Clear() => this.UnbindTextInput();
 
-            public void BindTextInput(Action<TextInputEvent> handler) => this.Parent.KeyInput.BindTextInput(handler);
-            public void UnbindTextInput() => this.Parent.KeyInput.UnbindTextInput();
+            public void BindTextInput(Action<TextInputEvent> handler) => this.Parent.InputHandler.BindTextInput(handler);
+            public void UnbindTextInput() => this.Parent.InputHandler.UnbindTextInput();
 
             public bool TextInputEnabled
             {
-                get => this.Parent.KeyInput.TextInputEnabled;
-                set => this.Parent.KeyInput.TextInputEnabled = value;
+                get => this.Parent.InputHandler.TextInputEnabled;
+                set => this.Parent.InputHandler.TextInputEnabled = value;
             }
         }
 
-        public bool Enabled { get => this.KeyInput.TextInputEnabled; set => this.KeyInput.TextInputEnabled = value; }
-        public IKeyInput KeyInput { get; }
+        public bool Enabled { get => this.InputHandler.TextInputEnabled; set => this.InputHandler.TextInputEnabled = value; }
+        public IInputHandler InputHandler { get; }
 
         // The empty setter is for supporting += syntax.
 
@@ -51,9 +51,9 @@ namespace OpenNefia.Core.UI
             set {}
         }
 
-        public TextInputWrapper(IKeyInput parent)
+        public TextInputWrapper(IInputHandler parent)
         {
-            this.KeyInput = parent;
+            this.InputHandler = parent;
             this._Callback = new TextInputDelegateWrapper(this);
         }
     }

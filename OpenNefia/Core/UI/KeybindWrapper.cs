@@ -48,11 +48,11 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public IKeyInput KeyInput { get; }
+        public IInputHandler KeyInput { get; }
 
         private Dictionary<IKeybind, KeybindDelegateWrapper> _Cache;
 
-        public KeybindWrapper(IKeyInput parent)
+        public KeybindWrapper(IInputHandler parent)
         {
             this.KeyInput = parent;
             this._Cache = new Dictionary<IKeybind, KeybindDelegateWrapper>();

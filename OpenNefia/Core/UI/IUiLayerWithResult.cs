@@ -4,7 +4,6 @@ namespace OpenNefia.Core.UI
 {
     public interface IUiLayerWithResult<T> : IUiLayer where T: class
     {
-        IUiFocusManager FocusManager { get; }
         bool WasCancelled { get; }
         T? Result { get; }
 

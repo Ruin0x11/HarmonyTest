@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,15 @@ namespace OpenNefia.Core.UI.Layer
         public int DrawX { get; private set; }
         public int DrawY { get; private set; }
 
+        private FontAsset FontText;
+
         private bool Up;
         private bool Down;
         private bool Left;
         private bool Right;
 
         public string Message { get; private set; }
+        private string MouseText;
 
         public List<Thing> Things;
 
@@ -31,6 +35,7 @@ namespace OpenNefia.Core.UI.Layer
             DrawX = 0;
             DrawY = 0;
             Things = new List<Thing>();
+            FontText = FontAsset.Entries.WindowTitle;
 
             int x = 0;
             int y = 0;
@@ -44,6 +49,7 @@ namespace OpenNefia.Core.UI.Layer
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
             Message = result;
+            this.MouseText = "";
 
             this.BindKeys();
         }
@@ -57,6 +63,17 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
+
+            this.MouseMoved.Callback += (evt) =>
+            {
+                this.MouseText = $"{evt.X}, {evt.Y}";
+            };
+
+            foreach (var button in EnumUtils.EnumerateValues<MouseButtons>())
+            {
+                var button2 = button;
+                this.MouseButtons[button2] += (_) => Console.WriteLine($"{button2}!");
+            }
         }
 
         public string PrintMessage(string dood)
@@ -127,7 +144,9 @@ namespace OpenNefia.Core.UI.Layer
                 Love.Graphics.Draw(thing.Texture, thing.PosX * 48 + DrawX, thing.PosY * 48 + DrawY);
             }
 
+            GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);
+            Love.Graphics.Print(MouseText, 5, 20);
         }
     }
 }
