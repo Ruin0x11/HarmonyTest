@@ -80,7 +80,7 @@ namespace TestMod1
         public override void Draw()
         {
             GraphicsEx.SetColor(this.ColorBackground);
-            GraphicsEx.DrawFilledRect(this.X, this.Y, this.Width, this.Height);
+            GraphicsEx.FilledRect(this.X, this.Y, this.Width, this.Height);
 
             this.Text.Draw();
         }

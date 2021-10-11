@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI.Element.List
 {
     public class UiList<T> : BaseInputUiElement, IUiList<T>
     {
-        protected IList<IUiListCell<T>> Choices { get; }
+        protected IList<IUiListCell<T>> Cells { get; }
         public int ItemHeight { get; }
         public int ItemOffsetX { get; }
         public int ItemOffsetY { get; }
@@ -25,12 +25,12 @@ namespace OpenNefia.Core.UI.Element.List
             get => _SelectedIndex; 
             set
             {
-                if (value < 0 || value >= this.Choices.Count)
-                    throw new ArgumentException($"Index {value} is out of bounds (count: {this.Choices.Count})");
+                if (value < 0 || value >= this.Cells.Count)
+                    throw new ArgumentException($"Index {value} is out of bounds (count: {this.Cells.Count})");
                 this._SelectedIndex = value;
             }
         }
-        public IUiListCell<T> SelectedChoice { get => this.Choices[this.SelectedIndex]!; }
+        public IUiListCell<T> SelectedCell { get => this.Cells[this.SelectedIndex]!; }
 
         protected List<UiListChoiceKey> ChoiceKeys;
         protected List<IUiText> KeyNameTexts;
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.UI.Element.List
             this.ColorSelectedSub = ColorAsset.Entries.ListSelectedSub;
             this.FontListKeyName = FontAsset.Entries.ListKeyName;
 
-            this.Choices = choices.Select((c, i) => this.MakeChoiceCell(c, i)).ToList();
+            this.Cells = choices.Select((c, i) => this.MakeChoiceCell(c, i)).ToList();
 
             this.ChoiceKeys = new List<UiListChoiceKey>();
             this.KeyNameTexts = new List<IUiText>();
@@ -108,6 +108,29 @@ namespace OpenNefia.Core.UI.Element.List
             this.Keybinds[Keybind.Entries.UIUp] += (_) => this.IncrementIndex(-1);
             this.Keybinds[Keybind.Entries.UIDown] += (_) => this.IncrementIndex(1);
             this.Keybinds[Keybind.Entries.Enter] += (_) => this.Activate(this.SelectedIndex);
+
+            this.MouseMoved.Callback += (evt) =>
+            {
+                for (var index = 0; index < this.Cells.Count; index++)
+                {
+                    if (this.Cells[index].ContainsPoint(evt.X, evt.Y))
+                    {
+                        if (this.SelectedIndex != index)
+                        {
+                            this.Select(index);
+                        }
+                        break;
+                    }
+                }
+            };
+
+            this.MouseButtons[UI.MouseButtons.Mouse1] += (evt) =>
+            {
+                if (this.SelectedCell.ContainsPoint(evt.X, evt.Y))
+                {
+                    this.Activate(this.SelectedIndex);
+                }
+            };
         }
 
         #region Data Creation
@@ -143,7 +166,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         public virtual bool CanSelect(int index)
         {
-            return index >= 0 && index < Choices.Count;
+            return index >= 0 && index < Cells.Count;
         }
 
         public void IncrementIndex(int delta)
@@ -175,7 +198,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         public virtual bool CanActivate(int index)
         {
-            return index >= 0 && index < Choices.Count;
+            return index >= 0 && index < Cells.Count;
         }
 
         public void Activate(int index)
@@ -201,11 +224,11 @@ namespace OpenNefia.Core.UI.Element.List
 
             for (int index = 0; index < this.Count; index++)
             {
-                var cell = this.Choices[index];
+                var cell = this.Cells[index];
                 var ix = this.X + this.ItemOffsetX;
                 var iy = index * this.ItemHeight + this.Y + this.ItemOffsetY;
 
-                cell.SetPosition(ix + 26, iy + 1);
+                cell.SetPosition(ix + this.AssetSelectKey.Width + 2, iy + 1);
 
                 var text = this.KeyNameTexts[index];
                 var textX = ix + (this.AssetSelectKey.Width - GraphicsEx.GetTextWidth(text.Text)) / 2 - 2;
@@ -220,10 +243,9 @@ namespace OpenNefia.Core.UI.Element.List
 
             for (int index = 0; index < this.Count; index++)
             {
-                var cell = this.Choices[index];
-                cell.SetSize(0, this.ItemHeight);
+                var cell = this.Cells[index];
+                cell.SetSize(width - (this.AssetSelectKey.Width + 2), this.ItemHeight);
                 totalHeight += cell.Height;
-                width = Math.Max(width, cell.Width);
             }
 
             base.SetSize(width, Math.Max(height, totalHeight));
@@ -231,23 +253,23 @@ namespace OpenNefia.Core.UI.Element.List
 
         protected virtual void DrawSelectKey(int index)
         {
-            var cell = this.Choices[index];
+            var cell = this.Cells[index];
             GraphicsEx.SetColor(Color.White);
-            this.AssetSelectKey.Draw(cell.X - 26, cell.Y - 1);
+            this.AssetSelectKey.Draw(cell.X - (this.AssetSelectKey.Width + 2), cell.Y - 1);
             this.KeyNameTexts[index].Draw();
         }
         
         protected virtual void DrawHighlight(int index)
         {
-            var cell = this.Choices[index];
+            var cell = this.Cells[index];
 
-            var width = Math.Clamp(cell.Width + 32 + cell.XOffset, 10, 480);
+            var width = Math.Clamp(cell.TextWidth + this.AssetSelectKey.Width + 8 + cell.XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(this.ColorSelectedSub);
-            GraphicsEx.DrawFilledRect(cell.X, cell.Y - 2, width, 19);
+            GraphicsEx.FilledRect(cell.X, cell.Y - 2, width, 19);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(this.ColorSelectedAdd);
-            GraphicsEx.DrawFilledRect(cell.X + 1, cell.Y - 1, width - 2, 17);
+            GraphicsEx.FilledRect(cell.X + 1, cell.Y - 1, width - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
             this.AssetListBullet.Draw(cell.X + width - 20, cell.Y + 2);
@@ -255,7 +277,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         public override void Update(float dt)
         {
-            foreach (var cell in this.Choices)
+            foreach (var cell in this.Cells)
                 cell.Update(dt);
         }
 
@@ -265,7 +287,7 @@ namespace OpenNefia.Core.UI.Element.List
             {
                 this.DrawSelectKey(index);
 
-                var cell = this.Choices[index];
+                var cell = this.Cells[index];
                 cell.Draw();
 
                 if (this.HighlightSelected && index == this.SelectedIndex)
@@ -279,25 +301,25 @@ namespace OpenNefia.Core.UI.Element.List
 
         #region IList implementation
 
-        public int Count => this.Choices.Count;
-        public bool IsReadOnly => this.Choices.IsReadOnly;
+        public int Count => this.Cells.Count;
+        public bool IsReadOnly => this.Cells.IsReadOnly;
 
-        public IUiListCell<T> this[int index] { get => this.Choices[index]; set => this.Choices[index] = value; }
-        public int IndexOf(IUiListCell<T> item) => this.Choices.IndexOf(item);
-        public void Insert(int index, IUiListCell<T> item) => this.Choices.Insert(index, item);
-        public void RemoveAt(int index) => this.Choices.RemoveAt(index);
-        public void Add(IUiListCell<T> item) => this.Choices.Add(item);
-        public void Clear() => this.Choices.Clear();
-        public bool Contains(IUiListCell<T> item) => this.Choices.Contains(item);
-        public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => this.Choices.CopyTo(array, arrayIndex);
-        public bool Remove(IUiListCell<T> item) => this.Choices.Remove(item);
+        public IUiListCell<T> this[int index] { get => this.Cells[index]; set => this.Cells[index] = value; }
+        public int IndexOf(IUiListCell<T> item) => this.Cells.IndexOf(item);
+        public void Insert(int index, IUiListCell<T> item) => this.Cells.Insert(index, item);
+        public void RemoveAt(int index) => this.Cells.RemoveAt(index);
+        public void Add(IUiListCell<T> item) => this.Cells.Add(item);
+        public void Clear() => this.Cells.Clear();
+        public bool Contains(IUiListCell<T> item) => this.Cells.Contains(item);
+        public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => this.Cells.CopyTo(array, arrayIndex);
+        public bool Remove(IUiListCell<T> item) => this.Cells.Remove(item);
 
         public bool IsFixedSize => false;
         public bool IsSynchronized => false;
         public object SyncRoot => this;
 
-        public IEnumerator<IUiListCell<T>> GetEnumerator() => this.Choices.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => this.Choices.GetEnumerator();
+        public IEnumerator<IUiListCell<T>> GetEnumerator() => this.Cells.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.Cells.GetEnumerator();
 
         #endregion
     }

@@ -9,14 +9,14 @@ namespace OpenNefia.Core.UI
     public class TextInputEvent: IInputEvent
     {
         public string Text { get; }
-        public bool Vetoed { get; private set; }
+        public bool Passed { get; private set; }
 
         public TextInputEvent(string text)
         {
             this.Text = text;
-            this.Vetoed = false;
+            this.Passed = false;
         }
 
-        public void Veto() { this.Vetoed = true; }
+        public void Pass() { this.Passed = true; }
     }
 }

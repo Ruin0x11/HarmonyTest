@@ -26,6 +26,8 @@ namespace OpenNefia.Core.UI.Element.List
         }
         protected IUiText UiText;
 
+        public int TextWidth { get => this.UiText.Width; }
+
         public int XOffset { get; set; }
 
         public UiListCell(T data, string text)

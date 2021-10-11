@@ -49,6 +49,18 @@ namespace OpenNefia.Core.UI.Layer
 
             this.List2.Keybinds[Keybind.Entries.Mode] += (_) => Console.WriteLine("Dood!");
 
+            this.MouseMoved.Callback += (evt) =>
+            {
+                if (this.List1.ContainsPoint(evt.X, evt.Y))
+                    this.SelectList(this.List1);
+                else if (this.List2.ContainsPoint(evt.X, evt.Y))
+                    this.SelectList(this.List2);
+                else if (this.List3.ContainsPoint(evt.X, evt.Y))
+                    this.SelectList(this.List3);
+
+                evt.Pass();
+            };
+
             this.Index = 1;
             this.SelectList(this.List1);
         }
@@ -99,9 +111,10 @@ namespace OpenNefia.Core.UI.Layer
             base.SetSize(width, height);
 
             this.Window.SetSize(this.Width, this.Height);
-            this.List1.SetSize(this.Width - 40, this.Height - 40);
-            this.List2.SetSize(this.Width - 40, this.Height - 40);
-            this.List3.SetSize(this.Width - 40, this.Height - 40);
+            var listWidth = (this.Width - 40) / 3;
+            this.List1.SetSize(listWidth, this.Height - 40);
+            this.List2.SetSize(listWidth, this.Height - 40);
+            this.List3.SetSize(listWidth, this.Height - 40);
         }
 
         public override void SetPosition(int x, int y)

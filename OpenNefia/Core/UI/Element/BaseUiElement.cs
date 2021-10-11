@@ -32,6 +32,11 @@ namespace OpenNefia.Core.UI.Element
             this.Y = y;
         }
 
+        public bool ContainsPoint(int x, int y)
+        {
+            return this.X <= x && this.Y <= y && this.X + this.Width > x && this.Y + this.Height > y;
+        }
+
         public abstract void Update(float dt);
         public abstract void Draw();
     }

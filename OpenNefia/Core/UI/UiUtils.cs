@@ -1,4 +1,7 @@
 ﻿using Love;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Element.List;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +33,15 @@ namespace OpenNefia.Core.UI
             }
 
             return new Rectangle(x, y, width, height);
+        }
+
+        public static void DebugDraw(IUiElement elem)
+        {
+            Graphics.SetColor(Love.Color.Red);
+            GraphicsEx.LineRect(elem.X, elem.Y, elem.Width, elem.Height);
+            Graphics.SetColor(Love.Color.Blue);
+            Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Graphics.Print($"{elem}", elem.X, elem.Y);
         }
     }
 }

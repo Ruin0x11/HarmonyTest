@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI
         public int Y { get; }
         public int Dx { get; }
         public int Dy { get; }
-        public bool Vetoed { get; private set; }
+        public bool Passed { get; private set; }
 
         public MouseMovedEvent(int x, int y, int dx, int dy)
         {
@@ -20,9 +20,9 @@ namespace OpenNefia.Core.UI
             this.Y = y;
             this.Dx = dx;
             this.Dy = dy;
-            this.Vetoed = false;
+            this.Passed = false;
         }
 
-        public void Veto() { this.Vetoed = true; }
+        public void Pass() { this.Passed = true; }
     }
 }

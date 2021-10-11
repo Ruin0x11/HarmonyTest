@@ -127,12 +127,12 @@ namespace OpenNefia.Core.Rendering
                 SetColor(spec.Color);
         }
 
-        public static void DrawFilledRect(int x, int y, int width, int height)
+        public static void FilledRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
         }
 
-        public static void DrawLineRect(int x, int y, int width, int height)
+        public static void LineRect(int x, int y, int width, int height)
         {
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
         }

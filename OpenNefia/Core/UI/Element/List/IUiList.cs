@@ -18,7 +18,7 @@ namespace OpenNefia.Core.UI.Element.List
         event UiListEventHandler<T>? EventOnActivate;
 
         public int SelectedIndex { get; }
-        public IUiListCell<T> SelectedChoice { get; }
+        public IUiListCell<T> SelectedCell { get; }
 
         bool CanSelect(int index);
         void IncrementIndex(int delta);

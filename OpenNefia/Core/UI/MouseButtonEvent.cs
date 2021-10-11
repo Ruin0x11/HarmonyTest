@@ -11,16 +11,16 @@ namespace OpenNefia.Core.UI
         public KeyPressState State { get; }
         public int X { get; }
         public int Y { get; }
-        public bool Vetoed { get; private set; }
+        public bool Passed { get; private set; }
 
         public MouseButtonEvent(KeyPressState state, int x, int y)
         {
             this.State = state;
             this.X = x;
             this.Y = y;
-            this.Vetoed = false;
+            this.Passed = false;
         }
 
-        public void Veto() { this.Vetoed = true; }
+        public void Pass() { this.Passed = true; }
     }
 }

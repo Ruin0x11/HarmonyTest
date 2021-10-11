@@ -177,7 +177,7 @@ namespace OpenNefia.Core.UI.Layer
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(this.ColorPromptBackground);
-                GraphicsEx.DrawFilledRect(this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
+                GraphicsEx.FilledRect(this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
             }
 
             this.TopicWindow.Draw();

@@ -117,6 +117,11 @@ namespace OpenNefia.Core.UI
         /// <inheritdoc />
         public void ReceiveKeyPressed(Love.KeyConstant loveKey, bool isRepeat)
         {
+            foreach (var forward in this.Forwards)
+            {
+                forward.ReceiveKeyPressed(loveKey, isRepeat);
+            }
+
             if (this.Halted && isRepeat) {
                 return;
             }
@@ -153,6 +158,11 @@ namespace OpenNefia.Core.UI
         /// <inheritdoc />
         public void ReceiveKeyReleased(Love.KeyConstant loveKey)
         {
+            foreach (var forward in this.Forwards)
+            {
+                forward.ReceiveKeyReleased(loveKey);
+            }
+
             var key = (Keys)loveKey;
 
             var modifier = InputUtils.GetModifier(loveKey);
@@ -170,6 +180,11 @@ namespace OpenNefia.Core.UI
         /// <inheritdoc />
         public void ReceiveTextInput(string text)
         {
+            foreach (var forward in this.Forwards)
+            {
+                forward.ReceiveTextInput(text);
+            }
+
             if (!this.TextInputEnabled)
                 return;
 
@@ -383,7 +398,7 @@ namespace OpenNefia.Core.UI
 
                                 var evt = new KeyInputEvent(state);
                                 action.Run(evt);
-                                if (!evt.Vetoed)
+                                if (!evt.Passed)
                                 {
                                     repeatDelay.ActiveKeybinds.Add(keybind);
                                     return true;
@@ -411,7 +426,7 @@ namespace OpenNefia.Core.UI
             {
                 var evt = new MouseButtonEvent(KeyPressState.Pressed, press.X, press.Y);
                 action.Run(evt);
-                if (!evt.Vetoed)
+                if (!evt.Passed)
                 {
                     return true;
                 }
@@ -434,7 +449,7 @@ namespace OpenNefia.Core.UI
             {
                 var evt = new TextInputEvent(text);
                 this.TextInputHandler(evt);
-                if (!evt.Vetoed)
+                if (!evt.Passed)
                 {
                     return true;
                 }
@@ -457,7 +472,7 @@ namespace OpenNefia.Core.UI
             {
                 var evt = new MouseMovedEvent(x, y, dx, dy);
                 this.MouseMovedHandler(evt);
-                if (!evt.Vetoed)
+                if (!evt.Passed)
                 {
                     return true;
                 }

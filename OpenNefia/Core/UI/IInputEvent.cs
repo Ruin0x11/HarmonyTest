@@ -2,8 +2,8 @@ namespace OpenNefia.Core.UI
 {
     public interface IInputEvent
     {
-        public bool Vetoed { get; }
+        public bool Passed { get; }
 
-        public void Veto();
+        public void Pass();
     }
 }

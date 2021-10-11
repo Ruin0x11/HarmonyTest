@@ -9,14 +9,14 @@ namespace OpenNefia.Core.UI
     public class KeyInputEvent : IInputEvent
     {
         public KeyPressState State { get; }
-        public bool Vetoed { get; private set; }
+        public bool Passed { get; private set; }
 
         public KeyInputEvent(KeyPressState state)
         {
             this.State = state;
-            this.Vetoed = false;
+            this.Passed = false;
         }
 
-        public void Veto() { this.Vetoed = true; }
+        public void Pass() { this.Passed = true; }
     }
 }
