@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -86,6 +87,11 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += this.List;
 
             this.List.EventOnActivate += (o, e) => this.Finish(e.SelectedChoice.Data);
+        }
+
+        public override void OnQuery()
+        {
+            Gui.PlaySound(SoundDefOf.Pop2);
         }
 
         public override void SetDefaultSize()

@@ -24,7 +24,6 @@ namespace OpenNefia.Game
         public List<IUiLayer> Layers { get; private set; }
 
         public ModLoader ModLoader = new ModLoader();
-        public DefStore DefStore = new DefStore();
 
         private Love.Canvas TargetCanvas;
 
@@ -147,7 +146,8 @@ namespace OpenNefia.Game
         public void MainCode(string[] args)
         {
             this.ModLoader.Execute();
-            this.DefStore.LoadAll();
+            DefLoader.LoadAll();
+            DefLoader.PopulateStaticEntries();
 
             var _ = RawKey.AllKeys.Value;
 

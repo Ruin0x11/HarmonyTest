@@ -1,12 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<SoundDef Id="AtkChaos">
-		<filepath>Assets/Sound/atk_chaos.wav</filepath>
+		<Filepath>Assets/Sound/atk_chaos.wav</Filepath>
 	</SoundDef>
 	<SoundDef Id="AtkDark">
-		<filepath>Assets/Sound/atk_dark.wav</filepath>
+		<Filepath>Assets/Sound/atk_dark.wav</Filepath>
 	</SoundDef>
 	<SoundDef Id="AtkHell">
-		<filepath>Assets/Sound/atk_hell.wav</filepath>
+		<Filepath>Assets/Sound/atk_hell.wav</Filepath>
+	</SoundDef>
+	<SoundDef Id="Cursor1">
+		<Filepath>Assets/Sound/cursor1.wav</Filepath>
+	</SoundDef>
+	<SoundDef Id="Ok1">
+		<Filepath>Assets/Sound/ok1.wav</Filepath>
+	</SoundDef>
+	<SoundDef Id="Pop2">
+		<Filepath>Assets/Sound/pop2.wav</Filepath>
 	</SoundDef>
 </Defs>

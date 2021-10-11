@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -38,11 +39,11 @@ namespace TestMod1
         {
             this.Keybinds[Keybind.Entries.UILeft] += (_) => {
                 this.Value--;
-                // Gui.PlaySound("Core.Cursor1");
+                Gui.PlaySound(SoundDefOf.Cursor1);
             };
             this.Keybinds[Keybind.Entries.UIRight] += (_) => {
                 this.Value++;
-                // Gui.PlaySound("Core.Cursor1");
+                Gui.PlaySound(SoundDefOf.Cursor1);
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
@@ -51,7 +52,7 @@ namespace TestMod1
 
         public override void OnQuery()
         {
-            // Gui.PlaySound("Core.Pop2");
+            Gui.PlaySound(SoundDefOf.AtkDark);
         }
 
         protected virtual void UpdateText()

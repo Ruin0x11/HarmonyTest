@@ -12,6 +12,7 @@ namespace OpenNefia.Core
         public static void PlaySound(SoundDef soundDef)
         {
             var sound = Love.Audio.NewSource(soundDef.Filepath.Resolve(), Love.SourceType.Static);
+            sound.SetVolume(1.0f);
             Love.Audio.Play(sound);
         }
     }

@@ -84,6 +84,8 @@ namespace OpenNefia.Core.UI
 
             UiResult<T>? result;
 
+            this.OnQuery();
+
             while (true)
             {
                 var dt = Timer.GetDelta();

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -32,7 +33,11 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.UILeft] += (_) => this.NextList(-1);
             this.Keybinds[Keybind.Entries.UIRight] += (_) => this.NextList(1);
 
-            UiListEventHandler<string> printIt = (_, evt) => Console.WriteLine($"Get item: {evt.SelectedChoice.Data}");
+            UiListEventHandler<string> printIt = (_, evt) =>
+            {
+                Gui.PlaySound(SoundDefOf.Ok1);
+                Console.WriteLine($"Get item: {evt.SelectedChoice.Data}");
+            };
             this.List1.EventOnActivate += printIt;
             this.List2.EventOnActivate += printIt;
             this.List3.EventOnActivate += printIt;
@@ -51,12 +56,24 @@ namespace OpenNefia.Core.UI.Layer
 
             this.MouseMoved.Callback += (evt) =>
             {
-                if (this.List1.ContainsPoint(evt.X, evt.Y))
+                if (this.List1.ContainsPoint(evt.X, evt.Y) && this.Index != 1)
+                {
+                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    this.Index = 1;
                     this.SelectList(this.List1);
-                else if (this.List2.ContainsPoint(evt.X, evt.Y))
+                }
+                else if (this.List2.ContainsPoint(evt.X, evt.Y) && this.Index != 2)
+                {
+                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    this.Index = 2;
                     this.SelectList(this.List2);
-                else if (this.List3.ContainsPoint(evt.X, evt.Y))
+                }
+                else if (this.List3.ContainsPoint(evt.X, evt.Y) && this.Index != 3)
+                {
+                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    this.Index = 3;
                     this.SelectList(this.List3);
+                }
 
                 evt.Pass();
             };
@@ -65,8 +82,15 @@ namespace OpenNefia.Core.UI.Layer
             this.SelectList(this.List1);
         }
 
+        public override void OnQuery()
+        {
+            Gui.PlaySound(SoundDefOf.Pop2);
+        }
+
         private void NextList(int delta)
         {
+            Gui.PlaySound(SoundDefOf.Cursor1);
+
             this.Index += delta;
             if (this.Index > 3)
                 this.Index = 1;

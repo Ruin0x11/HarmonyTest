@@ -15,11 +15,13 @@ namespace OpenNefia.Core.Data
     {
         private string Filepath;
         public List<Def> Defs { get; internal set; }
+        public Type ContainingMod { get; }
 
-        public DefSet(string filepath)
+        public DefSet(string filepath, Type containingModType)
         {
             this.Filepath = filepath;
             this.Defs = new List<Def>();
+            this.ContainingMod = containingModType;
             this.Load();
         }
 
@@ -37,7 +39,6 @@ namespace OpenNefia.Core.Data
                 throw new DefLoadException("'Defs' element not found in root");
             }
 
-            /*
             var deserializer = new DefDeserializer();
 
             foreach (var elem in root.ChildNodes)
@@ -45,13 +46,13 @@ namespace OpenNefia.Core.Data
                 var node = (XmlNode)elem;
                 var name = node.Name;
 
-                var defType = GameWrapper.Instance.DefStore.GetDefTypeFromName(name);
+                var defType = DefTypes.GetDefTypeFromName(name);
                 if (defType == null)
                     throw new DefLoadException($"Def type '{name}' not found.");
 
-                var defInstance = deserializer.DeserializeDef(defType, node);
+                var defInstance = deserializer.DeserializeDef(defType, node, ContainingMod);
+                Defs.Add(defInstance);
             }
-            */
         }
     }
 }

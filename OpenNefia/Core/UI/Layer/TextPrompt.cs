@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
@@ -97,7 +98,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            // Gui.PlaySound("Core.Pop2");
+            Gui.PlaySound(SoundDefOf.Pop2);
         }
 
         protected virtual void UpdateText()
