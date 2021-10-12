@@ -51,6 +51,9 @@ namespace OpenNefia.Core.UI.Layer
             Message = result;
             this.MouseText = "";
 
+            InstancedMap.Save(Map, "TestMap.nbt");
+            InstancedMap.Load("TestMap.nbt");
+
             this.BindKeys();
         }
 
