@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Data
 {
-    public class DefEntriesOfAttribute : Attribute
+    public class DefOfEntriesAttribute : Attribute
     {
     }
 }

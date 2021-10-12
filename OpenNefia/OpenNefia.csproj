@@ -27,6 +27,10 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Defs\Asset.xml" />
+  </ItemGroup>
     
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />

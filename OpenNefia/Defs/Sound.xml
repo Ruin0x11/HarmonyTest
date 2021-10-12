@@ -1,21 +1,360 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<SoundDef Id="AtkChaos">
-		<Filepath>Assets/Sound/atk_chaos.wav</Filepath>
-	</SoundDef>
-	<SoundDef Id="AtkDark">
-		<Filepath>Assets/Sound/atk_dark.wav</Filepath>
-	</SoundDef>
-	<SoundDef Id="AtkHell">
-		<Filepath>Assets/Sound/atk_hell.wav</Filepath>
-	</SoundDef>
-	<SoundDef Id="Cursor1">
-		<Filepath>Assets/Sound/cursor1.wav</Filepath>
-	</SoundDef>
-	<SoundDef Id="Ok1">
-		<Filepath>Assets/Sound/ok1.wav</Filepath>
-	</SoundDef>
-	<SoundDef Id="Pop2">
-		<Filepath>Assets/Sound/pop2.wav</Filepath>
-	</SoundDef>
+    <SoundDef Id="Alert1">
+        <Filepath>Assets/Sound/alert1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ammo">
+        <Filepath>Assets/Sound/ammo.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Arrow1">
+        <Filepath>Assets/Sound/arrow1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Atk1">
+        <Filepath>Assets/Sound/atk1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Atk2">
+        <Filepath>Assets/Sound/atk2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkChaos">
+        <Filepath>Assets/Sound/atk_chaos.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkDark">
+        <Filepath>Assets/Sound/atk_dark.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkElec">
+        <Filepath>Assets/Sound/atk_elec.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkFire">
+        <Filepath>Assets/Sound/atk_fire.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkHell">
+        <Filepath>Assets/Sound/atk_hell.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkIce">
+        <Filepath>Assets/Sound/atk_ice.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkMind">
+        <Filepath>Assets/Sound/atk_mind.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkNerve">
+        <Filepath>Assets/Sound/atk_nerve.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkPoison">
+        <Filepath>Assets/Sound/atk_poison.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="AtkSound">
+        <Filepath>Assets/Sound/atk_sound.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Atksword">
+        <Filepath>Assets/Sound/atksword.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ball1">
+        <Filepath>Assets/Sound/ball1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Bash1">
+        <Filepath>Assets/Sound/bash1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgFire">
+        <Filepath>Assets/Sound/bg_fire.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgRain">
+        <Filepath>Assets/Sound/bg_rain.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgSea">
+        <Filepath>Assets/Sound/bg_sea.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgThunder">
+        <Filepath>Assets/Sound/bg_thunder.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgTown">
+        <Filepath>Assets/Sound/bg_town.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="BgWind">
+        <Filepath>Assets/Sound/bg_wind.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Bolt1">
+        <Filepath>Assets/Sound/bolt1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Book1">
+        <Filepath>Assets/Sound/book1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Bow1">
+        <Filepath>Assets/Sound/bow1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Breath1">
+        <Filepath>Assets/Sound/breath1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Build1">
+        <Filepath>Assets/Sound/build1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Bush1">
+        <Filepath>Assets/Sound/bush1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Card1">
+        <Filepath>Assets/Sound/card1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Chara">
+        <Filepath>Assets/Sound/chara.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Chat">
+        <Filepath>Assets/Sound/chat.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Cheer">
+        <Filepath>Assets/Sound/cheer.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Chest1">
+        <Filepath>Assets/Sound/chest1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Chime">
+        <Filepath>Assets/Sound/chime.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Click1">
+        <Filepath>Assets/Sound/click1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Complete1">
+        <Filepath>Assets/Sound/complete1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Cook1">
+        <Filepath>Assets/Sound/cook1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Crush1">
+        <Filepath>Assets/Sound/crush1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Crush2">
+        <Filepath>Assets/Sound/crush2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Curse1">
+        <Filepath>Assets/Sound/curse1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Curse2">
+        <Filepath>Assets/Sound/curse2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Curse3">
+        <Filepath>Assets/Sound/curse3.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Cursor1">
+        <Filepath>Assets/Sound/cursor1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Dead1">
+        <Filepath>Assets/Sound/dead1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Dice">
+        <Filepath>Assets/Sound/dice.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Dig1">
+        <Filepath>Assets/Sound/dig1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Dig2">
+        <Filepath>Assets/Sound/dig2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ding1">
+        <Filepath>Assets/Sound/ding1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ding2">
+        <Filepath>Assets/Sound/ding2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ding3">
+        <Filepath>Assets/Sound/ding3.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Door1">
+        <Filepath>Assets/Sound/door1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Door2">
+        <Filepath>Assets/Sound/door2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Drink1">
+        <Filepath>Assets/Sound/drink1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Drop1">
+        <Filepath>Assets/Sound/drop1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Eat1">
+        <Filepath>Assets/Sound/eat1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Enc2">
+        <Filepath>Assets/Sound/enc2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Enc">
+        <Filepath>Assets/Sound/enc.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Equip1">
+        <Filepath>Assets/Sound/equip1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Exitmap1">
+        <Filepath>Assets/Sound/exitmap1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Fail1">
+        <Filepath>Assets/Sound/fail1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Feat">
+        <Filepath>Assets/Sound/feat.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Fire1">
+        <Filepath>Assets/Sound/fire1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="FishCast">
+        <Filepath>Assets/Sound/fish_cast.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="FishFight">
+        <Filepath>Assets/Sound/fish_fight.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="FishGet">
+        <Filepath>Assets/Sound/fish_get.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Fizzle">
+        <Filepath>Assets/Sound/fizzle.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot1a">
+        <Filepath>Assets/Sound/foot1a.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot1b">
+        <Filepath>Assets/Sound/foot1b.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot2a">
+        <Filepath>Assets/Sound/foot2a.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot2b">
+        <Filepath>Assets/Sound/foot2b.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot2c">
+        <Filepath>Assets/Sound/foot2c.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Foot">
+        <Filepath>Assets/Sound/foot.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Gasha">
+        <Filepath>Assets/Sound/gasha.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Get1">
+        <Filepath>Assets/Sound/get1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Get2">
+        <Filepath>Assets/Sound/get2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Get3">
+        <Filepath>Assets/Sound/get3.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Getgold1">
+        <Filepath>Assets/Sound/getgold1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Gun1">
+        <Filepath>Assets/Sound/gun1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Heal1">
+        <Filepath>Assets/Sound/heal1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Heart1">
+        <Filepath>Assets/Sound/Heart1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Inv">
+        <Filepath>Assets/Sound/inv.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Kill1">
+        <Filepath>Assets/Sound/kill1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Kill2">
+        <Filepath>Assets/Sound/kill2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Laser1">
+        <Filepath>Assets/Sound/laser1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Locked1">
+        <Filepath>Assets/Sound/locked1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Log">
+        <Filepath>Assets/Sound/log.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Miss">
+        <Filepath>Assets/Sound/miss.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="More1">
+        <Filepath>Assets/Sound/more1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Night">
+        <Filepath>Assets/Sound/night.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Offer1">
+        <Filepath>Assets/Sound/offer1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Offer2">
+        <Filepath>Assets/Sound/offer2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Ok1">
+        <Filepath>Assets/Sound/ok1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Paygold1">
+        <Filepath>Assets/Sound/paygold1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pop1">
+        <Filepath>Assets/Sound/pop1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pop2">
+        <Filepath>Assets/Sound/pop2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pop3">
+        <Filepath>Assets/Sound/pop3.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pop4">
+        <Filepath>Assets/Sound/pop4.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Port">
+        <Filepath>Assets/Sound/port.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pray1">
+        <Filepath>Assets/Sound/pray1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Pray2">
+        <Filepath>Assets/Sound/pray2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Punish1">
+        <Filepath>Assets/Sound/punish1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Scroll">
+        <Filepath>Assets/Sound/scroll.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Skill">
+        <Filepath>Assets/Sound/skill.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Snow">
+        <Filepath>Assets/Sound/snow.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Spell">
+        <Filepath>Assets/Sound/spell.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Spend1">
+        <Filepath>Assets/Sound/spend1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Teleport1">
+        <Filepath>Assets/Sound/teleport1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Throw1">
+        <Filepath>Assets/Sound/throw1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Throw2">
+        <Filepath>Assets/Sound/throw2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Trap1">
+        <Filepath>Assets/Sound/trap1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Unpop1">
+        <Filepath>Assets/Sound/unpop1.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Vomit">
+        <Filepath>Assets/Sound/vomit.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Water2">
+        <Filepath>Assets/Sound/water2.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Water">
+        <Filepath>Assets/Sound/water.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Wear">
+        <Filepath>Assets/Sound/wear.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Web">
+        <Filepath>Assets/Sound/web.wav</Filepath>
+    </SoundDef>
+    <SoundDef Id="Write1">
+        <Filepath>Assets/Sound/write1.wav</Filepath>
+    </SoundDef>
 </Defs>

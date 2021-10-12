@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace OpenNefia.Core.UI.Element
             this.XOffset = xOffset;
             this.YOffset = yOffset;
 
-            this.AssetTipIcons = new AssetDrawable(Asset.Entries.TipIcons);
+            this.AssetTipIcons = new AssetDrawable(AssetDefOf.TipIcons);
             this.ColorWindowBottomLine1 = ColorAsset.Entries.WindowBottomLine1;
             this.ColorWindowBottomLine2 = ColorAsset.Entries.WindowBottomLine2;
             this.FontWindowTitle = FontAsset.Entries.WindowTitle;

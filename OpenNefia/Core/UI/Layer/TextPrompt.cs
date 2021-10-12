@@ -56,11 +56,11 @@ namespace OpenNefia.Core.UI.Layer
             this.IsCancellable = isCancellable;
             this.HasShadow = hasShadow;
 
-            this.AssetLabelInput = new AssetDrawable(Asset.Entries.LabelInput);
-            this.AssetImeStatusJapanese = new AssetDrawable(Asset.Entries.ImeStatusJapanese);
-            this.AssetImeStatusEnglish = new AssetDrawable(Asset.Entries.ImeStatusEnglish);
-            this.AssetImeStatusNone = new AssetDrawable(Asset.Entries.ImeStatusNone);
-            this.AssetInputCaret = new AssetDrawable(Asset.Entries.InputCaret);
+            this.AssetLabelInput = new AssetDrawable(AssetDefOf.LabelInput);
+            this.AssetImeStatusJapanese = new AssetDrawable(AssetDefOf.ImeStatusJapanese);
+            this.AssetImeStatusEnglish = new AssetDrawable(AssetDefOf.ImeStatusEnglish);
+            this.AssetImeStatusNone = new AssetDrawable(AssetDefOf.ImeStatusNone);
+            this.AssetInputCaret = new AssetDrawable(AssetDefOf.InputCaret);
             this.ColorPromptBackground = ColorAsset.Entries.PromptBackground;
             this.FontPromptText = FontAsset.Entries.PromptText;
 

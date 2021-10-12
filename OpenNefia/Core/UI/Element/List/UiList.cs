@@ -53,8 +53,8 @@ namespace OpenNefia.Core.UI.Element.List
             this.HighlightSelected = true;
             this.SelectOnActivate = true;
 
-            this.AssetSelectKey = new AssetDrawable(Asset.Entries.SelectKey);
-            this.AssetListBullet = new AssetDrawable(Asset.Entries.ListBullet);
+            this.AssetSelectKey = new AssetDrawable(AssetDefOf.SelectKey);
+            this.AssetListBullet = new AssetDrawable(AssetDefOf.ListBullet);
             this.ColorSelectedAdd = ColorAsset.Entries.ListSelectedAdd;
             this.ColorSelectedSub = ColorAsset.Entries.ListSelectedSub;
             this.FontListKeyName = FontAsset.Entries.ListKeyName;

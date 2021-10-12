@@ -79,9 +79,9 @@ namespace OpenNefia.Core.UI.Layer
             this._Value = initialValue.Value;
             this.IsCancellable = isCancellable;
 
-            this.AssetLabelInput = new AssetDrawable(Asset.Entries.LabelInput);
-            this.AssetArrowLeft = new AssetDrawable(Asset.Entries.ArrowLeft);
-            this.AssetArrowRight = new AssetDrawable(Asset.Entries.ArrowRight);
+            this.AssetLabelInput = new AssetDrawable(AssetDefOf.LabelInput);
+            this.AssetArrowLeft = new AssetDrawable(AssetDefOf.ArrowLeft);
+            this.AssetArrowRight = new AssetDrawable(AssetDefOf.ArrowRight);
             this.ColorPromptBackground = ColorAsset.Entries.PromptBackground;
             this.FontPromptText = FontAsset.Entries.PromptText;
 

@@ -17,5 +17,7 @@ namespace OpenNefia.Core.Data
         {
             this.Id = id;
         }
+
+        public override string ToString() => $"<Def {this.GetType().Name}.{this.Id}>";
     }
 }

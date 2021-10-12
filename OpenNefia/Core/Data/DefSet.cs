@@ -11,21 +11,23 @@ using System.Xml;
 
 namespace OpenNefia.Core.Data
 {
-    public class DefSet
+    internal class DefSet
     {
         private string Filepath;
         public List<Def> Defs { get; internal set; }
+        public List<DefCrossRef> CrossRefs { get; internal set; }
         public Type ContainingMod { get; }
 
-        public DefSet(string filepath, Type containingModType)
+        public DefSet(string filepath, Type containingModType, DefDeserializer deserializer)
         {
             this.Filepath = filepath;
             this.Defs = new List<Def>();
+            this.CrossRefs = new List<DefCrossRef>();
             this.ContainingMod = containingModType;
-            this.Load();
+            this.Load(deserializer);
         }
 
-        private void Load()
+        private void Load(DefDeserializer deserializer)
         {
             if (!File.Exists(this.Filepath))
                 throw new FileNotFoundException($"Def set file {this.Filepath} does not exist.");
@@ -39,8 +41,6 @@ namespace OpenNefia.Core.Data
                 throw new DefLoadException("'Defs' element not found in root");
             }
 
-            var deserializer = new DefDeserializer();
-
             foreach (var elem in root.ChildNodes)
             {
                 var node = (XmlNode)elem;
@@ -51,7 +51,12 @@ namespace OpenNefia.Core.Data
                     throw new DefLoadException($"Def type '{name}' not found.");
 
                 var defInstance = deserializer.DeserializeDef(defType, node, ContainingMod);
-                Defs.Add(defInstance);
+
+                if (defInstance != null)
+                {
+                    Defs.Add(defInstance);
+                    CrossRefs.AddRange(deserializer.CrossRefs);
+                }
             }
         }
     }

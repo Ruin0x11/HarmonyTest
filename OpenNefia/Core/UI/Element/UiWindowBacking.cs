@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace OpenNefia.Core.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
             }
 
-            this.AssetWindow = new AssetDrawable(Asset.Entries.Window, this.Width, this.Height);
+            this.AssetWindow = new AssetDrawable(AssetDefOf.Window, this.Width, this.Height);
             this.Batch = this.AssetWindow.MakeBatch(parts);
         }
 

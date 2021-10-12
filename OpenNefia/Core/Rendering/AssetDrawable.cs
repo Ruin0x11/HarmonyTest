@@ -27,11 +27,11 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public Asset Asset;
+        public AssetDef Asset;
         public Love.Image Image;
 
         private Dictionary<string, Love.Quad> Quads;
-        private Dictionary<string, Asset.Region> Regions;
+        private Dictionary<string, AssetDef.Region> Regions;
 
         public uint CountX { get; }
         public uint CountY { get; }
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Rendering
             return image;
         }
 
-        private static Love.Image LoadImage(Asset asset)
+        private static Love.Image LoadImage(AssetDef asset)
         {
             Love.Image image;
 
@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Rendering
             return image;
         }
 
-        public AssetDrawable(Asset asset, int batchWidth, int batchHeight)
+        public AssetDrawable(AssetDef asset, int batchWidth, int batchHeight)
         {
             this.Asset = asset;
             this.Image = LoadImage(this.Asset);
@@ -116,7 +116,7 @@ namespace OpenNefia.Core.Rendering
             this.SetupQuads();
         }
 
-        public AssetDrawable(Asset asset) : this(asset, 1, 1) { }
+        public AssetDrawable(AssetDef asset) : this(asset, 1, 1) { }
 
         private void SetupQuads()
         {

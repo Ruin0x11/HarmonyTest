@@ -1,4 +1,5 @@
-﻿using OpenNefia.Game;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Game;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,38 @@ namespace OpenNefia.Core.Data
     internal static class DefLoader
     {
         private static readonly Dictionary<Type, Dictionary<string, Def>> AllDefs = new Dictionary<Type, Dictionary<string, Def>>();
+        private static readonly List<DefCrossRef> PendingCrossRefs = new List<DefCrossRef>();
 
-        internal static void Load(string filepath, Type modType)
+        private static Type? GetDirectDefType(Type type)
         {
-            var defSet = new DefSet(filepath, modType);
-            foreach (var def in defSet.Defs)
+            if (type.BaseType == typeof(Def))
             {
-                var ty = def.GetType();
-                AllDefs[ty].Add(def.Id, def);
+                return type;
             }
+            else if (type.BaseType == null || type.BaseType == typeof(object))
+            {
+                return null;
+            }
+            return GetDirectDefType(type.BaseType!);
         }
 
-        private static object? GetDef(Type defType, string defId)
+        internal static void Load(string filepath, Type modType, DefDeserializer deserializer)
+        {
+            var defSet = new DefSet(filepath, modType, deserializer);
+            foreach (var def in defSet.Defs)
+            {
+                var ty = GetDirectDefType(def.GetType());
+                if (ty == null)
+                {
+                    throw new Exception($"Type {def.GetType()} is not a descendent of type that inherits from Def");
+                }
+                AllDefs[ty].Add(def.Id, def);
+            }
+
+            PendingCrossRefs.AddRange(defSet.CrossRefs);
+        }
+
+        private static Def? GetDef(Type defType, string defId)
         {
             var args = new object[] { defId };
             var store = typeof(DefStore<>)!.MakeGenericType(defType)!;
@@ -34,7 +55,43 @@ namespace OpenNefia.Core.Data
                 return null;
 
             var get = store.GetMethod("Get")!;
-            return get.Invoke(null, args);
+            return (Def?)get.Invoke(null, args);
+        }
+
+        private static void ResolveCrossRefs()
+        {
+            List<string> errors = new List<string>();
+
+            foreach (var crossRef in PendingCrossRefs)
+            {
+                var defType = GetDirectDefType(crossRef.crossRefType);
+                if (defType == null)
+                {
+                    errors.Add($"Type {crossRef.crossRefType} is not a descendent of type that inherits from Def");
+                }
+                else
+                {
+                    var def = GetDef(crossRef.crossRefType, crossRef.crossRefId);
+                    if (def == null)
+                    {
+                        errors.Add($"{crossRef.target}: Could not find def '{crossRef.crossRefType}.{crossRef.crossRefId}'");
+                    }
+                    else
+                    {
+                        crossRef.targetProperty.SetValue(crossRef.target, def);
+                    }
+                }
+            }
+
+            if (errors.Count > 0)
+            {
+                var errorMessage = "";
+                foreach (var error in errors)
+                {
+                    errorMessage += $"{error}\n";
+                }
+                throw new Exception($"Errors resolving crossreferences between defs:\n{errorMessage}");
+            }
         }
 
         internal static void LoadAll()
@@ -46,6 +103,8 @@ namespace OpenNefia.Core.Data
                 AllDefs[ty] = new Dictionary<string, Def>();
             }
 
+            var deserializer = new DefDeserializer();
+
             foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
             {
                 var modType = modInfo.Instance!.GetType();
@@ -55,10 +114,14 @@ namespace OpenNefia.Core.Data
                 {
                     foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
                     {
-                        Load(defSetFile, modType);
+                        Load(defSetFile, modType, deserializer);
                     }
                 }
             }
+
+            CheckErrors(deserializer.Errors, "Errors loading defs");
+
+            ResolveCrossRefs();
 
             foreach (var (defType, defs) in AllDefs)
             {
@@ -75,11 +138,12 @@ namespace OpenNefia.Core.Data
             }
 
             AllDefs.Clear();
+            PendingCrossRefs.Clear();
         }
 
         private static bool IsEntriesType(Type arg)
         {
-            return arg.GetCustomAttribute<DefEntriesOfAttribute>() != null;
+            return arg.GetCustomAttribute<DefOfEntriesAttribute>() != null;
         }
 
         internal static void PopulateStaticEntries()
@@ -92,22 +156,34 @@ namespace OpenNefia.Core.Data
                 {
                     foreach (var field in ty.GetFields(BindingFlags.Static | BindingFlags.Public))
                     {
-                        var defType = field.FieldType;
-                        var defId = field.Name;
-
-                        var def = GetDef(defType, defId);
-                        if (def == null)
+                        var defType = GetDirectDefType(field.FieldType);
+                        if (defType == null)
                         {
-                            errors.Add($"{ty.FullName}: Could not find def of type '{defType.Name}.{defId}'");
+                            errors.Add($"Type {defType} is not a descendent of type that inherits from Def");
                         }
                         else
                         {
-                            field.SetValue(null, def);
+                            var defId = field.Name;
+
+                            var def = GetDef(defType, defId);
+                            if (def == null)
+                            {
+                                errors.Add($"{ty.FullName}: Could not find def '{defType.Name}.{defId}'");
+                            }
+                            else
+                            {
+                                field.SetValue(null, def);
+                            }
                         }
                     }
                 }
             }
 
+            CheckErrors(errors, "Errors initializing DefEntriesOf classes");
+        }
+
+        private static void CheckErrors(List<string> errors, string message)
+        {
             if (errors.Count > 0)
             {
                 var errorMessage = "";
@@ -115,7 +191,7 @@ namespace OpenNefia.Core.Data
                 {
                     errorMessage += $"{error}\n";
                 }
-                throw new Exception($"Errors initializing DefEntriesOf classes:\n{errorMessage}");
+                throw new Exception($"{message}:\n{errorMessage}");
             }
         }
     }

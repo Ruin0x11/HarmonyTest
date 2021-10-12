@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System.Collections.Generic;
 using static OpenNefia.Core.Rendering.AssetDrawable;
@@ -48,17 +49,17 @@ namespace OpenNefia.Core.UI.Element
             {
                 case FrameStyle.Zero:
                 default:
-                    return new AssetDrawable(Asset.Entries.TopicWindow0, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow0, this.Width, this.Height);
                 case FrameStyle.One:
-                    return new AssetDrawable(Asset.Entries.TopicWindow1, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow1, this.Width, this.Height);
                 case FrameStyle.Two:
-                    return new AssetDrawable(Asset.Entries.TopicWindow2, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow2, this.Width, this.Height);
                 case FrameStyle.Three:
-                    return new AssetDrawable(Asset.Entries.TopicWindow3, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow3, this.Width, this.Height);
                 case FrameStyle.Four:
-                    return new AssetDrawable(Asset.Entries.TopicWindow4, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow4, this.Width, this.Height);
                 case FrameStyle.Five:
-                    return new AssetDrawable(Asset.Entries.TopicWindow5, this.Width, this.Height);
+                    return new AssetDrawable(AssetDefOf.TopicWindow5, this.Width, this.Height);
             }
         }
 
@@ -68,7 +69,7 @@ namespace OpenNefia.Core.UI.Element
             this.WindowStyle_ = windowStyle;
 
             this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle_);
-            this.AssetWindow = new AssetDrawable(Asset.Entries.Window);
+            this.AssetWindow = new AssetDrawable(AssetDefOf.Window);
             this.ColorTopicWindowStyle0 = ColorAsset.Entries.TopicWindowStyle0;
             this.ColorTopicWindowStyle1 = ColorAsset.Entries.TopicWindowStyle1;
             this.ColorTopicWindowStyle2 = ColorAsset.Entries.TopicWindowStyle2;
