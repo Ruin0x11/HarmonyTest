@@ -24,6 +24,10 @@ namespace OpenNefia
             {
                 tiles.Add(i % 5);
             }
+
+            obj1 = new InnerObject("One");
+            obj2 = new InnerObject("Two");
+            obj3 = new InnerObject("Three");
         }
 
         public class InnerObject : IDataExposable, IDataReferenceable
@@ -41,7 +45,7 @@ namespace OpenNefia
 
             public void Expose(DataExposer data)
             {
-                data.ExposeValue(ref Name, "Name");
+                data.ExposeValue(ref Name!, "Name");
                 data.ExposeWeak(ref Ref1, "Ref1");
                 data.ExposeWeak(ref Ref2, "Ref2");
             }
@@ -51,9 +55,9 @@ namespace OpenNefia
             public override string ToString() => $"obj {Name}";
         }
 
-        public InnerObject? obj1;
-        public InnerObject? obj2;
-        public InnerObject? obj3;
+        public InnerObject obj1;
+        public InnerObject obj2;
+        public InnerObject obj3;
 
         public void Expose(DataExposer data)
         {
@@ -72,6 +76,9 @@ namespace OpenNefia
             Console.WriteLine($"{obj1?.Ref1}, {obj1?.Ref2}");
             Console.WriteLine($"{obj2?.Ref1}, {obj2?.Ref2}");
             Console.WriteLine($"{obj3?.Ref1}, {obj3?.Ref2}");
+
+            data.ExposeCollection(ref tiles, "tiles");
+            Console.WriteLine($"{tiles.Count}");
         }
 
         public static void Save(InstancedMap map, string filepath)
@@ -87,10 +94,6 @@ namespace OpenNefia
             var exposer = new DataExposer(filepath, SerialStage.Saving);
             exposer.ExposeDeep(ref map!, "Map");
             exposer.Save();
-
-            map.obj1 = null;
-            map.obj2 = null;
-            map.obj3 = null;
         }
 
         public static InstancedMap Load(string filepath)

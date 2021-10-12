@@ -55,7 +55,7 @@ namespace OpenNefia.Game.Serial
             CurrentCompound = CompoundStack.Peek();
         }
 
-        public void ExposeValue<T>(ref T data, string name)
+        public void ExposeValue<T>(ref T? data, string name, T? defaultValue = default(T))
         {
             if (this.Stage == SerialStage.Saving)
             {
@@ -78,13 +78,27 @@ namespace OpenNefia.Game.Serial
                 var ty = typeof(T);
                 if (ty == typeof(int))
                 {
-                    var tag = CurrentCompound.Get<NbtInt>(name)!;
-                    data = (T)Convert.ChangeType(tag.IntValue, ty);
+                    var tag = CurrentCompound.Get<NbtInt>(name);
+                    if (tag != null)
+                    {
+                        data = (T)Convert.ChangeType(tag.IntValue, ty);
+                    }
+                    else
+                    {
+                        data = defaultValue;
+                    }
                 }
                 else if (ty == typeof(string))
                 {
                     var tag = CurrentCompound.Get<NbtString>(name)!;
-                    data = (T)Convert.ChangeType(tag.StringValue, ty);
+                    if (tag != null)
+                    {
+                        data = (T)Convert.ChangeType(tag.StringValue, ty);
+                    }
+                    else
+                    {
+                        data = defaultValue;
+                    }
                 }
                 else
                 {
@@ -97,48 +111,57 @@ namespace OpenNefia.Game.Serial
             }
         }
 
-        public void ExposeDeep<T>(ref T? data, string name) where T: IDataExposable, new()
+        public void ExposeDeep<T>(ref T data, string name)
         {
+            var ty = typeof(T);
             if (this.Stage == SerialStage.Saving)
             {
-                var ty = typeof(T);
                 if (data != null)
                 {
-                    var comp = new NbtCompound(name);
-                    EnterCompound(comp);
-                    data.Expose(this);
-                    ExitCompound();
-                    CurrentCompound.Add(comp);
-
-                    if (typeof(IDataReferenceable).IsAssignableFrom(ty))
+                    if (typeof(IDataExposable).IsAssignableFrom(ty))
                     {
-                        var index = ((IDataReferenceable)data).GetUniqueIndex();
-                        if (FoundRefs.ContainsKey(index))
-                            Errors.Add($"Overwriting existing deep saved compound '{index}' (of type '{ty.Name}')");
-                        FoundRefs[index] = data;
+                        var comp = new NbtCompound(name);
+                        EnterCompound(comp);
+                        ((IDataExposable)data).Expose(this);
+                        ExitCompound();
+                        CurrentCompound.Add(comp);
+
+                        if (typeof(IDataReferenceable).IsAssignableFrom(ty))
+                        {
+                            var index = ((IDataReferenceable)data).GetUniqueIndex();
+                            if (FoundRefs.ContainsKey(index))
+                                Errors.Add($"Overwriting existing deep saved compound '{index}' (of type '{ty.Name}')");
+                            FoundRefs[index] = data;
+                        }
+                    }
+                    else
+                    {
+                        this.Errors.Add($"Cannot serialize type {ty} as deep");
                     }
                 }
             }
             else if (this.Stage == SerialStage.LoadingDeep | this.Stage == SerialStage.ResolvingRefs)
             {
-                var ty = typeof(T);
-                var compound = CurrentCompound.Get<NbtCompound>(name)!;
-                if (compound != null)
+                if (typeof(IDataExposable).IsAssignableFrom(ty))
                 {
-                    if (data == null)
+                    var compound = CurrentCompound.Get<NbtCompound>(name)!;
+                    if (compound != null)
                     {
-                        data = (T)Activator.CreateInstance(ty)!;
-                    }
 
-                    EnterCompound(compound);
-                    data.Expose(this);
-                    ExitCompound();
+                        EnterCompound(compound);
+                        ((IDataExposable)data!).Expose(this);
+                        ExitCompound();
 
-                    if (this.Stage == SerialStage.LoadingDeep && typeof(IDataReferenceable).IsAssignableFrom(ty))
-                    {
-                        var index = ((IDataReferenceable)data).GetUniqueIndex();
-                        FoundRefs[index] = data;
+                        if (this.Stage == SerialStage.LoadingDeep && typeof(IDataReferenceable).IsAssignableFrom(ty))
+                        {
+                            var index = ((IDataReferenceable)data).GetUniqueIndex();
+                            FoundRefs[index] = data;
+                        }
                     }
+                }
+                else
+                {
+                    this.Errors.Add($"Cannot deserialize type {ty} as deep");
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
@@ -147,13 +170,14 @@ namespace OpenNefia.Game.Serial
             }
         }
 
-        internal void ExposeWeak<T>(ref T? data, string tagName) where T: class, IDataReferenceable
+        public void ExposeWeak<T>(ref T? data, string tagName, T? defaultValue = default(T))
         {
+            var ty = typeof(T);
             if (this.Stage == SerialStage.Saving)
             {
-                if (data != null)
+                if (data != null && typeof(IDataReferenceable).IsAssignableFrom(ty))
                 {
-                    var index = data.GetUniqueIndex();
+                    var index = ((IDataReferenceable)data).GetUniqueIndex();
                     CurrentCompound.Add(new NbtString(tagName, index));
                 }
             }
@@ -168,13 +192,98 @@ namespace OpenNefia.Game.Serial
                     }
                     else
                     {
-                        data = null;
+                        data = defaultValue;
                     }
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
             {
                 throw new Exception("Cannot use an invalid serializer.");
+            }
+        }
+
+        public void ExposeCollection<T>(ref List<T> data, string tagName, ExposeMode mode = ExposeMode.Default)
+        {
+            var ty = typeof(T);
+
+            if (mode == ExposeMode.Default)
+            {
+                mode = ExposeMode.Deep;
+            }
+
+            if (ty == typeof(byte))
+            {
+                if (this.Stage == SerialStage.Saving)
+                {
+                    List<byte> list = (List<byte>)Convert.ChangeType(data, typeof(List<byte>))!;
+                    var arrayCompound = new NbtByteArray(tagName, list.ToArray());
+                    CurrentCompound.Add(arrayCompound);
+                }
+                else if (this.Stage == SerialStage.LoadingDeep)
+                {
+                    var arrayCompound = CurrentCompound.Get<NbtByteArray>(tagName)!;
+                    data = new List<T>();
+                    for (int i = 0; i < arrayCompound.Value.Length; i++)
+                    {
+                        data.Add((T)Convert.ChangeType(arrayCompound[i], ty));
+                    }
+                }
+            }
+            else if (ty == typeof(int) || ty == typeof(short))
+            {
+                if (this.Stage == SerialStage.Saving)
+                {
+                    List<int> list = new List<int>();
+                    foreach (var i in data)
+                    {
+                        list.Add((int)Convert.ChangeType(i, typeof(int))!);
+                    }
+                    var arrayCompound = new NbtIntArray(tagName, list.ToArray());
+                    CurrentCompound.Add(arrayCompound);
+                }
+                else if (this.Stage == SerialStage.LoadingDeep)
+                {
+                    var arrayCompound = CurrentCompound.Get<NbtIntArray>(tagName)!;
+                    data = new List<T>();
+                    for (int i = 0; i < arrayCompound.Value.Length; i++)
+                    {
+                        data.Add((T)Convert.ChangeType(arrayCompound[i], ty));
+                    }
+                }
+            }
+            else
+            {
+                NbtCompound listCompound;
+
+                if (this.Stage == SerialStage.Saving)
+                {
+                    listCompound = new NbtCompound(tagName);
+                }
+                else
+                {
+                    listCompound = CurrentCompound.Get<NbtCompound>(tagName)!;
+                }
+
+                this.EnterCompound(listCompound);
+
+                if (mode == ExposeMode.Deep)
+                {
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        T entry = data[i];
+                        this.ExposeDeep(ref entry!, i.ToString());
+                    }
+                }
+                else if (mode == ExposeMode.Reference)
+                {
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        T entry = data[i];
+                        this.ExposeWeak(ref entry!, i.ToString());
+                    }
+                }
+
+                this.ExitCompound();
             }
         }
 
