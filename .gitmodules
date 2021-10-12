@@ -1,0 +1,4 @@
+[submodule "Thirdparty/OdinSerializer"]
+	path = Thirdparty/OdinSerializer
+	url = https://github.com/Ruin0x11/odin-serializer
+	branch = standalone-library
