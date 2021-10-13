@@ -1,0 +1,1615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ChipDef ElonaId="0" Id="CharaBlank">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="1" Id="CharaHumanMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="2" Id="CharaHumanFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="3" Id="CharaEleaMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="4" Id="CharaEleaFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="5" Id="CharaEuldernaMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="6" Id="CharaEuldernaFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="7" Id="CharaTrainerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="8" Id="CharaMiches">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="9" Id="CharaJuereMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="10" Id="CharaJuereFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="11" Id="CharaAdventurerMale1">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="12" Id="CharaAdventurerFemale1">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="13" Id="CharaWizardMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="14" Id="CharaWizardFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="15" Id="CharaInformerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="16" Id="CharaInformerFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="17" Id="CharaAdventurerMale2">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="18" Id="CharaAdventurerFemale2">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="19" Id="CharaAdventurerMale3">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="20" Id="CharaWarriorFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="21" Id="CharaWarriorMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="22" Id="CharaAdventurerFemale3">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="23" Id="CharaMoyerTheCrooked">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="24" Id="CharaAdventurerFemale4">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="25" Id="CharaGuard">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="26" Id="CharaAdventurerFemale5">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="27" Id="CharaPunkFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="28" Id="CharaAdventurerFemale6">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="29" Id="CharaAdventurerMale4">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="30" Id="CharaAdventurerFemale7">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="31" Id="CharaGangsterMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="32" Id="CharaAdventurerFemale8">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="33" Id="CharaAdventurerMale5">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="34" Id="CharaWarriorOfEleaFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="35" Id="CharaAdventurerMale6">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="36" Id="CharaGangsterFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="37" Id="CharaFallenSoldier">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="38" Id="CharaAdventurerFemale9">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="39" Id="CharaAdventurerMale7">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="40" Id="CharaAdventurerFemale10">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="41" Id="CharaArenaMaster">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="42" Id="CharaWizardOfEleaFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="43" Id="CharaAdventurerMale8">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="44" Id="CharaAdventurerFemale11">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="45" Id="CharaAdventurerMale9">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="46" Id="CharaAdventurerFemale12">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="47" Id="CharaWizardOfEleaMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="48" Id="CharaAdventurerFemale13">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="49" Id="CharaAdventurerMale10">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="50" Id="CharaAdventurerFemale14">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="51" Id="CharaAdventurerMale11">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="52" Id="CharaAdventurerFemale15">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="53" Id="CharaAdventurerMale12">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="54" Id="CharaAdventurerFemale16">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="55" Id="CharaAdventurerMale13">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="56" Id="CharaAdventurerFemale17">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="57" Id="CharaMercenaryArcher">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="58" Id="CharaAdventurerFemale18">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="59" Id="CharaAdventurerMale14">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="60" Id="CharaAdventurerFemale19">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="61" Id="CharaAdventurerMale15">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="62" Id="CharaAdventurerFemale20">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="63" Id="CharaAdventurerMale16">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="64" Id="CharaAdventurerFemale21">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="65" Id="CharaAdventurerMale17">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="48" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="66" Id="CharaDwarf">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="67" Id="Chara67">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="68" Id="Chara68">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="69" Id="CharaHealer">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="70" Id="CharaRichPersonFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="71" Id="CharaRichPersonMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="72" Id="CharaNobleChildFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="73" Id="CharaNobleChildMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="74" Id="CharaPalmianEliteSoldierMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="75" Id="CharaPalmianEliteSoldierFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="76" Id="CharaThiefGuildMemberMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="77" Id="CharaThiefGuildMemberFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="78" Id="CharaFighterGuildMemberMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="79" Id="CharaFighterGuildMemberFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="80" Id="CharaFray">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="81" Id="Chara81">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="82" Id="Chara82">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="83" Id="Chara83">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="84" Id="Chara84">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="85" Id="Chara85">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="86" Id="Chara86">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="87" Id="Chara87">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="88" Id="Chara88">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="89" Id="Chara89">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="90" Id="Chara90">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="91" Id="Chara91">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="92" Id="Chara92">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="93" Id="Chara93">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="94" Id="Chara94">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="95" Id="Chara95">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="96" Id="Chara96">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="97" Id="Chara97">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="98" Id="Chara98">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="96" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="99" Id="CharaKaram">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="100" Id="CharaMercenaryWizard">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="101" Id="Chara101">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="102" Id="CharaBeggarMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="103" Id="CharaBeggarFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="104" Id="CharaMaidMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="105" Id="CharaMaidFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="106" Id="CharaOldPersonMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="107" Id="CharaOldPersonFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="108" Id="Chara108">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="109" Id="CharaShena">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="110" Id="Chara110">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="111" Id="Chara111">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="112" Id="CharaPunkMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="113" Id="Chara113">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="114" Id="Chara114">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="115" Id="Chara115">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="116" Id="CharaXabi">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="117" Id="CharaTestSubject">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="118" Id="Chara118">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="119" Id="CharaCaptain">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="120" Id="CharaSailorMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="121" Id="CharaSailorFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="122" Id="CharaTouristMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="123" Id="Chara123">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="124" Id="Chara124">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="125" Id="Chara125">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="126" Id="Chara126">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="127" Id="CharaCitizenOfCyberDome2Male">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="128" Id="CharaCitizenOfCyberDomeMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="129" Id="CharaCitizenOfCyberDomeFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="130" Id="Chara130">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="131" Id="CharaCitizenOfCyberDome2Female">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="144" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="132" Id="Chara132">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="133" Id="Chara133">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="134" Id="CharaCitizen2Male">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="135" Id="CharaCitizen2Female">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="136" Id="CharaCitizenMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="137" Id="CharaCitizenFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="138" Id="CharaBaker">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="139" Id="CharaMercenaryMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="140" Id="CharaShopkeeperMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="141" Id="CharaShopkeeperFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="142" Id="CharaElderMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="143" Id="CharaElderFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="144" Id="CharaBartenderMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="145" Id="CharaBartenderFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="146" Id="CharaSalesPersonMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="147" Id="CharaSalesPersonFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="148" Id="CharaBard">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="149" Id="Chara149">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="150" Id="CharaRogueBoss">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="151" Id="Chara151">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="152" Id="Chara152">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="153" Id="Chara153">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="154" Id="Chara154">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="155" Id="Chara155">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="156" Id="Chara156">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="157" Id="CharaRogueWizard">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="158" Id="CharaRogueArcher">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="159" Id="CharaMercenaryWarrior">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="160" Id="Chara160">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="161" Id="Chara161">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="162" Id="Chara162">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="163" Id="CharaNun">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="164" Id="Chara164">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="192" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="165" Id="CharaOrc">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="166" Id="CharaMasterThief">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="167" Id="CharaZombie">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="168" Id="CharaRaceSlime">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="169" Id="CharaRabbit">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="170" Id="CharaSheep">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="171" Id="CharaKobold">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="172" Id="CharaFrog">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="173" Id="CharaCentipede">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="174" Id="CharaSnail">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="175" Id="CharaMandrake">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="176" Id="CharaBeetle">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="177" Id="CharaMushroom">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="178" Id="CharaMercenaryFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="179" Id="CharaFarmerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="180" Id="CharaFarmerFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="181" Id="CharaSisterMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="182" Id="CharaSisterFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="183" Id="CharaRogueMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="184" Id="CharaRogueFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="185" Id="CharaArtistMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="186" Id="CharaArtistFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="187" Id="CharaMinerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="188" Id="CharaMinerFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="189" Id="CharaNobleMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="190" Id="CharaNobleFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="191" Id="CharaMutant">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="192" Id="CharaBalzak">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="193" Id="CharaRevlus">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="194" Id="CharaMageGuildMemberFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="195" Id="CharaMageGuildMemberMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="196" Id="CharaDoria">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="197" Id="CharaSin">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="240" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="198" Id="CharaIronMaiden">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="199" Id="CharaCatgod">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="200" Id="CharaBat">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="201" Id="CharaEnt">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="288" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="202" Id="CharaLich">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="203" Id="CharaHound">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="204" Id="CharaGiantSquirrel">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="205" Id="CharaGhost">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="206" Id="CharaSpirit">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="207" Id="CharaEye">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="208" Id="CharaNurse">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="209" Id="CharaPuppet">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="210" Id="CharaWasp">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="211" Id="CharaBlackCat">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="212" Id="CharaImp">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="213" Id="CharaHand">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="214" Id="CharaNymph">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="215" Id="CharaChaosFlower">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="216" Id="CharaSnake">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="217" Id="CharaCuteFairy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="218" Id="CharaAndroid">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="219" Id="CharaTuwen">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="220" Id="CharaGoblin">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="221" Id="CharaBaptist">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="222" Id="CharaBear">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="223" Id="CharaArmor">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="224" Id="CharaMedusa">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="225" Id="CharaCupid">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="226" Id="CharaPhantom">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="227" Id="CharaHarpy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="228" Id="CharaDragon">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="288" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="229" Id="CharaCerberus">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="230" Id="CharaSpider">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="288" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="231" Id="CharaGolem">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="336" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="232" Id="CharaGiant">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="336" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="233" Id="CharaDrake">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="336" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="235" Id="CharaWyvern">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="336" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="236" Id="CharaBlackAngel">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="237" Id="CharaCrab">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="238" Id="Chara238">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="239" Id="CharaFireCentipede">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="240" Id="CharaCultistOfFire">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="241" Id="CharaSkeleton">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="242" Id="CharaDefender">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="243" Id="CharaMissionaryOfDarkness">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="244" Id="CharaPiece">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="245" Id="CharaRook">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="246" Id="CharaBishop">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="247" Id="CharaKnight">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="248" Id="CharaQueen">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="249" Id="CharaKing">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="250" Id="CharaYerlesMachineInfantry">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="251" Id="CharaRockThrower">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="252" Id="CharaMetal">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="253" Id="CharaCat">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="254" Id="CharaDog">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="255" Id="CharaRat">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="256" Id="CharaShell">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="257" Id="CharaSlime">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="258" Id="CharaPublicPerformer">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="259" Id="CharaTwintail">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="260" Id="CharaSilverWolf">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="262" Id="CharaHorse">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="263" Id="CharaIcolle">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="336" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="267" Id="CharaGoldenKnight">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="268" Id="Chara268">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="269" Id="CharaExile">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="270" Id="CharaMachine">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="271" Id="CharaDeformedEye">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="272" Id="CharaWisp">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="273" Id="CharaShiningHedgehog">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="274" Id="CharaChicken">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="275" Id="CharaPumpkin">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="276" Id="CharaStalker">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="277" Id="CharaShubNiggurath">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="278" Id="CharaGagu">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="279" Id="CharaSilverEyedWitch">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="280" Id="CharaShade">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="384" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="281" Id="CharaQuickling">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="282" Id="CharaCube">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="283" Id="CharaAlien">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="284" Id="CharaFanaticFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="285" Id="CharaFanaticMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="286" Id="Chara286">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="287" Id="Chara287">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="288" Id="Chara288">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="289" Id="Chara289">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="290" Id="Chara290">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="291" Id="Chara291">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="292" Id="Chara292">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="293" Id="Chara293">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="294" Id="Chara294">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="295" Id="Chara295">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="296" Id="Chara296">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="384" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="297" Id="CharaZeome">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="432" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="307" Id="Chara307">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="432" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="331" Id="CharaOrphe">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="332" Id="CharaMadScientist">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="333" Id="CharaIsca">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="334" Id="CharaWhomDwellInTheVanity">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="335" Id="Chara335">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="336" Id="Chara336">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="337" Id="CharaLoyter">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="338" Id="CharaVesda">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="339" Id="CharaIssizzle">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="340" Id="CharaErystia">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="341" Id="CharaWynan">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="342" Id="CharaCorgon">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="343" Id="CharaQuruiza">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="344" Id="CharaDungeonCleaner">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="345" Id="CharaLarnneire">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="346" Id="CharaLomias">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="347" Id="CharaAt">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="348" Id="CharaFrisia">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="349" Id="CharaMachinegod">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="350" Id="CharaUndeadgod">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="351" Id="CharaEbon2">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="480" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="352" Id="CharaGarokk">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="353" Id="CharaMiral">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="354" Id="CharaCatsister">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="355" Id="CharaYoungLady">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="356" Id="CharaGwen">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="357" Id="CharaTownChildFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="358" Id="CharaPael">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="359" Id="CharaLily">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="360" Id="CharaLilySick">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="361" Id="CharaRaphael">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="362" Id="CharaAinc">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="480" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="363" Id="CharaGuardPortKapul">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="364" Id="CharaPoppy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="365" Id="CharaRilian">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="366" Id="CharaTam">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="367" Id="CharaCarbuncle">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="368" Id="CharaLion">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="369" Id="CharaCacy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="370" Id="CharaGilbert">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="373" Id="CharaYerlesSelfPropelledGun">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="377" Id="CharaJuereSwordman">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="378" Id="CharaYeek">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="379" Id="CharaHotSpringManiacMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="380" Id="CharaHotSpringManiacFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="381" Id="CharaRodlob">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="383" Id="CharaArnord">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="385" Id="CharaKamikazeSamurai">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="386" Id="CharaRock">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="387" Id="CharaStrayCat">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="388" Id="CharaMia">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1200" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="389" Id="CharaDinosaur">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1248" Y="528" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="390" Id="CharaFairy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1296" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="391" Id="CharaTroll">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1344" Y="528" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="392" Id="CharaRenton">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1392" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="393" Id="CharaLulwy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1440" Y="528" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="394" Id="CharaMarks">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1488" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="395" Id="CharaAncientCoffin">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1536" Y="528" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="396" Id="CharaScorpion">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="397" Id="CharaLizardman">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="398" Id="CharaMinotaur">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="96" Y="576" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="399" Id="CharaSporeMushroom">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="400" Id="CharaBubble">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="401" Id="CharaMassMonster">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="402" Id="Chara402">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="403" Id="CharaConery">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="404" Id="CharaExecutioner">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="576" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="405" Id="CharaAsura">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="576" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="406" Id="CharaHungrySeaLion">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="407" Id="CharaMadGaze">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="408" Id="CharaBigDaddy">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="576" Y="576" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="409" Id="CharaLittleSister">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="410" Id="CharaCleaner">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="411" Id="CharaHardGay">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="412" Id="CharaStrangeScientist">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="413" Id="CharaEhekatl">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="576" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="414" Id="CharaGuildTrainerFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="415" Id="CharaGuildTrainerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="416" Id="CharaMysteriousProducer">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="417" Id="CharaProstituteFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="418" Id="CharaProstituteMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="419" Id="CharaPrisonerMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="420" Id="CharaPrisonerFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1152" Y="576" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="429" Id="CharaYith">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="430" Id="CharaSpiralKing">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="48" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="432" Id="CharaOpatos">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="144" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="433" Id="CharaKumiromi">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="192" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="434" Id="CharaMineDog">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="436" Id="Chara436">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="336" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="439" Id="CharaMammoth">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="480" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="442" Id="CharaHolyBeast">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="624" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="443" Id="CharaCaravanMaster">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="446" Id="Chara446">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="447" Id="CharaMani">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="864" Y="624" Width="48" Height="96" />
+  </ChipDef>
+  <ChipDef ElonaId="448" Id="Chara448">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="912" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="449" Id="Chara449">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="960" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="450" Id="Chara450">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1008" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="451" Id="Chara451">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1056" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="452" Id="Chara452">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="1104" Y="624" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="467" Id="Chara467">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="240" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="468" Id="Chara468">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="288" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="470" Id="CharaKanedaBike">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="384" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="471" Id="CharaBike">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="432" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="473" Id="CharaPartTimeWorker">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="528" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="476" Id="CharaFestivalTouristFemale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="672" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="477" Id="CharaFestivalTouristMale">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="720" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="478" Id="CharaTheLeopardWarrior">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="768" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="479" Id="CharaSilvia">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="816" Y="672" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="660" Id="Chara660">
+    <Group>Chara</Group>
+    <ImageRegion SourceImagePath="graphic/character.bmp" X="0" Y="960" Width="48" Height="48" />
+  </ChipDef>
+</Defs>

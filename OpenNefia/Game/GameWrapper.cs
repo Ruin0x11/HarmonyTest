@@ -150,12 +150,6 @@ namespace OpenNefia.Game
 
         public void MainCode(string[] args)
         {
-            this.ModLoader.Execute();
-            DefLoader.LoadAll();
-            DefLoader.PopulateStaticEntries();
-
-            var _ = RawKey.AllKeys.Value;
-
             var layer = new Core.UI.Layer.FieldLayer();
             layer.Query();
         }

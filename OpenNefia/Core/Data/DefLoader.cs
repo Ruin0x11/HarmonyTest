@@ -29,9 +29,9 @@ namespace OpenNefia.Core.Data
             return GetDirectDefType(type.BaseType!);
         }
 
-        internal static void Load(string filepath, Type modType, DefDeserializer deserializer)
+        internal static void Load(string filepath, BaseMod mod, DefDeserializer deserializer)
         {
-            var defSet = new DefSet(filepath, modType, deserializer);
+            var defSet = new DefSet(filepath, mod, deserializer);
             foreach (var def in defSet.Defs)
             {
                 var ty = GetDirectDefType(def.GetType());
@@ -107,14 +107,14 @@ namespace OpenNefia.Core.Data
 
             foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
             {
-                var modType = modInfo.Instance!.GetType();
-                var path = new ModLocalPath(modType, "Defs");
+                var mod = (BaseMod)modInfo.Instance!;
+                var path = new ModLocalPath(mod, "Defs");
                 var resolved = path.Resolve();
                 if (Directory.Exists(resolved))
                 {
                     foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
                     {
-                        Load(defSetFile, modType, deserializer);
+                        Load(defSetFile, mod, deserializer);
                     }
                 }
             }

@@ -48,7 +48,6 @@ namespace OpenNefia.Core
             data.ExposeDeep(ref Pool, nameof(Pool));
 
             data.ExposeCollection(ref Tiles, nameof(Tiles));
-            Console.WriteLine($"{Tiles.Count}");
         }
 
         public static void Save(InstancedMap map, string filepath)

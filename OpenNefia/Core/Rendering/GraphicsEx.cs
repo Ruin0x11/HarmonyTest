@@ -78,6 +78,11 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
         }
 
+        internal static void SetDefaultFilter(ImageFilter filter)
+        {
+            Love.Graphics.SetDefaultFilter(filter.Min, filter.Mag, filter.Anisotropy);
+        }
+
         /// <summary>
         /// Like <see cref="Love.Graphics.SetColor"/>, but uses byte values.
         /// </summary>

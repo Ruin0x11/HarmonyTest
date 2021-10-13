@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Serial;
 using OpenNefia.Game;
+using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,9 +17,9 @@ namespace OpenNefia.Core.Data
         private string Filepath;
         public List<Def> Defs { get; internal set; }
         public List<DefCrossRef> CrossRefs { get; internal set; }
-        public Type ContainingMod { get; }
+        public BaseMod ContainingMod { get; }
 
-        public DefSet(string filepath, Type containingModType, DefDeserializer deserializer)
+        public DefSet(string filepath, BaseMod containingModType, DefDeserializer deserializer)
         {
             this.Filepath = filepath;
             this.Defs = new List<Def>();

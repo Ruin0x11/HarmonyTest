@@ -25,10 +25,7 @@ namespace OpenNefia.Mod
             Subpath = subpath;
         }
 
-        public static ModLocalPath FromMod<T>(T mod, string subpath) where T: BaseMod
-        {
-            return new ModLocalPath(mod.GetType(), subpath);
-        }
+        public ModLocalPath(BaseMod mod, string subpath) : this(mod.GetType(), subpath) { }
 
         public string Resolve()
         {

@@ -11,7 +11,9 @@ namespace OpenNefia.Core.Data
     {
         public string Id { get; }
 
-        public BaseMod? Mod { get; private set; }
+        public int? ElonaId { get; internal set; }
+
+        public BaseMod? Mod { get; internal set; }
 
         public Def(string id)
         {

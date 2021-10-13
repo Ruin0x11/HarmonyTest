@@ -74,5 +74,10 @@ namespace OpenNefia.Core.Rendering
 
             return Love.Graphics.NewImage(filepath);
         }
+
+        internal static object LoadImage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

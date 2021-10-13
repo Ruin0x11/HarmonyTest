@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Data.Serial
             this.CrossRefs = new List<DefCrossRef>();
         }
 
-        public Def? DeserializeDef(Type defType, XmlNode node, Type containingModType)
+        public Def? DeserializeDef(Type defType, XmlNode node, BaseMod containingMod)
         {
             var id = node.Attributes?["Id"]?.Value;
 
@@ -51,8 +51,14 @@ namespace OpenNefia.Core.Data.Serial
             }
 
             var defInstance = (Def)Activator.CreateInstance(defType, id)!;
+            defInstance.Mod = containingMod;
 
-            PopulateAllFields(node, defInstance, containingModType);
+            var elonaId = node.Attributes?["ElonaId"]?.Value;
+
+            if (elonaId != null)
+                defInstance.ElonaId = int.Parse(elonaId);
+
+            PopulateAllFields(node, defInstance, containingMod.GetType());
 
             if (this.Errors.Count > 0)
             {

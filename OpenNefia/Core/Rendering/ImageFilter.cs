@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Serial;
+﻿using Love;
+using OpenNefia.Core.Data.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,13 @@ namespace OpenNefia.Core.Rendering
     {
         public Love.FilterMode Min { get; set; } = Love.FilterMode.None;
         public Love.FilterMode Mag { get; set; } = Love.FilterMode.None;
-        public float Anisotropy { get; set; } = 1f;
+        public int Anisotropy { get; set; } = 1;
+
+        public ImageFilter(FilterMode min, FilterMode mag, int anisotropy)
+        {
+            Min = min;
+            Mag = mag;
+            Anisotropy = anisotropy;
+        }
     }
 }

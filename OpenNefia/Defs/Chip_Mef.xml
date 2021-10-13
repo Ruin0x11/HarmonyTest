@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ChipDef ElonaId="11" Id="MefWeb">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="528" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="19" Id="MefAcid">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="912" Y="0" Width="48" Height="48" CountX="2" />
+  </ChipDef>
+  <ChipDef ElonaId="20" Id="MefEther">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="960" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="22" Id="MefWater">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="1056" Y="0" Width="48" Height="48" />
+  </ChipDef>
+  <ChipDef ElonaId="24" Id="MefFire">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="1152" Y="0" Width="48" Height="48" CountX="3" />
+  </ChipDef>
+  <ChipDef ElonaId="27" Id="MefPotion">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="1296" Y="0" Width="48" Height="48" CountX="3" />
+  </ChipDef>
+  <ChipDef ElonaId="30" Id="MefMist">
+    <Group>Mef</Group>
+    <ImageRegion SourceImagePath="graphic/item.bmp" X="1440" Y="0" Width="48" Height="48" CountX="2" />
+  </ChipDef>
+</Defs>
