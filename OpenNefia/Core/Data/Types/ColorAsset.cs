@@ -20,10 +20,10 @@ namespace OpenNefia.Core.Data.Types
         {
         }
 
-        public byte R { get; private set; }
-        public byte G { get; private set; }
-        public byte B { get; private set; }
-        public byte A { get; private set; }
+        public byte R;
+        public byte G;
+        public byte B;
+        public byte A;
 
         private Love.Color? _LoveObject;
         public Love.Color LoveObject {

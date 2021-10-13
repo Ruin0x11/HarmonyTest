@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Data
+namespace OpenNefia.Core.Data.Serial
 {
     internal static class DefLoader
     {
@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Data
             return GetDirectDefType(type.BaseType!);
         }
 
-        internal static void Load(string filepath, BaseMod mod, DefDeserializer deserializer)
+        internal static void Load(string filepath, ModInfo mod, DefDeserializer deserializer)
         {
             var defSet = new DefSet(filepath, mod, deserializer);
             foreach (var def in defSet.Defs)
@@ -74,7 +74,7 @@ namespace OpenNefia.Core.Data
                     var def = GetDef(crossRef.crossRefType, crossRef.crossRefId);
                     if (def == null)
                     {
-                        errors.Add($"{crossRef.target}: Could not find def '{crossRef.crossRefType}.{crossRef.crossRefId}'");
+                        errors.Add($"{crossRef.target}: Could not find def crossreference '{crossRef.crossRefType}.{crossRef.crossRefId}'");
                     }
                     else
                     {
@@ -83,15 +83,16 @@ namespace OpenNefia.Core.Data
                 }
             }
 
-            if (errors.Count > 0)
+            foreach (var (defType, defs) in AllDefs)
             {
-                var errorMessage = "";
-                foreach (var error in errors)
+                foreach (var (defId, def) in defs)
                 {
-                    errorMessage += $"{error}\n";
+                    def.OnResolveReferences();
+                    def.OnValidate(errors);
                 }
-                throw new Exception($"Errors resolving crossreferences between defs:\n{errorMessage}");
             }
+
+            CheckErrors(errors, $"Errors resolving crossreferences between defs");
         }
 
         internal static void LoadAll()
@@ -107,43 +108,64 @@ namespace OpenNefia.Core.Data
 
             foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
             {
-                var mod = (BaseMod)modInfo.Instance!;
-                var path = new ModLocalPath(mod, "Defs");
+                var path = new ModLocalPath(modInfo, "Defs");
                 var resolved = path.Resolve();
                 if (Directory.Exists(resolved))
                 {
                     foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
                     {
-                        Load(defSetFile, mod, deserializer);
+                        Load(defSetFile, modInfo, deserializer);
                     }
                 }
             }
 
             CheckErrors(deserializer.Errors, "Errors loading defs");
 
+            AddDefs();
             ResolveCrossRefs();
-
-            foreach (var (defType, defs) in AllDefs)
-            {
-                var store = typeof(DefStore<>)!.MakeGenericType(defType)!;
-                var field = store.GetField("AllDefs", BindingFlags.Static | BindingFlags.NonPublic)!;
-                Type newDictType = typeof(Dictionary<,>).MakeGenericType(field.FieldType.GetGenericArguments());
-                var newDict = Activator.CreateInstance(newDictType);
-                foreach (var (defId, def) in defs)
-                {
-                    var add = newDictType.GetMethod("Add", newDictType.GetGenericArguments())!;
-                    add.Invoke(newDict, new object[] { defId, def });
-                }
-                field.SetValue(null, newDict);
-            }
 
             AllDefs.Clear();
             PendingCrossRefs.Clear();
         }
 
+        private static void AddDefs()
+        {
+            List<string> errors = new List<string>();
+
+            foreach (var (defType, defs) in AllDefs)
+            {
+                var store = typeof(DefStore<>)!.MakeGenericType(defType)!;
+                foreach (var (defId, def) in defs)
+                {
+                    var args = new object[] { def };
+                    var contains = store.GetMethod("ContainsDefId")!;
+                    if ((bool)contains.Invoke(null, new object[] { def.Id })!)
+                    {
+                        errors.Add($"Def with same ID already exists: {def}");
+                    }
+                    else
+                    {
+                        var add = store.GetMethod("AddDef", BindingFlags.NonPublic | BindingFlags.Static)!;
+                        add.Invoke(store, new object[] { def });
+                    }
+                }
+            }
+
+            CheckErrors(errors, "Errors adding defs");
+        }
+
         private static bool IsEntriesType(Type arg)
         {
             return arg.GetCustomAttribute<DefOfEntriesAttribute>() != null;
+        }
+
+        private static ModInfo? FindContainingMod(Assembly assembly, Type ty)
+        {
+            var attrib = ty.GetCustomAttribute<DefOfEntriesAttribute>()!;
+            var containingModType = attrib.ContainingMod;
+            if (containingModType != null)
+                return GameWrapper.Instance.ModLoader.GetModFromType(containingModType);
+            return GameWrapper.Instance.ModLoader.GetModFromAssembly(assembly);
         }
 
         internal static void PopulateStaticEntries()
@@ -154,28 +176,37 @@ namespace OpenNefia.Core.Data
             {
                 foreach (var ty in assembly.GetTypes().Where(IsEntriesType))
                 {
-                    foreach (var field in ty.GetFields(BindingFlags.Static | BindingFlags.Public))
+                    var containingMod = FindContainingMod(assembly, ty);
+                    if (containingMod == null)
                     {
-                        var defType = GetDirectDefType(field.FieldType);
-                        if (defType == null)
+                        errors.Add($"Cannot determine containing mod for def entries class {ty}");
+                    }
+                    else
+                    {
+                        foreach (var field in ty.GetFields(BindingFlags.Static | BindingFlags.Public))
                         {
-                            errors.Add($"Type {defType} is not a descendent of type that inherits from Def");
-                        }
-                        else
-                        {
-                            var defId = field.Name;
-
-                            var def = GetDef(defType, defId);
-                            if (def == null)
+                            var defType = GetDirectDefType(field.FieldType);
+                            if (defType == null)
                             {
-                                errors.Add($"{ty.FullName}: Could not find def '{defType.Name}.{defId}'");
+                                errors.Add($"Type {defType} is not a descendent of type that inherits from Def");
                             }
                             else
                             {
-                                field.SetValue(null, def);
+                                var defId = $"{containingMod.Metadata.Name}.{field.Name}";
+
+                                var def = GetDef(defType, defId);
+                                if (def == null)
+                                {
+                                    errors.Add($"{ty.FullName}: Could not find def '{defType.Name}.{defId}'");
+                                }
+                                else
+                                {
+                                    field.SetValue(null, def);
+                                }
                             }
                         }
                     }
+
                 }
             }
 
@@ -186,10 +217,17 @@ namespace OpenNefia.Core.Data
         {
             if (errors.Count > 0)
             {
+                var i = 0;
                 var errorMessage = "";
                 foreach (var error in errors)
                 {
                     errorMessage += $"{error}\n";
+                    i++;
+                    if (i > 10)
+                    {
+                        errorMessage += "...";
+                        break;
+                    }
                 }
                 throw new Exception($"{message}:\n{errorMessage}");
             }

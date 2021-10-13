@@ -17,14 +17,14 @@ namespace OpenNefia.Core.Data
         private string Filepath;
         public List<Def> Defs { get; internal set; }
         public List<DefCrossRef> CrossRefs { get; internal set; }
-        public BaseMod ContainingMod { get; }
+        public ModInfo ContainingMod { get; }
 
-        public DefSet(string filepath, BaseMod containingModType, DefDeserializer deserializer)
+        public DefSet(string filepath, ModInfo containingMod, DefDeserializer deserializer)
         {
             this.Filepath = filepath;
             this.Defs = new List<Def>();
             this.CrossRefs = new List<DefCrossRef>();
-            this.ContainingMod = containingModType;
+            this.ContainingMod = containingMod;
             this.Load(deserializer);
         }
 

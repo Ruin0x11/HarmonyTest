@@ -412,6 +412,7 @@ namespace OpenNefia.Core.Data.Types.DefOf
         public static ChipDef CharaTheLeopardWarrior = null!;
         public static ChipDef CharaSilvia = null!;
         public static ChipDef Chara660 = null!;
+
         public static ChipDef ItemEmpty = null!;
         public static ChipDef ItemProjectileArrow = null!;
         public static ChipDef ItemProjectileBullet = null!;
@@ -801,7 +802,7 @@ namespace OpenNefia.Core.Data.Types.DefOf
         public static ChipDef ItemPopeRobe = null!;
         public static ChipDef ItemLightMail = null!;
         public static ChipDef ItemCoat = null!;
-        public static ChipDef ItemBreastPlate = null!;
+        public static ChipDef ItemBreastplate2 = null!;
         public static ChipDef ItemBulletproofJacket = null!;
         public static ChipDef ItemGloves = null!;
         public static ChipDef ItemDecoratedGloves = null!;
@@ -1001,6 +1002,7 @@ namespace OpenNefia.Core.Data.Types.DefOf
         public static ChipDef ItemDragonSlayer = null!;
         public static ChipDef ItemClaymoreUnique = null!;
         public static ChipDef ItemStradivarius = null!;
+
         public static ChipDef FeatStairsDown = null!;
         public static ChipDef FeatStairsUp = null!;
         public static ChipDef FeatHidden = null!;
@@ -1068,6 +1070,7 @@ namespace OpenNefia.Core.Data.Types.DefOf
         public static ChipDef FeatBuildingHouse2 = null!;
         public static ChipDef FeatBuildingHouse3 = null!;
         public static ChipDef FeatBuildingLighthouse = null!;
+
         public static ChipDef MefWeb = null!;
         public static ChipDef MefAcid = null!;
         public static ChipDef MefEther = null!;

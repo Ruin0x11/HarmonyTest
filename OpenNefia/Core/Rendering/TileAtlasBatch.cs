@@ -27,7 +27,7 @@ namespace OpenNefia.Core.Rendering
             var tile = this.Atlas.GetTile(spec);
 
             if (tile == null)
-                throw new Exception($"Unknown tile {spec.Id}");
+                throw new Exception($"Unknown tile {spec.TileId}");
 
             var quadRect = tile.Quad.GetViewport();
             var sx = 1f;

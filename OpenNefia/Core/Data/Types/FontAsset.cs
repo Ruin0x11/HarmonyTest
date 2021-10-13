@@ -36,12 +36,12 @@ namespace OpenNefia.Core.Data.Types
                 this.ExtraColors.Add(ColorKinds.Background, bgColor);
         }
 
-        public int Size { get; private set; }
-        public int SmallSize {  get; private set; }
-        public FontStyle Style { get; private set; }
-        public IResourcePath? FontFilepath { get; private set; }
-        public ColorAsset Color { get; private set; }
-        public Dictionary<string, ColorAsset> ExtraColors { get; private set; }
+        public int Size;
+        public int SmallSize;
+        public FontStyle Style;
+        public IResourcePath? FontFilepath;
+        public ColorAsset Color;
+        public Dictionary<string, ColorAsset> ExtraColors;
 
         private Love.Font? _LoveFont;
         public Love.Font LoveFont

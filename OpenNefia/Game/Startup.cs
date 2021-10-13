@@ -1,11 +1,9 @@
 ﻿using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Game
 {
@@ -19,7 +17,7 @@ namespace OpenNefia.Game
 
             var atlasFactory = new TileAtlasFactory();
             var chipAtlas = atlasFactory
-                .LoadTiles(DefStore<TileSpec>.Enumerate())
+                .LoadTiles(DefStore<ChipDef>.Enumerate().Select(x => x.Tile))
                 .Build();
             
             // Lazy

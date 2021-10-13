@@ -1,0 +1,3587 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <TileDef ElonaAtlas="0" ElonaId="0" Id="WorldGrass">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="1" Id="WorldSmallTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="2" Id="WorldSmallTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="3" Id="WorldSmallTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="4" Id="WorldTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="5" Id="WorldTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="6" Id="WorldTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="7" Id="WorldTrees4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="8" Id="WorldTrees5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="9" Id="WorldTrees6">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="10" Id="WorldPlants1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="11" Id="WorldPlants2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="12" Id="WorldPlants3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="13" Id="WorldDirt1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="14" Id="WorldDirt2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="672" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="15" Id="WorldDirt3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="16" Id="WorldDirt4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="26" Id="WorldSnowCross">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1248" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="27" Id="WorldSnow">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1296" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="29" Id="WorldSnowTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1392" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="30" Id="WorldSnowTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1440" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="31" Id="WorldSnowCrater">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1488" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="32" Id="WorldSnowMounds">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1536" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="34" Id="WorldRoadNs">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="35" Id="WorldRoadWe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="36" Id="WorldRoadSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="37" Id="WorldRoadSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="38" Id="WorldRoadNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="39" Id="WorldRoadNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="40" Id="WorldRoadSwe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="41" Id="WorldRoadNsw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="42" Id="WorldRoadNwe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="43" Id="WorldRoadNse">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+    <IsRoad>true</IsRoad>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="66" Id="WorldFlower1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="67" Id="WorldFlower2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="68" Id="WorldFlower3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="69" Id="WorldFlower4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="70" Id="WorldFlower5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="71" Id="WorldFlower6">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="72" Id="WorldFlower7">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="73" Id="WorldMounds1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="74" Id="WorldMounds2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="77" Id="WorldBridgeLeft">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="78" Id="WorldBridgeMiddle">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="79" Id="WorldBridgeRight">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="99" Id="WorldDesert">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="100" Id="WorldDesertTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="101" Id="WorldDesertTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="102" Id="WorldDesertTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="103" Id="WorldDesertTrees4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="104" Id="WorldDesertDeadTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="105" Id="WorldDesertDeadTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="106" Id="WorldDesertDeadTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="107" Id="WorldDesertBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="110" Id="WorldDesertBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="114" Id="WorldDesertBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="115" Id="WorldDesertBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="119" Id="WorldDesertBones">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="960" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="120" Id="WorldDesertRocks1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1008" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="121" Id="WorldDesertRocks2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1056" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="122" Id="WorldDesertRocks3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1104" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="123" Id="WorldDesertRocks4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1152" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="124" Id="WorldDesertPlants1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1200" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="125" Id="WorldDesertPlants2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1248" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="126" Id="WorldDesertPlants3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1296" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="165" Id="WorldDirt">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="166" Id="WorldDirtCrater">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="167" Id="WorldDirtRocks1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="168" Id="WorldDirtRocks2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="170" Id="WorldDirtDeadTrees1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="171" Id="WorldDirtDeadTrees2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="172" Id="WorldDirtDeadTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="173" Id="WorldDirtBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="174" Id="WorldDirtBorderE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="175" Id="WorldDirtBorderN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="176" Id="WorldDirtBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="177" Id="WorldDirtBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="178" Id="WorldDirtBorderCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="179" Id="WorldDirtBorderCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="672" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="180" Id="WorldDirtBorderCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="181" Id="WorldDirtBorderNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="182" Id="WorldDirtBorderNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="816" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="183" Id="WorldDirtBorderSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="864" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="184" Id="WorldDirtBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="912" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="199" Id="WorldSnowDeadTree">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="200" Id="WorldSnowTrees3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="201" Id="WorldSnowTrees4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="202" Id="WorldSnowTrees5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="206" Id="WorldSnowBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="207" Id="WorldSnowBorderE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="208" Id="WorldSnowBorderN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="209" Id="WorldSnowBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="210" Id="WorldSnowBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="211" Id="WorldSnowBorderCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="212" Id="WorldSnowBorderCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="672" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="213" Id="WorldSnowBorderCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="214" Id="WorldSnowBorderNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="215" Id="WorldSnowBorderNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="816" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="216" Id="WorldSnowBorderSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="864" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="217" Id="WorldSnowBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="912" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="264" Id="WorldWater">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="265" Id="WorldWaterRocks">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="266" Id="WorldWater2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="267" Id="WorldWaterPole">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="268" Id="WorldWaterIceberg">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="269" Id="WorldWaterRock">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="270" Id="WorldWaterShadow">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="285" Id="WorldGrassWaterBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1008" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="286" Id="WorldGrassWaterBorderE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1056" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="287" Id="WorldGrassWaterBorderN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1104" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="288" Id="WorldGrassWaterBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1152" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="289" Id="WorldGrassWaterBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1200" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="290" Id="WorldGrassWaterBorderCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1248" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="291" Id="WorldGrassWaterBorderCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1296" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="292" Id="WorldGrassWaterBorderCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1344" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="293" Id="WorldGrassWaterBorderNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1392" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="294" Id="WorldGrassWaterBorderNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1440" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="295" Id="WorldGrassWaterBorderSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1488" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="296" Id="WorldGrassWaterBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1536" Y="384" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="297" Id="WorldSnowWaterBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="298" Id="WorldSnowWaterBorderE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="299" Id="WorldSnowWaterBorderN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="300" Id="WorldSnowWaterBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="301" Id="WorldSnowWaterBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="302" Id="WorldSnowWaterBorderCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="303" Id="WorldSnowWaterBorderCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="304" Id="WorldSnowWaterBorderCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="305" Id="WorldSnowWaterBorderNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="306" Id="WorldSnowWaterBorderNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="307" Id="WorldSnowWaterBorderSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="308" Id="WorldSnowWaterBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="309" Id="WorldDesertWaterBorderW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="310" Id="WorldDesertWaterBorderE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="311" Id="WorldDesertWaterBorderN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="672" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="312" Id="WorldDesertWaterBorderS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="313" Id="WorldDesertWaterBorderCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="314" Id="WorldDesertWaterBorderCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="816" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="315" Id="WorldDesertWaterBorderCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="864" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="316" Id="WorldDesertWaterBorderCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="912" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="317" Id="WorldDesertWaterBorderNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="960" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="318" Id="WorldDesertWaterBorderNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1008" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="319" Id="WorldDesertWaterBorderSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1056" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="320" Id="WorldDesertWaterBorderSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1104" Y="432" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="462" Id="WorldCliffNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="463" Id="WorldCliffN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="464" Id="WorldCliffNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="495" Id="WorldCliffW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="497" Id="WorldCliffE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="498" Id="WorldCliffInnerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="500" Id="WorldCliffInnerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="528" Id="WorldBlank">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="529" Id="WorldCliffSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="530" Id="WorldCliffS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="531" Id="WorldCliffSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="533" Id="WorldCliffTop5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="561" Id="WorldGrassMountain1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="562" Id="WorldGrassMountain2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="564" Id="WorldGrassMountain3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="565" Id="WorldGrassMountain4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="566" Id="WorldGrassMountain5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="567" Id="WorldGrassMountain6">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="568" Id="WorldSnowMountain1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="336" Y="816" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="569" Id="WorldSnowMountain2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="384" Y="816" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="570" Id="WorldSnowMountain3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="432" Y="816" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="594" Id="WorldDesertMountain1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="0" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="595" Id="WorldDesertMountain2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="48" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="596" Id="WorldDesertMountain3">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="96" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="597" Id="WorldDesertMountain4">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="144" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="598" Id="WorldDesertMountain5">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="192" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>Sand</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="599" Id="WorldDirtMountain1">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="240" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="600" Id="WorldDirtMountain2">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="288" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandHard</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="604" Id="WorldOasisC">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="480" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="605" Id="WorldOasisE">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="528" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="606" Id="WorldOasisW">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="576" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="607" Id="WorldOasisS">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="624" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="608" Id="WorldOasisN">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="672" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="609" Id="WorldOasisCornerSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="720" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="610" Id="WorldOasisCornerSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="768" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="611" Id="WorldOasisCornerNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="816" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="612" Id="WorldOasisCornerNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="864" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="613" Id="WorldOasisNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="912" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="614" Id="WorldOasisNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="960" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="615" Id="WorldOasisSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1008" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="0" ElonaId="616" Id="WorldOasisSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map0.bmp" X="1056" Y="864" Width="48" Height="48" /></Tile>
+    <Kind>SandWater</Kind>
+    <Kind2>Coast</Kind2>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="0" Id="Grass">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="1" Id="GrassViolets">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="2" Id="GrassRocks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="3" Id="GrassTall1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="4" Id="GrassTall2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="5" Id="GrassPatch1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="6" Id="GrassPatch2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="7" Id="GrassBush1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="8" Id="GrassBush2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="9" Id="GrassBush3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="10" Id="GrassPatch3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="11" Id="GrassRocks2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="12" Id="CrackedDirt1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="13" Id="CrackedDirt2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="14" Id="RoomDefault">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="16" Id="DesertRocks1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="17" Id="DesertRocks2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="18" Id="DesertRocks3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="19" Id="Desert">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="20" Id="DesertFlowers1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="21" Id="DesertFlowers2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="0" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="29" Id="Dryground">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Dryground</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="30" Id="Field1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Crop</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="31" Id="Field2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Crop</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="33" Id="DarkDirt1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="34" Id="DarkDirt2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="35" Id="DarkDirt3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="36" Id="DarkDirt4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="37" Id="Destroyed">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="38" Id="DirtPatch">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="39" Id="DirtGrass">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="40" Id="DirtRocks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="41" Id="Dirt">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="45" Id="Snow">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="46" Id="SnowMound">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="47" Id="SnowPlants">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="48" Id="SnowRock">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="49" Id="SnowStump">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="50" Id="SnowFlowers1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="51" Id="SnowFlowers2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="52" Id="SnowFlowers3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="53" Id="SnowField1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="54" Id="SnowField2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="55" Id="SnowIce">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="56" Id="SnowClumps1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="57" Id="SnowClumps2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="58" Id="SnowStalks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="59" Id="SnowGrass">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1248" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="60" Id="SnowBlueTile">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="61" Id="SnowCobble1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="62" Id="SnowCobble2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="63" Id="SnowCobble3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="64" Id="SnowCobble4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="65" Id="SnowStairs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="48" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="66" Id="TowerOfFireTile1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="67" Id="TowerOfFireTile2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="68" Id="TowerOfFireTile3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="69" Id="BallroomRoomFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="70" Id="HardwoodFloor1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="71" Id="HardwoodFloor2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="72" Id="HardwoodFloor3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="73" Id="HardwoodFloor4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="74" Id="HardwoodFloor5">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="75" Id="HardwoodFloor6">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="76" Id="MetalPlatingRusted">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="77" Id="Thatching">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="78" Id="Cobble">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="81" Id="Cobble2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="82" Id="SnowFlowers4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="83" Id="SnowFlowers5">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="84" Id="SnowFlowers6">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="85" Id="SnowBushes1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="86" Id="SnowBushes2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="87" Id="SnowBushes3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="88" Id="SnowBush">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="89" Id="SnowBoulder">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="98" Id="SnowPillar">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="96" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="99" Id="Cobble3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="100" Id="Concrete2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="101" Id="Flooring1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="102" Id="Flooring2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="103" Id="Cobble4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="105" Id="Cobble6">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="109" Id="Cobble9">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="110" Id="Cobble10">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="111" Id="Cobble11">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="112" Id="Cobble12">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="113" Id="CobbleDiagonal">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="114" Id="CobbleDiagonalRound">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="115" Id="CobbleDiagonalRaised">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="118" Id="HardwoodFloor7">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="119" Id="CobbleDark1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="120" Id="CobbleDark2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="121" Id="CobbleDark3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="122" Id="CobbleDark4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="123" Id="Rough1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="126" Id="Rough4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="128" Id="Rough6">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="129" Id="Rough7">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="130" Id="Rough8">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="131" Id="Rough9">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="144" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="132" Id="Tile1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="133" Id="Tile2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="134" Id="Tile3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="135" Id="Brick1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="136" Id="Brick2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="137" Id="CobbleCaution">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="138" Id="Concrete4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="139" Id="ConcreteTiled">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="140" Id="ShopPlatform">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="141" Id="MetalDark">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="144" Id="CobbleWallRoof">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="146" Id="Carpet1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="147" Id="HardwoodBordered">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="148" Id="Tatami1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="149" Id="Tatami2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="150" Id="Cyber1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="151" Id="Cyber2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="152" Id="Cyber3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="153" Id="Cyber4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="156" Id="CarpetNw">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="157" Id="CarpetN">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="158" Id="CarpetNe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1248" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="159" Id="CarpetSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="160" Id="CarpetS">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="161" Id="CarpetSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="163" Id="Rough11">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="164" Id="Rough12">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="192" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="165" Id="AnimeWaterShallow">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="240" Width="48" Height="48" CountX="3" /></Tile>
+    <Kind>Water</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="168" Id="AnimeWaterSea">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="240" Width="48" Height="48" CountX="3" /></Tile>
+    <Kind>Water</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="171" Id="AnimeWaterHotSpring">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="240" Width="48" Height="48" CountX="3" /></Tile>
+    <Kind>Water</Kind>
+    <Kind2>MountainWater</Kind2>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="177" Id="CobbleWallTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="179" Id="IceTiled1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="180" Id="IceTiled2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="183" Id="IceTiled4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="186" Id="IceStairs2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="188" Id="BridgeWe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="189" Id="RedStairs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="190" Id="CobbleStairs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="192" Id="BridgeNs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="193" Id="CobbleRaised2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="196" Id="CobbleRaised3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="240" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="198" Id="ChurchFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="199" Id="ChurchSymbol">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="201" Id="CarpetRed">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="202" Id="Tiled">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="203" Id="CarpetGreen">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="204" Id="CarpetBlue">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="205" Id="WoodFloor1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="206" Id="WoodFloor2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="208" Id="WoodFloor4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="209" Id="WoodStair">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="210" Id="CobbleWallBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="211" Id="Marble">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="212" Id="Tiled2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="213" Id="GreyFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="214" Id="Stair">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="216" Id="CobbleStairs2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="218" Id="WoodFloor5">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="219" Id="WoodFloor6">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="221" Id="WoodFloor8">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="222" Id="RedFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="223" Id="BlackFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="224" Id="WoodFloor9">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1248" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="225" Id="Carpet2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="228" Id="Carpet4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="229" Id="Carpet5">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="230" Id="GreenFloor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="288" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="330" Id="LightGrass1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="331" Id="LightGrass2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="332" Id="LightGrass3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="333" Id="LightGrassBush1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="334" Id="LightGrassBush2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="335" Id="LightGrassPlants">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="336" Id="LightGrassPatch">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="337" Id="LightGrassShrubs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="338" Id="LightGrassBushes">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="339" Id="LightGrassCliffSw">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="340" Id="LightGrassCliffS">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="341" Id="LightGrassCliffSe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="342" Id="LightGrassFlowers">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="343" Id="LightGrassDirt">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="346" Id="LightGrassCobble1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="347" Id="LightGrassCobble2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="348" Id="LightGrassCobble3">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="349" Id="LightGrassCobble4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="359" Id="LightGrassWheel">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="360" Id="LightGrassRailroadTracksNs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="361" Id="LightGrassRailroadTracksWe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="362" Id="LightGrassBoulder">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="480" Width="48" Height="48" /></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="396" Id="WallOrientalTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallOrientalBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="397" Id="WallBrickTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallBrickBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="398" Id="WallRegalTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallRegalBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="399" Id="WallPillarTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPillarBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="400" Id="WallLogTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallLogBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="401" Id="WallWoodTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallWoodBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="402" Id="WallPlankTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPlankBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="403" Id="WallShingleTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallShingleBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="404" Id="WallSmoothTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallSmoothBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="405" Id="WallCurtainTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallCurtainBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="406" Id="WallMossTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallMossBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="407" Id="WallCryptTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallCryptBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="408" Id="WallIce1Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallIce1Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="409" Id="WallIce2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallIce2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="410" Id="WallIce3Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallIce3Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="411" Id="WallSnow1Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallSnow1Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="412" Id="WallSnow2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallSnow2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="413" Id="WallSnow3Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="576" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallSnow3Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="429" Id="WallOrientalBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="430" Id="WallBrickBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="431" Id="WallRegalBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="432" Id="WallPillarBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="433" Id="WallLogBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="434" Id="WallWoodBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="435" Id="WallPlankBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="436" Id="WallShingleBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="437" Id="WallSmoothBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="438" Id="WallCurtainBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="439" Id="WallMossBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="440" Id="WallCryptBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="441" Id="WallIce1Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="442" Id="WallIce2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="443" Id="WallIce3Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="444" Id="WallSnow1Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="445" Id="WallSnow2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="446" Id="WallSnow3Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="624" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="462" Id="WallStone1Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone1Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="463" Id="WallStone2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="464" Id="WallStone3Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="672" Width="48" Height="48" /></Tile>
+    <Kind>HardWall</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone3Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="465" Id="WallStone4Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone4Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="466" Id="WallStone5Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone5Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="467" Id="WallWoodenTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallWoodenBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="468" Id="WallDirtTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallDirtBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="469" Id="WallDirtDarkTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallDirtDarkBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="470" Id="WallPyramidTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPyramidBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="471" Id="WallShingledTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallShingledBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="472" Id="WallConcreteTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcreteBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="473" Id="WallConcreteLightTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcreteLightBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="474" Id="WallTowerOfFireTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallTowerOfFireBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="475" Id="WallForestTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallForestBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="476" Id="WallStone6Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone6Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="477" Id="WallStone7Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone7Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="478" Id="WallStone8Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone8Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="479" Id="WallStone9Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone9Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="480" Id="WallStone10Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone10Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="481" Id="WallHayTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallHayBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="482" Id="WallDecorTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallDecorBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="483" Id="WallPalace1Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPalace1Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="484" Id="WallPalace2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPalace2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="485" Id="WallPalace3Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallPalace3Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="486" Id="WallStone11Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone11Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="487" Id="WallCyberTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallCyberBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="488" Id="WallStone12Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1248" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallStone12Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="489" Id="WallWhiteTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallWhiteBottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="490" Id="WallDecor2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallDecor2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="491" Id="WallConcrete2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcrete2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="492" Id="WallConcrete3Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcrete3Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="493" Id="WallConcreteDark1Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcreteDark1Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="494" Id="WallConcreteDark2Top">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="672" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+    <Wall>Core.WallConcreteDark2Bottom</Wall>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="495" Id="WallStone1Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="496" Id="WallStone2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="497" Id="WallStone3Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="498" Id="WallStone4Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="499" Id="WallStone5Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="500" Id="WallWoodenBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="501" Id="WallDirtBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="502" Id="WallDirtDarkBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="503" Id="WallPyramidBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="504" Id="WallShingledBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="505" Id="WallConcreteBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="506" Id="WallConcreteLightBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="507" Id="WallTowerOfFireBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="508" Id="WallForestBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="509" Id="WallStone6Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="510" Id="WallStone7Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="511" Id="WallStone8Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="512" Id="WallStone9Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="513" Id="WallStone10Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="864" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="514" Id="WallHayBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="515" Id="WallDecorBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="516" Id="WallPalace1Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="517" Id="WallPalace2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="518" Id="WallPalace3Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1104" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="519" Id="WallStone11Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="520" Id="WallCyberBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="521" Id="WallStone12Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1248" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="522" Id="WallWhiteBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="523" Id="WallDecor2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="524" Id="WallConcrete2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="525" Id="WallConcrete3Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="526" Id="WallConcreteDark1Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="527" Id="WallConcreteDark2Bottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="720" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="528" Id="WallStone1Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="529" Id="WallStone2Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="530" Id="WallStone3Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="531" Id="WallStone4Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="532" Id="WallStone5Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="533" Id="WallWoodenFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="534" Id="WallDirtFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="535" Id="WallDirtDarkFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="536" Id="WallPyramidFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="537" Id="WallShingledFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="538" Id="WallConcreteFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="539" Id="WallConcreteLightFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="540" Id="WallTowerOfFireFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="541" Id="WallForestFog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="542" Id="WallStone6Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="543" Id="WallStone7Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="544" Id="WallStone8Fog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="545" Id="StableTop">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="816" Y="768" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="550" Id="PalaceFountain">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1056" Y="768" Width="48" Height="48" CountX="2" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="564" Id="LightGrassCarts">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="565" Id="LightGrassCartsGold">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="566" Id="LightGrassCartsJewels">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="567" Id="LightGrassCartsRocks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="568" Id="LightGrassRocks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="572" Id="LightGrassFencingNs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="573" Id="LightGrassFencingWe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="574" Id="GrassFencingNs">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="624" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="575" Id="GrassFencingWe">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="576" Id="StableBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="720" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="577" Id="HorseBottom">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="768" Y="816" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="594" Id="Water">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="864" Width="48" Height="48" CountX="3" /></Tile>
+    <Kind>Water</Kind>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="627" Id="LightGrassBox">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="0" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="628" Id="WaterWallEdge">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="48" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="629" Id="CobbleDiagonalFish">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="630" Id="CobbleDiagonalPosts">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="631" Id="CratesOpen">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="632" Id="Crates">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="633" Id="WharfCrates1">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="634" Id="WharfCrates2">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="635" Id="CobbleDiagonalNet">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="636" Id="CobbleStatue">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="637" Id="WaterWallEdgeGrass">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="480" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="638" Id="CobblePillar">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="528" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="639" Id="Carpet3FishBoards">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="576" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="641" Id="CobbleFence">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="672" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="646" Id="SignMagic">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="912" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="647" Id="SignInn">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="960" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="648" Id="SignEquip">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1008" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="651" Id="SignBlacksmith">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1152" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="652" Id="SignGeneralVendor">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1200" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="654" Id="SignShield">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1296" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="655" Id="SignPotion">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1344" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="656" Id="SignLamp">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1392" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="657" Id="SignBakery">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="658" Id="SignPub">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="659" Id="SignCasino">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1536" Y="912" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="662" Id="StackedWood">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="96" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="663" Id="StackedSacks">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="144" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="664" Id="StackedCratesGreen">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="192" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="665" Id="StackedCrates">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="240" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="666" Id="SnowLargeMound">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="288" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="667" Id="CobbleRaised4">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="336" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="668" Id="SnowLog">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="384" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="669" Id="IceWallEdge">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="432" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="690" Id="BoatLeft">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1440" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="1" ElonaId="691" Id="BoatRight">
+    <Tile><ImageRegion SourceImagePath="graphic/map1.bmp" X="1488" Y="960" Width="48" Height="48" /></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>true</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="22" Id="Onii1">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="23" Id="Onii2">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="24" Id="Onii3">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="26" Id="Onii4">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1248" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="27" Id="Onii5">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="28" Id="Onii6">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="29" Id="Onii7">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="30" Id="Onii8">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="31" Id="Onii9">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="0" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="34" Id="SnowCracksAtlas2">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="48" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="36" Id="SnowGrassAtlas2">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="144" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="44" Id="SnowPillarAtlas2">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="528" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="51" Id="SnowPlantsAtlas2">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="864" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="53" Id="Onii10">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="54" Id="Onii11">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="55" Id="Onii12">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="56" Id="Onii13">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="57" Id="Onii14">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="58" Id="Onii15">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="60" Id="Onii16">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="61" Id="Onii17">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="62" Id="Onii18">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="63" Id="Onii19">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="64" Id="Onii20">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="65" Id="Onii21">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1536" Y="48" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="86" Id="Onii22">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="87" Id="Onii23">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="88" Id="Onii24">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="89" Id="Onii25">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="90" Id="Onii26">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="91" Id="Onii27">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="92" Id="Onii28">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1248" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="93" Id="Onii29">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="94" Id="Onii30">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="95" Id="Onii31">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="96" Id="Onii32">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="97" Id="Onii33">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="98" Id="Onii34">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1536" Y="96" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="119" Id="Onii35">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="120" Id="Onii36">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="121" Id="Onii37">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="122" Id="Onii38">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="123" Id="Onii39">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="124" Id="Onii40">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="125" Id="Onii41">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1248" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="126" Id="Onii42">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="127" Id="Onii43">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="128" Id="Onii44">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="129" Id="Onii45">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="130" Id="Onii46">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="131" Id="Onii47">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1536" Y="144" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="152" Id="Onii48">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="153" Id="Onii49">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="154" Id="Onii50">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="155" Id="Onii51">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="156" Id="Onii52">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="157" Id="Onii53">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="159" Id="Onii54">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="160" Id="Onii55">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="161" Id="Onii56">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="162" Id="Onii57">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="163" Id="Onii58">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="164" Id="Onii59">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1536" Y="192" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="185" Id="Onii60">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="186" Id="Onii61">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="187" Id="Onii62">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="188" Id="Onii63">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="189" Id="Onii64">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="190" Id="Onii65">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="192" Id="Onii66">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="193" Id="Onii67">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="194" Id="Onii68">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="195" Id="Onii69">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1440" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="196" Id="Onii70">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1488" Y="240" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="218" Id="Onii71">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="219" Id="Onii72">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="220" Id="Onii73">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="221" Id="Onii74">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="222" Id="Onii75">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="223" Id="Onii76">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="288" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="252" Id="Onii77">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="336" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="253" Id="Onii78">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="336" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="254" Id="Onii79">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="336" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="255" Id="Onii80">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="336" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="256" Id="Onii81">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="336" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="285" Id="Onii82">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="384" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="286" Id="Onii83">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="384" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="287" Id="Onii84">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="384" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="288" Id="Onii85">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="384" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="289" Id="Onii86">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="384" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="317" Id="Onii87">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="318" Id="Onii88">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="319" Id="Onii89">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="320" Id="Onii90">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="321" Id="Onii91">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="322" Id="Onii92">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="432" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="350" Id="Onii93">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="960" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="351" Id="Onii94">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1008" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="352" Id="Onii95">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1056" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="353" Id="Onii96">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1104" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="354" Id="Onii97">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1152" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="355" Id="Onii98">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1200" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="356" Id="Onii99">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1248" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="357" Id="Onii100">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1296" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="358" Id="Onii101">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1344" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef ElonaAtlas="2" ElonaId="359" Id="Onii102">
+    <Tile><ImageRegion SourceImagePath="graphic/map2.bmp" X="1392" Y="480" Width="48" Height="48" /></Tile>
+    <Kind>Snow</Kind>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef Id="MapgenDefault">
+    <Tile><ImagePath>Assets/Graphic/default/floor.png</ImagePath></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef Id="MapgenTunnel">
+    <Tile><ImagePath>Assets/Graphic/default/floor.png</ImagePath></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef Id="MapgenWall">
+    <Tile><ImagePath>Assets/Graphic/default/floor.png</ImagePath></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef Id="MapgenRoom">
+    <Tile><ImagePath>Assets/Graphic/default/floor.png</ImagePath></Tile>
+    <IsSolid>false</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+  <TileDef Id="MapgenFog">
+    <Tile><ImagePath>Assets/Graphic/default/floor.png</ImagePath></Tile>
+    <IsSolid>true</IsSolid>
+    <IsOpaque>false</IsOpaque>
+  </TileDef>
+</Defs>

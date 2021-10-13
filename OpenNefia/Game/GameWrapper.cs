@@ -150,6 +150,8 @@ namespace OpenNefia.Game
 
         public void MainCode(string[] args)
         {
+            Startup.Run();
+
             var layer = new Core.UI.Layer.FieldLayer();
             layer.Query();
         }

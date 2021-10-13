@@ -1,6 +1,8 @@
-﻿using System;
+﻿using OpenNefia.Core.Data.Serial;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +23,8 @@ namespace OpenNefia.Core.Data
         {
             Storage.Clear();
 
+            var errors = new List<string>();
+
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 var defTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Def)));
@@ -28,8 +32,32 @@ namespace OpenNefia.Core.Data
                 foreach (var ty in defTypes)
                 {
                     Console.WriteLine($"Load def type: {ty.FullName}");
+                    
                     Storage[ty.Name] = ty;
                 }
+
+                var defSerializableTypes = assembly.GetTypes().Where(x => typeof(IDefSerializable).IsAssignableFrom(x));
+
+                foreach (var ty in defSerializableTypes)
+                {
+                    foreach (var property in ty.GetProperties())
+                    {
+                        if (property.GetCustomAttribute<DefRequiredAttribute>() != null || property.GetCustomAttribute<DefSerialUseAttributeAttribute>() != null)
+                        {
+                            errors.Add($"Def property {property.Name} of type {ty.Name} must be a field instead of a property to be marked with attributes and serialized");
+                        }
+                    }
+                }
+            }
+
+            if (errors.Count > 0)
+            {
+                var errorMessage = "";
+                foreach (var error in errors)
+                {
+                    errorMessage += $"{error}\n";
+                }
+                throw new Exception($"Errors validating def types:\n{errorMessage}");
             }
         }
     }

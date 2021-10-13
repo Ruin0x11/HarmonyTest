@@ -1,28 +1,34 @@
-﻿using OpenNefia.Core.Data.Serial;
+﻿using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Util;
 using OpenNefia.Mod;
+using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering
 {
     public class TileSpec : IDefSerializable
     {
-        public string TileId;
+        [DefRequired(DefaultValue="Default")]
+        public string TileId = string.Empty;
+
         public IResourcePath? ImagePath;
         public int CountX = 1;
+
         public ImageRegion? ImageRegion;
 
-        public TileSpec(string id, IResourcePath imagePath, int countX = 1)
+        public StructMultiKey<string, string> TileIndex { get; internal set; } = new StructMultiKey<string, string>("", "");
+
+        public TileSpec()
         {
-            TileId = id;
-            ImagePath = imagePath;
-            CountX = countX;
-            ImageRegion = null;
+
         }
 
-        public TileSpec(string id, ImageRegion imageRegion)
+        public void ValidateDefField(List<string> errors)
         {
-            TileId = id;
-            ImagePath = null;
-            ImageRegion = imageRegion;
+            if (ImagePath == null && ImageRegion == null)
+            {
+                errors.Add($"One of ImagePath or ImageRegion must be declared.");
+            }
         }
     }
 }

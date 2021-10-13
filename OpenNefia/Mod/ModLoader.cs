@@ -18,11 +18,6 @@ namespace OpenNefia.Mod
     {
         protected static readonly string CurrentAssemblyName = Assembly.GetExecutingAssembly().GetName().Name!;
 
-        public ModInfo? GetModFromAssemblyLocation(string location)
-        {
-            return LoadedMods.Find(mod => mod.AssemblyLocation == location);
-        }
-
         protected static readonly Version CurrentAssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version!;
         private static Regex allowedGuidRegex { get; } = new(@"^[a-zA-Z0-9\._\-]+$");
 
@@ -43,6 +38,21 @@ namespace OpenNefia.Mod
             AssemblyReaderParams = new ReaderParameters { AssemblyResolver = CecilResolver };
             LoadedMods = new List<ModInfo>();
             LoadedAssemblies = new Dictionary<String, Assembly>();
+        }
+
+        public ModInfo? GetModFromAssemblyLocation(string location)
+        {
+            return LoadedMods.Find(mod => mod.AssemblyLocation == location);
+        }
+
+        public ModInfo? GetModFromAssembly(Assembly assembly)
+        {
+            return LoadedMods.Find(mod => mod.AssemblyLocation == assembly.Location);
+        }
+
+        public ModInfo? GetModFromType(Type modType)
+        {
+            return LoadedMods.Find(mod => mod.Instance?.GetType() == modType);
         }
 
         public void Execute()

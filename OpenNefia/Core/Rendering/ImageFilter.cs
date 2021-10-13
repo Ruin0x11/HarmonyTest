@@ -10,9 +10,9 @@ namespace OpenNefia.Core.Rendering
 {
     public class ImageFilter : IDefSerializable
     {
-        public Love.FilterMode Min { get; set; } = Love.FilterMode.None;
-        public Love.FilterMode Mag { get; set; } = Love.FilterMode.None;
-        public int Anisotropy { get; set; } = 1;
+        public Love.FilterMode Min = Love.FilterMode.Linear;
+        public Love.FilterMode Mag = Love.FilterMode.Linear;
+        public int Anisotropy = 1;
 
         public ImageFilter(FilterMode min, FilterMode mag, int anisotropy)
         {

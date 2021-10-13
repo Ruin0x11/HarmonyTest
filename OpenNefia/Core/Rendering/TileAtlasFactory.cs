@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
         public int TileWidth { get; }
         public int TileHeight { get; }
 
-        private Dictionary<string, AtlasTile> AtlasTiles;
+        private Dictionary<StructMultiKey<string, string>, AtlasTile> AtlasTiles;
         private Love.Canvas WorkCanvas;
         private ImageFilter Filter;
 
@@ -29,8 +29,8 @@ namespace OpenNefia.Core.Rendering
             var imageHeight = tileCountY * tileHeight;
             Binpack = new BinPacker(imageWidth, imageHeight);
             WorkCanvas = Love.Graphics.NewCanvas(imageWidth, imageHeight);
-            Filter = new ImageFilter(Love.FilterMode.None, Love.FilterMode.None, 1);
-            AtlasTiles = new Dictionary<string, AtlasTile>();
+            Filter = new ImageFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
+            AtlasTiles = new Dictionary<StructMultiKey<string, string>, AtlasTile>();
             OnLoadTile = null;
         }
 
@@ -84,7 +84,7 @@ namespace OpenNefia.Core.Rendering
             if (isTall)
                 yOffset = -this.TileHeight;
 
-            this.AtlasTiles.Add(tile.Id, new AtlasTile(innerQuad, yOffset));
+            this.AtlasTiles.Add(tile.TileIndex, new AtlasTile(innerQuad, yOffset));
 
             quad.Dispose();
         }

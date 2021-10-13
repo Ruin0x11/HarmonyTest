@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Data.Types
 {
     public class MusicDef : Def
     {
-        public IResourcePath Filepath { get; set; }
+        public IResourcePath Filepath;
 
         public MusicDef(string id) : base(id)
         {

@@ -1,4 +1,6 @@
 ﻿using Love;
+using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,26 +29,26 @@ namespace OpenNefia.Core.Rendering
 
     public class TileAtlas
     {
-        private Dictionary<string, AtlasTile> Tiles = new Dictionary<string, AtlasTile>();
-        private Dictionary<string, List<AnimFrame>> Anims = new Dictionary<string, List<AnimFrame>>();
+        private Dictionary<StructMultiKey<string, string>, AtlasTile> Tiles = new Dictionary<StructMultiKey<string, string>, AtlasTile>();
+        private Dictionary<StructMultiKey<string, string>, List<AnimFrame>> Anims = new Dictionary<StructMultiKey<string, string>, List<AnimFrame>>();
         public Image Image { get; }
 
-        public TileAtlas(Image image, Dictionary<string, AtlasTile> atlasTiles)
+        public TileAtlas(Image image, Dictionary<StructMultiKey<string, string>, AtlasTile> atlasTiles)
         {
             this.Image = image;
             this.Tiles = atlasTiles;
         }
 
-        public AtlasTile? GetTile(TileSpec def)
+        public AtlasTile? GetTile(TileSpec spec)
         {
-            if (Tiles.TryGetValue(def.Id, out var tile))
+            if (Tiles.TryGetValue(spec.TileIndex, out var tile))
                 return tile;
             return null;
         }
 
-        public bool GetTileSize(TileSpec def, out int width, out int height)
+        public bool GetTileSize(TileSpec spec, out int width, out int height)
         {
-            var tile = GetTile(def);
+            var tile = GetTile(spec);
             if (tile == null)
             {
                 width = 0;

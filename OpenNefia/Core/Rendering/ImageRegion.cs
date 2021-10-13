@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Serial;
 using OpenNefia.Mod;
 using System;
@@ -12,20 +13,25 @@ namespace OpenNefia.Core.Rendering
 {
     public class ImageRegion : IDefSerializable
     {
+        [DefRequired]
         [DefSerialUseAttribute]
-        public IResourcePath SourceImagePath { get; set; }
+        public IResourcePath SourceImagePath = null!;
 
+        [DefRequired]
         [DefSerialUseAttribute]
-        public int X { get; set; } = 0;
+        public int X = 0;
 
+        [DefRequired]
         [DefSerialUseAttribute]
-        public int Y { get; set; } = 0;
+        public int Y = 0;
 
+        [DefRequired]
         [DefSerialUseAttribute]
-        public int Width { get; set; } = 0;
+        public int Width = 0;
 
+        [DefRequired]
         [DefSerialUseAttribute]
-        public int Height { get; set; } = 0;
+        public int Height = 0;
 
         public Love.Color? KeyColor { get; set; } = null;
 
@@ -41,7 +47,6 @@ namespace OpenNefia.Core.Rendering
 
         public ImageRegion()
         {
-            SourceImagePath = null!;
         }
     }
 }

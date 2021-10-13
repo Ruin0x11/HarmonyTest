@@ -35,33 +35,33 @@ namespace OpenNefia.Core.Data.Types
         /// <summary>
         /// Path of an image to use.
         /// </summary>
-        public IResourcePath? ImagePath { get; set; }
+        public IResourcePath? ImagePath;
 
         /// <summary>
         /// Information for a region of an image to cut out and use for this <see cref="AssetDef"/>.
         /// </summary>
-        public ImageRegion? ImageRegion { get; set; }
+        public ImageRegion? ImageRegion;
 
         /// <summary>
         /// Filter to apply to the image.
         /// </summary>
-        public ImageFilter? ImageFilter { get; set; }
+        public ImageFilter? ImageFilter;
 
 
         /// <summary>
         /// Number of tiled images in the X direction. Each will get its own quad when the asset is instantiated.
         /// </summary>
-        public uint CountX { get; set; } = 1;
+        public uint CountX = 1;
 
         /// <summary>
         /// Number of tiled images in the Y direction. Each will get its own quad when the asset is instantiated.
         /// </summary>
-        public uint CountY { get; set; } = 1;
+        public uint CountY = 1;
 
         /// <summary>
         /// List of regions available when making an asset batch from this <see cref="AssetDef"/>.
         /// </summary>
-        public Dictionary<string, Region> Regions { get; set; } = new Dictionary<string, Region>();
+        public Dictionary<string, Region> Regions = new Dictionary<string, Region>();
 
         /// <summary>
         /// Given a width and height, generate a set of regions to use for those dimensions when making an asset instance from this <see cref="AssetDef"/>.

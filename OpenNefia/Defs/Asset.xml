@@ -1,591 +1,659 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-    <AssetDef Id="HudMinimap">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="120" Y="504" Width="136" Height="88" />
-    </AssetDef>
-    <AssetDef Id="MinimapMarkerPlayer">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="15" Y="338" Width="6" Height="6" />
-    </AssetDef>
-    <AssetDef Id="MapNameIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="208" Y="376" Width="16" Height="16" />
-    </AssetDef>
-    <AssetDef Id="HudBar">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="440" Width="192" Height="24" />
-    </AssetDef>
-    <AssetDef Id="SkillIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="0" Y="672" Width="528" Height="48" />
-    </AssetDef>
-    <AssetDef Id="HudSkillIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="376" Width="160" Height="16" />
-    </AssetDef>
-    <AssetDef Id="MessageWindow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="496" Y="528" Width="192" Height="72" />
-    </AssetDef>
-    <AssetDef Id="GoldCoin">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="392" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="PlatinumCoin">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="24" Y="392" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="CharacterLevelIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="392" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="AutoTurnIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="392" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="HpBarFrame">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="504" Width="104" Height="15" />
-    </AssetDef>
-    <AssetDef Id="HudHpBar">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="520" Width="100" Height="6" />
-    </AssetDef>
-    <AssetDef Id="HudMpBar">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="520" Width="100" Height="6" />
-    </AssetDef>
-    <AssetDef Id="Clock">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="448" Y="408" Width="120" Height="96" />
-    </AssetDef>
-    <AssetDef Id="ClockHand">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="288" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DateLabelFrame">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="448" Y="376" Width="128" Height="24" />
-    </AssetDef>
-    <AssetDef Id="BuffIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="0" Y="1120" Width="928" Height="32" />
-    </AssetDef>
-    <AssetDef Id="Book">
-        <ImagePath>Assets/Graphic/book.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="DecoInvA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="0" Width="144" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DecoInvB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="48" Width="48" Height="72" />
-    </AssetDef>
-    <AssetDef Id="DecoInvC">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="48" Y="48" Width="48" Height="72" />
-    </AssetDef>
-    <AssetDef Id="DecoInvD">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="120" Width="48" Height="72" />
-    </AssetDef>
-    <AssetDef Id="DecoMirrorA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_mirror.bmp" X="0" Y="0" Width="48" Height="120" />
-    </AssetDef>
-    <AssetDef Id="DecoFeatA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="0" Y="0" Width="48" Height="192" />
-    </AssetDef>
-    <AssetDef Id="DecoFeatB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="48" Y="0" Width="48" Height="144" />
-    </AssetDef>
-    <AssetDef Id="DecoFeatC">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="0" Y="192" Width="96" Height="72" />
-    </AssetDef>
-    <AssetDef Id="DecoFeatD">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="48" Y="144" Width="96" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DecoBoardA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_board.bmp" X="0" Y="0" Width="128" Height="128" />
-    </AssetDef>
-    <AssetDef Id="DecoBoardB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_board.bmp" X="0" Y="144" Width="48" Height="84" />
-    </AssetDef>
-    <AssetDef Id="DecoSpellA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_spell.bmp" X="0" Y="0" Width="72" Height="144" />
-    </AssetDef>
-    <AssetDef Id="DecoSpellB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_spell.bmp" X="72" Y="0" Width="72" Height="96" />
-    </AssetDef>
-    <AssetDef Id="DecoSkillA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_skill.bmp" X="0" Y="0" Width="72" Height="144" />
-    </AssetDef>
-    <AssetDef Id="DecoSkillB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_skill.bmp" X="72" Y="0" Width="102" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DecoHelpA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_help.bmp" X="0" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DecoHelpB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_help.bmp" X="0" Y="48" Width="96" Height="120" />
-    </AssetDef>
-    <AssetDef Id="InventoryIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="288" Y="48" Width="1056" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TraitIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="336" Width="144" Height="24" />
-    </AssetDef>
-    <AssetDef Id="EquippedIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="12" Y="348" Width="12" Height="12" />
-    </AssetDef>
-    <AssetDef Id="LabelInput">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="128" Y="288" Width="128" Height="32" />
-    </AssetDef>
-    <AssetDef Id="InputCaret">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="336" Width="12" Height="24" />
-    </AssetDef>
-    <AssetDef Id="DebrisBlood">
-        <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="48" Y="1152" Width="288" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DebrisFragment">
-        <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="336" Y="1152" Width="192" Height="48" />
-    </AssetDef>
-    <AssetDef Id="BuffIconNone">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="320" Y="160" Width="32" Height="32" />
-    </AssetDef>
-    <AssetDef Id="ArrowLeft">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="336" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="ArrowRight">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="336" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="DirectionArrow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="212" Y="432" Width="28" Height="28" />
-    </AssetDef>
-    <AssetDef Id="Caption">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="672" Y="477" Width="128" Height="25" />
-    </AssetDef>
-    <AssetDef Id="EnchantmentIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="336" Width="240" Height="24" />
-    </AssetDef>
-    <AssetDef Id="InheritanceIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="360" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="BodyPartIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="600" Y="336" Width="264" Height="24" />
-    </AssetDef>
-    <AssetDef Id="TipIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="96" Y="360" Width="192" Height="16" />
-    </AssetDef>
-    <AssetDef Id="QuickMenuItem">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="360" Y="192" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="QuickMenuItemSpecial">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="360" Y="144" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DecoWearA">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_wear.bmp" X="0" Y="0" Width="96" Height="120" />
-    </AssetDef>
-    <AssetDef Id="DecoWearB">
-        <ImageRegion SourceImagePath="Assets/Graphic/deco_wear.bmp" X="0" Y="120" Width="72" Height="144" />
-    </AssetDef>
-    <AssetDef Id="RadarDeco">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="64" Y="288" Width="50" Height="32" />
-    </AssetDef>
-    <AssetDef Id="StatusEffectBar">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="416" Width="80" Height="15" />
-    </AssetDef>
-    <AssetDef Id="IeChat">
-        <ImagePath>Assets/Graphic/ie_chat.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="IeSheet">
-        <ImagePath>Assets/Graphic/ie_sheet.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="IeScroll">
-        <ImagePath>Assets/Graphic/ie_scroll.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="ImeStatusEnglish">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="24" Y="336" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="ImeStatusJapanese">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="336" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="ImeStatusNone">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="336" Width="24" Height="24" />
-    </AssetDef>
-    <AssetDef Id="MorePrompt">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="552" Y="504" Width="120" Height="22" />
-    </AssetDef>
-    <AssetDef Id="Window" Class="OpenNefia.Core.Data.Types.Assets.WindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="48" Width="264" Height="192" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow0" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow1" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow2" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="96" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow3" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="144" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow4" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="TopicWindow5" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="240" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="Title">
-        <ImagePath>Assets/Graphic/title.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Void">
-        <ImagePath>Assets/Graphic/void.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgAltar">
-        <ImagePath>Assets/Graphic/bg_altar.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgNight">
-        <ImagePath>Assets/Graphic/bg_night.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="G1">
-        <ImagePath>Assets/Graphic/g1.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="G2">
-        <ImagePath>Assets/Graphic/g2.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="G3">
-        <ImagePath>Assets/Graphic/g3.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="G4">
-        <ImagePath>Assets/Graphic/g4.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg1">
-        <ImagePath>Assets/Graphic/bg1.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg2">
-        <ImagePath>Assets/Graphic/bg2.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg3">
-        <ImagePath>Assets/Graphic/bg3.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg4">
-        <ImagePath>Assets/Graphic/bg4.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg5">
-        <ImagePath>Assets/Graphic/bg5.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg6">
-        <ImagePath>Assets/Graphic/bg6.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg7">
-        <ImagePath>Assets/Graphic/bg7.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg8">
-        <ImagePath>Assets/Graphic/bg8.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg9">
-        <ImagePath>Assets/Graphic/bg9.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg10">
-        <ImagePath>Assets/Graphic/bg10.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg11">
-        <ImagePath>Assets/Graphic/bg11.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg12">
-        <ImagePath>Assets/Graphic/bg12.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg13">
-        <ImagePath>Assets/Graphic/bg13.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Bg22">
-        <ImagePath>Assets/Graphic/bg22.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe1">
-        <ImagePath>Assets/Graphic/bg_re1.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe2">
-        <ImagePath>Assets/Graphic/bg_re2.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe3">
-        <ImagePath>Assets/Graphic/bg_re3.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe4">
-        <ImagePath>Assets/Graphic/bg_re4.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe5">
-        <ImagePath>Assets/Graphic/bg_re5.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe6">
-        <ImagePath>Assets/Graphic/bg_re6.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe7">
-        <ImagePath>Assets/Graphic/bg_re7.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe8">
-        <ImagePath>Assets/Graphic/bg_re8.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe9">
-        <ImagePath>Assets/Graphic/bg_re9.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe10">
-        <ImagePath>Assets/Graphic/bg_re10.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe11">
-        <ImagePath>Assets/Graphic/bg_re11.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe12">
-        <ImagePath>Assets/Graphic/bg_re12.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe13">
-        <ImagePath>Assets/Graphic/bg_re13.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe14">
-        <ImagePath>Assets/Graphic/bg_re14.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="BgRe15">
-        <ImagePath>Assets/Graphic/bg_re15.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="Paper">
-        <ImagePath>Assets/Graphic/paper.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="SelectKey">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="30" Width="24" Height="18" />
-    </AssetDef>
-    <AssetDef Id="ImpressionIcon">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="16" Y="360" Width="16" Height="16" />
-    </AssetDef>
-    <AssetDef Id="ListBullet">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="360" Width="16" Height="16" />
-    </AssetDef>
-    <AssetDef Id="HpBarAlly">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="517" Width="48" Height="3" />
-    </AssetDef>
-    <AssetDef Id="HpBarOther">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="513" Width="48" Height="3" />
-    </AssetDef>
-    <AssetDef Id="Shadow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="656" Width="192" Height="144" />
-    </AssetDef>
-    <AssetDef Id="ShadowEdges">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="752" Width="816" Height="48" />
-    </AssetDef>
-    <AssetDef Id="CharacterShadow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="384" Width="32" Height="16" />
-    </AssetDef>
-    <AssetDef Id="PlayerLight">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="800" Y="112" Width="144" Height="144" />
-    </AssetDef>
-    <AssetDef Id="SceneTextShadow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="456" Y="144" Width="344" Height="72" />
-    </AssetDef>
-    <AssetDef Id="EmotionIcons">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="32" Y="608" Width="464" Height="16" />
-    </AssetDef>
-    <AssetDef Id="NefiaMark">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="32" Y="624" Width="32" Height="16" />
-    </AssetDef>
-    <AssetDef Id="WeatherSnowEtherwind">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="600" Width="32" Height="48" />
-    </AssetDef>
-    <AssetDef Id="FailureToCastEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="480" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="SwarmEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="816" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="HealEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="336" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="CurseEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="384" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="OfferEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="432" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="BreakingEffect">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="864" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="MeleeAttackDebris">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="1104" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="MeleeAttackBlood">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="720" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DeathBlood">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="768" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="DeathFragments">
-        <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="864" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="AnimSlash">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="1008" Y="432" Width="192" Height="48" />
-    </AssetDef>
-    <AssetDef Id="AnimBash">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="816" Y="432" Width="192" Height="48" />
-    </AssetDef>
-    <AssetDef Id="AnimMiracle">
-        <ImagePath>Assets/Graphic/anime12.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimSpotMine">
-        <ImagePath>Assets/Graphic/anime1.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimSpotFish">
-        <ImagePath>Assets/Graphic/anime2.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimSpotHarvest">
-        <ImagePath>Assets/Graphic/anime3.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimSpotDig">
-        <ImagePath>Assets/Graphic/anime4.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimBall">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime5.bmp" X="0" Y="0" Width="960" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimBall2">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime5.bmp" X="0" Y="96" Width="480" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimShock">
-        <ImagePath>Assets/Graphic/anime6.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimBreath">
-        <ImagePath>Assets/Graphic/anime7.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimSmoke">
-        <ImagePath>Assets/Graphic/anime8.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimNukeSmoke1">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="0" Width="96" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimNukeSmoke2">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="96" Y="0" Width="96" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimNukeCloud">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="96" Width="384" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimNukeExplosion">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="288" Width="672" Height="48" />
-    </AssetDef>
-    <AssetDef Id="AnimNukeRing">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="408" Width="384" Height="48" />
-    </AssetDef>
-    <AssetDef Id="AnimSparkle">
-        <ImagePath>Assets/Graphic/anime10.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimBuff">
-        <ImagePath>Assets/Graphic/anime11.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimGene">
-        <ImagePath>Assets/Graphic/anime13.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimCritical">
-        <ImagePath>Assets/Graphic/anime28.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimCurse">
-        <ImagePath>Assets/Graphic/anime14.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElec">
-        <ImagePath>Assets/Graphic/anime15.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimFlame">
-        <ImagePath>Assets/Graphic/anime16.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimMeteor">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime17.bmp" X="0" Y="0" Width="768" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimMeteorImpact">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime17.bmp" X="0" Y="96" Width="960" Height="96" />
-    </AssetDef>
-    <AssetDef Id="AnimElemLightning">
-        <ImagePath>Assets/Graphic/anime18.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemCold">
-        <ImagePath>Assets/Graphic/anime19.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemFire">
-        <ImagePath>Assets/Graphic/anime20.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemNether">
-        <ImagePath>Assets/Graphic/anime21.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemDarkness">
-        <ImagePath>Assets/Graphic/anime22.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemMind">
-        <ImagePath>Assets/Graphic/anime23.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemSound">
-        <ImagePath>Assets/Graphic/anime24.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemChaos">
-        <ImagePath>Assets/Graphic/anime25.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemNerve">
-        <ImagePath>Assets/Graphic/anime26.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AnimElemPoison">
-        <ImagePath>Assets/Graphic/anime27.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AutoTurnMining">
-        <ImagePath>Assets/Graphic/anime1.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AutoTurnFishing">
-        <ImagePath>Assets/Graphic/anime2.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AutoTurnHarvesting">
-        <ImagePath>Assets/Graphic/anime3.bmp</ImagePath>
-    </AssetDef>
-    <AssetDef Id="AutoTurnSearching">
-        <ImageRegion SourceImagePath="Assets/Graphic/anime4.bmp" X="0" Y="0" Width="576" Height="96" />
-    </AssetDef>
-    <AssetDef Id="EffectMapRipple">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="144" Y="624" Width="128" Height="32" />
-    </AssetDef>
-    <AssetDef Id="EffectMapFoot">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="272" Y="624" Width="32" Height="32" />
-    </AssetDef>
-    <AssetDef Id="EffectMapSnow1">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="304" Y="624" Width="32" Height="32" />
-    </AssetDef>
-    <AssetDef Id="EffectMapSnow2">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="624" Width="32" Height="32" />
-    </AssetDef>
-    <AssetDef Id="EffectMapSplash">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="368" Y="624" Width="96" Height="32" />
-    </AssetDef>
-    <AssetDef Id="EffectMapSplash2">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="464" Y="624" Width="96" Height="32" />
-    </AssetDef>
-    <AssetDef Id="Cloud1">
-        <ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="288" Y="1040" Width="208" Height="160" />
-    </AssetDef>
-    <AssetDef Id="Cloud2">
-        <ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="976" Width="288" Height="224" />
-    </AssetDef>
-    <AssetDef Id="LightPortLight">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightTorch">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="704" Width="96" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightLantern">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightCandle">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightStove">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="704" Width="96" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightItem">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="528" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightTown">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="576" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightCrystal">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="624" Y="704" Width="96" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightTownLight">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="720" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightWindow">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="768" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="LightWindowRed">
-        <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="816" Y="704" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="FishingPole">
-        <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="0" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="FishingLine">
-        <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="48" Y="0" Width="48" Height="48" />
-    </AssetDef>
-    <AssetDef Id="FishingBob">
-        <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="116" Y="18" Width="14" Height="14" />
-    </AssetDef>
-    <AssetDef Id="FishingFish">
-        <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="144" Y="0" Width="96" Height="48" />
-    </AssetDef>
+  <AssetDef Id="HudMinimap">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="120" Y="504" Width="136" Height="88" />
+  </AssetDef>
+  <AssetDef Id="MinimapMarkerPlayer">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="15" Y="338" Width="6" Height="6" />
+  </AssetDef>
+  <AssetDef Id="MapNameIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="208" Y="376" Width="16" Height="16" />
+  </AssetDef>
+  <AssetDef Id="HudBar">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="440" Width="192" Height="24" />
+  </AssetDef>
+  <AssetDef Id="SkillIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="0" Y="672" Width="528" Height="48" />
+    <CountX>11</CountX>
+  </AssetDef>
+  <AssetDef Id="HudSkillIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="376" Width="160" Height="16" />
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="MessageWindow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="496" Y="528" Width="192" Height="72" />
+  </AssetDef>
+  <AssetDef Id="GoldCoin">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="392" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="PlatinumCoin">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="24" Y="392" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="CharacterLevelIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="392" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="AutoTurnIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="392" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="HpBarFrame">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="504" Width="104" Height="15" />
+  </AssetDef>
+  <AssetDef Id="HudHpBar">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="520" Width="100" Height="6" />
+  </AssetDef>
+  <AssetDef Id="HudMpBar">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="520" Width="100" Height="6" />
+  </AssetDef>
+  <AssetDef Id="Clock">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="448" Y="408" Width="120" Height="96" />
+  </AssetDef>
+  <AssetDef Id="ClockHand">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="288" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DateLabelFrame">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="448" Y="376" Width="128" Height="24" />
+  </AssetDef>
+  <AssetDef Id="BuffIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="0" Y="1120" Width="928" Height="32" />
+    <CountX>29</CountX>
+  </AssetDef>
+  <AssetDef Id="Book">
+    <ImagePath>Assets/Graphic/book.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="DecoInvA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="0" Width="144" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DecoInvB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="48" Width="48" Height="72" />
+  </AssetDef>
+  <AssetDef Id="DecoInvC">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="48" Y="48" Width="48" Height="72" />
+  </AssetDef>
+  <AssetDef Id="DecoInvD">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_inv.bmp" X="0" Y="120" Width="48" Height="72" />
+  </AssetDef>
+  <AssetDef Id="DecoMirrorA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_mirror.bmp" X="0" Y="0" Width="48" Height="120" />
+  </AssetDef>
+  <AssetDef Id="DecoFeatA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="0" Y="0" Width="48" Height="192" />
+  </AssetDef>
+  <AssetDef Id="DecoFeatB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="48" Y="0" Width="48" Height="144" />
+  </AssetDef>
+  <AssetDef Id="DecoFeatC">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="0" Y="192" Width="96" Height="72" />
+  </AssetDef>
+  <AssetDef Id="DecoFeatD">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_feat.bmp" X="48" Y="144" Width="96" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DecoBoardA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_board.bmp" X="0" Y="0" Width="128" Height="128" />
+  </AssetDef>
+  <AssetDef Id="DecoBoardB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_board.bmp" X="0" Y="144" Width="48" Height="84" />
+  </AssetDef>
+  <AssetDef Id="DecoSpellA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_spell.bmp" X="0" Y="0" Width="72" Height="144" />
+  </AssetDef>
+  <AssetDef Id="DecoSpellB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_spell.bmp" X="72" Y="0" Width="72" Height="96" />
+  </AssetDef>
+  <AssetDef Id="DecoSkillA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_skill.bmp" X="0" Y="0" Width="72" Height="144" />
+  </AssetDef>
+  <AssetDef Id="DecoSkillB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_skill.bmp" X="72" Y="0" Width="102" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DecoHelpA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_help.bmp" X="0" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DecoHelpB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_help.bmp" X="0" Y="48" Width="96" Height="120" />
+  </AssetDef>
+  <AssetDef Id="InventoryIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="288" Y="48" Width="1056" Height="48" />
+    <CountX>22</CountX>
+  </AssetDef>
+  <AssetDef Id="TraitIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="336" Width="144" Height="24" />
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="EquippedIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="12" Y="348" Width="12" Height="12" />
+  </AssetDef>
+  <AssetDef Id="LabelInput">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="128" Y="288" Width="128" Height="32" />
+  </AssetDef>
+  <AssetDef Id="InputCaret">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="336" Width="12" Height="24" />
+  </AssetDef>
+  <AssetDef Id="DebrisBlood">
+    <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="48" Y="1152" Width="288" Height="48" />
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="DebrisFragment">
+    <ImageRegion SourceImagePath="Assets/Graphic/character.bmp" X="336" Y="1152" Width="192" Height="48" />
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="BuffIconNone">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="320" Y="160" Width="32" Height="32" />
+  </AssetDef>
+  <AssetDef Id="ArrowLeft">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="312" Y="336" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="ArrowRight">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="336" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="DirectionArrow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="212" Y="432" Width="28" Height="28" />
+  </AssetDef>
+  <AssetDef Id="Caption">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="672" Y="477" Width="128" Height="25" />
+  </AssetDef>
+  <AssetDef Id="EnchantmentIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="336" Width="240" Height="24" />
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="InheritanceIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="360" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="BodyPartIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="600" Y="336" Width="264" Height="24" />
+    <CountX>11</CountX>
+  </AssetDef>
+  <AssetDef Id="TipIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="96" Y="360" Width="192" Height="16" />
+    <CountX>8</CountX>
+  </AssetDef>
+  <AssetDef Id="QuickMenuItem">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="360" Y="192" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="QuickMenuItemSpecial">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="360" Y="144" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DecoWearA">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_wear.bmp" X="0" Y="0" Width="96" Height="120" />
+  </AssetDef>
+  <AssetDef Id="DecoWearB">
+    <ImageRegion SourceImagePath="Assets/Graphic/deco_wear.bmp" X="0" Y="120" Width="72" Height="144" />
+  </AssetDef>
+  <AssetDef Id="RadarDeco">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="64" Y="288" Width="50" Height="32" />
+  </AssetDef>
+  <AssetDef Id="StatusEffectBar">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="416" Width="80" Height="15" />
+  </AssetDef>
+  <AssetDef Id="IeChat">
+    <ImagePath>Assets/Graphic/ie_chat.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="IeSheet">
+    <ImagePath>Assets/Graphic/ie_sheet.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="IeScroll">
+    <ImagePath>Assets/Graphic/ie_scroll.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="ImeStatusEnglish">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="24" Y="336" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="ImeStatusJapanese">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="336" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="ImeStatusNone">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="72" Y="336" Width="24" Height="24" />
+  </AssetDef>
+  <AssetDef Id="MorePrompt">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="552" Y="504" Width="120" Height="22" />
+  </AssetDef>
+  <AssetDef Id="Window" Class="OpenNefia.Core.Data.Types.Assets.WindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="48" Width="264" Height="192" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow0" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow1" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow2" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="96" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow3" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="144" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow4" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="TopicWindow5" Class="OpenNefia.Core.Data.Types.Assets.TopicWindowAsset">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="240" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="Title">
+    <ImagePath>Assets/Graphic/title.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Void">
+    <ImagePath>Assets/Graphic/void.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgAltar">
+    <ImagePath>Assets/Graphic/bg_altar.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgNight">
+    <ImagePath>Assets/Graphic/bg_night.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="G1">
+    <ImagePath>Assets/Graphic/g1.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="G2">
+    <ImagePath>Assets/Graphic/g2.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="G3">
+    <ImagePath>Assets/Graphic/g3.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="G4">
+    <ImagePath>Assets/Graphic/g4.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg1">
+    <ImagePath>Assets/Graphic/bg1.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg2">
+    <ImagePath>Assets/Graphic/bg2.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg3">
+    <ImagePath>Assets/Graphic/bg3.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg4">
+    <ImagePath>Assets/Graphic/bg4.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg5">
+    <ImagePath>Assets/Graphic/bg5.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg6">
+    <ImagePath>Assets/Graphic/bg6.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg7">
+    <ImagePath>Assets/Graphic/bg7.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg8">
+    <ImagePath>Assets/Graphic/bg8.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg9">
+    <ImagePath>Assets/Graphic/bg9.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg10">
+    <ImagePath>Assets/Graphic/bg10.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg11">
+    <ImagePath>Assets/Graphic/bg11.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg12">
+    <ImagePath>Assets/Graphic/bg12.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg13">
+    <ImagePath>Assets/Graphic/bg13.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Bg22">
+    <ImagePath>Assets/Graphic/bg22.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe1">
+    <ImagePath>Assets/Graphic/bg_re1.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe2">
+    <ImagePath>Assets/Graphic/bg_re2.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe3">
+    <ImagePath>Assets/Graphic/bg_re3.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe4">
+    <ImagePath>Assets/Graphic/bg_re4.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe5">
+    <ImagePath>Assets/Graphic/bg_re5.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe6">
+    <ImagePath>Assets/Graphic/bg_re6.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe7">
+    <ImagePath>Assets/Graphic/bg_re7.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe8">
+    <ImagePath>Assets/Graphic/bg_re8.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe9">
+    <ImagePath>Assets/Graphic/bg_re9.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe10">
+    <ImagePath>Assets/Graphic/bg_re10.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe11">
+    <ImagePath>Assets/Graphic/bg_re11.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe12">
+    <ImagePath>Assets/Graphic/bg_re12.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe13">
+    <ImagePath>Assets/Graphic/bg_re13.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe14">
+    <ImagePath>Assets/Graphic/bg_re14.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="BgRe15">
+    <ImagePath>Assets/Graphic/bg_re15.bmp</ImagePath>
+  </AssetDef>
+  <AssetDef Id="Paper">
+    <ImagePath>Assets/Graphic/paper.bmp</ImagePath>
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="SelectKey">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="30" Width="24" Height="18" />
+  </AssetDef>
+  <AssetDef Id="ImpressionIcon">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="16" Y="360" Width="16" Height="16" />
+  </AssetDef>
+  <AssetDef Id="ListBullet">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="48" Y="360" Width="16" Height="16" />
+  </AssetDef>
+  <AssetDef Id="HpBarAlly">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="517" Width="48" Height="3" />
+  </AssetDef>
+  <AssetDef Id="HpBarOther">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="513" Width="48" Height="3" />
+  </AssetDef>
+  <AssetDef Id="Shadow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="656" Width="192" Height="144" />
+    <CountX>8</CountX>
+    <CountY>6</CountY>
+  </AssetDef>
+  <AssetDef Id="ShadowEdges">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="752" Width="816" Height="48" />
+    <CountX>17</CountX>
+  </AssetDef>
+  <AssetDef Id="CharacterShadow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="384" Width="32" Height="16" />
+  </AssetDef>
+  <AssetDef Id="PlayerLight">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="800" Y="112" Width="144" Height="144" />
+  </AssetDef>
+  <AssetDef Id="SceneTextShadow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="456" Y="144" Width="344" Height="72" />
+  </AssetDef>
+  <AssetDef Id="EmotionIcons">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="32" Y="608" Width="464" Height="16" />
+    <CountX>29</CountX>
+  </AssetDef>
+  <AssetDef Id="NefiaMark">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="32" Y="624" Width="32" Height="16" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="WeatherSnowEtherwind">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="0" Y="600" Width="32" Height="48" />
+    <CountX>4</CountX>
+    <CountY>6</CountY>
+  </AssetDef>
+  <AssetDef Id="FailureToCastEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="480" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="SwarmEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="816" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="HealEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="336" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="CurseEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="384" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="OfferEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="432" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="BreakingEffect">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="864" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="MeleeAttackDebris">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="1104" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="MeleeAttackBlood">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="720" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DeathBlood">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="768" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="DeathFragments">
+    <ImageRegion SourceImagePath="Assets/Graphic/item.bmp" X="864" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="AnimSlash">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="1008" Y="432" Width="192" Height="48" />
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimBash">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="816" Y="432" Width="192" Height="48" />
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimMiracle">
+    <ImagePath>Assets/Graphic/anime12.bmp</ImagePath>
+    <CountX>10</CountX>
+    <CountY>2</CountY>
+  </AssetDef>
+  <AssetDef Id="AnimSpotMine">
+    <ImagePath>Assets/Graphic/anime1.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimSpotFish">
+    <ImagePath>Assets/Graphic/anime2.bmp</ImagePath>
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimSpotHarvest">
+    <ImagePath>Assets/Graphic/anime3.bmp</ImagePath>
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimSpotDig">
+    <ImagePath>Assets/Graphic/anime4.bmp</ImagePath>
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimBall">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime5.bmp" X="0" Y="0" Width="960" Height="96" />
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimBall2">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime5.bmp" X="0" Y="96" Width="480" Height="96" />
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimShock">
+    <ImagePath>Assets/Graphic/anime6.bmp</ImagePath>
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimBreath">
+    <ImagePath>Assets/Graphic/anime7.bmp</ImagePath>
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimSmoke">
+    <ImagePath>Assets/Graphic/anime8.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimNukeSmoke1">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="0" Width="96" Height="96" />
+  </AssetDef>
+  <AssetDef Id="AnimNukeSmoke2">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="96" Y="0" Width="96" Height="96" />
+  </AssetDef>
+  <AssetDef Id="AnimNukeCloud">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="96" Width="384" Height="96" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimNukeExplosion">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="288" Width="672" Height="48" />
+    <CountX>7</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimNukeRing">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime9.bmp" X="0" Y="408" Width="384" Height="48" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimSparkle">
+    <ImagePath>Assets/Graphic/anime10.bmp</ImagePath>
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimBuff">
+    <ImagePath>Assets/Graphic/anime11.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimGene">
+    <ImagePath>Assets/Graphic/anime13.bmp</ImagePath>
+    <CountX>5</CountX>
+    <CountY>2</CountY>
+  </AssetDef>
+  <AssetDef Id="AnimCritical">
+    <ImagePath>Assets/Graphic/anime28.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimCurse">
+    <ImagePath>Assets/Graphic/anime14.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElec">
+    <ImagePath>Assets/Graphic/anime15.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimFlame">
+    <ImagePath>Assets/Graphic/anime16.bmp</ImagePath>
+    <CountX>10</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimMeteor">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime17.bmp" X="0" Y="0" Width="768" Height="96" />
+    <CountX>8</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimMeteorImpact">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime17.bmp" X="0" Y="96" Width="960" Height="96" />
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemLightning">
+    <ImagePath>Assets/Graphic/anime18.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemCold">
+    <ImagePath>Assets/Graphic/anime19.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemFire">
+    <ImagePath>Assets/Graphic/anime20.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemNether">
+    <ImagePath>Assets/Graphic/anime21.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemDarkness">
+    <ImagePath>Assets/Graphic/anime22.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemMind">
+    <ImagePath>Assets/Graphic/anime23.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemSound">
+    <ImagePath>Assets/Graphic/anime24.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemChaos">
+    <ImagePath>Assets/Graphic/anime25.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemNerve">
+    <ImagePath>Assets/Graphic/anime26.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AnimElemPoison">
+    <ImagePath>Assets/Graphic/anime27.bmp</ImagePath>
+    <CountX>6</CountX>
+  </AssetDef>
+  <AssetDef Id="AutoTurnMining">
+    <ImagePath>Assets/Graphic/anime1.bmp</ImagePath>
+    <CountX>5</CountX>
+  </AssetDef>
+  <AssetDef Id="AutoTurnFishing">
+    <ImagePath>Assets/Graphic/anime2.bmp</ImagePath>
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="AutoTurnHarvesting">
+    <ImagePath>Assets/Graphic/anime3.bmp</ImagePath>
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="AutoTurnSearching">
+    <ImageRegion SourceImagePath="Assets/Graphic/anime4.bmp" X="0" Y="0" Width="576" Height="96" />
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapRipple">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="144" Y="624" Width="128" Height="32" />
+    <CountX>4</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapFoot">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="272" Y="624" Width="32" Height="32" />
+    <CountX>1</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapSnow1">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="304" Y="624" Width="32" Height="32" />
+    <CountX>1</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapSnow2">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="624" Width="32" Height="32" />
+    <CountX>1</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapSplash">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="368" Y="624" Width="96" Height="32" />
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="EffectMapSplash2">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="464" Y="624" Width="96" Height="32" />
+    <CountX>3</CountX>
+  </AssetDef>
+  <AssetDef Id="Cloud1">
+    <ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="288" Y="1040" Width="208" Height="160" />
+  </AssetDef>
+  <AssetDef Id="Cloud2">
+    <ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="976" Width="288" Height="224" />
+  </AssetDef>
+  <AssetDef Id="LightPortLight">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="192" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightTorch">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="240" Y="704" Width="96" Height="48" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="LightLantern">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="336" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightCandle">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="384" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightStove">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="432" Y="704" Width="96" Height="48" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="LightItem">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="528" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightTown">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="576" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightCrystal">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="624" Y="704" Width="96" Height="48" />
+    <CountX>2</CountX>
+  </AssetDef>
+  <AssetDef Id="LightTownLight">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="720" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightWindow">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="768" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="LightWindowRed">
+    <ImageRegion SourceImagePath="Assets/Graphic/interface.bmp" X="816" Y="704" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="FishingPole">
+    <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="0" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="FishingLine">
+    <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="48" Y="0" Width="48" Height="48" />
+  </AssetDef>
+  <AssetDef Id="FishingBob">
+    <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="116" Y="18" Width="14" Height="14" />
+  </AssetDef>
+  <AssetDef Id="FishingFish">
+    <ImageRegion SourceImagePath="Assets/Graphic/fishing.bmp" X="144" Y="0" Width="96" Height="48" />
+    <CountX>2</CountX>
+  </AssetDef>
 </Defs>
