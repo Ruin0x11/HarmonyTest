@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Data.Serial
         public void PopulateFieldByName(string name, XmlNode node, object target, Type containingModType)
         {
             var field = target.GetType().GetField(name)!;
-            if (field.GetCustomAttribute<DefSerialUseAttributeAttribute>() != null)
+            if (field.GetCustomAttribute<DefUseAttributesAttribute>() != null)
             {
                 if (node.Attributes?[field.Name] != null)
                 {

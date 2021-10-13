@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Data
                 {
                     foreach (var property in ty.GetProperties())
                     {
-                        if (property.GetCustomAttribute<DefRequiredAttribute>() != null || property.GetCustomAttribute<DefSerialUseAttributeAttribute>() != null)
+                        if (property.GetCustomAttribute<DefRequiredAttribute>() != null || property.GetCustomAttribute<DefUseAttributesAttribute>() != null)
                         {
                             errors.Add($"Def property {property.Name} of type {ty.Name} must be a field instead of a property to be marked with attributes and serialized");
                         }

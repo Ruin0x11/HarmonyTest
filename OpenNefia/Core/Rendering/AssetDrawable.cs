@@ -52,7 +52,7 @@ namespace OpenNefia.Core.Rendering
             var canvas = Love.Graphics.NewCanvas(imageRegion.Width, imageRegion.Height);
             var oldCanvas = Love.Graphics.GetCanvas();
 
-            //// Reset global drawing state to be clean so the asset gets copied correctly
+            // Reset global drawing state to be clean so the asset gets copied correctly
             Love.Graphics.GetBlendMode(out Love.BlendMode blendMode, out Love.BlendAlphaMode blendAlphaMode);
             var scissor = Love.Graphics.GetScissor();
             var color = Love.Graphics.GetColor();
@@ -64,7 +64,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, parentImage, 0, 0);
 
             Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            GraphicsEx.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged.
+            GraphicsEx.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged (does not distinguish null scissors).
             Love.Graphics.SetColor(color);
             Love.Graphics.SetCanvas(oldCanvas);
 

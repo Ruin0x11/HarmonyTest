@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Data.Serial
 {
-    internal class DefSerialUseAttributeAttribute : Attribute
+    internal class DefUseAttributesAttribute : Attribute
     {
     }
 }

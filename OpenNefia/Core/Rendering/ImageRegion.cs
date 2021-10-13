@@ -14,23 +14,23 @@ namespace OpenNefia.Core.Rendering
     public class ImageRegion : IDefSerializable
     {
         [DefRequired]
-        [DefSerialUseAttribute]
+        [DefUseAttributes]
         public IResourcePath SourceImagePath = null!;
 
         [DefRequired]
-        [DefSerialUseAttribute]
+        [DefUseAttributes]
         public int X = 0;
 
         [DefRequired]
-        [DefSerialUseAttribute]
+        [DefUseAttributes]
         public int Y = 0;
 
         [DefRequired]
-        [DefSerialUseAttribute]
+        [DefUseAttributes]
         public int Width = 0;
 
         [DefRequired]
-        [DefSerialUseAttribute]
+        [DefUseAttributes]
         public int Height = 0;
 
         public Love.Color? KeyColor { get; set; } = null;

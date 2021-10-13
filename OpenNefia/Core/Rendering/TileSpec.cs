@@ -29,6 +29,10 @@ namespace OpenNefia.Core.Rendering
             {
                 errors.Add($"One of ImagePath or ImageRegion must be declared.");
             }
+            if (TileIndex.Value1 == string.Empty || TileIndex.Value2 == string.Empty)
+            {
+                errors.Add($"Tile index must have mod and tile ID nonempty");
+            }
         }
     }
 }

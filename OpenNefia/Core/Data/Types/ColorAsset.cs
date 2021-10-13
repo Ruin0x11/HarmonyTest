@@ -16,6 +16,7 @@ namespace OpenNefia.Core.Data.Types
             this.B = b;
             this.A = a;
         }
+
         public ColorAsset(string id, Love.Color color) : this(id, color.r, color.g, color.b, color.a)
         {
         }
