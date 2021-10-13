@@ -86,7 +86,11 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Forwards += this.List;
 
-            this.List.EventOnActivate += (o, e) => this.Finish(e.SelectedChoice.Data);
+            this.List.EventOnActivate += (o, e) =>
+            {
+                Gui.PlaySound(SoundDefOf.Ok1);
+                this.Finish(e.SelectedChoice.Data);
+            };
         }
 
         public override void OnQuery()

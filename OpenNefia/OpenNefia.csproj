@@ -13,6 +13,7 @@
     <PackageReference Include="fNbt" Version="0.6.4" />
     <PackageReference Include="Lib.Harmony" Version="2.1.1" />
     <PackageReference Include="Love2dCS" Version="11.0.50" />
+    <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.0-prerelease4" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
     <PackageReference Include="MonoMod" Version="21.9.19.1" />
     <PackageReference Include="NetVips" Version="2.0.1" />
@@ -31,6 +32,7 @@
 
   <ItemGroup>
     <None Remove="Defs\Asset.xml" />
+    <None Remove="Defs\Music.xml" />
   </ItemGroup>
     
   <ItemGroup>

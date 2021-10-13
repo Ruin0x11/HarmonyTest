@@ -12,7 +12,8 @@ namespace OpenNefia.Core.Rendering
 {
     public class ImageRegion : IDefSerializable
     {
-        public IResourcePath ParentImagePath { get; set; }
+        [DefSerialUseAttribute]
+        public IResourcePath SourceImagePath { get; set; }
 
         [DefSerialUseAttribute]
         public int X { get; set; } = 0;
@@ -30,7 +31,7 @@ namespace OpenNefia.Core.Rendering
 
         public ImageRegion(IResourcePath atlasImage, int x, int y, int width = 0, int height = 0, Color? keyColor = null)
         {
-            ParentImagePath = atlasImage;
+            SourceImagePath = atlasImage;
             X = x;
             Y = y;
             Width = width;
@@ -40,26 +41,7 @@ namespace OpenNefia.Core.Rendering
 
         public ImageRegion()
         {
-            ParentImagePath = null!;
-        }
-
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
-        {
-            deserializer.PopulateFieldByName(nameof(X), node, this, containingModType);
-            deserializer.PopulateFieldByName(nameof(Y), node, this, containingModType);
-            deserializer.PopulateFieldByName(nameof(Width), node, this, containingModType);
-            deserializer.PopulateFieldByName(nameof(Height), node, this, containingModType);
-
-            if (node.ChildNodes.Count == 1)
-            {
-                deserializer.PopulateFieldByNode(nameof(ParentImagePath), node.ChildNodes[0]!, this, containingModType);
-            }
-            else
-            {
-                deserializer.PopulateFieldByNode(nameof(ParentImagePath), node[nameof(ParentImagePath)]!, this, containingModType);
-                if (node[nameof(KeyColor)] != null)
-                    deserializer.PopulateFieldByNode(nameof(KeyColor), node[nameof(KeyColor)]!, this, containingModType);
-            }
+            SourceImagePath = null!;
         }
     }
 }

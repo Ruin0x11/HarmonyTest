@@ -14,5 +14,10 @@ namespace OpenNefia.Core
         {
             Console.WriteLine(s);
         }
+
+        public static void Error(string s)
+        {
+            Console.WriteLine(s);
+        }
     }
 }

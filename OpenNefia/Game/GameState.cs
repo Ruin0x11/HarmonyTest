@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,15 @@ namespace OpenNefia.Game
     /// <summary>
     /// Everything that constitutes a full save.
     /// </summary>
-    internal class GameState
+    public class GameState
     {
         public InstancedMap? CurrentMap;
+        internal UidTracker UidTracker;
 
         public GameState()
         {
             CurrentMap = null;
+            UidTracker = new UidTracker();
         }
 
         public void Save(string filepath)

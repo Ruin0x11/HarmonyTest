@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Rendering
 
         private static Image LoadImageSource(ImageRegion imageRegion)
         {
-            var path = imageRegion.ParentImagePath.Resolve();
+            var path = imageRegion.SourceImagePath.Resolve();
             var parentImage = ImageLoader.NewImage(path);
 
             

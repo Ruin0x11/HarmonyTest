@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseText = "";
 
             InstancedMap.Save(Map, "TestMap.nbt");
-            InstancedMap.Load("TestMap.nbt");
+            Map = InstancedMap.Load("TestMap.nbt");
 
             this.BindKeys();
         }
@@ -111,6 +112,11 @@ namespace OpenNefia.Core.UI.Layer
             this.Right = (evt.State != KeyPressState.Released);
         }
 
+        public override void OnQuery()
+        {
+            // Gui.PlayMusic(MusicDefOf.Field1);
+        }
+
         private KeyActionResult? QueryLayer()
         {
             Console.WriteLine("Query layer!");
@@ -141,11 +147,6 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.SetColor(255, 255, 255);
 
             Map.Draw(Batch, DrawX, DrawY);
-
-            foreach (var thing in Things)
-            {
-                Love.Graphics.Draw(thing.Texture, thing.PosX * 48 + DrawX, thing.PosY * 48 + DrawY);
-            }
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

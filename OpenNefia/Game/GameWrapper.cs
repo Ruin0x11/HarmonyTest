@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
+using OpenNefia.Core;
 using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Mod;
@@ -18,7 +20,7 @@ namespace OpenNefia.Game
     public class GameWrapper
     {
         public static GameWrapper Instance { get; private set; } = new GameWrapper();
-
+        public GameState State { get; private set; }
         public GameScene Scene { get; private set; }
 
         public List<IUiLayer> Layers { get; private set; }
@@ -30,6 +32,7 @@ namespace OpenNefia.Game
         public GameWrapper()
         {
             Scene = new GameScene(this);
+            State = new GameState();
             Layers = new List<IUiLayer>();
             TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         }
@@ -112,6 +115,7 @@ namespace OpenNefia.Game
 
         internal void OnQuit()
         {
+            Gui.StopMusic();
             Console.WriteLine("Quitting game.");
             Environment.Exit(0);
         }
@@ -132,7 +136,8 @@ namespace OpenNefia.Game
             Layers.Remove(layer);
         }
 
-        public IUiLayer? CurrentLayer {
+        public IUiLayer? CurrentLayer 
+        {
             get
             {
                 if (Layers.Count == 0)

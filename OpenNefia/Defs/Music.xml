@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<MusicDef Id="Reset">
+		<Filepath>Assets/Sound/gm_on.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town1">
+		<Filepath>Assets/Sound/pop01.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town2">
+		<Filepath>Assets/Sound/morning_breeze.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town3">
+		<Filepath>Assets/Sound/happymarch.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town4">
+		<Filepath>Assets/Sound/xp_field7.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon1">
+		<Filepath>Assets/Sound/pop03.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon2">
+		<Filepath>Assets/Sound/PSML522.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon3">
+		<Filepath>Assets/Sound/PSML514.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon4">
+		<Filepath>Assets/Sound/PSML507.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon5">
+		<Filepath>Assets/Sound/fantasy04.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Dungeon6">
+		<Filepath>Assets/Sound/fantasy03.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Puti">
+		<Filepath>Assets/Sound/dwarf.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Boss">
+		<Filepath>Assets/Sound/battle1.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Boss2">
+		<Filepath>Assets/Sound/climax.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Victory">
+		<Filepath>Assets/Sound/orc05.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Opening">
+		<Filepath>Assets/Sound/orc01.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="LastBoss">
+		<Filepath>Assets/Sound/orc03.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Home">
+		<Filepath>Assets/Sound/PSML516.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Lonely">
+		<Filepath>Assets/Sound/PSML060.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Chaos">
+		<Filepath>Assets/Sound/fantasy01.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="March1">
+		<Filepath>Assets/Sound/orc06.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="March2">
+		<Filepath>Assets/Sound/orc02.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="March3">
+		<Filepath>Assets/Sound/orc04.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Arena">
+		<Filepath>Assets/Sound/victory.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Fanfare">
+		<Filepath>Assets/Sound/fanfare.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Village1">
+		<Filepath>Assets/Sound/cobalt.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Battle1">
+		<Filepath>Assets/Sound/battle3.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Casino">
+		<Filepath>Assets/Sound/town2l.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Coda">
+		<Filepath>Assets/Sound/epi1coda.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Ruin">
+		<Filepath>Assets/Sound/ruins1.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Wedding">
+		<Filepath>Assets/Sound/PSML052.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="PetArena">
+		<Filepath>Assets/Sound/main2.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Unrest">
+		<Filepath>Assets/Sound/PSML514.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town5">
+		<Filepath>Assets/Sound/PSML047.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Unrest2">
+		<Filepath>Assets/Sound/xp_shrine2.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Town6">
+		<Filepath>Assets/Sound/morning_breeze.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Field1">
+		<Filepath>Assets/Sound/orc04.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Field2">
+		<Filepath>Assets/Sound/xp_field2.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Field3">
+		<Filepath>Assets/Sound/xp_field4.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Memory">
+		<Filepath>Assets/Sound/memory.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Intro">
+		<Filepath>Assets/Sound/field1_d.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Soraochi">
+		<Filepath>Assets/Sound/soraochi.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Psml515">
+		<Filepath>Assets/Sound/PSML515.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Psml035">
+		<Filepath>Assets/Sound/PSML035.MID</Filepath>
+	</MusicDef>
+	<MusicDef Id="Pinch2">
+		<Filepath>Assets/Sound/pinch2.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Memory2">
+		<Filepath>Assets/Sound/memory2.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="AnoSora">
+		<Filepath>Assets/Sound/AnoSora.mid</Filepath>
+	</MusicDef>
+	<MusicDef Id="Epilogue">
+		<Filepath>Assets/Sound/xp_epilogue1.mid</Filepath>
+	</MusicDef>
+</Defs>

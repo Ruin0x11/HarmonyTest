@@ -1,17 +1,23 @@
-﻿using OpenNefia.Game.Serial;
+﻿using OpenNefia.Core.Object;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Game;
+using OpenNefia.Game.Serial;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OpenNefia
+namespace OpenNefia.Core
 {
-    public class InstancedMap : IDataExposable
+    public class InstancedMap : IDataExposable, ILocation
     {
         int Width;
         int Height;
-        List<int> tiles;
+        ulong Uid;
+        List<int> Tiles;
+
+        Love.Image chip;
+
+        internal Pool Pool;
 
         public InstancedMap() : this(1, 1) { }
 
@@ -19,78 +25,34 @@ namespace OpenNefia
         {
             Width = width;
             Height = height;
-            tiles = new List<int>(Width * Height);
+            Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            Tiles = new List<int>();
             for (int i = 0; i < Width * Height; i++)
             {
-                tiles.Add(i % 5);
+                Tiles.Add(i % 5);
             }
 
-            obj1 = new InnerObject("One");
-            obj2 = new InnerObject("Two");
-            obj3 = new InnerObject("Three");
+            Pool = new Pool(Uid, Width, Height);
+            Pool.TakeObject(new CharaObject(0, 0));
+            Pool.TakeObject(new CharaObject(0, 0));
+            Pool.TakeObject(new CharaObject(1, 1));
+            Pool.TakeObject(new CharaObject(2, 2));
+            chip = ImageLoader.NewImage("Assets/Graphic/chara_1.bmp");
         }
-
-        public class InnerObject : IDataExposable, IDataReferenceable
-        {
-            public string Name;
-            public InnerObject? Ref1;
-            public InnerObject? Ref2;
-
-            public InnerObject() : this(string.Empty) { }
-
-            public InnerObject(string name)
-            {
-                Name = name;
-            }
-
-            public void Expose(DataExposer data)
-            {
-                data.ExposeValue(ref Name!, "Name");
-                data.ExposeWeak(ref Ref1, "Ref1");
-                data.ExposeWeak(ref Ref2, "Ref2");
-            }
-
-            public string GetUniqueIndex() => Name;
-
-            public override string ToString() => $"obj {Name}";
-        }
-
-        public InnerObject obj1;
-        public InnerObject obj2;
-        public InnerObject obj3;
 
         public void Expose(DataExposer data)
         {
-            int a = 5;
-            int b = 6;
-            int c = 7;
-            data.ExposeValue(ref a, "A");
-            data.ExposeValue(ref b, "B");
-            data.ExposeValue(ref c, "C");
-            Console.WriteLine($"{data.Stage}! {a}, {b}, {c}");
+            data.ExposeValue(ref Uid, nameof(Uid));
+            data.ExposeValue(ref Width, nameof(Width));
+            data.ExposeValue(ref Height, nameof(Height));
+            data.ExposeDeep(ref Pool, nameof(Pool));
 
-            data.ExposeDeep(ref obj1, "obj1");
-            data.ExposeDeep(ref obj2, "obj2");
-            data.ExposeDeep(ref obj3, "obj3");
-            Console.WriteLine($"{data.Stage}! {obj1}, {obj2}, {obj3}");
-            Console.WriteLine($"{obj1?.Ref1}, {obj1?.Ref2}");
-            Console.WriteLine($"{obj2?.Ref1}, {obj2?.Ref2}");
-            Console.WriteLine($"{obj3?.Ref1}, {obj3?.Ref2}");
-
-            data.ExposeCollection(ref tiles, "tiles");
-            Console.WriteLine($"{tiles.Count}");
+            data.ExposeCollection(ref Tiles, nameof(Tiles));
+            Console.WriteLine($"{Tiles.Count}");
         }
 
         public static void Save(InstancedMap map, string filepath)
         {
-            map.obj1 = new InnerObject("One");
-            map.obj2 = new InnerObject("Two");
-            map.obj3 = new InnerObject("Three");
-
-            map.obj1.Ref1 = map.obj2;
-            map.obj2.Ref1 = map.obj1;
-            map.obj2.Ref2 = map.obj3;
-
             var exposer = new DataExposer(filepath, SerialStage.Saving);
             exposer.ExposeDeep(ref map!, "Map");
             exposer.Save();
@@ -110,12 +72,12 @@ namespace OpenNefia
 
         public void Set(int x, int y, int tile)
         {
-            tiles[y * Width + x] = tile;
+            Tiles[y * Width + x] = tile;
         }
 
         public int Get(int x, int y)
         {
-            return tiles[y * Width + x];
+            return Tiles[y * Width + x];
         }
 
         public void Draw(TileBatch batch, int sx, int sy)
@@ -132,6 +94,21 @@ namespace OpenNefia
             }
 
             batch.Draw(sx, sy);
+
+            foreach (var obj in Pool)
+            {
+                Love.Graphics.Draw(chip, sx + obj.X * 48, sy + obj.Y * 48);
+            }
         }
+
+        public void TakeObject(MapObject obj) => Pool.TakeObject(obj);
+        public bool HasObject(MapObject obj) => Pool.HasObject(obj);
+        public void ReleaseObject(MapObject obj) => Pool.ReleaseObject(obj);
+        public void SetPosition(MapObject mapObject, int x, int y) => Pool.SetPosition(mapObject, x, y);
+        public IEnumerable<MapObject> At(int x, int y) => Pool.At(x, y);
+        public IEnumerator<MapObject> GetEnumerator() => Pool.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => Pool.GetEnumerator();
+
+        public string GetUniqueIndex() => $"InstancedMap_{Uid}";
     }
 }
