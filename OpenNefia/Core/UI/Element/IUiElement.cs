@@ -1,6 +1,8 @@
-﻿namespace OpenNefia.Core.UI.Element
+﻿using OpenNefia.Core.Rendering;
+
+namespace OpenNefia.Core.UI.Element
 {
-    public interface IUiElement
+    public interface IUiElement : IDrawable
     {
         int Width { get; }
         int Height { get; }
@@ -10,8 +12,5 @@
         void SetSize(int width = 0, int height = 0);
         void SetPosition(int x, int y);
         bool ContainsPoint(int x, int y);
-
-        void Update(float dt);
-        void Draw();
     }
 }

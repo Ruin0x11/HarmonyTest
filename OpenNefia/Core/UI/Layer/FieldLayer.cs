@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace OpenNefia.Core.UI.Layer
         public InstancedMap Map { get; private set; }
         public int DrawX { get; private set; }
         public int DrawY { get; private set; }
+
+        private MapRenderer renderer;
 
         private FontAsset FontText;
 
@@ -38,6 +41,8 @@ namespace OpenNefia.Core.UI.Layer
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
 
+            renderer = new MapRenderer(this.Map);
+
             int x = 0;
             int y = 0;
             foreach (var pair in ThingRepo.Instance.Iter())
@@ -53,7 +58,7 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseText = "";
 
             InstancedMap.Save(Map, "TestMap.nbt");
-            Map = InstancedMap.Load("TestMap.nbt");
+            Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
 
             this.BindKeys();
         }
@@ -140,13 +145,15 @@ namespace OpenNefia.Core.UI.Layer
             var amount = (int)(dt * delta);
             DrawX += amount * dx;
             DrawY += amount * dy;
+
+            this.renderer.Update(dt);
         }
 
         public override void Draw()
         {
             Love.Graphics.SetColor(255, 255, 255);
 
-            Map.Draw(Batch, DrawX, DrawY);
+            this.renderer.Draw();
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

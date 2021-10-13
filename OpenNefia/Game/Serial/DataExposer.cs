@@ -202,6 +202,33 @@ namespace OpenNefia.Game.Serial
             }
         }
 
+        public void ExposeCollection<K, V>(ref Dictionary<K, V> data, string tagName, ExposeMode keyMode = ExposeMode.Default, ExposeMode valueMode = ExposeMode.Default) where K: notnull
+        {
+            if (keyMode == ExposeMode.Default)
+            {
+                keyMode = ExposeMode.Deep;
+            }
+            if (valueMode == ExposeMode.Default)
+            {
+                valueMode = ExposeMode.Deep;
+            }
+
+            var keyList = data.Keys.ToList();
+            var valueList = data.Values.ToList();
+
+            ExposeCollection(ref keyList, "Keys", keyMode);
+            ExposeCollection(ref valueList, "Values", valueMode);
+
+            if (Stage == SerialStage.LoadingDeep)
+            {
+                data = new Dictionary<K, V>();
+                for (var i = 0; i < keyList.Count; i++)
+                {
+                    data.Add(keyList[i], valueList[i]);
+                }
+            }
+        }
+
         public void ExposeCollection<T>(ref List<T> data, string tagName, ExposeMode mode = ExposeMode.Default)
         {
             var ty = typeof(T);

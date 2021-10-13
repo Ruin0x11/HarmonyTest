@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Game.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +11,43 @@ namespace OpenNefia.Game
     /// <summary>
     /// Everything that constitutes a full save.
     /// </summary>
-    public class GameState
+    public class GameState : IDataExposable
     {
         public InstancedMap? CurrentMap;
         internal UidTracker UidTracker;
+        internal TileIndexMapping TileIndexMapping;
 
         public GameState()
         {
             CurrentMap = null;
             UidTracker = new UidTracker();
+            TileIndexMapping = new TileIndexMapping();
         }
 
-        public void Save(string filepath)
+        public void Expose(DataExposer data)
         {
-
+            data.ExposeDeep(ref TileIndexMapping, nameof(TileIndexMapping));
+            data.ExposeDeep(ref UidTracker, nameof(UidTracker));
+            data.ExposeDeep(ref CurrentMap, nameof(CurrentMap));
         }
 
-        public void Load(string filepath)
+        public static void Save(GameState state, string filepath)
         {
+            var exposer = new DataExposer(filepath, SerialStage.Saving);
+            exposer.ExposeDeep(ref state!, "Save");
+            exposer.Save();
+        }
 
+        public static GameState Load(string filepath)
+        {
+            var state = new GameState();
+            var exposer = new DataExposer(filepath, SerialStage.LoadingDeep);
+            exposer.ExposeDeep(ref state, "Save");
+
+            exposer.Stage = SerialStage.ResolvingRefs;
+            exposer.ExposeDeep(ref state, "Save");
+
+            return state!;
         }
     }
 }

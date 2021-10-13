@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,6 @@ namespace OpenNefia.Core.Data.Types
         SandWater = 10
     }
 
-    public enum TileWallKind
-    {
-        None = 0,
-        WallBottom = 1,
-        WallTop = 2
-    }
-
     public class TileDef : Def
     {
         [DefRequired]
@@ -39,10 +33,7 @@ namespace OpenNefia.Core.Data.Types
 
         public bool IsOpaque = false;
 
-        public TileDef? Wall = null;
-
-        [DefIgnored]
-        public TileWallKind WallKind = TileWallKind.None;
+        public TileSpec? Wall = null;
 
         public TileKind Kind = TileKind.None;
         public TileKind Kind2 = TileKind.None;
@@ -53,36 +44,10 @@ namespace OpenNefia.Core.Data.Types
 
         public override void OnResolveReferences()
         {
-            if (this.Wall != null && this.Wall != this)
-            {
-                this.WallKind = TileWallKind.WallTop;
-                this.Wall.WallKind = TileWallKind.WallBottom;
-            }
-        }
-
-        public override void OnValidate(List<string> errors)
-        {
+            Tile.TileIndex = new StructMultiKey<string, string>(this.Id, "Tile");
             if (this.Wall != null)
             {
-                if (this.Wall.WallKind != TileWallKind.WallBottom)
-                {
-                    errors.Add($"Declared as wall top, but invalid bottom wall");
-                }
-                if (this.WallKind != TileWallKind.WallTop)
-                {
-                    errors.Add($"Declared as wall top, but kind was not top");
-                }
-                if (this.Wall == this)
-                {
-                    errors.Add($"Cannot specify wall recursively");
-                }
-            }
-            else
-            {
-                if (this.WallKind == TileWallKind.WallTop)
-                {
-                    errors.Add($"Tile is not wall top, but was declared as one");
-                }
+                Wall.TileIndex = new StructMultiKey<string, string>(this.Id, "Tile_Wall");
             }
         }
     }
