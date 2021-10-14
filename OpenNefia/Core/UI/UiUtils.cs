@@ -35,7 +35,7 @@ namespace OpenNefia.Core.UI
             return new Rectangle(x, y, width, height);
         }
 
-        public static void DebugDraw(IUiElement elem)
+        public static void DebugDraw(IDrawable elem)
         {
             Graphics.SetColor(Love.Color.Red);
             GraphicsEx.LineRect(elem.X, elem.Y, elem.Width, elem.Height);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiShadowedText : BaseUiElement, IUiText
+    public class UiShadowedText : BaseDrawable, IUiText
     {
         private Love.Text BakedText;
 

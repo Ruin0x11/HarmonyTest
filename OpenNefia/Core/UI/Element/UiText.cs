@@ -3,7 +3,7 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiText : BaseUiElement, IUiText
+    public class UiText : BaseDrawable, IUiText
     {
         private Love.Text BakedText;
 

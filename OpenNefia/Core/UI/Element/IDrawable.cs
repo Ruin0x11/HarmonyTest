@@ -1,6 +1,6 @@
 ﻿namespace OpenNefia.Core.UI.Element
 {
-    public interface IUiElement
+    public interface IDrawable
     {
         int Width { get; }
         int Height { get; }

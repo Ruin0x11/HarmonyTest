@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Map;
+using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
@@ -29,17 +30,16 @@ namespace OpenNefia.Core.UI.Layer
 
         public List<Thing> Things;
 
+        private Love.Image Chip;
+
         public FieldLayer()
         {
             Atlas = new TileAtlas();
             Batch = new TileBatch(Atlas);
-            Map = new InstancedMap(100, 100, TileDefOf.Carpet5);
+            Map = new InstancedMap(500, 500, TileDefOf.Carpet5);
             Scroller = new UiScroller();
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
-
-            FpsCounter = new UiFpsCounter();
-            Renderer = new MapRenderer(this.Map);
 
             int x = 0;
             int y = 0;
@@ -49,6 +49,10 @@ namespace OpenNefia.Core.UI.Layer
                 Things.Add(new Thing(thingData, x, y));
                 x += 1;
             }
+
+            var player = new CharaObject(2, 2);
+            Map.TakeObject(player);
+            GameWrapper.Instance.State.Player = player;
 
             MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
@@ -61,6 +65,11 @@ namespace OpenNefia.Core.UI.Layer
             Message = result;
             this.MouseText = "";
 
+            Chip = ImageLoader.NewImage("Assets/Graphic/chara_1.bmp");
+
+            FpsCounter = new UiFpsCounter();
+            Renderer = new MapRenderer(this.Map);
+
             this.BindKeys();
         }
 
@@ -71,6 +80,10 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.SaveLoad();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
+            this.Keybinds[Keys.W] += (_) => this.MovePlayer(0, -1);
+            this.Keybinds[Keys.A] += (_) => this.MovePlayer(-1, 0);
+            this.Keybinds[Keys.S] += (_) => this.MovePlayer(0, 1);
+            this.Keybinds[Keys.D] += (_) => this.MovePlayer(1, 0);
 
             this.Scroller.BindKeys(this);
 
@@ -82,6 +95,14 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
             this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
             this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
+        }
+
+        private void MovePlayer(int dx, int dy)
+        {
+            var player = GameWrapper.Instance.State.Player;
+
+            player?.SetPosition(player.X + dx, player.Y + dy);
+            Map.RefreshVisibility();
         }
 
         private void PlaceTile(MouseButtonEvent evt)
@@ -156,8 +177,9 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
-            if (this.Map.NeedsRedraw)
+            if (this.Map._NeedsRedraw)
             {
+                Map.RefreshVisibility();
                 this.Renderer.RefreshAllLayers();
             }
 
@@ -181,6 +203,12 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.SetColor(255, 255, 255);
 
             this.Renderer.Draw();
+
+            Love.Graphics.SetColor(255, 255, 255);
+
+            var player = GameWrapper.Instance.State.Player!;
+            player.GetScreenPos(out var sx, out var sy);
+            Love.Graphics.Draw(this.Chip, X + sx, Y + sy);
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

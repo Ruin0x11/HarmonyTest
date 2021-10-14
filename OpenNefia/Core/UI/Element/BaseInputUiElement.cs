@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public abstract class BaseInputUiElement : BaseUiElement, IUiInputElement
+    public abstract class BaseInputUiElement : BaseDrawable, IUiInputElement
     {
         protected IInputHandler InputHandler;
         public KeybindWrapper Keybinds { get; }

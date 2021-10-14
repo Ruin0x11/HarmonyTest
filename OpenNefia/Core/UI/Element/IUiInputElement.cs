@@ -1,6 +1,6 @@
 ﻿namespace OpenNefia.Core.UI.Element
 {
-    public interface IUiInputElement : IUiElement, IUiInput
+    public interface IUiInputElement : IDrawable, IUiInput
     {
         KeybindWrapper Keybinds { get; }
         TextInputWrapper TextInput { get; }

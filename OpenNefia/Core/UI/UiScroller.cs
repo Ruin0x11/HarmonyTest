@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI
             this.Right = (evt.State != KeyPressState.Released);
         }
 
-        public void UpdateParentPosition(IUiElement elem, float dt)
+        public void UpdateParentPosition(IDrawable elem, float dt)
         {
             var dx = 0;
             var dy = 0;

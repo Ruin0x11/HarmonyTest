@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element.List
 {
-    public class UiListCell<T> : BaseUiElement, IUiListCell<T>
+    public class UiListCell<T> : BaseDrawable, IUiListCell<T>
     {
         public T Data { get; set; }
 

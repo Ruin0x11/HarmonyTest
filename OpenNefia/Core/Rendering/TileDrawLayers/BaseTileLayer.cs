@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
-    public abstract class BaseTileLayer : BaseUiElement, ITileLayer
+    public abstract class BaseTileLayer : BaseDrawable, ITileLayer
     {
         public abstract void RedrawAll();
         public abstract void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn);

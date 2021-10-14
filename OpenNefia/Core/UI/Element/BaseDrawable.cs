@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public abstract class BaseUiElement : IUiElement
+    public abstract class BaseDrawable : IDrawable
     {
         public int Width { get; private set; } = 0;
         public int Height { get; private set; } = 0;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class MapRenderer : BaseUiElement
+    public class MapRenderer : BaseDrawable
     {
         private List<ITileLayer> TileLayers = new List<ITileLayer>();
         private InstancedMap Map;
@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Rendering
         {
             Map = map;
             TileLayers.Add(new MapAndChipTileLayer(map));
+            TileLayers.Add(new ShadowTileLayer(map));
             RefreshAllLayers();
         }
 
@@ -25,23 +26,23 @@ namespace OpenNefia.Core.Rendering
 
         public void RefreshAllLayers()
         {
-            if (this.Map.RedrawAllThisTurn)
+            if (this.Map._RedrawAllThisTurn)
             {
                 foreach (var layer in TileLayers)
                 {
                     layer.RedrawAll();
                 }
             }
-            else if(this.Map.DirtyTilesThisTurn.Count > 0)
+            else if(this.Map._DirtyTilesThisTurn.Count > 0)
             {
                 foreach (var layer in TileLayers)
                 {
-                    layer.RedrawDirtyTiles(this.Map.DirtyTilesThisTurn);
+                    layer.RedrawDirtyTiles(this.Map._DirtyTilesThisTurn);
                 }
             }
 
-            this.Map.RedrawAllThisTurn = false;
-            this.Map.DirtyTilesThisTurn.Clear();
+            this.Map._RedrawAllThisTurn = false;
+            this.Map._DirtyTilesThisTurn.Clear();
         }
 
         public override void SetSize(int width = 0, int height = 0)

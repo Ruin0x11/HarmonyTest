@@ -74,26 +74,6 @@ namespace OpenNefia.Core.Util
     /// </remarks>
     public class RectanglePacker
     {
-        private struct Point
-        {
-            public static Point Zero = new Point(0, 0);
-
-            public int x;
-            public int y;
-            
-            public Point(Point pt)
-            {
-                this.x = pt.x;
-                this.y = pt.y;
-            }
-
-            public Point(int x, int y)
-            {
-                this.x = x;
-                this.y = y;
-            }
-        }
-
         #region class PackingRectangle
 
         private struct PackingRectangle

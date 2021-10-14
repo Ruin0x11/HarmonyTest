@@ -10,7 +10,7 @@ using static OpenNefia.Core.Rendering.AssetDrawable;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiWindowBacking : BaseUiElement
+    public class UiWindowBacking : BaseDrawable
     {
         public enum WindowBackingType
         {

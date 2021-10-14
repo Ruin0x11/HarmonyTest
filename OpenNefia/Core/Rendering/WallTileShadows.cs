@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class WallTileShadows : BaseUiElement
+    public class WallTileShadows : BaseDrawable
     {
         private InstancedMap Map;
         private ICoords Coords;

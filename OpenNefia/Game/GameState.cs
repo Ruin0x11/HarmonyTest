@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Game.Serial;
 using System;
@@ -18,6 +19,7 @@ namespace OpenNefia.Game
         internal UidTracker UidTracker;
         internal TileIndexMapping TileIndexMapping;
         internal ICoords Coords;
+        internal CharaObject? Player;
 
         public GameState()
         {

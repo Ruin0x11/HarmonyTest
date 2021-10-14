@@ -39,6 +39,12 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(image, x, y, rotation, sx, sy, ox, oy);
         }
 
+        internal static void GetWindowTiledSize(out int windowTiledW, out int windowTiledH)
+        {
+            var coords = GetCoords();
+            coords.GetTiledSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight(), out windowTiledW, out windowTiledH);
+        }
+
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x = 0, float y = 0, float width = 0, float height = 0, float rotation = 0)
         {
             // Sprite batches will ignore the width and height of

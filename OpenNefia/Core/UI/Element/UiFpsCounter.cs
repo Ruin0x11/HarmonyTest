@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiFpsCounter : BaseUiElement
+    public class UiFpsCounter : BaseDrawable
     {
         float Ms = 0f;
         uint Frames = 0;

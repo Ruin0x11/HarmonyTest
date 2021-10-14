@@ -36,6 +36,11 @@ namespace OpenNefia.Core
             this._Disposed = true;
         }
 
+        public virtual void GetScreenPos(out int screenX, out int screenY)
+        {
+            GameWrapper.Instance.State.Coords.TileToScreen(this.X, this.Y, out screenX, out screenY);
+        }
+
         public bool IsOwned() => _CurrentLocation != null;
 
         public virtual void Expose(DataExposer data)

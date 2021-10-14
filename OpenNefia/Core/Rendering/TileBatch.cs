@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal class TileBatch : BaseUiElement
+    internal class TileBatch : BaseDrawable
     {
         int TiledWidth;
         int TiledHeight;

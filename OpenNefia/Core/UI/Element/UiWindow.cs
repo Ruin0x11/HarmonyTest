@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiWindow : BaseUiElement
+    public class UiWindow : BaseDrawable
     {
         public string? Title { get; }
         public bool HasShadow { get; }
