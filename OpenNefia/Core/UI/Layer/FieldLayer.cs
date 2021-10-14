@@ -27,8 +27,6 @@ namespace OpenNefia.Core.UI.Layer
 
         public List<Thing> Things;
 
-        private Love.Image Chip;
-
         public FieldLayer()
         {
             Map = new InstancedMap(500, 500, TileDefOf.Carpet5);
@@ -45,7 +43,7 @@ namespace OpenNefia.Core.UI.Layer
                 x += 1;
             }
 
-            var player = new CharaObject(2, 2);
+            var player = new CharaObject(2, 2, ChipDefOf.CharaChicken);
             Map.TakeObject(player);
             GameWrapper.Instance.State.Player = player;
 
@@ -53,14 +51,19 @@ namespace OpenNefia.Core.UI.Layer
             MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
+
+            for (int i = 0; i < 1; i++)
+                Map.TakeObject(new ItemObject(5 + i, 5, ChipDefOf.CharaCat));
+            for (int i = 0; i < 1; i++)
+                Map.TakeObject(new CharaObject(5 + i, 7, ChipDefOf.ItemComputer));
+
             Map.MemorizeAll();
+            Map.RefreshVisibility();
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
             Message = result;
             this.MouseText = "";
-
-            Chip = ImageLoader.NewImage("Assets/Graphic/chara_1.bmp");
 
             FpsCounter = new UiFpsCounter();
             Renderer = new MapRenderer(this.Map);
@@ -79,6 +82,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keys.A] += (_) => this.MovePlayer(-1, 0);
             this.Keybinds[Keys.S] += (_) => this.MovePlayer(0, 1);
             this.Keybinds[Keys.D] += (_) => this.MovePlayer(1, 0);
+            this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
             this.Scroller.BindKeys(this);
 
@@ -199,15 +203,16 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Renderer.Draw();
 
-            Love.Graphics.SetColor(255, 255, 255);
+            Love.Graphics.SetColor(255, 0, 0);
 
             var player = GameWrapper.Instance.State.Player!;
             player.GetScreenPos(out var sx, out var sy);
-            Love.Graphics.Draw(this.Chip, X + sx, Y + sy);
+            GraphicsEx.LineRect(X + sx, Y + sy, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
+            Love.Graphics.Print($"Player: ({player.X}, {player.Y})", 5, 35);
 
             this.FpsCounter.Draw();
         }

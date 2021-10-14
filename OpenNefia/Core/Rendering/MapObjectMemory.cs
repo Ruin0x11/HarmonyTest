@@ -25,14 +25,17 @@ namespace OpenNefia.Core.Rendering
         public ulong ObjectUid;
         public bool IsVisible;
         public string ChipIndex = string.Empty;
+        public int ScreenXOffset;
+        public int ScreenYOffset;
+        public float Rotation;
         public Love.Color Color;
-        public int XOffset;
-        public int YOffset;
         public ShadowType ShadowType;
 
         internal int Index;
+        internal int TileX;
+        internal int TileY;
         internal int ZOrder;
         internal MemoryState State;
-        internal string TypeKey;
+        internal string TypeKey = string.Empty;
     }
 }

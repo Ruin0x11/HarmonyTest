@@ -46,7 +46,9 @@ namespace OpenNefia.Core
 
         public bool IsOwned() => _CurrentLocation != null;
 
-        public abstract void ProduceMemory(ref MapObjectMemory memory);
+        public abstract void ProduceMemory(MapObjectMemory memory);
+
+        public abstract void Refresh();
 
         public virtual void Expose(DataExposer data)
         {

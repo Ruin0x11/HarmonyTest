@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types.DefOf;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,27 @@ namespace OpenNefia.Core.Object
 {
     public sealed class CharaObject : MapObject
     {
-        public CharaObject(int x, int y) : base(x, y)
-        {
+        public Stat<ChipDef> Chip;
 
+        public CharaObject(int x, int y, ChipDef chip) : base(x, y)
+        {
+            Chip = new Stat<ChipDef>(chip);
         }
 
         public override string TypeKey => "Chara";
 
-        public override void ProduceMemory(ref MapObjectMemory memory)
+        public override void Refresh()
         {
-            memory.ChipIndex = ChipDefOf.CharaCat.Tile.TileIndex;
+            Chip.Refresh();
+        }
+
+        public override void ProduceMemory(MapObjectMemory memory)
+        {
+            memory.ChipIndex = Chip.Value.Tile.TileIndex;
             memory.Color = Love.Color.White;
             memory.IsVisible = true;
-            memory.XOffset = 0;
-            memory.YOffset = 0;
+            memory.ScreenXOffset = 0;
+            memory.ScreenYOffset = 0;
         }
     }
 }

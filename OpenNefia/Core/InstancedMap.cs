@@ -24,6 +24,8 @@ namespace OpenNefia.Core
 
         internal int[] _TileInds;
         internal int[] _TileMemoryInds;
+        internal int[] _InSight;
+        internal int _LastSightId;
         internal ShadowMap _ShadowMap;
         internal MapObjectMemoryStore _MapObjectMemory;
         internal TileIndexMapping _TileIndexMapping;
@@ -46,24 +48,34 @@ namespace OpenNefia.Core
             _TileIndexMapping = GameWrapper.Instance.State.TileIndexMapping;
             _TileInds = new int[width * height];
             _TileMemoryInds = new int[width * height];
+            _InSight = new int[width * height];
+            _LastSightId = 0;
             _ShadowMap = new ShadowMap(this);
             _MapObjectMemory = new MapObjectMemoryStore(this);
+            _Pool = new Pool(_Uid, _Width, _Height);
 
             _DirtyTilesThisTurn = new HashSet<int>();
             _RedrawAllThisTurn = true;
 
             Clear(defaultTile);
-            MemorizeAll();
-
-            _Pool = new Pool(_Uid, _Width, _Height);
+            ClearMemory(defaultTile);
         }
 
-        public void Clear(TileDef defaultTile)
+        public void Clear(TileDef tile)
         {
             for (int i = 0; i < _TileInds.Length; i++)
             {
-                _TileInds[i] = _TileIndexMapping.TileDefIdToIndex[defaultTile.Id];
+                _TileInds[i] = _TileIndexMapping.TileDefIdToIndex[tile.Id];
             }
+        }
+
+        public void ClearMemory(TileDef tile)
+        {
+            for (int i = 0; i < _TileInds.Length; i++)
+            {
+                _TileMemoryInds[i] = _TileIndexMapping.TileDefIdToIndex[tile.Id];
+            }
+            this._RedrawAllThisTurn = true;
         }
 
         public void MemorizeAll()
@@ -72,12 +84,14 @@ namespace OpenNefia.Core
             {
                 _TileMemoryInds[i] = _TileInds[i];
                 _MapObjectMemory.RevealObjects(i);
+                _InSight[i] = _LastSightId;
             }
             this._RedrawAllThisTurn = true;
         }
         
         public void RefreshVisibility()
         {
+            _LastSightId += 1;
             this._ShadowMap.RefreshVisibility();
         }
 
@@ -87,28 +101,7 @@ namespace OpenNefia.Core
 
             this.RefreshVisibility();
 
-            foreach (var memory in this._MapObjectMemory)
-            {
-                memory.State = MemoryState.Added;
-            }
-        }
-
-        public void Expose(DataExposer data)
-        {
-            data.ExposeValue(ref _Uid, nameof(Uid));
-            data.ExposeValue(ref _Width, nameof(Width));
-            data.ExposeValue(ref _Height, nameof(Height));
-
-            if (data.Stage == SerialStage.LoadingDeep)
-            {
-                _TileInds = new int[Width * Height];
-                _TileMemoryInds = new int[Width * Height];
-            }
-
-            data.ExposeDeep(ref _Pool, nameof(_Pool));
-
-            data.ExposeCollection(ref _TileInds, nameof(_TileInds));
-            data.ExposeCollection(ref _TileMemoryInds, nameof(_TileMemoryInds));
+            this._MapObjectMemory.RedrawAll();
         }
 
         public IEnumerable<Tuple<int, int, TileDef>> Tiles
@@ -148,6 +141,14 @@ namespace OpenNefia.Core
             return true;
         }
 
+        public bool IsInWindowFov(int tileX, int tileY)
+        {
+            if (!IsInBounds(tileX, tileY))
+                return false;
+
+            return _InSight[tileY * Width + tileX] == _LastSightId;
+        }
+
         public IEnumerable<Tuple<int, int, TileDef>> TileMemory
         {
             get
@@ -163,25 +164,34 @@ namespace OpenNefia.Core
             }
         }
 
+        public void Expose(DataExposer data)
+        {
+            data.ExposeValue(ref _Uid, nameof(_Uid));
+            data.ExposeValue(ref _Width, nameof(_Width));
+            data.ExposeValue(ref _Height, nameof(_Height));
+
+            if (data.Stage == SerialStage.LoadingDeep)
+            {
+                _TileInds = new int[Width * Height];
+                _TileMemoryInds = new int[Width * Height];
+            }
+
+            data.ExposeDeep(ref _Pool, nameof(_Pool));
+
+            data.ExposeCollection(ref _TileInds, nameof(_TileInds));
+            data.ExposeCollection(ref _TileMemoryInds, nameof(_TileMemoryInds));
+            data.ExposeCollection(ref _InSight, nameof(_InSight));
+            data.ExposeValue(ref _LastSightId, nameof(_LastSightId));
+        }
+
         public static void Save(InstancedMap map, string filepath)
         {
-            var exposer = new DataExposer(filepath, SerialStage.Saving);
-            exposer.ExposeDeep(ref map!, "Map");
-            exposer.Save();
+            SerializationUtils.Serialize(filepath, map, nameof(InstancedMap));
         }
 
         public static InstancedMap Load(string filepath, GameState state)
         {
-            var map = new InstancedMap(1, 1);
-            map._TileIndexMapping = state.TileIndexMapping;
-
-            var exposer = new DataExposer(filepath, SerialStage.LoadingDeep);
-            exposer.ExposeDeep(ref map, "Map");
-
-            exposer.Stage = SerialStage.ResolvingRefs;
-            exposer.ExposeDeep(ref map, "Map");
-
-            return map!;
+            return SerializationUtils.Deserialize(filepath, new InstancedMap(), nameof(InstancedMap));
         }
 
         public bool IsInBounds(int x, int y)
@@ -229,8 +239,12 @@ namespace OpenNefia.Core
             if (!IsInBounds(x, y))
                 return;
 
+            var ind = y * _Width + x;
+
             SetTileMemory(x, y, GetTile(x, y)!);
-            _MapObjectMemory.RevealObjects(y * _Width + x);
+            _MapObjectMemory.RevealObjects(ind);
+            _InSight[ind] = _LastSightId;
+            this._DirtyTilesThisTurn.Add(ind);
         }
 
         public bool IsMemorized(int x, int y)

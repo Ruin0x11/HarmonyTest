@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
         public MapRenderer(InstancedMap map)
         {
             Map = map;
-            TileLayers.Add(new MapAndChipTileLayer(map));
+            TileLayers.Add(new TileAndChipTileLayer(map));
             TileLayers.Add(new ShadowTileLayer(map));
             RefreshAllLayers();
         }
@@ -43,6 +43,7 @@ namespace OpenNefia.Core.Rendering
 
             this.Map._RedrawAllThisTurn = false;
             this.Map._DirtyTilesThisTurn.Clear();
+            this.Map._MapObjectMemory.Flush();
         }
 
         public override void SetSize(int width = 0, int height = 0)

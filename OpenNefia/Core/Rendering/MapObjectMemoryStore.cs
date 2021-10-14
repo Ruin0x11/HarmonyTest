@@ -13,6 +13,7 @@ namespace OpenNefia.Core.Rendering
         internal int CurrentIndex;
         internal Dictionary<int, MapObjectMemory> AllMemory;
         internal List<MapObjectMemory>?[] Positional;
+        internal HashSet<MapObjectMemory> Added;
         internal Stack<MapObjectMemory> Removed;
 
         public MapObjectMemoryStore(InstancedMap map)
@@ -21,6 +22,7 @@ namespace OpenNefia.Core.Rendering
             CurrentIndex = 0;
             this.AllMemory = new Dictionary<int, MapObjectMemory>();
             this.Positional = new List<MapObjectMemory>?[map.Width * map.Height];
+            this.Added = new HashSet<MapObjectMemory>();
             this.Removed = new Stack<MapObjectMemory>();
         }
 
@@ -44,9 +46,33 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        internal void Flush()
+        {
+            foreach (var added in this.Added)
+            {
+                added.State = MemoryState.InUse;
+            }
+            this.Map._MapObjectMemory.Added.Clear();
+            this.Map._MapObjectMemory.Removed.Clear();
+        }
+
+        public void RedrawAll()
+        {
+            this.Map._MapObjectMemory.Added.Clear();
+            this.Map._MapObjectMemory.Removed.Clear();
+            foreach (var memory in this.AllMemory.Values)
+            {
+                memory.State = MemoryState.Added;
+                this.Added.Add(memory);
+            }
+        }
+
         public void RevealObjects(int index)
         {
             var at = Positional[index];
+
+            var x = index % Map.Width;
+            var y = index / Map.Height;
 
             if (at != null)
             {
@@ -59,9 +85,6 @@ namespace OpenNefia.Core.Rendering
                 at.Clear();
             }
 
-            var x = index % Map.Width;
-            var y = index / Map.Height;
-
             int i = 0;
             foreach (var obj in Map._Pool.At(x, y))
             {
@@ -73,13 +96,18 @@ namespace OpenNefia.Core.Rendering
 
                 var memory = GetOrCreateMemory();
 
-                obj.ProduceMemory(ref memory);
+                obj.ProduceMemory(memory);
 
                 if (memory.IsVisible)
                 {
                     this.AllMemory[memory.Index] = memory;
-                    memory.TypeKey = obj.TypeKey;
+                    this.Added.Add(memory);
+                    memory.ObjectUid = obj.Uid;
+                    memory.TileX = x;
+                    memory.TileY = y;
                     memory.ZOrder = i;
+                    memory.TypeKey = obj.TypeKey;
+                    at.Add(memory);
                 }
 
                 i++;
@@ -92,10 +120,12 @@ namespace OpenNefia.Core.Rendering
 
             if (this.Removed.Count > 0)
             {
+                // Index is not changed, to support reuse.
                 memory = this.Removed.Pop();
             }
             else
             {
+                // Allocate a new memory entry and increment the index.
                 var index = CurrentIndex;
                 CurrentIndex += 1;
 

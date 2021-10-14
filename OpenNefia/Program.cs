@@ -20,11 +20,15 @@ namespace OpenNefia
                 WindowMinHeight = 600,
                 WindowVsync = true,
                 WindowResizable = true,
+                DefaultRandomSeed = 0
             };
 
             Boot.Init(bootConfig);
             Timer.Step();
             GameWrapper.Instance.SystemStep();
+
+            var iconData = Love.Image.NewImageData("Assets/Icon/icon.png");
+            Love.Window.SetIcon(iconData);
 
             GameWrapper.Instance.MainCode(args);
         }

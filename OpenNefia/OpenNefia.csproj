@@ -31,6 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Icon\icon.ico" />
+    <None Remove="Assets\Icon\icon.png" />
+    <None Remove="Assets\Icon\icon128.png" />
+    <None Remove="Assets\Icon\icon1296.png" />
+    <None Remove="Assets\Icon\icon144.png" />
+    <None Remove="Assets\Icon\icon256.png" />
+    <None Remove="Assets\Icon\icon32.png" />
+    <None Remove="Assets\Icon\icon48.png" />
+    <None Remove="Assets\Icon\icon64.png" />
     <None Remove="Defs\Asset.xml" />
     <None Remove="Defs\Music.xml" />
   </ItemGroup>

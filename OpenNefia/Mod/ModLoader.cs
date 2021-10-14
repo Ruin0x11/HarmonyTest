@@ -78,7 +78,10 @@ namespace OpenNefia.Mod
                 }
             };
 
-            Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories).ForEach(ScanDllAtPath);
+            foreach (var dir in Directory.GetFiles(modsDirectory, "*.dll", SearchOption.AllDirectories))
+            {
+                ScanDllAtPath(dir);
+            }
 
             // The Core mod is special since it's a part of our own assembly, not one loaded by Cecil.
             // Trying to load it with Cecil ends up creating two separate instances of every type in the assembly, and they won't be equivalent to one another.

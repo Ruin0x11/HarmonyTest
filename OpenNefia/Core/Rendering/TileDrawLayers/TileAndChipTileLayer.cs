@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     // Needs to be interleaved per-row to support wall occlusion.
     // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
-    public class MapAndChipTileLayer : BaseTileLayer
+    public class TileAndChipTileLayer : BaseTileLayer
     {
         private InstancedMap Map;
         private TileAtlas TileAtlas;
@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         private ICoords Coords;
         private WallTileShadows WallShadows;
 
-        public MapAndChipTileLayer(InstancedMap map)
+        public TileAndChipTileLayer(InstancedMap map)
         {
             Map = map;
             TileAtlas = Atlases.Tile;
@@ -53,7 +53,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this.WallShadows.SetPosition(x, y);
         }
 
-        private void SetMapTile(int x, int y, TileDef tile)
+        private string ModifyWalls(int x, int y, TileDef tile)
         {
             // If the tile is a wall, convert the displayed tile to that of
             // the bottom wall if appropriate.
@@ -81,8 +81,45 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 }
             }
 
+            return tileIndex;
+        }
+
+        private void SetMapTile(int x, int y, TileDef tile)
+        {
+            var tileIndex = ModifyWalls(x, y, tile);
+
             this.WallShadows.SetTile(x, y, tile);
             this.TileAndChipBatch.SetTile(x, y, tileIndex);
+        }
+
+        public void RedrawMapObjects()
+        {
+            foreach (var removed in Map._MapObjectMemory.Removed)
+            {
+                this.TileAndChipBatch.RemoveChipEntry(removed);
+            }
+
+            foreach (var added in Map._MapObjectMemory.Added)
+            {
+                if (Map.IsInWindowFov(added.TileX, added.TileY) || ShouldShowMemory(added))
+                {
+                    this.TileAndChipBatch.AddOrUpdateChipEntry(added);
+                }
+            }
+
+            foreach (var (memoryIndex, memory) in Map._MapObjectMemory.AllMemory)
+            {
+                if (!Map.IsInWindowFov(memory.TileX, memory.TileY) && !ShouldShowMemory(memory))
+                {
+                    this.TileAndChipBatch.RemoveChipEntry(memory);
+                }
+            }
+        }
+
+        private bool ShouldShowMemory(MapObjectMemory memory)
+        {
+            // TODO
+            return memory.TypeKey != "Chara";
         }
 
         public override void RedrawAll()
@@ -95,6 +132,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 SetMapTile(x, y, tileDef);
             }
 
+            RedrawMapObjects();
+
             this.TileAndChipBatch.UpdateBatches();
         }
 
@@ -106,6 +145,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 var y = index / Map.Height;
                 SetMapTile(x, y, Map.GetTileMemory(x, y)!);
             }
+
+            RedrawMapObjects();
 
             this.TileAndChipBatch.UpdateBatches();
         }
