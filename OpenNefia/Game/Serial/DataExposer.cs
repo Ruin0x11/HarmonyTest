@@ -43,10 +43,15 @@ namespace OpenNefia.Game.Serial
             EnterCompound(RootCompound);
         }
 
-        internal void EnterCompound(NbtCompound compound)
+        internal bool EnterCompound(NbtCompound? compound)
         {
+            if (compound == null)
+                return false;
+
             CurrentCompound = compound;
             CompoundStack.Push(CurrentCompound);
+
+            return true;
         }
 
         internal void ExitCompound()
@@ -91,9 +96,50 @@ namespace OpenNefia.Game.Serial
                         CurrentCompound.Add(new NbtString(name, (string)Convert.ChangeType(data, typeof(string))!));
                         break;
 
+                    case TypeCode.Object:
+                        var comp = new NbtCompound(name);
+                        EnterCompound(comp);
+
+                        if (ty == typeof(Love.Quad))
+                        {
+                            var quad = (data as Love.Quad)!;
+                            var viewport = quad.GetViewport();
+                            var textureDimensions = quad.GetTextureDimensions();
+                            ExposeValue(ref viewport, "Viewport");
+                            ExposeValue(ref textureDimensions, "TextureDimensions");
+                        }
+                        else if (ty == typeof(Love.Point))
+                        {
+                            var point = (Love.Point)Convert.ChangeType(data, typeof(Love.Point))!;
+                            ExposeValue(ref point.X, "X");
+                            ExposeValue(ref point.Y, "Y");
+                        }
+                        else if (ty == typeof(Love.Vector2))
+                        {
+                            var vec2 = (Love.Vector2)Convert.ChangeType(data, typeof(Love.Vector2))!;
+                            ExposeValue(ref vec2.X, "X");
+                            ExposeValue(ref vec2.Y, "Y");
+                        }
+                        else if (ty == typeof(Love.RectangleF))
+                        {
+                            var rect = (Love.RectangleF)Convert.ChangeType(data, typeof(Love.RectangleF))!;
+                            ExposeValue(ref rect.X, "X");
+                            ExposeValue(ref rect.Y, "Y");
+                            ExposeValue(ref rect.Width, "Width");
+                            ExposeValue(ref rect.Height, "Height");
+                        }
+                        else
+                        {
+                            throw new Exception($"Cannot serialize value of type {ty.Name}");
+                        }
+
+                        ExitCompound();
+                        CurrentCompound.Add(comp);
+
+                        break;
+
                     case TypeCode.Decimal:
                     case TypeCode.DateTime:
-                    case TypeCode.Object:
                     case TypeCode.Empty:
                     case TypeCode.DBNull:
                         throw new Exception($"Cannot serialize value of type {ty.Name}");
@@ -161,11 +207,58 @@ namespace OpenNefia.Game.Serial
                             data = defaultValue;
                         break;
 
+                    case TypeCode.Object:
+                        var comp = CurrentCompound.Get<NbtCompound>(name)!;
+
+                        if (EnterCompound(comp))
+                        {
+                            if (ty == typeof(Love.Quad))
+                            {
+                                var viewport = new Love.RectangleF(0, 0, 0, 0);
+                                var textureDimensions = new Love.Vector2(0, 0);
+                                ExposeValue(ref viewport, "Viewport");
+                                ExposeValue(ref textureDimensions, "TextureDimensions");
+                                var quad = Love.Graphics.NewQuad(viewport.X, viewport.Y, viewport.Width, viewport.Height, textureDimensions.X, textureDimensions.Y);
+                                data = (T)Convert.ChangeType(quad, ty);
+                            }
+                            else if (ty == typeof(Love.Point))
+                            {
+                                var point = (Love.Point)Convert.ChangeType(data, typeof(Love.Point))!;
+                                ExposeValue(ref point.X, "X");
+                                ExposeValue(ref point.Y, "Y");
+                                data = (T)Convert.ChangeType(point, ty);
+                            }
+                            else if (ty == typeof(Love.Vector2))
+                            {
+                                var vec2 = (Love.Vector2)Convert.ChangeType(data, typeof(Love.Vector2))!;
+                                ExposeValue(ref vec2.X, "X");
+                                ExposeValue(ref vec2.Y, "Y");
+                                data = (T)Convert.ChangeType(vec2, ty);
+                            }
+                            else if (ty == typeof(Love.RectangleF))
+                            {
+                                var rect = (Love.RectangleF)Convert.ChangeType(data, typeof(Love.RectangleF))!;
+                                ExposeValue(ref rect.X, "X");
+                                ExposeValue(ref rect.Y, "Y");
+                                ExposeValue(ref rect.Width, "Width");
+                                ExposeValue(ref rect.Height, "Height");
+                                data = (T)Convert.ChangeType(rect, ty);
+                            }
+                            else
+                            {
+                                throw new Exception($"Cannot deserialize value of type {ty.Name}");
+                            }
+
+                            ExitCompound();
+                        }
+
+                        break;
+
                     case TypeCode.Decimal:
                     case TypeCode.DateTime:
-                    case TypeCode.Object:
                     case TypeCode.Empty:
                     case TypeCode.DBNull:
+                    default:
                         throw new Exception($"Cannot deserialize value of type {ty.Name}");
                 }
             }
@@ -178,6 +271,7 @@ namespace OpenNefia.Game.Serial
         public void ExposeDeep<T>(ref T data, string name)
         {
             var ty = typeof(T);
+
             if (this.Stage == SerialStage.Saving)
             {
                 if (data != null)
@@ -200,7 +294,7 @@ namespace OpenNefia.Game.Serial
                     }
                     else
                     {
-                        throw new Exception($"Cannot serialize type {ty} as deep");
+                        ExposeValue<T>(ref data!, name);
                     }
                 }
             }
@@ -209,23 +303,22 @@ namespace OpenNefia.Game.Serial
                 if (typeof(IDataExposable).IsAssignableFrom(ty))
                 {
                     var compound = CurrentCompound.Get<NbtCompound>(name)!;
-                    if (compound != null)
+                    if (EnterCompound(compound))
                     {
-
-                        EnterCompound(compound);
                         ((IDataExposable)data!).Expose(this);
-                        ExitCompound();
 
                         if (this.Stage == SerialStage.LoadingDeep && typeof(IDataReferenceable).IsAssignableFrom(ty))
                         {
                             var index = ((IDataReferenceable)data).GetUniqueIndex();
                             FoundRefs[index] = data;
                         }
+
+                        ExitCompound();
                     }
                 }
                 else
                 {
-                    throw new Exception($"Cannot deserialize type {ty} as deep");
+                    ExposeValue<T>(ref data!, name);
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
@@ -266,7 +359,8 @@ namespace OpenNefia.Game.Serial
             }
         }
 
-        public void ExposeCollection<K, V>(ref Dictionary<K, V> data, string tagName, ExposeMode keyMode = ExposeMode.Default, ExposeMode valueMode = ExposeMode.Default) where K: notnull
+        public void ExposeCollection<K, V>(ref Dictionary<K, V> data, string tagName, ExposeMode keyMode = ExposeMode.Default, ExposeMode valueMode = ExposeMode.Default) 
+            where K: notnull
         {
             if (keyMode == ExposeMode.Default)
             {
@@ -285,18 +379,26 @@ namespace OpenNefia.Game.Serial
             }
             else
             {
+                if (this.Stage == SerialStage.LoadingDeep)
+                {
+                    data = new Dictionary<K, V>();
+                }
                 dictCompound = CurrentCompound.Get<NbtCompound>(tagName)!;
             }
 
-            EnterCompound(dictCompound);
             var keyList = data.Keys.ToList();
             var valueList = data.Values.ToList();
-            ExitCompound();
 
+            EnterCompound(dictCompound);
             ExposeCollection(ref keyList, "Keys", keyMode);
             ExposeCollection(ref valueList, "Values", valueMode);
+            ExitCompound();
 
-            if (Stage == SerialStage.LoadingDeep)
+            if (Stage == SerialStage.Saving)
+            {
+                CurrentCompound.Add(dictCompound);
+            }
+            else if (Stage == SerialStage.LoadingDeep)
             {
                 data = new Dictionary<K, V>();
                 for (var i = 0; i < keyList.Count; i++)
@@ -390,20 +492,47 @@ namespace OpenNefia.Game.Serial
 
                 this.EnterCompound(listCompound);
 
+                var count = data.Count;
+                ExposeValue(ref count, "Count");
+
                 if (mode == ExposeMode.Deep)
                 {
-                    for (int i = 0; i < data.Count; i++)
+                    if (Stage == SerialStage.LoadingDeep)
                     {
-                        T entry = data[i];
-                        this.ExposeDeep(ref entry!, i.ToString());
+                        for (int i = 0; i < count; i++)
+                        {
+                            T entry = CreateDefault<T>();
+                            this.ExposeDeep(ref entry!, i.ToString());
+                            data.Add(entry);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            T entry = data[i];
+                            this.ExposeDeep(ref entry!, i.ToString());
+                        }
                     }
                 }
                 else if (mode == ExposeMode.Reference)
                 {
-                    for (int i = 0; i < data.Count; i++)
+                    if (Stage == SerialStage.LoadingDeep)
                     {
-                        T entry = data[i];
-                        this.ExposeWeak(ref entry!, i.ToString());
+                        for (int i = 0; i < count; i++)
+                        {
+                            T entry = CreateDefault<T>();
+                            this.ExposeWeak(ref entry!, i.ToString());
+                            data.Add(entry);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            T entry = data[i];
+                            this.ExposeWeak(ref entry!, i.ToString());
+                        }
                     }
                 }
 
@@ -414,6 +543,16 @@ namespace OpenNefia.Game.Serial
                     CurrentCompound.Add(listCompound);
                 }
             }
+        }
+
+        private T CreateDefault<T>()
+        {
+            if (typeof(T) == typeof(string))
+            {
+                return (T)Convert.ChangeType(string.Empty, typeof(string));
+            }
+
+            return (T)Activator.CreateInstance(typeof(T))!;
         }
 
         internal void Save()

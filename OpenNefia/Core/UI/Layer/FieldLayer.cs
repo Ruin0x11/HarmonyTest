@@ -13,9 +13,6 @@ namespace OpenNefia.Core.UI.Layer
 {
     public class FieldLayer : BaseUiLayer<string>
     {
-        public TileAtlas Atlas { get; private set; }
-        public TileBatch Batch { get; private set; }
-
         public InstancedMap Map { get; private set; }
 
         private UiScroller Scroller;
@@ -34,8 +31,6 @@ namespace OpenNefia.Core.UI.Layer
 
         public FieldLayer()
         {
-            Atlas = new TileAtlas();
-            Batch = new TileBatch(Atlas);
             Map = new InstancedMap(500, 500, TileDefOf.Carpet5);
             Scroller = new UiScroller();
             Things = new List<Thing>();

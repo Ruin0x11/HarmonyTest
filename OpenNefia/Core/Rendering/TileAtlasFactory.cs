@@ -1,7 +1,11 @@
-﻿using OpenNefia.Core.Util;
+﻿using OpenNefia.Core.Data;
+using OpenNefia.Core.Util;
+using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +17,7 @@ namespace OpenNefia.Core.Rendering
         public int TileWidth { get; }
         public int TileHeight { get; }
 
+        private List<TileSpec> TileSpecs;
         private Dictionary<string, AtlasTile> AtlasTiles;
         private Love.Canvas WorkCanvas;
         private ImageFilter Filter;
@@ -30,6 +35,7 @@ namespace OpenNefia.Core.Rendering
             Binpack = new RectanglePacker(imageWidth, imageHeight);
             WorkCanvas = Love.Graphics.NewCanvas(imageWidth, imageHeight);
             Filter = new ImageFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
+            TileSpecs = new List<TileSpec>();
             AtlasTiles = new Dictionary<string, AtlasTile>();
             OnLoadTile = null;
         }
@@ -100,6 +106,66 @@ namespace OpenNefia.Core.Rendering
 
         public TileAtlasFactory LoadTiles(IEnumerable<TileSpec> tiles)
         {
+            TileSpecs.AddRange(tiles);
+
+            return this;
+        }
+
+        private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+        {
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            var sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+
+        public TileAtlas Build()
+        {
+            var path = new ModLocalPath(typeof(CoreMod), "Cache/TileAtlas");
+            var dir = path.Resolve();
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            string hashString;
+            using (var sha256Hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256))
+            {
+                foreach (var tile in TileSpecs.OrderBy(x => x.TileIndex))
+                {
+                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.TileIndex));
+                }
+
+                var data = sha256Hash.GetCurrentHash();
+
+                var sBuilder = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+                hashString = sBuilder.ToString();
+            }
+
+            var serializedFilepath = path.Join($"{hashString}.nbt").Resolve();
+
+            if (File.Exists(serializedFilepath))
+            {
+                Logger.Info($"Cache hit! {hashString}");
+
+                var atlas = new TileAtlas(null!, null!, null!);
+                return SerializationUtils.Deserialize(serializedFilepath, atlas, nameof(TileAtlas));
+            }
+
             var canvas = Love.Graphics.GetCanvas();
 
             Love.Graphics.SetCanvas(this.WorkCanvas);
@@ -107,7 +173,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.SetDefaultFilter(this.Filter);
 
-            foreach (var tile in tiles)
+            foreach (var tile in TileSpecs)
             {
                 LoadTile(tile);
             }
@@ -115,14 +181,18 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetCanvas(canvas);
             Love.Graphics.SetDefaultFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
 
-            return this;
-        }
+            var imageData = this.WorkCanvas.NewImageData();
+            var imageFilepath = path.Join($"{hashString}.png").Resolve();
+            var fileData = imageData.Encode(Love.ImageFormat.PNG);
+            File.WriteAllBytes(imageFilepath, fileData.GetBytes());
 
-        public TileAtlas Build()
-        {
-            var image = Love.Graphics.NewImage(this.WorkCanvas.NewImageData());
+            var image = Love.Graphics.NewImage(imageData);
 
-            return new TileAtlas(image, this.AtlasTiles);
+            var tileAtlas = new TileAtlas(image, imageFilepath, this.AtlasTiles);
+
+            SerializationUtils.Serialize(serializedFilepath, tileAtlas, nameof(TileAtlas));
+
+            return tileAtlas;
         }
 
         public void Dispose()

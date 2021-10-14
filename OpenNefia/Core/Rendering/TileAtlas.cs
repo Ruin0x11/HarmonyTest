@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Util;
+using OpenNefia.Game.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +10,56 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class AnimFrame
+    public class AnimFrame : IDataExposable
     {
         public string TileId = string.Empty;
         public float Duration = 0f;
+
+        public AnimFrame() { }
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeValue(ref TileId!, nameof(TileId));
+            data.ExposeValue(ref Duration, nameof(Duration));
+        }
     }
 
-    public class AtlasTile
+    public class AtlasTile : IDataExposable
     {
         public Love.Quad Quad;
-        public int YOffset;
+        public int YOffset = 0;
         public bool HasOverhang = false;
+
+        public AtlasTile() 
+        {
+            Quad = Love.Graphics.NewQuad(0, 0, 0, 0, 0, 0);
+        }
 
         public AtlasTile(Quad quad, int yOffset = 0)
         {
             Quad = quad;
             YOffset = yOffset;
         }
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeDeep(ref Quad, nameof(Quad));
+            data.ExposeValue(ref YOffset, nameof(YOffset));
+            data.ExposeValue(ref HasOverhang, nameof(HasOverhang));
+        }
     }
 
-    public class TileAtlas
+    public class TileAtlas : IDataExposable
     {
         private Dictionary<string, AtlasTile> Tiles = new Dictionary<string, AtlasTile>();
         private Dictionary<string, List<AnimFrame>> Anims = new Dictionary<string, List<AnimFrame>>();
-        public Image Image { get; }
+        private string ImageFilepath;
+        public Image Image { get; private set; }
 
-        public TileAtlas(Image image, Dictionary<string, AtlasTile> atlasTiles)
+        public TileAtlas(Image image, string imageFilepath, Dictionary<string, AtlasTile> atlasTiles)
         {
             this.Image = image;
+            this.ImageFilepath = imageFilepath;
             this.Tiles = atlasTiles;
         }
 
@@ -65,6 +88,18 @@ namespace OpenNefia.Core.Rendering
             height = (int)rect.Height;
 
             return true;
+        }
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeCollection(ref this.Tiles, nameof(Tiles));
+            data.ExposeCollection(ref this.Anims, nameof(Anims));
+            data.ExposeValue(ref this.ImageFilepath!, nameof(ImageFilepath));
+
+            if (data.Stage == SerialStage.ResolvingRefs)
+            {
+                this.Image = ImageLoader.NewImage(this.ImageFilepath);
+            }
         }
     }
 }

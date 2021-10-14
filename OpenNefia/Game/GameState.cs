@@ -38,21 +38,12 @@ namespace OpenNefia.Game
 
         public static void Save(GameState state, string filepath)
         {
-            var exposer = new DataExposer(filepath, SerialStage.Saving);
-            exposer.ExposeDeep(ref state!, "Save");
-            exposer.Save();
+            SerializationUtils.Serialize(filepath, state, nameof(GameState));
         }
 
         public static GameState Load(string filepath)
         {
-            var state = new GameState();
-            var exposer = new DataExposer(filepath, SerialStage.LoadingDeep);
-            exposer.ExposeDeep(ref state, "Save");
-
-            exposer.Stage = SerialStage.ResolvingRefs;
-            exposer.ExposeDeep(ref state, "Save");
-
-            return state!;
+            return SerializationUtils.Deserialize(filepath, new GameState(), nameof(GameState));
         }
     }
 }
