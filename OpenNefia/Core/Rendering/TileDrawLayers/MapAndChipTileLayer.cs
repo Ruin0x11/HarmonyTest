@@ -1,4 +1,5 @@
-﻿using OpenNefia.Game;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,6 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
     public class MapAndChipTileLayer : BaseTileLayer
     {
-        internal class MapAndChipRow
-        {
-        }
-
         private InstancedMap Map;
         private TileAtlas TileAtlas;
         private TileBatch TileBatch;
@@ -35,11 +32,42 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this.TileBatch.OnThemeSwitched(TileAtlas, coords);
         }
 
+        private void SetMapTile(int x, int y, TileDef tile)
+        {
+            // If the tile is a wall, convert the displayed tile to that of
+            // the bottom wall if appropriate.
+            var tileIndex = tile.Tile.TileIndex;
+            if (tile.Wall != null)
+            {
+                var oneTileDown = Map.GetTile(x, y + 1);
+                if (oneTileDown != null && oneTileDown.Wall == null && Map.IsMemorized(x, y + 1))
+                {
+                    tileIndex = tile.Wall.TileIndex;
+                }
+
+                var oneTileUp = Map.GetTile(x, y - 1);
+                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                {
+                    this.TileBatch.SetTile(x, y - 1, oneTileUp.Tile.TileIndex);
+                }
+            }
+            else
+            {
+                var oneTileUp = Map.GetTile(x, y - 1);
+                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                {
+                    this.TileBatch.SetTile(x, y - 1, oneTileUp.Wall.TileIndex);
+                }
+            }
+
+            this.TileBatch.SetTile(x, y, tileIndex);
+        }
+
         public override void RedrawAll()
         {
             foreach (var (x, y, tileDef) in Map.TileMemory)
             {
-                this.TileBatch.SetTile(x, y, tileDef.Tile.TileIndex);
+                SetMapTile(x, y, tileDef);
             }
             this.TileBatch.UpdateBatches();
         }
@@ -50,7 +78,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             {
                 var x = index % Map.Width;
                 var y = index / Map.Height;
-                this.TileBatch.SetTile(x, y, Map.GetTileMemory(x, y).Id);
+                SetMapTile(x, y, Map.GetTileMemory(x, y)!);
             }
             this.TileBatch.UpdateBatches();
         }

@@ -142,27 +142,60 @@ namespace OpenNefia.Core
             return map!;
         }
 
+        public bool IsInBounds(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < Width && y < Height;
+        }
+
         public void SetTile(int x, int y, TileDef tile)
         {
+            if (!IsInBounds(x, y))
+                return;
+
             var ind = y * _Width + x;
             TileInds[ind] = TileIndexMapping.TileDefIdToIndex[tile.Id]!;
         }
 
         public void SetTileMemory(int x, int y, TileDef tile)
         {
+            if (!IsInBounds(x, y))
+                return;
+
             var ind = y * _Width + x;
             TileMemoryInds[ind] = TileIndexMapping.TileDefIdToIndex[tile.Id]!;
             this.DirtyTilesThisTurn.Add(ind);
         }
 
-        public TileDef GetTile(int x, int y)
+        public TileDef? GetTile(int x, int y)
         {
+            if (!IsInBounds(x, y))
+                return null;
+
             return TileIndexMapping.IndexToTileDef[TileInds[y * _Width + x]]!;
         }
 
-        public TileDef GetTileMemory(int x, int y)
+        public TileDef? GetTileMemory(int x, int y)
         {
+            if (!IsInBounds(x, y))
+                return null;
+
             return TileIndexMapping.IndexToTileDef[TileMemoryInds[y * _Width + x]]!;
+        }
+
+        public void MemorizeTile(int x, int y)
+        {
+            if (!IsInBounds(x, y))
+                return;
+
+            SetTileMemory(x, y, GetTile(x, y)!);
+        }
+
+        public bool IsMemorized(int x, int y)
+        {
+            if (!IsInBounds(x, y))
+                return false;
+
+            return GetTile(x, y)! == GetTileMemory(x, y)!;
         }
 
         public void TakeObject(MapObject obj) => Pool.TakeObject(obj);

@@ -15,20 +15,15 @@ namespace OpenNefia.Core.UI.Layer
         public TileBatch Batch { get; private set; }
 
         public InstancedMap Map { get; private set; }
-        public int DrawX { get; private set; }
-        public int DrawY { get; private set; }
 
+        private UiScroller Scroller;
         private MapRenderer Renderer;
 
         private FontAsset FontText;
 
-        private bool Up;
-        private bool Down;
-        private bool Left;
-        private bool Right;
-
         public string Message { get; private set; }
         private string MouseText;
+        private bool PlacingTile = false;
 
         public List<Thing> Things;
 
@@ -37,8 +32,7 @@ namespace OpenNefia.Core.UI.Layer
             Atlas = new TileAtlas();
             Batch = new TileBatch(Atlas);
             Map = new InstancedMap(100, 100, TileDefOf.Carpet5);
-            DrawX = 0;
-            DrawY = 0;
+            Scroller = new UiScroller();
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
 
@@ -69,26 +63,20 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Entries.UIUp].BindKey((state) => this.MoveUp(state), trackReleased: true);
-            this.Keybinds[Keybind.Entries.UIDown].BindKey((state) => this.MoveDown(state), trackReleased: true);
-            this.Keybinds[Keybind.Entries.UILeft].BindKey((state) => this.MoveLeft(state), trackReleased: true);
-            this.Keybinds[Keybind.Entries.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
             this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.SaveLoad();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
 
+            this.Scroller.BindKeys(this);
+
             this.MouseMoved.Callback += (evt) =>
             {
                 this.MouseText = $"{evt.X}, {evt.Y}";
             };
 
-            foreach (var button in EnumUtils.EnumerateValues<MouseButtons>())
-            {
-                var button2 = button;
-                this.MouseButtons[button2] += (_) => Console.WriteLine($"{button2}!");
-            }
+            this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlacingTile = evt.State == KeyPressState.Pressed, trackReleased: true);
         }
 
         public string PrintMessage(string dood)
@@ -122,26 +110,6 @@ namespace OpenNefia.Core.UI.Layer
             Renderer.SetPosition(x, y);
         }
 
-        private void MoveUp(KeyInputEvent evt)
-        {
-            this.Up = (evt.State != KeyPressState.Released);
-        }
-
-        private void MoveDown(KeyInputEvent evt)
-        {
-            this.Down = (evt.State != KeyPressState.Released);
-        }
-
-        private void MoveLeft(KeyInputEvent evt)
-        {
-            this.Left = (evt.State != KeyPressState.Released);
-        }
-
-        private void MoveRight(KeyInputEvent evt)
-        {
-            this.Right = (evt.State != KeyPressState.Released);
-        }
-
         public override void OnQuery()
         {
             // Gui.PlayMusic(MusicDefOf.Field1);
@@ -163,19 +131,16 @@ namespace OpenNefia.Core.UI.Layer
                 this.Renderer.RefreshAllLayers();
             }
 
-            var dx = 0;
-            var dy = 0;
+            this.Scroller.UpdateParentPosition(this, dt);
 
-            if (this.Up) dy += 1;
-            if (this.Down) dy -= 1;
-            if (this.Left) dx += 1;
-            if (this.Right) dx -= 1;
-
-            var delta = 1000f;
-            var amount = (int)(dt * delta);
-            DrawX += amount * dx;
-            DrawY += amount * dy;
-            Renderer.SetPosition(X + DrawX, Y + DrawY);
+            if (PlacingTile)
+            {
+                var mouse = Love.Mouse.GetPosition();
+                var coords = GraphicsEx.GetCoords();
+                coords.ScreenToTile((int)mouse.X - this.X, (int)mouse.Y - this.Y, out var tileX, out var tileY);
+                Map.SetTile(tileX, tileY, TileDefOf.WallBrick);
+                Map.MemorizeTile(tileX, tileY);
+            }
 
             this.Renderer.Update(dt);
         }

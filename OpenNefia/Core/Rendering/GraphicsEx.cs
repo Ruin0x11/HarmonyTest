@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Game;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -227,5 +228,7 @@ namespace OpenNefia.Core.Rendering
             GraphicsEx.SetColor(fgColor.Value);
             Love.Graphics.Print(text, x, y);
         }
+
+        public static ICoords GetCoords() => GameWrapper.Instance.State.Coords;
     }
 }

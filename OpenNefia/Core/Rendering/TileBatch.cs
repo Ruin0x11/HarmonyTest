@@ -112,10 +112,11 @@ namespace OpenNefia.Core.Rendering
             for (int x = 0; x < width; x++)
             {
                 var index = startIndex + x;
-                var tile = tileAtlas.GetTile(tiles[index]);
+                var tileId = tiles[index];
+                var tile = tileAtlas.GetTile(tileId);
                 if (tile == null)
                 {
-                    Logger.Error($"Missing tile {tiles[index]}");
+                    Logger.Error($"Missing tile {tileId}");
                 }
                 else
                 {

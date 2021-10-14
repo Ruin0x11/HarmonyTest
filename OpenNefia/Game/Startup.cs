@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data;
+﻿using OpenNefia.Core;
+using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
@@ -16,14 +17,19 @@ namespace OpenNefia.Game
             DefLoader.LoadAll();
             DefLoader.PopulateStaticEntries();
 
+            Logger.Info($"[Startup] Load chip atlas.");
+
             var atlasFactory = new TileAtlasFactory();
             var chipAtlas = atlasFactory
                 .LoadTiles(DefStore<ChipDef>.Enumerate().Select(x => x.Tile))
                 .Build();
 
+            Logger.Info($"[Startup] Load tile atlas.");
+
             atlasFactory = new TileAtlasFactory();
             var tileAtlas = atlasFactory
                 .LoadTiles(DefStore<TileDef>.Enumerate().Select(x => x.Tile))
+                .LoadTiles(DefStore<TileDef>.Enumerate().Where(x => x.Wall != null).Select(x => x.Wall!))
                 .Build();
 
             Atlases.Chip = chipAtlas;
@@ -37,6 +43,8 @@ namespace OpenNefia.Game
 
         private static void InitTileMapping()
         {
+            Logger.Info($"[Startup] Initialize tile ID -> index mapping.");
+
             GameWrapper.Instance.State.TileIndexMapping.Clear();
             foreach (var tile in DefStore<TileDef>.Enumerate())
             {

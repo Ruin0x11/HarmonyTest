@@ -46,6 +46,9 @@ namespace OpenNefia.Core.UI
             {
                 this.Parent.Input.UnbindMouseButton(button);
             }
+
+            public void Bind(Action<MouseButtonEvent> func, bool trackReleased = false) 
+                => BindMouseButton(this.MouseButton, func, trackReleased);
         }
 
         public IInputHandler Input { get; }

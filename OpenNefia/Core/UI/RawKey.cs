@@ -59,6 +59,8 @@ namespace OpenNefia.Core.UI
 
         public static Lazy<Dictionary<Keys, RawKey>> AllKeys = new Lazy<Dictionary<Keys, RawKey>>(() =>
         {
+            Logger.Info($"[RawKey] Generating key modifier combinations.");
+
             return EnumUtils.EnumerateValues<Keys>().Where((k) => !IsVirtualKey(k))
                 .Distinct()
                 .SelectMany((k) => GenerateModifierVariants(k))

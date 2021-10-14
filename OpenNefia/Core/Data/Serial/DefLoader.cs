@@ -60,6 +60,8 @@ namespace OpenNefia.Core.Data.Serial
 
         private static void ResolveCrossRefs()
         {
+            Logger.Info($"[DefLoader] ResolveCrossRefs");
+
             List<string> errors = new List<string>();
 
             foreach (var crossRef in PendingCrossRefs)
@@ -97,6 +99,8 @@ namespace OpenNefia.Core.Data.Serial
 
         internal static void LoadAll()
         {
+            Logger.Info($"[DefLoader] Loading all defs...");
+
             DefTypes.ScanAllTypes();
 
             foreach (var ty in DefTypes.AllDefTypes)
@@ -126,10 +130,14 @@ namespace OpenNefia.Core.Data.Serial
 
             AllDefs.Clear();
             PendingCrossRefs.Clear();
+
+            Logger.Info($"[DefLoader] Finished loading.");
         }
 
         private static void AddDefs()
         {
+            Logger.Info($"[DefLoader] AddDefs");
+
             List<string> errors = new List<string>();
 
             foreach (var (defType, defs) in AllDefs)
@@ -170,6 +178,8 @@ namespace OpenNefia.Core.Data.Serial
 
         internal static void PopulateStaticEntries()
         {
+            Logger.Info($"[DefLoader] Populating DefOfEntries classes.");
+
             List<string> errors = new List<string>();
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
