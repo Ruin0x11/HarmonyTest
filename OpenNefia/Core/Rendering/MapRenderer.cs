@@ -2,37 +2,70 @@
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
     public class MapRenderer : BaseUiElement
     {
-        List<ITileLayer> TileLayers = new List<ITileLayer>();
-        public InstancedMap Map { get; }
+        private List<ITileLayer> TileLayers = new List<ITileLayer>();
+        private InstancedMap Map;
 
         public MapRenderer(InstancedMap map)
         {
             Map = map;
+            TileLayers.Add(new MapAndChipTileLayer(map));
+            RefreshAllLayers();
+        }
+
+        public void SetMap(InstancedMap map)
+        {
+            Map = map;
+            RefreshAllLayers();
+        }
+
+        public void RefreshAllLayers()
+        {
+            if (this.Map.RedrawAllThisTurn)
+            {
+                foreach (var layer in TileLayers)
+                {
+                    layer.RedrawAll();
+                }
+            }
+            else if(this.Map.DirtyTilesThisTurn.Count > 0)
+            {
+                foreach (var layer in TileLayers)
+                {
+                    layer.RedrawDirtyTiles(this.Map.DirtyTilesThisTurn);
+                }
+            }
+
+            this.Map.RedrawAllThisTurn = false;
+            this.Map.DirtyTilesThisTurn.Clear();
         }
 
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);
+            foreach (var layer in this.TileLayers)
+            {
+                layer.SetSize(width, height);
+            }
         }
 
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
+            foreach (var layer in this.TileLayers)
+            {
+                layer.SetPosition(x, y);
+            }
         }
 
         public override void Update(float dt)
         {
             foreach (var layer in TileLayers)
             {
-                layer.RefreshFromMap(this.Map);
                 layer.Update(dt);
             }
         }
@@ -41,7 +74,7 @@ namespace OpenNefia.Core.Rendering
         {
             foreach (var layer in TileLayers)
             {
-                layer.Draw(48, 48);
+                layer.Draw();
             }
         }
     }

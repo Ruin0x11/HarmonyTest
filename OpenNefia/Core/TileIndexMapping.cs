@@ -7,13 +7,13 @@ namespace OpenNefia.Core
     internal class TileIndexMapping : IDataExposable
     {
         private int CurrentIndex = 0;
-        internal Dictionary<int, string> IndexToTileDefId = new Dictionary<int, string>();
+        internal Dictionary<int, TileDef> IndexToTileDef = new Dictionary<int, TileDef>();
         internal Dictionary<string, int> TileDefIdToIndex = new Dictionary<string, int>();
 
         internal void Clear()
         {
             CurrentIndex = 0;
-            IndexToTileDefId.Clear();
+            IndexToTileDef.Clear();
             TileDefIdToIndex.Clear();
         }
 
@@ -21,7 +21,7 @@ namespace OpenNefia.Core
         {
             var index = CurrentIndex;
 
-            IndexToTileDefId[index] = def.Id;
+            IndexToTileDef[index] = def;
             TileDefIdToIndex[def.Id] = index;
 
             CurrentIndex++;
@@ -30,13 +30,13 @@ namespace OpenNefia.Core
         public void Expose(DataExposer data)
         {
             data.ExposeValue(ref CurrentIndex, nameof(CurrentIndex));
-            data.ExposeCollection(ref IndexToTileDefId, nameof(IndexToTileDefId));
+            data.ExposeCollection(ref IndexToTileDef, nameof(IndexToTileDef), ExposeMode.Deep, ExposeMode.Reference);
 
             if (data.Stage == SerialStage.ResolvingRefs)
             {
-                foreach (var (index, tileDefId) in this.IndexToTileDefId)
+                foreach (var (index, tileDef) in this.IndexToTileDef)
                 {
-                    TileDefIdToIndex.Add(tileDefId, index);
+                    TileDefIdToIndex.Add(tileDef.Id, index);
                 }
             }
         }

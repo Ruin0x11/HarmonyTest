@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Rendering
 
         public ImageRegion? ImageRegion;
 
-        public StructMultiKey<string, string> TileIndex { get; internal set; } = new StructMultiKey<string, string>("", "");
+        public string TileIndex { get; internal set; } = string.Empty;
 
         public TileSpec()
         {
@@ -28,10 +28,6 @@ namespace OpenNefia.Core.Rendering
             if (ImagePath == null && ImageRegion == null)
             {
                 errors.Add($"One of ImagePath or ImageRegion must be declared.");
-            }
-            if (TileIndex.Value1 == string.Empty || TileIndex.Value2 == string.Empty)
-            {
-                errors.Add($"Tile index must have mod and tile ID nonempty");
             }
         }
     }

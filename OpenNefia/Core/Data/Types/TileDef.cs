@@ -44,10 +44,10 @@ namespace OpenNefia.Core.Data.Types
 
         public override void OnResolveReferences()
         {
-            Tile.TileIndex = new StructMultiKey<string, string>(this.Id, "Tile");
+            Tile.TileIndex = $"{this.Id}:Tile";
             if (this.Wall != null)
             {
-                Wall.TileIndex = new StructMultiKey<string, string>(this.Id, "Tile_Wall");
+                Wall.TileIndex = $"{this.Id}:Tile_Wall";
             }
         }
     }

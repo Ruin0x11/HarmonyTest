@@ -27,7 +27,7 @@ namespace OpenNefia.Game
                 .Build();
 
             Atlases.Chip = chipAtlas;
-            Atlases.Tile = chipAtlas;
+            Atlases.Tile = tileAtlas;
 
             InitTileMapping();
             

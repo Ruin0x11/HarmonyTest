@@ -60,49 +60,113 @@ namespace OpenNefia.Game.Serial
             if (this.Stage == SerialStage.Saving)
             {
                 var ty = typeof(T);
-                if (ty == typeof(int))
+
+                switch (Type.GetTypeCode(ty))
                 {
-                    CurrentCompound.Add(new NbtInt(name, (int)Convert.ChangeType(data, typeof(int))!));
-                }
-                else if (ty == typeof(string))
-                {
-                    CurrentCompound.Add(new NbtString(name, (string)Convert.ChangeType(data, typeof(string))!));
-                }
-                else
-                {
-                    Errors.Add($"Cannot serialize value of type {ty.Name}");
+                    case TypeCode.Boolean:
+                    case TypeCode.Char:
+                    case TypeCode.Byte:
+                    case TypeCode.SByte:
+                        CurrentCompound.Add(new NbtByte(name, (byte)Convert.ChangeType(data, typeof(byte))!));
+                        break;
+                    case TypeCode.Int16:
+                    case TypeCode.UInt16:
+                        CurrentCompound.Add(new NbtShort(name, (short)Convert.ChangeType(data, typeof(short))!));
+                        break;
+                    case TypeCode.Int32:
+                    case TypeCode.UInt32:
+                        CurrentCompound.Add(new NbtInt(name, (int)Convert.ChangeType(data, typeof(int))!));
+                        break;
+                    case TypeCode.Int64:
+                    case TypeCode.UInt64:
+                        CurrentCompound.Add(new NbtLong(name, (long)Convert.ChangeType(data, typeof(long))!));
+                        break;
+                    case TypeCode.Single:
+                        CurrentCompound.Add(new NbtFloat(name, (float)Convert.ChangeType(data, typeof(float))!));
+                        break;
+                    case TypeCode.Double:
+                        CurrentCompound.Add(new NbtDouble(name, (double)Convert.ChangeType(data, typeof(double))!));
+                        break;
+                    case TypeCode.String:
+                        CurrentCompound.Add(new NbtString(name, (string)Convert.ChangeType(data, typeof(string))!));
+                        break;
+
+                    case TypeCode.Decimal:
+                    case TypeCode.DateTime:
+                    case TypeCode.Object:
+                    case TypeCode.Empty:
+                    case TypeCode.DBNull:
+                        throw new Exception($"Cannot serialize value of type {ty.Name}");
                 }
             }
             else if (this.Stage == SerialStage.LoadingDeep | this.Stage == SerialStage.ResolvingRefs)
             {
                 var ty = typeof(T);
-                if (ty == typeof(int))
+
+                switch (Type.GetTypeCode(ty))
                 {
-                    var tag = CurrentCompound.Get<NbtInt>(name);
-                    if (tag != null)
-                    {
-                        data = (T)Convert.ChangeType(tag.IntValue, ty);
-                    }
-                    else
-                    {
-                        data = defaultValue;
-                    }
-                }
-                else if (ty == typeof(string))
-                {
-                    var tag = CurrentCompound.Get<NbtString>(name)!;
-                    if (tag != null)
-                    {
-                        data = (T)Convert.ChangeType(tag.StringValue, ty);
-                    }
-                    else
-                    {
-                        data = defaultValue;
-                    }
-                }
-                else
-                {
-                    Errors.Add($"Cannot deserialize value of type {ty.Name}");
+                    case TypeCode.Boolean:
+                    case TypeCode.Char:
+                    case TypeCode.Byte:
+                    case TypeCode.SByte:
+                        var byteTag = CurrentCompound.Get<NbtByte>(name);
+                        if (byteTag != null)
+                            data = (T)Convert.ChangeType(byteTag.ByteValue, ty);
+                        else
+                            data = defaultValue;
+                        break;
+                    case TypeCode.Int16:
+                    case TypeCode.UInt16:
+                        var shortTag = CurrentCompound.Get<NbtShort>(name);
+                        if (shortTag != null)
+                            data = (T)Convert.ChangeType(shortTag.ShortValue, ty);
+                        else
+                            data = defaultValue;
+                        break;
+                    case TypeCode.Int32:
+                    case TypeCode.UInt32:
+                        var intTag = CurrentCompound.Get<NbtInt>(name);
+                        if (intTag != null)
+                            data = (T)Convert.ChangeType(intTag.IntValue, ty);
+                        else
+                            data = defaultValue;
+                        break;
+                    case TypeCode.Int64:
+                    case TypeCode.UInt64:
+                        var longTag = CurrentCompound.Get<NbtLong>(name);
+                        if (longTag != null)
+                            data = (T)Convert.ChangeType(longTag.LongValue, ty);
+                        else
+                            data = defaultValue;
+                        break;
+                    case TypeCode.Single:
+                        var floatTag = CurrentCompound.Get<NbtFloat>(name);
+                        if (floatTag != null)
+                            data = (T)Convert.ChangeType(floatTag.FloatValue, ty);
+                        else
+                            data = defaultValue; 
+                        break;
+                    case TypeCode.Double:
+                        var doubleTag = CurrentCompound.Get<NbtDouble>(name);
+                        if (doubleTag != null)
+                            data = (T)Convert.ChangeType(doubleTag.DoubleValue, ty);
+                        else
+                            data = defaultValue; 
+                        break;
+                    case TypeCode.String:
+                        var stringTag = CurrentCompound.Get<NbtString>(name)!;
+                        if (stringTag != null)
+                            data = (T)Convert.ChangeType(stringTag.StringValue, ty);
+                        else
+                            data = defaultValue;
+                        break;
+
+                    case TypeCode.Decimal:
+                    case TypeCode.DateTime:
+                    case TypeCode.Object:
+                    case TypeCode.Empty:
+                    case TypeCode.DBNull:
+                        throw new Exception($"Cannot deserialize value of type {ty.Name}");
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
@@ -136,7 +200,7 @@ namespace OpenNefia.Game.Serial
                     }
                     else
                     {
-                        this.Errors.Add($"Cannot serialize type {ty} as deep");
+                        throw new Exception($"Cannot serialize type {ty} as deep");
                     }
                 }
             }
@@ -161,7 +225,7 @@ namespace OpenNefia.Game.Serial
                 }
                 else
                 {
-                    this.Errors.Add($"Cannot deserialize type {ty} as deep");
+                    throw new Exception($"Cannot deserialize type {ty} as deep");
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
@@ -213,8 +277,21 @@ namespace OpenNefia.Game.Serial
                 valueMode = ExposeMode.Deep;
             }
 
+            NbtCompound dictCompound;
+
+            if (this.Stage == SerialStage.Saving)
+            {
+                dictCompound = new NbtCompound(tagName);
+            }
+            else
+            {
+                dictCompound = CurrentCompound.Get<NbtCompound>(tagName)!;
+            }
+
+            EnterCompound(dictCompound);
             var keyList = data.Keys.ToList();
             var valueList = data.Values.ToList();
+            ExitCompound();
 
             ExposeCollection(ref keyList, "Keys", keyMode);
             ExposeCollection(ref valueList, "Values", valueMode);
@@ -225,6 +302,26 @@ namespace OpenNefia.Game.Serial
                 for (var i = 0; i < keyList.Count; i++)
                 {
                     data.Add(keyList[i], valueList[i]);
+                }
+            }
+        }
+
+        public void ExposeCollection<T>(ref T[] data, string tagName, ExposeMode mode = ExposeMode.Default)
+        {
+            if (mode == ExposeMode.Default)
+            {
+                mode = ExposeMode.Deep;
+            }
+
+            var list = data.ToList();
+
+            ExposeCollection(ref list, tagName, mode);
+
+            if (Stage == SerialStage.LoadingDeep)
+            {
+                for (var i = 0; i < data.Length; i++)
+                {
+                    data[i] = list[i];
                 }
             }
         }
@@ -311,6 +408,11 @@ namespace OpenNefia.Game.Serial
                 }
 
                 this.ExitCompound();
+
+                if (this.Stage == SerialStage.Saving)
+                {
+                    CurrentCompound.Add(listCompound);
+                }
             }
         }
 

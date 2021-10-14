@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Data.Types.DefOf;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
 using System;
@@ -17,7 +18,7 @@ namespace OpenNefia.Core.UI.Layer
         public int DrawX { get; private set; }
         public int DrawY { get; private set; }
 
-        private MapRenderer renderer;
+        private MapRenderer Renderer;
 
         private FontAsset FontText;
 
@@ -35,13 +36,13 @@ namespace OpenNefia.Core.UI.Layer
         {
             Atlas = new TileAtlas();
             Batch = new TileBatch(Atlas);
-            Map = new InstancedMap(100, 100);
+            Map = new InstancedMap(100, 100, TileDefOf.Carpet5);
             DrawX = 0;
             DrawY = 0;
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
 
-            renderer = new MapRenderer(this.Map);
+            Renderer = new MapRenderer(this.Map);
 
             int x = 0;
             int y = 0;
@@ -52,13 +53,16 @@ namespace OpenNefia.Core.UI.Layer
                 x += 1;
             }
 
+            MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
+            MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
+            MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
+            MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
+            Map.MemorizeAll();
+
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
             Message = result;
             this.MouseText = "";
-
-            InstancedMap.Save(Map, "TestMap.nbt");
-            Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
 
             this.BindKeys();
         }
@@ -72,6 +76,8 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
+            this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.SaveLoad();
+            this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
 
             this.MouseMoved.Callback += (evt) =>
             {
@@ -91,10 +97,29 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
+        public void SaveLoad()
+        {
+            InstancedMap.Save(Map, "TestMap.nbt");
+            Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
+            Renderer.SetMap(Map);
+        }
+
         public override void SetDefaultSize()
         {
             this.SetSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             this.SetPosition(0, 0);
+        }
+
+        public override void SetSize(int width = 0, int height = 0)
+        {
+            base.SetSize(width, height);
+            Renderer.SetSize(width, height);
+        }
+
+        public override void SetPosition(int x = 0, int y = 0)
+        {
+            base.SetPosition(x, y);
+            Renderer.SetPosition(x, y);
         }
 
         private void MoveUp(KeyInputEvent evt)
@@ -133,6 +158,11 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
+            if (this.Map.NeedsRedraw)
+            {
+                this.Renderer.RefreshAllLayers();
+            }
+
             var dx = 0;
             var dy = 0;
 
@@ -145,15 +175,16 @@ namespace OpenNefia.Core.UI.Layer
             var amount = (int)(dt * delta);
             DrawX += amount * dx;
             DrawY += amount * dy;
+            Renderer.SetPosition(X + DrawX, Y + DrawY);
 
-            this.renderer.Update(dt);
+            this.Renderer.Update(dt);
         }
 
         public override void Draw()
         {
             Love.Graphics.SetColor(255, 255, 255);
 
-            this.renderer.Draw();
+            this.Renderer.Draw();
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

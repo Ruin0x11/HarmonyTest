@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core
 {
-    public interface ILocation : IDataReferenceable, IEnumerable<MapObject>
+    public interface ILocation : IDataExposable, IDataReferenceable, IEnumerable<MapObject>
     {
         public void TakeObject(MapObject obj);
         public bool HasObject(MapObject obj);

@@ -9,15 +9,15 @@ namespace OpenNefia.Core.Rendering
 {
     public class TileAtlasFactory : IDisposable
     {
-        internal BinPacker Binpack { get; }
+        internal RectanglePacker Binpack { get; }
         public int TileWidth { get; }
         public int TileHeight { get; }
 
-        private Dictionary<StructMultiKey<string, string>, AtlasTile> AtlasTiles;
+        private Dictionary<string, AtlasTile> AtlasTiles;
         private Love.Canvas WorkCanvas;
         private ImageFilter Filter;
 
-        public delegate void LoadTileDelegate(Love.Image image, Love.Quad quad, Love.Rectangle rect);
+        public delegate void LoadTileDelegate(Love.Image image, Love.Quad quad, int rectX, int rectY);
         private LoadTileDelegate? OnLoadTile;
 
         public TileAtlasFactory(int tileWidth = UI.Constants.TILE_SIZE, int tileHeight = UI.Constants.TILE_SIZE, int tileCountX = 48, int tileCountY = 48)
@@ -27,10 +27,10 @@ namespace OpenNefia.Core.Rendering
 
             var imageWidth = tileCountX * tileWidth;
             var imageHeight = tileCountY * tileHeight;
-            Binpack = new BinPacker(imageWidth, imageHeight);
+            Binpack = new RectanglePacker(imageWidth, imageHeight);
             WorkCanvas = Love.Graphics.NewCanvas(imageWidth, imageHeight);
             Filter = new ImageFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
-            AtlasTiles = new Dictionary<StructMultiKey<string, string>, AtlasTile>();
+            AtlasTiles = new Dictionary<string, AtlasTile>();
             OnLoadTile = null;
         }
 
@@ -66,18 +66,21 @@ namespace OpenNefia.Core.Rendering
 
             var quadSize = quad.GetViewport();
 
-            var rect = this.Binpack.Insert((int)quadSize.Width, (int)quadSize.Height);
+            if (!this.Binpack.Pack((int)quadSize.Width, (int)quadSize.Height, out int rectX, out int rectY))
+            {
+                throw new Exception($"Ran out of space while packing tile atlas ({tile.TileIndex})");
+            }
 
             if (this.OnLoadTile != null)
             {
-                this.OnLoadTile(image, quad, rect);
+                this.OnLoadTile(image, quad, rectX, rectY);
             }
             else
             {
-                Love.Graphics.Draw(quad, image, rect.X, rect.Y);
+                Love.Graphics.Draw(quad, image, rectX, rectY);
             }
 
-            var innerQuad = Love.Graphics.NewQuad(rect.X, rect.Y, rect.Width, rect.Height, this.WorkCanvas.GetWidth(), this.WorkCanvas.GetHeight());
+            var innerQuad = Love.Graphics.NewQuad(rectX, rectY, quadSize.Width, quadSize.Height, this.WorkCanvas.GetWidth(), this.WorkCanvas.GetHeight());
 
             var isTall = quadSize.Height == quadSize.Width * 2;
             var yOffset = 0;

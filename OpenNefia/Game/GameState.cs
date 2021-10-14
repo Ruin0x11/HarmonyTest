@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Game.Serial;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace OpenNefia.Game
         public InstancedMap? CurrentMap;
         internal UidTracker UidTracker;
         internal TileIndexMapping TileIndexMapping;
+        internal ICoords Coords;
 
         public GameState()
         {
             CurrentMap = null;
             UidTracker = new UidTracker();
             TileIndexMapping = new TileIndexMapping();
+            Coords = new OrthographicCoords();
         }
 
         public void Expose(DataExposer data)

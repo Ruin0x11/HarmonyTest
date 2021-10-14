@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IUiLayer : IUiInput, IUiElement, ILoveEventReceiever
+    public interface IUiLayer : IUiInputElement, ILoveEventReceiever
     {
         void SetDefaultSize();
     }

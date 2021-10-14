@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Object;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Data.Types.DefOf;
+using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
 using OpenNefia.Game.Serial;
@@ -18,28 +20,34 @@ namespace OpenNefia.Core
         public int Height { get => _Height; }
         public ulong Uid { get => _Uid; }
 
-        internal List<int> Tiles;
-        internal List<int> DirtyTilesThisTurn;
-        TileIndexMapping TileIndexMapping;
+        internal int[] TileInds;
+        internal int[] TileMemoryInds;
+        internal TileIndexMapping TileIndexMapping;
 
         internal Pool Pool;
 
-        public InstancedMap() : this(1, 1) { }
+        internal HashSet<int> DirtyTilesThisTurn;
+        internal bool RedrawAllThisTurn;
+        internal bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
-        public InstancedMap(int width, int height)
+        public InstancedMap() : this(1, 1, TileDefOf.MapgenDefault) { }
+
+        public InstancedMap(int width, int height) : this(width, height, TileDefOf.MapgenDefault) { }
+
+        public InstancedMap(int width, int height, TileDef defaultTile)
         {
             _Width = width;
             _Height = height;
             _Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
             TileIndexMapping = GameWrapper.Instance.State.TileIndexMapping;
-            Tiles = new List<int>();
+            TileInds = new int[width * height];
+            TileMemoryInds = new int[width * height];
 
-            DirtyTilesThisTurn = new List<int>();
+            DirtyTilesThisTurn = new HashSet<int>();
+            RedrawAllThisTurn = true;
 
-            for (int i = 0; i < _Width * _Height; i++)
-            {
-                Tiles.Add(i % 5);
-            }
+            Clear(defaultTile);
+            MemorizeAll();
 
             Pool = new Pool(_Uid, _Width, _Height);
             Pool.TakeObject(new CharaObject(0, 0));
@@ -48,14 +56,69 @@ namespace OpenNefia.Core
             Pool.TakeObject(new CharaObject(2, 2));
         }
 
+        public void Clear(TileDef defaultTile)
+        {
+            for (int i = 0; i < TileInds.Length; i++)
+            {
+                TileInds[i] = TileIndexMapping.TileDefIdToIndex[defaultTile.Id];
+            }
+        }
+
+        public void MemorizeAll()
+        {
+            for (int i = 0; i < TileMemoryInds.Length; i++)
+            {
+                TileMemoryInds[i] = TileInds[i];
+            }
+            this.RedrawAllThisTurn = true;
+        }
+
         public void Expose(DataExposer data)
         {
             data.ExposeValue(ref _Uid, nameof(Uid));
             data.ExposeValue(ref _Width, nameof(Width));
             data.ExposeValue(ref _Height, nameof(Height));
+
+            if (data.Stage == SerialStage.LoadingDeep)
+            {
+                TileInds = new int[Width * Height];
+                TileMemoryInds = new int[Width * Height];
+            }
+
             data.ExposeDeep(ref Pool, nameof(Pool));
 
-            data.ExposeCollection(ref Tiles, nameof(Tiles));
+            data.ExposeCollection(ref TileInds, nameof(TileInds));
+            data.ExposeCollection(ref TileMemoryInds, nameof(TileMemoryInds));
+        }
+
+        public IEnumerable<Tuple<int, int, TileDef>> Tiles
+        {
+            get
+            {
+                for (int i = 0; i < Width * Height; i++)
+                {
+                    int tileIndex = TileInds[i];
+                    int x = i % Width;
+                    int y = i / Height;
+                    TileDef tileDef = TileIndexMapping.IndexToTileDef[tileIndex];
+                    yield return new Tuple<int, int, TileDef>(x, y, tileDef);
+                }
+            }
+        }
+
+        public IEnumerable<Tuple<int, int, TileDef>> TileMemory
+        {
+            get
+            {
+                for (int i = 0; i < Width * Height; i++)
+                {
+                    int tileIndex = TileMemoryInds[i];
+                    int x = i % Width;
+                    int y = i / Height;
+                    TileDef tileDef = TileIndexMapping.IndexToTileDef[tileIndex];
+                    yield return new Tuple<int, int, TileDef>(x, y, tileDef);
+                }
+            }
         }
 
         public static void Save(InstancedMap map, string filepath)
@@ -79,14 +142,27 @@ namespace OpenNefia.Core
             return map!;
         }
 
-        public void Set(int x, int y, int tile)
+        public void SetTile(int x, int y, TileDef tile)
         {
-            Tiles[y * _Width + x] = tile;
+            var ind = y * _Width + x;
+            TileInds[ind] = TileIndexMapping.TileDefIdToIndex[tile.Id]!;
         }
 
-        public int Get(int x, int y)
+        public void SetTileMemory(int x, int y, TileDef tile)
         {
-            return Tiles[y * _Width + x];
+            var ind = y * _Width + x;
+            TileMemoryInds[ind] = TileIndexMapping.TileDefIdToIndex[tile.Id]!;
+            this.DirtyTilesThisTurn.Add(ind);
+        }
+
+        public TileDef GetTile(int x, int y)
+        {
+            return TileIndexMapping.IndexToTileDef[TileInds[y * _Width + x]]!;
+        }
+
+        public TileDef GetTileMemory(int x, int y)
+        {
+            return TileIndexMapping.IndexToTileDef[TileMemoryInds[y * _Width + x]]!;
         }
 
         public void TakeObject(MapObject obj) => Pool.TakeObject(obj);

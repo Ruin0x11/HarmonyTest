@@ -29,22 +29,24 @@ namespace OpenNefia.Core.Rendering
 
     public class TileAtlas
     {
-        private Dictionary<StructMultiKey<string, string>, AtlasTile> Tiles = new Dictionary<StructMultiKey<string, string>, AtlasTile>();
-        private Dictionary<StructMultiKey<string, string>, List<AnimFrame>> Anims = new Dictionary<StructMultiKey<string, string>, List<AnimFrame>>();
+        private Dictionary<string, AtlasTile> Tiles = new Dictionary<string, AtlasTile>();
+        private Dictionary<string, List<AnimFrame>> Anims = new Dictionary<string, List<AnimFrame>>();
         public Image Image { get; }
 
-        public TileAtlas(Image image, Dictionary<StructMultiKey<string, string>, AtlasTile> atlasTiles)
+        public TileAtlas(Image image, Dictionary<string, AtlasTile> atlasTiles)
         {
             this.Image = image;
             this.Tiles = atlasTiles;
         }
 
-        public AtlasTile? GetTile(TileSpec spec)
+        public AtlasTile? GetTile(string tileId)
         {
-            if (Tiles.TryGetValue(spec.TileIndex, out var tile))
+            if (Tiles.TryGetValue(tileId, out var tile))
                 return tile;
             return null;
         }
+
+        public AtlasTile? GetTile(TileSpec spec) => GetTile(spec.TileIndex);
 
         public bool GetTileSize(TileSpec spec, out int width, out int height)
         {

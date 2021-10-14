@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Data.Types
 
         public override void OnResolveReferences()
         {
-            Tile.TileIndex = new StructMultiKey<string, string>(this.Id, this.Tile.TileId);
+            Tile.TileIndex = $"{this.Id}:{this.Tile.TileId}";
         }
     }
 }
