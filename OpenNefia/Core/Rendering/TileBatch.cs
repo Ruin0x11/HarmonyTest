@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal class TileBatch
+    internal class TileBatch : BaseUiElement
     {
         int TiledWidth;
         int TiledHeight;
@@ -32,7 +33,7 @@ namespace OpenNefia.Core.Rendering
             RedrawAll = true;
             for (int i = 0; i < height; i++)
             {
-                Rows[i] = new TileBatchRow(Atlas);
+                Rows[i] = new TileBatchRow(Atlas, width);
             }
             OnThemeSwitched(Atlas, Coords);
         }
@@ -48,6 +49,11 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        public void Clear()
+        {
+            this.RedrawAll = true;
+        }
+
         public void SetTile(int x, int y, string tile)
         {
             Tiles[y * TiledWidth + x] = tile;
@@ -61,7 +67,7 @@ namespace OpenNefia.Core.Rendering
                 for (int y = 0; y < Rows.Length; y++)
                 {
                     var row = Rows[y];
-                    row.UpdateBatch(Atlas!, Tiles, y * TiledWidth, TiledWidth);
+                    row.UpdateBatches(Atlas!, Tiles, y * TiledWidth, TiledWidth);
                 }
             }
             else
@@ -69,23 +75,23 @@ namespace OpenNefia.Core.Rendering
                 foreach (int y in DirtyRows)
                 {
                     var row = Rows[y];
-                    row.UpdateBatch(Atlas!, Tiles, y * TiledWidth, TiledWidth);
+                    row.UpdateBatches(Atlas!, Tiles, y * TiledWidth, TiledWidth);
                 }
             }
             RedrawAll = false;
             DirtyRows.Clear();
         }
 
-        public void Update(float dt)
+        public override void Update(float dt)
         {
         }
 
-        public void Draw(int screenX, int screenY)
+        public override void Draw()
         {
             for (int tileY = 0; tileY < Rows.Length; tileY++)
             {
                 var row = Rows[tileY];
-                row.Draw(screenX, screenY + Constants.TILE_SIZE * tileY);
+                row.Draw(X, Y + Constants.TILE_SIZE * tileY);
             }
         }
     }
@@ -93,23 +99,35 @@ namespace OpenNefia.Core.Rendering
     internal class TileBatchRow
     {
         private SpriteBatch Batch;
+        private SpriteBatch OverhangBatch;
         private int TileWidth;
+        private int ScreenWidth;
+        private bool HasOverhang = false;
 
-        public TileBatchRow(TileAtlas atlas)
+        const int OVERHANG_HEIGHT = Constants.TILE_SIZE / 4;
+
+        public TileBatchRow(TileAtlas atlas, int widthInTiles)
         {
             Batch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
+            OverhangBatch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             TileWidth = Constants.TILE_SIZE;
+            ScreenWidth = widthInTiles * TileWidth;
         }
 
         internal void OnThemeSwitched(TileAtlas atlas)
         {
             Batch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
+            OverhangBatch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
         }
 
-        internal void UpdateBatch(TileAtlas tileAtlas, string[] tiles, int startIndex, int width)
+        internal void UpdateBatches(TileAtlas tileAtlas, string[] tiles, int startIndex, int widthInTiles)
         {
+            ScreenWidth = widthInTiles * TileWidth;
             Batch.Clear();
-            for (int x = 0; x < width; x++)
+            OverhangBatch.Clear();
+            HasOverhang = false;
+            
+            for (int x = 0; x < widthInTiles; x++)
             {
                 var index = startIndex + x;
                 var tileId = tiles[index];
@@ -121,14 +139,29 @@ namespace OpenNefia.Core.Rendering
                 else
                 {
                     Batch.Add(tile.Quad, TileWidth * x, 0);
+
+                    if (tile.HasOverhang)
+                    {
+                        HasOverhang = true;
+                        OverhangBatch.Add(tile.Quad, TileWidth * x, 0);
+                    }
                 }
             }
+
             Batch.Flush();
+            OverhangBatch.Flush();
         }
 
         public void Draw(int screenX, int screenY)
         {
             Love.Graphics.Draw(Batch, screenX, screenY);
+
+            if (HasOverhang)
+            {
+                GraphicsEx.SetScissor(screenX, screenY - OVERHANG_HEIGHT, ScreenWidth, OVERHANG_HEIGHT);
+                Love.Graphics.Draw(OverhangBatch, screenX, screenY - OVERHANG_HEIGHT);
+                GraphicsEx.SetScissor();
+            }
         }
     }
 }

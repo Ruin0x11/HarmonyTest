@@ -19,6 +19,7 @@ namespace OpenNefia.Core.Rendering
     {
         public Love.Quad Quad;
         public int YOffset;
+        public bool HasOverhang = false;
 
         public AtlasTile(Quad quad, int yOffset = 0)
         {

@@ -2,6 +2,7 @@
 using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Map;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,13 @@ namespace OpenNefia.Core.UI.Layer
 
         private UiScroller Scroller;
         private MapRenderer Renderer;
+        private UiFpsCounter FpsCounter;
 
         private FontAsset FontText;
 
         public string Message { get; private set; }
         private string MouseText;
-        private bool PlacingTile = false;
+        private TileDef? PlacingTile = null;
 
         public List<Thing> Things;
 
@@ -36,6 +38,7 @@ namespace OpenNefia.Core.UI.Layer
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
 
+            FpsCounter = new UiFpsCounter();
             Renderer = new MapRenderer(this.Map);
 
             int x = 0;
@@ -76,7 +79,32 @@ namespace OpenNefia.Core.UI.Layer
                 this.MouseText = $"{evt.X}, {evt.Y}";
             };
 
-            this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlacingTile = evt.State == KeyPressState.Pressed, trackReleased: true);
+            this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
+        }
+
+        private void PlaceTile(MouseButtonEvent evt)
+        {
+            if (evt.State == KeyPressState.Pressed)
+            {
+                if (evt.Button == UI.MouseButtons.Mouse1)
+                {
+                    PlacingTile = TileDefOf.Dirt;
+                }
+                else if (evt.Button == UI.MouseButtons.Mouse2)
+                {
+                    PlacingTile = TileDefOf.WallBrick;
+                }
+                else
+                {
+                    PlacingTile = TileDefOf.Flooring1;
+                }
+            }
+            else
+            {
+                PlacingTile = null;
+            }
         }
 
         public string PrintMessage(string dood)
@@ -102,12 +130,14 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetSize(width, height);
             Renderer.SetSize(width, height);
+            FpsCounter.SetSize(400, 500);
         }
 
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
             Renderer.SetPosition(x, y);
+            FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
         }
 
         public override void OnQuery()
@@ -133,16 +163,17 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Scroller.UpdateParentPosition(this, dt);
 
-            if (PlacingTile)
+            if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
                 var coords = GraphicsEx.GetCoords();
                 coords.ScreenToTile((int)mouse.X - this.X, (int)mouse.Y - this.Y, out var tileX, out var tileY);
-                Map.SetTile(tileX, tileY, TileDefOf.WallBrick);
+                Map.SetTile(tileX, tileY, PlacingTile);
                 Map.MemorizeTile(tileX, tileY);
             }
 
             this.Renderer.Update(dt);
+            this.FpsCounter.Update(dt);
         }
 
         public override void Draw()
@@ -154,6 +185,8 @@ namespace OpenNefia.Core.UI.Layer
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
+
+            this.FpsCounter.Draw();
         }
     }
 }

@@ -424,7 +424,7 @@ namespace OpenNefia.Core.UI
         {
             if (this.MouseButtonActions.TryGetValue(press.Button, out MouseButtonAction? action))
             {
-                var evt = new MouseButtonEvent(KeyPressState.Pressed, press.X, press.Y);
+                var evt = new MouseButtonEvent(KeyPressState.Pressed, press.Button, press.X, press.Y);
                 action.Run(evt);
                 if (!evt.Passed)
                 {
@@ -571,7 +571,7 @@ namespace OpenNefia.Core.UI
             {
                 if (action.TrackReleased)
                 {
-                    var evt = new MouseButtonEvent(KeyPressState.Released, press.X, press.Y);
+                    var evt = new MouseButtonEvent(KeyPressState.Released, press.Button, press.X, press.Y);
                     action.Run(evt);
                 }
             }

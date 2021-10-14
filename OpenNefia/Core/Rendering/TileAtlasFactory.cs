@@ -87,7 +87,13 @@ namespace OpenNefia.Core.Rendering
             if (isTall)
                 yOffset = -this.TileHeight;
 
-            this.AtlasTiles.Add(tile.TileIndex, new AtlasTile(innerQuad, yOffset));
+            var atlasTile = new AtlasTile(innerQuad, yOffset);
+
+            // Special case for wall tiles
+            if (tile.HasOverhang)
+                atlasTile.HasOverhang = true;
+
+            this.AtlasTiles.Add(tile.TileIndex, atlasTile);
 
             quad.Dispose();
         }

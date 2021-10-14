@@ -67,6 +67,8 @@ namespace OpenNefia.Core.Data.Types
             public static FontAsset WindowKeyHints = new FontAsset($"Core.{nameof(WindowKeyHints)}", 15, 14);
 
             public static FontAsset PromptText = new FontAsset($"Core.{nameof(WindowKeyHints)}", 16, 14, fgColor: ColorAsset.Entries.TextWhite, bgColor: ColorAsset.Entries.TextBlack);
+
+            public static FontAsset FpsCounter = new FontAsset($"Core.{nameof(FpsCounter)}", 14, 14, fgColor: ColorAsset.Entries.TextWhite, bgColor: ColorAsset.Entries.TextBlack);
         }
     }
 }

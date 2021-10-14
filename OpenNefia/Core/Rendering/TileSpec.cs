@@ -17,6 +17,7 @@ namespace OpenNefia.Core.Rendering
         public ImageRegion? ImageRegion;
 
         public string TileIndex { get; internal set; } = string.Empty;
+        public bool HasOverhang { get; internal set; } = false;
 
         public TileSpec()
         {

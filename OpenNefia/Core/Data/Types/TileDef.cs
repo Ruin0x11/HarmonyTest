@@ -47,6 +47,8 @@ namespace OpenNefia.Core.Data.Types
             Tile.TileIndex = $"{this.Id}:Tile";
             if (this.Wall != null)
             {
+                Tile.HasOverhang = true;
+                Wall.HasOverhang = true;
                 Wall.TileIndex = $"{this.Id}:Tile_Wall";
             }
         }
