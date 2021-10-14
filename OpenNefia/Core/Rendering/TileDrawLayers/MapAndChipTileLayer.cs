@@ -15,7 +15,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     {
         private InstancedMap Map;
         private TileAtlas TileAtlas;
-        private TileBatch TileBatch;
+        private TileAtlas ChipAtlas;
+        private TileAndChipBatch TileAndChipBatch;
         private ICoords Coords;
         private WallTileShadows WallShadows;
 
@@ -23,30 +24,32 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             Map = map;
             TileAtlas = Atlases.Tile;
+            ChipAtlas = Atlases.Chip;
             Coords = GameWrapper.Instance.State.Coords;
-            TileBatch = new TileBatch(map.Width, map.Height, TileAtlas, Coords);
+            TileAndChipBatch = new TileAndChipBatch(map.Width, map.Height, Coords);
             WallShadows = new WallTileShadows(map, Coords);
         }
 
         public void OnThemeSwitched(ICoords coords)
         {
             TileAtlas = Atlases.Tile;
+            ChipAtlas = Atlases.Chip;
             Coords = coords;
-            this.TileBatch.OnThemeSwitched(TileAtlas, coords);
+            this.TileAndChipBatch.OnThemeSwitched(TileAtlas, ChipAtlas, coords);
             this.WallShadows.OnThemeSwitched(coords);
         }
 
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);
-            this.TileBatch.SetSize(width, height);
+            this.TileAndChipBatch.SetSize(width, height);
             this.WallShadows.SetSize(width, height);
         }
 
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
-            this.TileBatch.SetPosition(x, y);
+            this.TileAndChipBatch.SetPosition(x, y);
             this.WallShadows.SetPosition(x, y);
         }
 
@@ -66,7 +69,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 var oneTileUp = Map.GetTile(x, y - 1);
                 if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
                 {
-                    this.TileBatch.SetTile(x, y - 1, oneTileUp.Tile.TileIndex);
+                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Tile.TileIndex);
                 }
             }
             else if (y > 0)
@@ -74,25 +77,25 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 var oneTileUp = Map.GetTile(x, y - 1);
                 if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
                 {
-                    this.TileBatch.SetTile(x, y - 1, oneTileUp.Wall.TileIndex);
+                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Wall.TileIndex);
                 }
             }
 
             this.WallShadows.SetTile(x, y, tile);
-            this.TileBatch.SetTile(x, y, tileIndex);
+            this.TileAndChipBatch.SetTile(x, y, tileIndex);
         }
 
         public override void RedrawAll()
         {
             this.WallShadows.Clear();
-            this.TileBatch.Clear();
+            this.TileAndChipBatch.Clear();
 
             foreach (var (x, y, tileDef) in Map.TileMemory)
             {
                 SetMapTile(x, y, tileDef);
             }
 
-            this.TileBatch.UpdateBatches();
+            this.TileAndChipBatch.UpdateBatches();
         }
 
         public override void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn)
@@ -104,18 +107,18 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                 SetMapTile(x, y, Map.GetTileMemory(x, y)!);
             }
 
-            this.TileBatch.UpdateBatches();
+            this.TileAndChipBatch.UpdateBatches();
         }
 
         public override void Update(float dt)
         {
-            this.TileBatch.Update(dt);
+            this.TileAndChipBatch.Update(dt);
             this.WallShadows.Update(dt);
         }
 
         public override void Draw()
         {
-            this.TileBatch.Draw();
+            this.TileAndChipBatch.Draw();
             this.WallShadows.Draw();
         }
     }

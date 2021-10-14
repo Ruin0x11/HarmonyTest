@@ -25,6 +25,7 @@ namespace OpenNefia.Core
         internal int[] _TileInds;
         internal int[] _TileMemoryInds;
         internal ShadowMap _ShadowMap;
+        internal MapObjectMemoryStore _MapObjectMemory;
         internal TileIndexMapping _TileIndexMapping;
 
         internal Pool _Pool;
@@ -46,6 +47,7 @@ namespace OpenNefia.Core
             _TileInds = new int[width * height];
             _TileMemoryInds = new int[width * height];
             _ShadowMap = new ShadowMap(this);
+            _MapObjectMemory = new MapObjectMemoryStore(this);
 
             _DirtyTilesThisTurn = new HashSet<int>();
             _RedrawAllThisTurn = true;
@@ -69,6 +71,7 @@ namespace OpenNefia.Core
             for (int i = 0; i < _TileMemoryInds.Length; i++)
             {
                 _TileMemoryInds[i] = _TileInds[i];
+                _MapObjectMemory.RevealObjects(i);
             }
             this._RedrawAllThisTurn = true;
         }
@@ -76,6 +79,18 @@ namespace OpenNefia.Core
         public void RefreshVisibility()
         {
             this._ShadowMap.RefreshVisibility();
+        }
+
+        public void Redraw()
+        {
+            this._RedrawAllThisTurn = true;
+
+            this.RefreshVisibility();
+
+            foreach (var memory in this._MapObjectMemory)
+            {
+                memory.State = MemoryState.Added;
+            }
         }
 
         public void Expose(DataExposer data)
@@ -215,6 +230,7 @@ namespace OpenNefia.Core
                 return;
 
             SetTileMemory(x, y, GetTile(x, y)!);
+            _MapObjectMemory.RevealObjects(y * _Width + x);
         }
 
         public bool IsMemorized(int x, int y)

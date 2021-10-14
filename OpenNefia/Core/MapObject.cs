@@ -1,4 +1,5 @@
-﻿using OpenNefia.Game;
+﻿using OpenNefia.Core.Rendering;
+using OpenNefia.Game;
 using OpenNefia.Game.Serial;
 
 namespace OpenNefia.Core
@@ -21,6 +22,8 @@ namespace OpenNefia.Core
         private bool _Disposed = false;
         public bool Disposed { get => _Disposed; }
 
+        public abstract string TypeKey { get; }
+
         internal ILocation? _CurrentLocation;
 
         public void SetPosition(int x, int y)
@@ -42,6 +45,8 @@ namespace OpenNefia.Core
         }
 
         public bool IsOwned() => _CurrentLocation != null;
+
+        public abstract void ProduceMemory(ref MapObjectMemory memory);
 
         public virtual void Expose(DataExposer data)
         {
