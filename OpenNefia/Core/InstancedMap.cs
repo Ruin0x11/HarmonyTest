@@ -7,8 +7,10 @@ using OpenNefia.Core.Util;
 using OpenNefia.Game;
 using OpenNefia.Game.Serial;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using OpenNefia.Core.Extensions;
 
 namespace OpenNefia.Core
 {
@@ -93,6 +95,18 @@ namespace OpenNefia.Core
         {
             _LastSightId += 1;
             this._ShadowMap.RefreshVisibility();
+
+            _MapObjectMemory.AllMemory.Values
+                .Where(memory => !IsInWindowFov(memory.TileX, memory.TileY) && !ShouldShowMemory(memory))
+                .Select(memory => memory.TileX + memory.TileY * Width)
+                .Distinct()
+                .ForEach(index => _MapObjectMemory.ForgetObjects(index));
+        }
+
+        private bool ShouldShowMemory(MapObjectMemory memory)
+        {
+            // TODO
+            return memory.TypeKey != "Chara" && false;
         }
 
         public void Redraw()

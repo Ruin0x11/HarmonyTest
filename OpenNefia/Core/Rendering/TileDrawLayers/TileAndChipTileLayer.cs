@@ -101,25 +101,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
             foreach (var added in Map._MapObjectMemory.Added)
             {
-                if (Map.IsInWindowFov(added.TileX, added.TileY) || ShouldShowMemory(added))
-                {
-                    this.TileAndChipBatch.AddOrUpdateChipEntry(added);
-                }
+                this.TileAndChipBatch.AddOrUpdateChipEntry(added);
             }
-
-            foreach (var (memoryIndex, memory) in Map._MapObjectMemory.AllMemory)
-            {
-                if (!Map.IsInWindowFov(memory.TileX, memory.TileY) && !ShouldShowMemory(memory))
-                {
-                    this.TileAndChipBatch.RemoveChipEntry(memory);
-                }
-            }
-        }
-
-        private bool ShouldShowMemory(MapObjectMemory memory)
-        {
-            // TODO
-            return memory.TypeKey != "Chara";
         }
 
         public override void RedrawAll()

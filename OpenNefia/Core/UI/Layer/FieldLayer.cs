@@ -53,9 +53,9 @@ namespace OpenNefia.Core.UI.Layer
             MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
 
             for (int i = 0; i < 1; i++)
-                Map.TakeObject(new ItemObject(5 + i, 5, ChipDefOf.CharaCat));
+                Map.TakeObject(new ItemObject(5 + i, 5, ChipDefOf.ItemComputer));
             for (int i = 0; i < 1; i++)
-                Map.TakeObject(new CharaObject(5 + i, 7, ChipDefOf.ItemComputer));
+                Map.TakeObject(new CharaObject(5 + i, 7, ChipDefOf.CharaCat));
 
             Map.MemorizeAll();
             Map.RefreshVisibility();

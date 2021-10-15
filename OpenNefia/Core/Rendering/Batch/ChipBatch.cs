@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OpenNefia.Core.Util;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +8,7 @@ namespace OpenNefia.Core.Rendering
 {
     internal class ChipBatch
     {
-        internal Dictionary<int, ChipBatchEntry> ByIndex = new Dictionary<int, ChipBatchEntry>();
-        internal SortedSet<ChipBatchEntry> ByZOrder = new SortedSet<ChipBatchEntry>();
+        internal PriorityMap<int, ChipBatchEntry, int> ByIndex = new PriorityMap<int, ChipBatchEntry, int>();
         private List<Love.Drawable> ToDraw = new List<Love.Drawable>();
         private List<Love.SpriteBatch> SpriteBatches = new List<Love.SpriteBatch>();
         internal bool NeedsRedraw = false;
@@ -34,7 +34,6 @@ namespace OpenNefia.Core.Rendering
             }
 
             ByIndex.Clear();
-            ByZOrder.Clear();
             ToDraw.Clear();
             SpriteBatches.Clear();
             NeedsRedraw = true;
@@ -44,8 +43,11 @@ namespace OpenNefia.Core.Rendering
         {
             if (!ByIndex.ContainsKey(entry.Memory.Index))
             {
-                ByIndex[entry.Memory.Index] = entry;
-                ByZOrder.Add(entry);
+                ByIndex.Add(entry.Memory.Index, entry, entry.Memory.ZOrder);
+            }
+            else
+            {
+                ByIndex.SetPriority(entry.Memory.Index, entry.Memory.ZOrder);
             }
             NeedsRedraw = true;
         }
@@ -55,7 +57,6 @@ namespace OpenNefia.Core.Rendering
             if (ByIndex.ContainsKey(entry.Memory.Index))
             {
                 ByIndex.Remove(entry.Memory.Index);
-                ByZOrder.Remove(entry);
             }
             NeedsRedraw = true;
         }
@@ -76,10 +77,14 @@ namespace OpenNefia.Core.Rendering
                 return;
 
             ToDraw.Clear();
+            foreach (var spriteBatch in this.SpriteBatches)
+            {
+                spriteBatch.Clear();
+            }
 
             var i = 0;
             Love.SpriteBatch? currentBatch = null;
-            foreach (var entry in ByZOrder)
+            foreach (var (index, entry) in ByIndex)
             {
                 var memory = entry.Memory;
                 if (memory.IsVisible)
