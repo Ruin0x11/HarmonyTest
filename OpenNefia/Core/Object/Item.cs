@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
+using OpenNefia.Game;
 using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
@@ -81,7 +81,7 @@ namespace OpenNefia.Core.Object
                 return false;
             }
 
-            separated = (Item)this.Clone();
+            separated = this.Clone();
 
             separated.Amount = amount;
             this.Amount -= amount;
@@ -152,6 +152,14 @@ namespace OpenNefia.Core.Object
             }
 
             return true;
+        }
+
+        public Item Clone()
+        {
+            var newObject = (Item)this.MemberwiseClone();
+            newObject._CurrentLocation = null;
+            newObject._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            return newObject;
         }
     }
 }

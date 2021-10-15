@@ -14,12 +14,12 @@ namespace OpenNefia.Core.Data.Serial
     {
         internal List<string> Errors;
 
-        internal List<DefCrossRef> CrossRefs { get; }
+        internal List<IDefCrossRef> CrossRefs { get; }
 
         internal DefDeserializer()
         {
             this.Errors = new List<string>();
-            this.CrossRefs = new List<DefCrossRef>();
+            this.CrossRefs = new List<IDefCrossRef>();
         }
 
         public Def? DeserializeDef(Type defType, XmlNode node, ModInfo containingMod)
@@ -60,7 +60,7 @@ namespace OpenNefia.Core.Data.Serial
             if (elonaId != null)
                 defInstance.ElonaId = int.Parse(elonaId);
 
-            PopulateAllFields(node, defInstance, containingMod.GetType());
+            defInstance.DeserializeDefField(this, node, containingMod.GetType());
 
             if (this.Errors.Count > 0)
             {
@@ -75,15 +75,27 @@ namespace OpenNefia.Core.Data.Serial
             return defInstance;
         }
 
+        private static string GetTargetXmlNodeName(FieldInfo field)
+        {
+            var nameAttrib = field.GetCustomAttribute<DefSerialNameAttribute>();
+            if (nameAttrib != null)
+            {
+                return nameAttrib.Name;
+            }
+
+            return field.Name;
+        }
+
         public void PopulateAllFields(XmlNode node, object target, Type containingModType)
         {
             foreach (var field in target.GetType().GetFields())
             {
-                PopulateFieldByName(field.Name, node, target, containingModType);
+                string nodeName = GetTargetXmlNodeName(field);
+                PopulateFieldInfo(field, nodeName, node, target, containingModType);
             }
         }
 
-        private void CheckRequiredValue(object target, FieldInfo field)
+        private void CheckRequiredValue(object target, string nodeName, FieldInfo field)
         {
             var required = field.GetCustomAttribute<DefRequiredAttribute>();
             if (required != null)
@@ -94,7 +106,7 @@ namespace OpenNefia.Core.Data.Serial
                 }
                 else
                 {
-                    Errors.Add($"Required def field {field.Name} ({field.FieldType.Name}) was not provided.");
+                    Errors.Add($"Required def field {field.Name} (name: {nodeName}) ({field.FieldType.Name}) was not provided.");
                 }
             }
         }
@@ -102,26 +114,31 @@ namespace OpenNefia.Core.Data.Serial
         public void PopulateFieldByName(string name, XmlNode node, object target, Type containingModType)
         {
             var field = target.GetType().GetField(name)!;
+            PopulateFieldInfo(field, field.Name, node, target, containingModType);
+        }
+
+        private void PopulateFieldInfo(FieldInfo field, string nodeName, XmlNode node, object target, Type containingModType)
+        {
             if (field.GetCustomAttribute<DefUseAttributesAttribute>() != null)
             {
-                if (node.Attributes?[field.Name] != null)
+                if (node.Attributes?[nodeName] != null)
                 {
-                    PopulateField(node.Attributes[field.Name]!, target, field, containingModType);
+                    PopulateField(node.Attributes[nodeName]!, target, field, containingModType);
                 }
                 else
                 {
-                    CheckRequiredValue(target, field);
+                    CheckRequiredValue(target, nodeName, field);
                 }
             }
             else
             {
                 if (node[field.Name] != null)
                 {
-                    PopulateField(node[field.Name]!, target, field, containingModType);
+                    PopulateField(node[nodeName]!, target, field, containingModType);
                 }
                 else
                 {
-                    CheckRequiredValue(target, field);
+                    CheckRequiredValue(target, nodeName, field);
                 }
             }
         }
@@ -257,7 +274,7 @@ namespace OpenNefia.Core.Data.Serial
             else if (ty.IsSubclassOf(typeof(Def)))
             {
                 // Defer setting until all defs have been loaded.
-                var crossRef = new DefCrossRef(target, field, ty, value);
+                var crossRef = new DefFieldCrossRef(ty, value, target, field);
                 this.CrossRefs.Add(crossRef);
             }
             else if (ty.IsEnum)
@@ -284,6 +301,11 @@ namespace OpenNefia.Core.Data.Serial
             {
                 this.Errors.Add($"Cannot set field '{field.Name}' of type '{field.FieldType}'");
             }
+        }
+
+        public void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T: Def
+        {
+            this.CrossRefs.Add(new DefCustomCrossRef<TRecv, T>(typeof(T), defId, receiver, onResolveCrossRef));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace OpenNefia.Core.UI.Element
         float PrevRamDiff = 0f;
         DateTime Now;
 
-        private FontAsset FontText;
+        private FontDef FontText;
 
         public bool ShowDrawStats { get; set; } = true;
         public IUiText Text { get; }
@@ -26,7 +26,7 @@ namespace OpenNefia.Core.UI.Element
         public UiFpsCounter()
         {
             Now = DateTime.Now;
-            FontText = FontAsset.Entries.FpsCounter;
+            FontText = FontDefOf.FpsCounter;
             Text = new UiText(FontText);
         }
 

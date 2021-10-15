@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
@@ -50,7 +49,7 @@ namespace OpenNefia.Core.UI.Layer
         private MapRenderer Renderer;
         private UiFpsCounter FpsCounter;
 
-        private FontAsset FontText;
+        private FontDef FontText;
 
         public string Message { get; private set; }
         private string MouseText;
@@ -64,7 +63,7 @@ namespace OpenNefia.Core.UI.Layer
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
             Things = new List<Thing>();
-            FontText = FontAsset.Entries.WindowTitle;
+            FontText = FontDefOf.WindowTitle;
 
             int x = 0;
             int y = 0;

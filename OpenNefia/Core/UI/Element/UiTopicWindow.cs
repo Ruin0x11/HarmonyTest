@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System.Collections.Generic;
 using static OpenNefia.Core.Rendering.AssetDrawable;
@@ -34,13 +33,13 @@ namespace OpenNefia.Core.UI.Element
 
         protected AssetDrawable AssetTopicWindow;
         protected AssetDrawable AssetWindow;
-        protected ColorAsset ColorTopicWindowStyle0;
-        protected ColorAsset ColorTopicWindowStyle1;
-        protected ColorAsset ColorTopicWindowStyle2;
-        protected ColorAsset ColorTopicWindowStyle3;
-        protected ColorAsset ColorTopicWindowStyle4;
-        protected ColorAsset ColorTopicWindowStyle5;
-        protected ColorAsset ColorTopicWindowStyle6;
+        protected ColorDef ColorTopicWindowStyle0;
+        protected ColorDef ColorTopicWindowStyle1;
+        protected ColorDef ColorTopicWindowStyle2;
+        protected ColorDef ColorTopicWindowStyle3;
+        protected ColorDef ColorTopicWindowStyle4;
+        protected ColorDef ColorTopicWindowStyle5;
+        protected ColorDef ColorTopicWindowStyle6;
         protected Love.SpriteBatch TopicWindowBatch;
 
         private AssetDrawable GetTopicWindowAsset(FrameStyle frameStyle)
@@ -70,13 +69,13 @@ namespace OpenNefia.Core.UI.Element
 
             this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle_);
             this.AssetWindow = new AssetDrawable(AssetDefOf.Window);
-            this.ColorTopicWindowStyle0 = ColorAsset.Entries.TopicWindowStyle0;
-            this.ColorTopicWindowStyle1 = ColorAsset.Entries.TopicWindowStyle1;
-            this.ColorTopicWindowStyle2 = ColorAsset.Entries.TopicWindowStyle2;
-            this.ColorTopicWindowStyle3 = ColorAsset.Entries.TopicWindowStyle3;
-            this.ColorTopicWindowStyle4 = ColorAsset.Entries.TopicWindowStyle4;
-            this.ColorTopicWindowStyle5 = ColorAsset.Entries.TopicWindowStyle5;
-            this.ColorTopicWindowStyle6 = ColorAsset.Entries.TopicWindowStyle6;
+            this.ColorTopicWindowStyle0 = ColorDefOf.TopicWindowStyle0;
+            this.ColorTopicWindowStyle1 = ColorDefOf.TopicWindowStyle1;
+            this.ColorTopicWindowStyle2 = ColorDefOf.TopicWindowStyle2;
+            this.ColorTopicWindowStyle3 = ColorDefOf.TopicWindowStyle3;
+            this.ColorTopicWindowStyle4 = ColorDefOf.TopicWindowStyle4;
+            this.ColorTopicWindowStyle5 = ColorDefOf.TopicWindowStyle5;
+            this.ColorTopicWindowStyle6 = ColorDefOf.TopicWindowStyle6;
 
             this.TopicWindowBatch = this.MakeBatch();
         }

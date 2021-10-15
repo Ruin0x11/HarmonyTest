@@ -1,5 +1,5 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types.DefOf;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;

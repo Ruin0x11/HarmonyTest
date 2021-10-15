@@ -113,13 +113,5 @@ namespace OpenNefia.Core.Object
         }
 
         public string GetUniqueIndex() => $"MapObject_{Uid}";
-
-        public MapObject Clone()
-        {
-            var newObject = (MapObject)this.MemberwiseClone();
-            newObject._CurrentLocation = null;
-            newObject._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
-            return newObject;
-        }
     }
 }

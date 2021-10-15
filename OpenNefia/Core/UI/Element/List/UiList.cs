@@ -1,6 +1,5 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections;
@@ -38,9 +37,9 @@ namespace OpenNefia.Core.UI.Element.List
 
         protected AssetDrawable AssetSelectKey;
         protected AssetDrawable AssetListBullet;
-        public ColorAsset ColorSelectedAdd;
-        public ColorAsset ColorSelectedSub;
-        public FontAsset FontListKeyName;
+        public ColorDef ColorSelectedAdd;
+        public ColorDef ColorSelectedSub;
+        public FontDef FontListKeyName;
 
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
@@ -55,9 +54,9 @@ namespace OpenNefia.Core.UI.Element.List
 
             this.AssetSelectKey = new AssetDrawable(AssetDefOf.SelectKey);
             this.AssetListBullet = new AssetDrawable(AssetDefOf.ListBullet);
-            this.ColorSelectedAdd = ColorAsset.Entries.ListSelectedAdd;
-            this.ColorSelectedSub = ColorAsset.Entries.ListSelectedSub;
-            this.FontListKeyName = FontAsset.Entries.ListKeyName;
+            this.ColorSelectedAdd = ColorDefOf.ListSelectedAdd;
+            this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
+            this.FontListKeyName = FontDefOf.ListKeyName;
 
             this.Cells = choices.Select((c, i) => this.MakeChoiceCell(c, i)).ToList();
 
@@ -68,7 +67,7 @@ namespace OpenNefia.Core.UI.Element.List
                 var choiceKey = this.GetChoiceKey(this[i].Data, i);
                 var keyName = UiUtils.GetKeyName(choiceKey.Key);
                 this.ChoiceKeys.Add(choiceKey);
-                this.KeyNameTexts.Add(new UiShadowedText(this.FontListKeyName, keyName));
+                this.KeyNameTexts.Add(new UiText(this.FontListKeyName, keyName));
             }
 
             this.BindKeys();

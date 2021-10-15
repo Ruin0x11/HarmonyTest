@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
+using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.UI.Element
 {
@@ -7,8 +8,8 @@ namespace OpenNefia.Core.UI.Element
     {
         private Love.Text BakedText;
 
-        private FontAsset _Font;
-        public FontAsset Font
+        private FontDef _Font;
+        public FontDef Font
         {
             get => _Font;
             set
@@ -31,7 +32,7 @@ namespace OpenNefia.Core.UI.Element
 
 #pragma warning disable CS8618
         
-        public UiText(FontAsset font, string text = "")
+        public UiText(FontDef font, string text = "")
         {
             this._Text = text;
             this._Font = font;
@@ -57,8 +58,31 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.Font.Color);
-            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+            switch(this.Font.Style)
+            {
+                case FontStyle.Normal:
+                    GraphicsEx.SetColor(this.Font.Color);
+                    Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+                    break;
+
+                case FontStyle.Outlined:
+                    GraphicsEx.SetColor(this.Font.ExtraColors[FontDef.ColorKinds.Background]);
+                    for (int dx = -1; dx <= 1; dx++)
+                        for (int dy = -1; dy <= 1; dy++)
+                            Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
+
+                    GraphicsEx.SetColor(this.Font.Color);
+                    Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+                    break;
+
+                case FontStyle.Shadowed:
+                    GraphicsEx.SetColor(this.Font.ExtraColors[FontDef.ColorKinds.Background]);
+                    Love.Graphics.Draw(this.BakedText, this.X + -1, this.Y + -1);
+
+                    GraphicsEx.SetColor(this.Font.Color);
+                    Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+                    break;
+            }
         }
     }
 }

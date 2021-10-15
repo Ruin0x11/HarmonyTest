@@ -10,5 +10,6 @@ namespace OpenNefia.Core.Data.Serial
         void PopulateField(XmlNode childNode, object target, FieldInfo field, Type containingModType);
         void PopulateFieldByName(string name, XmlNode node, object target, Type containingModType);
         void PopulateFieldByNode(string name, XmlNode node, object target, Type containingModType);
+        void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T: Def;
     }
 }

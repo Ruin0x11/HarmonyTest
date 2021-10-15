@@ -16,14 +16,12 @@ namespace OpenNefia.Core.Data
     {
         private string Filepath;
         public List<Def> Defs { get; internal set; }
-        public List<DefCrossRef> CrossRefs { get; internal set; }
         public ModInfo ContainingMod { get; }
 
         public DefSet(string filepath, ModInfo containingMod, DefDeserializer deserializer)
         {
             this.Filepath = filepath;
             this.Defs = new List<Def>();
-            this.CrossRefs = new List<DefCrossRef>();
             this.ContainingMod = containingMod;
             this.Load(deserializer);
         }
@@ -56,7 +54,6 @@ namespace OpenNefia.Core.Data
                 if (defInstance != null)
                 {
                     Defs.Add(defInstance);
-                    CrossRefs.AddRange(deserializer.CrossRefs);
                 }
             }
         }

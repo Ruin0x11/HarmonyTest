@@ -1,6 +1,5 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -19,13 +18,13 @@ namespace OpenNefia.Core.UI.Element
         public int YOffset { get; }
 
         protected AssetDrawable AssetTipIcons;
-        protected ColorAsset ColorWindowBottomLine1;
-        protected ColorAsset ColorWindowBottomLine2;
-        protected FontAsset FontWindowTitle;
-        protected FontAsset FontWindowKeyHints;
+        protected ColorDef ColorWindowBottomLine1;
+        protected ColorDef ColorWindowBottomLine2;
+        protected FontDef FontWindowTitle;
+        protected FontDef FontWindowKeyHints;
 
-        protected UiShadowedText? TitleText;
-        protected UiText KeyHintText;
+        protected IUiText? TitleText;
+        protected IUiText KeyHintText;
         protected UiWindowBacking Window;
         protected UiWindowBacking WindowShadow;
         protected UiTopicWindow TopicWindow;
@@ -42,13 +41,13 @@ namespace OpenNefia.Core.UI.Element
             this.YOffset = yOffset;
 
             this.AssetTipIcons = new AssetDrawable(AssetDefOf.TipIcons);
-            this.ColorWindowBottomLine1 = ColorAsset.Entries.WindowBottomLine1;
-            this.ColorWindowBottomLine2 = ColorAsset.Entries.WindowBottomLine2;
-            this.FontWindowTitle = FontAsset.Entries.WindowTitle;
-            this.FontWindowKeyHints = FontAsset.Entries.WindowKeyHints;
+            this.ColorWindowBottomLine1 = ColorDefOf.WindowBottomLine1;
+            this.ColorWindowBottomLine2 = ColorDefOf.WindowBottomLine2;
+            this.FontWindowTitle = FontDefOf.WindowTitle;
+            this.FontWindowKeyHints = FontDefOf.WindowKeyHints;
 
             if (this.Title != null)
-                this.TitleText = new UiShadowedText(this.FontWindowTitle, this.Title!);
+                this.TitleText = new UiText(this.FontWindowTitle, this.Title!);
             this.KeyHintText = new UiText(this.FontWindowKeyHints);
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);

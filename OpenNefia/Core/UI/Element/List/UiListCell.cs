@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI.Element.List
     {
         public T Data { get; set; }
 
-        public FontAsset FontListText;
+        public FontDef FontListText;
 
         private string? _Text;
         public string Text
@@ -34,7 +34,7 @@ namespace OpenNefia.Core.UI.Element.List
         {
             this.Data = data;
 
-            this.FontListText = FontAsset.Entries.ListText;
+            this.FontListText = FontDefOf.ListText;
 
             this.Text = text;
             this.UiText = this.MakeUIText(data, this.Text);

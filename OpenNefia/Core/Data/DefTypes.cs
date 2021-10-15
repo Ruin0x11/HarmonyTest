@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Data
                 {
                     foreach (var property in ty.GetProperties())
                     {
-                        if (property.GetCustomAttribute<DefRequiredAttribute>() != null || property.GetCustomAttribute<DefUseAttributesAttribute>() != null)
+                        if (HasDefSerialAttribute(property))
                         {
                             errors.Add($"Def property {property.Name} of type {ty.Name} must be a field instead of a property to be marked with attributes and serialized");
                         }
@@ -59,6 +59,13 @@ namespace OpenNefia.Core.Data
                 }
                 throw new Exception($"Errors validating def types:\n{errorMessage}");
             }
+        }
+
+        private static bool HasDefSerialAttribute(PropertyInfo property)
+        {
+            return property.GetCustomAttribute<DefRequiredAttribute>() != null
+                    || property.GetCustomAttribute<DefUseAttributesAttribute>() != null
+                    || property.GetCustomAttribute<DefSerialNameAttribute>() != null;
         }
     }
 }

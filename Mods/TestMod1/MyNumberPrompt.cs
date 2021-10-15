@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -23,13 +22,13 @@ namespace TestMod1
         }
 
         protected IUiText Text;
-        protected ColorAsset ColorBackground;
+        protected ColorDef ColorBackground;
 
         public MyNumberPrompt()
         {
             this._Value = 50;
-            this.Text = new UiShadowedText(new FontAsset("TestMod1.MyNumberPromptFont", 60, fgColor: ColorAsset.Entries.TextWhite, bgColor: ColorAsset.Entries.TextBlack));
-            this.ColorBackground = new ColorAsset("TestMod1.MyNumberPromptColor", 255, 255, 0);
+            this.Text = new UiText(new FontDef("TestMod1.MyNumberPromptFont", 60, fgColor: ColorDefOf.TextWhite, bgColor: ColorDefOf.TextBlack));
+            this.ColorBackground = new ColorDef("TestMod1.MyNumberPromptColor", 255, 255, 0);
 
             this.UpdateText();
             this.BindKeys();

@@ -1,13 +1,15 @@
-﻿using OpenNefia.Mod;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace OpenNefia.Core.Data
 {
-    public class Def : IComparable<Def>, IEquatable<Def>
+    public class Def : IComparable<Def>, IEquatable<Def>, IDefSerializable
     {
         public string Id { get; }
 
@@ -22,12 +24,15 @@ namespace OpenNefia.Core.Data
 
         public virtual void OnResolveReferences()
         {
-
         }
 
-        public virtual void OnValidate(List<string> errors)
+        public virtual void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
         {
+            deserializer.PopulateAllFields(node, this, containingModType);
+        }
 
+        public virtual void ValidateDefField(List<string> errors)
+        {
         }
 
         public override string ToString() => $"<Def {this.GetType().Name}.{this.Id}>";

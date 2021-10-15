@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Data.Serial;
-using OpenNefia.Game;
+﻿using OpenNefia.Game;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace OpenNefia.Core.Data.Serial
     internal static class DefLoader
     {
         private static readonly Dictionary<Type, Dictionary<string, Def>> AllDefs = new Dictionary<Type, Dictionary<string, Def>>();
-        private static readonly List<DefCrossRef> PendingCrossRefs = new List<DefCrossRef>();
+        private static readonly List<IDefCrossRef> PendingCrossRefs = new List<IDefCrossRef>();
 
         internal static Type? GetDirectDefType(Type type)
         {
@@ -41,8 +40,6 @@ namespace OpenNefia.Core.Data.Serial
                 }
                 AllDefs[ty].Add(def.Id, def);
             }
-
-            PendingCrossRefs.AddRange(defSet.CrossRefs);
         }
 
         internal static Def? GetDef(Type defType, string defId)
@@ -66,23 +63,7 @@ namespace OpenNefia.Core.Data.Serial
 
             foreach (var crossRef in PendingCrossRefs)
             {
-                var defType = GetDirectDefType(crossRef.crossRefType);
-                if (defType == null)
-                {
-                    errors.Add($"Type {crossRef.crossRefType} is not a descendent of type that inherits from Def");
-                }
-                else
-                {
-                    var def = GetDef(crossRef.crossRefType, crossRef.crossRefId);
-                    if (def == null)
-                    {
-                        errors.Add($"{crossRef.target}: Could not find def crossreference '{crossRef.crossRefType}.{crossRef.crossRefId}'");
-                    }
-                    else
-                    {
-                        crossRef.targetProperty.SetValue(crossRef.target, def);
-                    }
-                }
+                crossRef.Resolve(errors);
             }
 
             foreach (var (defType, defs) in AllDefs)
@@ -90,11 +71,13 @@ namespace OpenNefia.Core.Data.Serial
                 foreach (var (defId, def) in defs)
                 {
                     def.OnResolveReferences();
-                    def.OnValidate(errors);
+                    def.ValidateDefField(errors);
                 }
             }
 
             CheckErrors(errors, $"Errors resolving crossreferences between defs");
+
+            PendingCrossRefs.Clear();
         }
 
         internal static void LoadAll()
@@ -123,13 +106,20 @@ namespace OpenNefia.Core.Data.Serial
                 }
             }
 
+            PendingCrossRefs.AddRange(deserializer.CrossRefs);
+
             CheckErrors(deserializer.Errors, "Errors loading defs");
 
+            // Add all defs to the database.
             AddDefs();
+
+            // Make sure DefOfEntries classes are populated so they can be used during crossref resolution.
+            PopulateStaticEntries();
+
+            // Resolve dependencies between defs.
             ResolveCrossRefs();
 
             AllDefs.Clear();
-            PendingCrossRefs.Clear();
 
             Logger.Info($"[DefLoader] Finished loading.");
         }

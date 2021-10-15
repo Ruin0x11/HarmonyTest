@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Love;
 using OpenNefia.Core;
 using OpenNefia.Core.Data;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Mod;

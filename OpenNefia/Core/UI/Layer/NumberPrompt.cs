@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -64,8 +63,8 @@ namespace OpenNefia.Core.UI.Layer
         protected AssetDrawable AssetLabelInput;
         protected AssetDrawable AssetArrowLeft;
         protected AssetDrawable AssetArrowRight;
-        protected ColorAsset ColorPromptBackground;
-        protected FontAsset FontPromptText;
+        protected ColorDef ColorPromptBackground;
+        protected FontDef FontPromptText;
 
         public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
         {
@@ -82,8 +81,8 @@ namespace OpenNefia.Core.UI.Layer
             this.AssetLabelInput = new AssetDrawable(AssetDefOf.LabelInput);
             this.AssetArrowLeft = new AssetDrawable(AssetDefOf.ArrowLeft);
             this.AssetArrowRight = new AssetDrawable(AssetDefOf.ArrowRight);
-            this.ColorPromptBackground = ColorAsset.Entries.PromptBackground;
-            this.FontPromptText = FontAsset.Entries.PromptText;
+            this.ColorPromptBackground = ColorDefOf.PromptBackground;
+            this.FontPromptText = FontDefOf.PromptText;
 
             this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Two);
             this.Text = new UiText(this.FontPromptText);

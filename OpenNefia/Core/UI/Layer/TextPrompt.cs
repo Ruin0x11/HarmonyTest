@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
@@ -42,8 +41,8 @@ namespace OpenNefia.Core.UI.Layer
         protected AssetDrawable AssetImeStatusEnglish;
         protected AssetDrawable AssetImeStatusNone;
         protected AssetDrawable AssetInputCaret;
-        protected ColorAsset ColorPromptBackground;
-        protected FontAsset FontPromptText;
+        protected ColorDef ColorPromptBackground;
+        protected FontDef FontPromptText;
 
         public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true)
         {
@@ -61,8 +60,8 @@ namespace OpenNefia.Core.UI.Layer
             this.AssetImeStatusEnglish = new AssetDrawable(AssetDefOf.ImeStatusEnglish);
             this.AssetImeStatusNone = new AssetDrawable(AssetDefOf.ImeStatusNone);
             this.AssetInputCaret = new AssetDrawable(AssetDefOf.InputCaret);
-            this.ColorPromptBackground = ColorAsset.Entries.PromptBackground;
-            this.FontPromptText = FontAsset.Entries.PromptText;
+            this.ColorPromptBackground = ColorDefOf.PromptBackground;
+            this.FontPromptText = FontDefOf.PromptText;
 
             this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Two);
             this.Text = new UiText(this.FontPromptText);

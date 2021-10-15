@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Data.Types.DefOf
+namespace OpenNefia.Core.Data.Types
 {
     [DefOfEntries]
     public static class MusicDefOf

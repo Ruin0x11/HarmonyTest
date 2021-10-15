@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Util;

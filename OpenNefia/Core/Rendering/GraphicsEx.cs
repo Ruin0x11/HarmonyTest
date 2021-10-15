@@ -103,7 +103,7 @@ namespace OpenNefia.Core.Rendering
         }
 
         public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
-        public static void SetColor(ColorAsset color) => SetColor(color.R, color.G, color.B, color.A);
+        public static void SetColor(ColorDef color) => SetColor(color.R, color.G, color.B, color.A);
 
         public static int GetTextWidth(string text)
         {
@@ -115,7 +115,7 @@ namespace OpenNefia.Core.Rendering
             return Love.Graphics.GetFont().GetHeight();
         }
 
-        public enum FontStyle
+        public enum FontAttributes
         {
             None = 0x0,
             Bold = 0x1,
@@ -123,18 +123,25 @@ namespace OpenNefia.Core.Rendering
             Underline = 0x4,
             Strikethrough = 0x8
         }
-        
+
+        public enum FontStyle
+        {
+            Normal,
+            Outlined,
+            Shadowed
+        }
+
         private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
         private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/Font/MS-Gothic.ttf");
 
-        public static void SetFont(int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
+        public static void SetFont(int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
         {
             Love.Graphics.SetFont(GetFont(size, style, fontFilepath));
         }
 
-        public static void SetFont(FontAsset spec, bool noColor = false)
+        public static void SetFont(FontDef spec, bool noColor = false)
         {
-            SetFont(spec.Size, spec.Style, spec.FontFilepath);
+            SetFont(spec.Size, spec.Attributes, spec.FontFilepath);
             if (!noColor)
                 SetColor(spec.Color);
         }
@@ -149,17 +156,17 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
         }
 
-        public static Love.Text NewText(string text, int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
+        public static Love.Text NewText(string text, int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
         {
             return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
         }
 
-        public static Love.Text NewText(string text, FontAsset spec)
+        public static Love.Text NewText(string text, FontDef spec)
         {
-            return NewText(text, spec.Size, spec.Style, spec.FontFilepath);
+            return NewText(text, spec.Size, spec.Attributes, spec.FontFilepath);
         }
 
-        public static Love.Font GetFont(int size, FontStyle style = FontStyle.None, IResourcePath? fontFilepath = null)
+        public static Love.Font GetFont(int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
         {
             if (FontCache.TryGetValue(size, out Love.Font? cachedFont))
             {
@@ -174,9 +181,9 @@ namespace OpenNefia.Core.Rendering
             return font;
         }
 
-        public static Font GetFont(FontAsset spec)
+        public static Font GetFont(FontDef spec)
         {
-            return GetFont(spec.Size, spec.Style, spec.FontFilepath);
+            return GetFont(spec.Size, spec.Attributes, spec.FontFilepath);
         }
 
         /// <summary>
@@ -207,32 +214,6 @@ namespace OpenNefia.Core.Rendering
             {
                 Love.Graphics.SetScissor(x, y, width, height);
             }
-        }
-
-        /// <summary>
-        /// Draws shadowed text.
-        /// 
-        /// NOTE: It's highly recommended to use <see cref="UI.Element.UiShadowedText"/> instead, for performance reasons.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="fgColor"></param>
-        /// <param name="bgColor"></param>
-        public static void DrawTextShadowed(string text, int x, int y, Love.Color? fgColor = null, Love.Color? bgColor = null)
-        {
-            if (fgColor == null)
-                fgColor = Love.Color.White;
-            if (bgColor == null)
-                bgColor = Love.Color.Black;
-
-            GraphicsEx.SetColor(bgColor.Value);
-            for (int dx = -1; dx <= 1; dx++)
-                for (int dy = -1; dy <= 1; dy++)
-                    Love.Graphics.Print(text, x + dx, y + dy);
-
-            GraphicsEx.SetColor(fgColor.Value);
-            Love.Graphics.Print(text, x, y);
         }
 
         public static ICoords GetCoords() => GameWrapper.Instance.State.Coords;
