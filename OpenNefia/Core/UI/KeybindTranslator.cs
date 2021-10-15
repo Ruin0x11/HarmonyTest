@@ -96,7 +96,7 @@ namespace OpenNefia.Core.UI
                 return keybind;
             }
 
-            if (RawKey.AllKeys.Value.TryGetValue(keyAndModifiers, out RawKey? rawKey))
+            if (RawKey.AllKeys.TryGetValue(keyAndModifiers, out RawKey? rawKey))
             {
                 return rawKey;
             }

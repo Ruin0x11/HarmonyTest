@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Element
 
                 case FontStyle.Shadowed:
                     GraphicsEx.SetColor(this.Font.ExtraColors[FontDef.ColorKinds.Background]);
-                    Love.Graphics.Draw(this.BakedText, this.X + -1, this.Y + -1);
+                    Love.Graphics.Draw(this.BakedText, this.X + 1, this.Y + 1);
 
                     GraphicsEx.SetColor(this.Font.Color);
                     Love.Graphics.Draw(this.BakedText, this.X, this.Y);

@@ -72,7 +72,7 @@ namespace OpenNefia.Core.UI
 
         public KeybindDelegateWrapper this[Keys index]
         {
-            get => this[RawKey.AllKeys.Value[index]!];
+            get => this[RawKey.AllKeys[index]!];
             set
             {
             }

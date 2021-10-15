@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThemeDef Id="TestTheme">
+    <Overrides>
+      <AssetDef Id="Core.Window">
+        <Image SourceImagePath="Assets/Graphic_Beautify/interface.bmp" X="0" Y="48" Width="264" Height="192" />
+      </AssetDef>
+      <AssetDef Id="Core.Book">
+        <Image>Assets/Graphic_Beautify/book.bmp</Image>
+      </AssetDef>
+      <TileDef Id="Core.WorldTrees1">
+        <Tile SourceImagePath="Assets/Graphic/map0.bmp" X="192" Y="0" Width="48" Height="48" />
+      </TileDef>
+      <TileDef Id="Core.WorldTrees2">
+        <Tile>Assets/Graphic/chara_0.bmp</Tile>
+      </TileDef>
+      <ChipDef Id="CharaBlank">
+        <Tile SourceImagePath="Assets/Graphic/character.bmp" X="0" Y="0" Width="48" Height="48" />
+      </ChipDef>
+      <ChipDef Id="CharaHumanMale">
+        <Tile>Assets/Graphic/chara_0.bmp</Tile>
+      </ChipDef>
+    </Overrides>
+  </ThemeDef>
+</Defs>

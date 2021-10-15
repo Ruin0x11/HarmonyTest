@@ -10,6 +10,13 @@ namespace OpenNefia.Core.UI
 {
     public record RawKey : IKeybind
     {
+        public static Dictionary<Keys, RawKey> AllKeys;
+
+        static RawKey()
+        {
+            AllKeys = GenerateAllModifierVariants();
+        }
+
         public Keys Key { get; }
 
         public RawKey(Keys key) { this.Key = key; }
@@ -57,7 +64,7 @@ namespace OpenNefia.Core.UI
             return allCombos;
         }
 
-        public static Lazy<Dictionary<Keys, RawKey>> AllKeys = new Lazy<Dictionary<Keys, RawKey>>(() =>
+        private static Dictionary<Keys, RawKey> GenerateAllModifierVariants()
         {
             Logger.Info($"[RawKey] Generating key modifier combinations.");
 
@@ -65,6 +72,6 @@ namespace OpenNefia.Core.UI
                 .Distinct()
                 .SelectMany((k) => GenerateModifierVariants(k))
                 .ToDictionary((k) => k, (k) => new RawKey(k));
-        });
+        }
     }
 }

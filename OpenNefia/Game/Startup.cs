@@ -35,9 +35,6 @@ namespace OpenNefia.Game
             Atlases.Tile = tileAtlas;
 
             InitTileMapping();
-            
-            // Lazy
-            var _ = RawKey.AllKeys.Value;
         }
 
         private static void InitTileMapping()
