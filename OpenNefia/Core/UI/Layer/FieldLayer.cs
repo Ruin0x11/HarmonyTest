@@ -275,8 +275,16 @@ namespace OpenNefia.Core.UI.Layer
                 var mouse = Love.Mouse.GetPosition();
                 var coords = GraphicsEx.GetCoords();
                 coords.ScreenToTile((int)mouse.X - this.X, (int)mouse.Y - this.Y, out var tileX, out var tileY);
-                Map.SetTile(tileX, tileY, PlacingTile);
-                Map.MemorizeTile(tileX, tileY);
+
+                if (Map.GetTile(tileX, tileY) != PlacingTile)
+                {
+                    if (PlacingTile.IsSolid)
+                    {
+                        Gui.PlaySound(SoundDefOf.Offer1);
+                    }
+                    Map.SetTile(tileX, tileY, PlacingTile);
+                    Map.MemorizeTile(tileX, tileY);
+                }
             }
 
             this.Renderer.Update(dt);

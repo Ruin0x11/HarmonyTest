@@ -298,9 +298,10 @@ namespace OpenNefia.Core.Rendering
 
             if (HasOverhang)
             {
-                GraphicsEx.SetScissor(screenX, screenY + YOffset - OVERHANG_HEIGHT, ScreenWidth, OVERHANG_HEIGHT);
+                // BUG: We need a proper C API at this point.
+                //Love.Graphics.SetScissor(screenX, screenY + YOffset - OVERHANG_HEIGHT, ScreenWidth, OVERHANG_HEIGHT);
                 Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - OVERHANG_HEIGHT);
-                GraphicsEx.SetScissor();
+                //Love.Graphics.SetScissor();
             }
         }
     }
