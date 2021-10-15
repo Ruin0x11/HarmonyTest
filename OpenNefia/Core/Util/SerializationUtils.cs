@@ -1,4 +1,4 @@
-﻿using OpenNefia.Game.Serial;
+﻿using OpenNefia.Serial;
 using OpenNefia.Mod;
 using System;
 

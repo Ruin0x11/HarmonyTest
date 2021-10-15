@@ -60,7 +60,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public FieldLayer()
         {
-            Map = new InstancedMap(500, 500, TileDefOf.Carpet5);
+            Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
             Things = new List<Thing>();
@@ -84,14 +84,13 @@ namespace OpenNefia.Core.UI.Layer
             MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
                 Map.TakeObject(new Item(5 + i, 5, ChipDefOf.ItemComputer));
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
                 Map.TakeObject(new Chara(5 + i, 7, ChipDefOf.CharaCat));
 
             Map.ClearMemory(TileDefOf.WallForestFog);
             Map.RefreshVisibility();
-            Camera.CenterOn(player);
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
@@ -188,6 +187,12 @@ namespace OpenNefia.Core.UI.Layer
             base.SetSize(width, height);
             Renderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
+
+            var player = GameWrapper.Instance.State.Player;
+            if (player != null)
+            {
+                Camera.CenterOn(player);
+            }
         }
 
         public override void SetPosition(int x = 0, int y = 0)

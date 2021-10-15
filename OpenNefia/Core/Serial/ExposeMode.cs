@@ -1,9 +1,10 @@
-﻿namespace OpenNefia.Game.Serial
+﻿namespace OpenNefia.Serial
 {
     public enum ExposeMode
     {
         Default,
         Deep,
-        Reference
+        Reference,
+        Def
     }
 }

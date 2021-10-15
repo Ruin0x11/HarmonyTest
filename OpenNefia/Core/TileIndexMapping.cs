@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Game.Serial;
+using OpenNefia.Serial;
 using System.Collections.Generic;
 
 namespace OpenNefia.Core

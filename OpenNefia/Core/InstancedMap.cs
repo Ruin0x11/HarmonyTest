@@ -5,12 +5,12 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.Util;
 using OpenNefia.Game;
-using OpenNefia.Game.Serial;
 using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using OpenNefia.Core.Extensions;
+using OpenNefia.Serial;
 
 namespace OpenNefia.Core
 {
@@ -38,6 +38,8 @@ namespace OpenNefia.Core
         internal bool _RedrawAllThisTurn;
         internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
 
+        public ILocation? ParentLocation => null;
+
         public InstancedMap() : this(1, 1, TileDefOf.MapgenDefault) { }
 
         public InstancedMap(int width, int height) : this(width, height, TileDefOf.MapgenDefault) { }
@@ -54,7 +56,7 @@ namespace OpenNefia.Core
             _LastSightId = 0;
             _ShadowMap = new ShadowMap(this);
             _MapObjectMemory = new MapObjectMemoryStore(this);
-            _Pool = new Pool(_Uid, _Width, _Height);
+            _Pool = new Pool(_Uid, _Width, _Height, this);
 
             _DirtyTilesThisTurn = new HashSet<int>();
             _RedrawAllThisTurn = true;
@@ -268,7 +270,7 @@ namespace OpenNefia.Core
             return GetTile(x, y)! == GetTileMemory(x, y)!;
         }
 
-        public void TakeObject(MapObject obj) => _Pool.TakeObject(obj);
+        public bool TakeObject(MapObject obj) => _Pool.TakeObject(obj);
         public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
         public void ReleaseObject(MapObject obj) => _Pool.ReleaseObject(obj);
         public void SetPosition(MapObject mapObject, int x, int y) => _Pool.SetPosition(mapObject, x, y);

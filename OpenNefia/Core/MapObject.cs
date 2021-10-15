@@ -1,17 +1,19 @@
 ﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
-using OpenNefia.Game.Serial;
+using OpenNefia.Serial;
 
 namespace OpenNefia.Core
 {
-    public abstract class MapObject : IDataExposable, IDataReferenceable
+    public abstract class MapObject : IDataExposable, IDataReferenceable, IRefreshable
     {
         internal int _X;
         internal int _Y;
         internal ulong _Uid;
+
         public int X { get => _X; }
         public int Y { get => _Y; }
         public ulong Uid { get => _Uid; }
+        public Love.Color Color = Love.Color.White;
 
         public MapObject(int x, int y)
         {
@@ -25,6 +27,7 @@ namespace OpenNefia.Core
         public abstract string TypeKey { get; }
 
         internal ILocation? _CurrentLocation;
+        public ILocation? CurrentLocation { get => _CurrentLocation; }
 
         public void SetPosition(int x, int y)
         {
@@ -55,6 +58,7 @@ namespace OpenNefia.Core
             data.ExposeValue(ref _Uid, nameof(Uid));
             data.ExposeValue(ref _X!, nameof(X));
             data.ExposeValue(ref _Y!, nameof(Y));
+            data.ExposeValue(ref Color, nameof(Color));
             data.ExposeValue(ref _Disposed!, nameof(Disposed));
             data.ExposeWeak(ref _CurrentLocation, nameof(_CurrentLocation));
         }

@@ -1,7 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Util;
-using OpenNefia.Game.Serial;
+using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;

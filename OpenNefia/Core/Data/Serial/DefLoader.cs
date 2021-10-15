@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Data.Serial
         private static readonly Dictionary<Type, Dictionary<string, Def>> AllDefs = new Dictionary<Type, Dictionary<string, Def>>();
         private static readonly List<DefCrossRef> PendingCrossRefs = new List<DefCrossRef>();
 
-        private static Type? GetDirectDefType(Type type)
+        internal static Type? GetDirectDefType(Type type)
         {
             if (type.BaseType == typeof(Def))
             {
@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Data.Serial
             PendingCrossRefs.AddRange(defSet.CrossRefs);
         }
 
-        private static Def? GetDef(Type defType, string defId)
+        internal static Def? GetDef(Type defType, string defId)
         {
             var args = new object[] { defId };
             var store = typeof(DefStore<>)!.MakeGenericType(defType)!;

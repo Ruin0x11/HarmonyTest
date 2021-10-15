@@ -1,4 +1,4 @@
-﻿using OpenNefia.Game.Serial;
+﻿using OpenNefia.Serial;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,26 +8,34 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core
 {
-    internal class Pool : ILocation
+    internal sealed class Pool : ILocation
     {
         private ulong _Uid;
         public ulong Uid { get => _Uid; }
         internal int Width;
         internal int Height;
 
+        private ILocation _ParentLocation;
+        public ILocation? ParentLocation { get => _ParentLocation; }
+
         internal List<MapObject> DeepObjects;
         internal HashSet<ulong> ContainedObjectUids;
 
-        public Pool(ulong uid, int width, int height)
+        public Pool(ulong uid, int width, int height, ILocation parent)
         {
             _Uid = uid;
+            _ParentLocation = parent;
             Width = width;
             Height = height;
             DeepObjects = new List<MapObject>();
             ContainedObjectUids = new HashSet<ulong>();
         }
 
-        public void TakeObject(MapObject obj)
+        public Pool(ulong uid, ILocation parent) : this(uid, 1, 1, parent)
+        {
+        }
+
+        public bool TakeObject(MapObject obj)
         {
             if (obj.Disposed)
             {
@@ -36,7 +44,7 @@ namespace OpenNefia.Core
 
             if (ContainedObjectUids.Contains(obj.Uid))
             {
-                return;
+                return false;
             }
 
             if (obj._CurrentLocation != null)
@@ -47,6 +55,8 @@ namespace OpenNefia.Core
             obj._CurrentLocation = this;
             DeepObjects.Add(obj);
             ContainedObjectUids.Add(obj.Uid);
+
+            return true;
         }
 
         public void ReleaseObject(MapObject obj)
@@ -66,6 +76,7 @@ namespace OpenNefia.Core
 
         public void Expose(DataExposer data)
         {
+            data.ExposeWeak(ref _ParentLocation!, nameof(_ParentLocation));
             data.ExposeValue(ref Width, nameof(Width));
             data.ExposeValue(ref Height, nameof(Height));
             data.ExposeValue(ref _Uid, nameof(Uid));

@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Game.Serial;
+using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;

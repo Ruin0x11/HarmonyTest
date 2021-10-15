@@ -1,4 +1,4 @@
-﻿namespace OpenNefia.Game.Serial
+﻿namespace OpenNefia.Serial
 {
     public interface IDataReferenceable
     {

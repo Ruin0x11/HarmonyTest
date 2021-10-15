@@ -1,11 +1,13 @@
 ﻿using fNbt;
+using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Game.Serial
+namespace OpenNefia.Serial
 {
     public class DataExposer
     {
@@ -128,6 +130,14 @@ namespace OpenNefia.Game.Serial
                             ExposeValue(ref rect.Width, "Width");
                             ExposeValue(ref rect.Height, "Height");
                         }
+                        else if (ty == typeof(Love.Color))
+                        {
+                            var color = (Love.Color)Convert.ChangeType(data, typeof(Love.Color))!;
+                            ExposeValue(ref color.r, "r");
+                            ExposeValue(ref color.g, "g");
+                            ExposeValue(ref color.b, "b");
+                            ExposeValue(ref color.a, "a");
+                        }
                         else
                         {
                             throw new Exception($"Cannot serialize value of type {ty.Name}");
@@ -244,6 +254,15 @@ namespace OpenNefia.Game.Serial
                                 ExposeValue(ref rect.Height, "Height");
                                 data = (T)Convert.ChangeType(rect, ty);
                             }
+                            else if (ty == typeof(Love.Color))
+                            {
+                                var color = (Love.Color)Convert.ChangeType(data, typeof(Love.Color))!;
+                                ExposeValue(ref color.r, "r");
+                                ExposeValue(ref color.g, "g");
+                                ExposeValue(ref color.b, "b");
+                                ExposeValue(ref color.a, "a");
+                                data = (T)Convert.ChangeType(color, ty);
+                            }
                             else
                             {
                                 throw new Exception($"Cannot deserialize value of type {ty.Name}");
@@ -332,10 +351,17 @@ namespace OpenNefia.Game.Serial
             var ty = typeof(T);
             if (this.Stage == SerialStage.Saving)
             {
-                if (data != null && typeof(IDataReferenceable).IsAssignableFrom(ty))
+                if (typeof(IDataReferenceable).IsAssignableFrom(ty))
                 {
-                    var index = ((IDataReferenceable)data).GetUniqueIndex();
-                    CurrentCompound.Add(new NbtString(tagName, index));
+                    if (data != null)
+                    {
+                        var index = ((IDataReferenceable)data).GetUniqueIndex();
+                        CurrentCompound.Add(new NbtString(tagName, index));
+                    }
+                }
+                else
+                {
+                    throw new Exception($"{ty} does not implement IDataReferenceable");
                 }
             }
             else if (this.Stage == SerialStage.ResolvingRefs)
@@ -359,18 +385,53 @@ namespace OpenNefia.Game.Serial
             }
         }
 
+        public void ExposeDef<T>(ref T data, string tagName)
+        {
+            NbtCompound defCompound;
+
+            var def = data as Def;
+            var defTypeObj = DefLoader.GetDirectDefType(typeof(T));
+
+            if (def == null || defTypeObj == null)
+            {
+                throw new Exception($"{typeof(T)} is not a subclass of Def");
+            }
+
+            string defId;
+
+            if (this.Stage == SerialStage.Saving)
+            {
+                defCompound = new NbtCompound(tagName);
+                defId = def.Id;
+            }
+            else
+            {
+                defCompound = CurrentCompound.Get<NbtCompound>(tagName)!;
+                defId = string.Empty;
+            }
+
+            EnterCompound(defCompound);
+            ExposeValue(ref defId!, "Id");
+            ExitCompound();
+
+            if (Stage == SerialStage.Saving)
+            {
+                CurrentCompound.Add(defCompound);
+            }
+            else if (Stage == SerialStage.LoadingDeep)
+            {
+                def = DefLoader.GetDef(defTypeObj, defId);
+                if (def == null)
+                {
+                    throw new Exception($"Def {defTypeObj.Name}.{defId} does not exist.");
+                }
+                data = (T)Convert.ChangeType(def, typeof(T));
+            }
+        }
+
         public void ExposeCollection<K, V>(ref Dictionary<K, V> data, string tagName, ExposeMode keyMode = ExposeMode.Default, ExposeMode valueMode = ExposeMode.Default) 
             where K: notnull
         {
-            if (keyMode == ExposeMode.Default)
-            {
-                keyMode = ExposeMode.Deep;
-            }
-            if (valueMode == ExposeMode.Default)
-            {
-                valueMode = ExposeMode.Deep;
-            }
-
             NbtCompound dictCompound;
 
             if (this.Stage == SerialStage.Saving)
@@ -410,11 +471,6 @@ namespace OpenNefia.Game.Serial
 
         public void ExposeCollection<T>(ref T[] data, string tagName, ExposeMode mode = ExposeMode.Default)
         {
-            if (mode == ExposeMode.Default)
-            {
-                mode = ExposeMode.Deep;
-            }
-
             var list = data.ToList();
 
             ExposeCollection(ref list, tagName, mode);
@@ -434,7 +490,14 @@ namespace OpenNefia.Game.Serial
 
             if (mode == ExposeMode.Default)
             {
-                mode = ExposeMode.Deep;
+                if (typeof(Def).IsAssignableFrom(ty))
+                {
+                    mode = ExposeMode.Def;
+                }
+                else
+                {
+                    mode = ExposeMode.Deep;
+                }
             }
 
             if (ty == typeof(byte))
@@ -532,6 +595,26 @@ namespace OpenNefia.Game.Serial
                         {
                             T entry = data[i];
                             this.ExposeWeak(ref entry!, i.ToString());
+                        }
+                    }
+                }
+                else if (mode == ExposeMode.Def)
+                {
+                    if (Stage == SerialStage.LoadingDeep)
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            Def def = new Def("");
+                            this.ExposeDef(ref def!, i.ToString());
+                            data.Add((T)Convert.ChangeType(def, typeof(T)));
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            T entry = data[i];
+                            this.ExposeDef(ref entry!, i.ToString());
                         }
                     }
                 }
