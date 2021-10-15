@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia", "OpenNefia\OpenNefia.csproj", "{BACDA28D-113B-4F8F-9555-35FE72957675}"
-	ProjectSection(ProjectDependencies) = postProject
-		{42E9BE16-29C6-434C-A39F-E351B14E7F41} = {42E9BE16-29C6-434C-A39F-E351B14E7F41}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMod1", "Mods\TestMod1\TestMod1.csproj", "{558D66B0-F4E4-4767-80AC-6DFB24B2186A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		OpenNefia.ruleset = OpenNefia.ruleset
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdinSerializerNetCore", "Thirdparty\OdinSerializer\OdinSerializer\OdinSerializerNetCore.csproj", "{42E9BE16-29C6-434C-A39F-E351B14E7F41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +42,6 @@ Global
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD6D0EA9-4F63-4A5E-B580-F9CD5EDFACE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42E9BE16-29C6-434C-A39F-E351B14E7F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42E9BE16-29C6-434C-A39F-E351B14E7F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42E9BE16-29C6-434C-A39F-E351B14E7F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42E9BE16-29C6-434C-A39F-E351B14E7F41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
