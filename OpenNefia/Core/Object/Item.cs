@@ -49,6 +49,13 @@ namespace OpenNefia.Core.Object
             memory.ScreenYOffset = 0;
         }
 
+        public Chara? GetOwningChara()
+        {
+            return EnumerateParents()
+                .Select(x => (x as ItemInventory)?.ParentObject as Chara)
+                .Where(x => x != null)
+                .FirstOrDefault();
+        }
 
         public bool CanStackWith(Item other)
         {

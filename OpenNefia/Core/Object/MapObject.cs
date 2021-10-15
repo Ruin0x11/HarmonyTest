@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
 using OpenNefia.Serial;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenNefia.Core.Object
 {
@@ -30,7 +32,7 @@ namespace OpenNefia.Core.Object
 
         public void SetPosition(int x, int y)
         {
-            var map = this.CurrentMap;
+            var map = this.GetCurrentMap();
 
             if (map != null && !map.IsInBounds(x, y))
             {
@@ -76,26 +78,29 @@ namespace OpenNefia.Core.Object
 
         public virtual void RefreshTileOnMap()
         {
-            this.CurrentMap?.RefreshTile(this.X, this.Y);
+            this.GetCurrentMap()?.RefreshTile(this.X, this.Y);
         }
 
-        public InstancedMap? CurrentMap
+        public IEnumerable<ILocation> EnumerateParents()
         {
-            get
+            var location = this.CurrentLocation;
+            while (location != null)
             {
-                var location = this.CurrentLocation;
-                while (location != null)
-                {
-                    if (location is InstancedMap)
-                    {
-                        return location as InstancedMap;
-                    }
+                yield return location;
 
-                    location = location.ParentLocation;
-                }
-                return null;
+                location = location.ParentLocation;
             }
         }
+
+        public T? GetFirstParent<T>() where T: class, ILocation
+        {
+            return EnumerateParents()
+                .Where(x => x is T)
+                .Select(x => x as T)
+                .FirstOrDefault();
+        }
+
+        public InstancedMap? GetCurrentMap() => GetFirstParent<InstancedMap>();
 
         public virtual void Expose(DataExposer data)
         {

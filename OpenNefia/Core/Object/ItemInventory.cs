@@ -10,14 +10,15 @@ namespace OpenNefia.Core.Object
     {
         public ValueStat<int> MaxWeight;
 
-        private MapObject ParentObject;
+        private MapObject _ParentObject;
+        public MapObject ParentObject { get => _ParentObject; }
         private Pool _Pool;
 
         public ILocation? ParentLocation { get => ParentObject.CurrentLocation; }
 
         public ItemInventory(MapObject parent)
         {
-            ParentObject = parent;
+            _ParentObject = parent;
             MaxWeight = new ValueStat<int>(0);
             _Pool = new Pool(GameWrapper.Instance.State.UidTracker.GetNextAndIncrement(), this);
         }
@@ -29,7 +30,7 @@ namespace OpenNefia.Core.Object
 
         public void Expose(DataExposer data)
         {
-            data.ExposeWeak(ref ParentObject!, nameof(ParentObject));
+            data.ExposeWeak(ref _ParentObject!, nameof(_ParentObject));
             data.ExposeDeep(ref MaxWeight, nameof(MaxWeight));
             data.ExposeDeep(ref _Pool!, nameof(_Pool));
         }

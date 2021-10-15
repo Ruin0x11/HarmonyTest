@@ -49,7 +49,7 @@ namespace OpenNefia.Core.Object
 
         public bool DropItem(Item item)
         {
-            var map = this.CurrentMap;
+            var map = this.GetCurrentMap();
             if (map == null)
                 return false;
 
