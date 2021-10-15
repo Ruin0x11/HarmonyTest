@@ -32,5 +32,22 @@ namespace OpenNefia.Core.Rendering
             tileX = screenX / Constants.TILE_SIZE;
             tileY = screenY / Constants.TILE_SIZE;
         }
+
+        public void BoundDrawPosition(int screenX, int screenY, int tiledWidth, int tiledHeight, int viewportWidth, int viewportHeight, out int drawX, out int drawY)
+        {
+            var tileSize = Constants.TILE_SIZE;
+
+            var mapScreenWidth = tiledWidth * tileSize;
+            var mapScreenHeight = tiledHeight * tileSize;
+
+            var maxX = mapScreenWidth - viewportWidth;
+            var maxY = mapScreenHeight - viewportHeight;
+
+            var offsetX = Math.Max((viewportWidth - mapScreenWidth / 2), 0);
+            var offsetY = Math.Max((viewportHeight - mapScreenHeight / 2), 0);
+
+            drawX = Math.Clamp(-screenX + viewportWidth / 2, -maxX, 0) + offsetX;
+            drawY = Math.Clamp(-screenY + viewportHeight / 2, -maxY, 0) + offsetY;
+        }
     }
 }

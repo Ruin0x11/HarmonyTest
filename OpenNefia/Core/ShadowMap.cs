@@ -64,6 +64,9 @@ namespace OpenNefia.Core
             var fovRadius = FovRadius.Get(fovSize);
             var radius = fovSize / 2 + 1;
 
+            var fovYStart = playerY - (fovSize / 2);
+            var fovYEnd = playerY + (fovSize / 2);
+
             var cx = playerX - radius;
             var cy = radius - playerY;
 
@@ -88,7 +91,7 @@ namespace OpenNefia.Core
                         {
                             var shadow = true;
 
-                            if (j + cy >= 0 && j + cy < fovSize + 2)
+                            if (fovYStart <= j && j <= fovYEnd)
                             {
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {

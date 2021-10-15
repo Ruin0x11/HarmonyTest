@@ -37,7 +37,8 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
-            Scroller.UpdateParentPosition(this, dt);
+            Scroller.GetPositionDiff(dt, out var dx, out var dy);
+            this.SetPosition(this.X + dx, this.Y + dy);
         }
 
         public override void Draw()

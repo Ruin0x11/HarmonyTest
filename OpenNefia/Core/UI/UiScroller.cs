@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI
             this.Right = (evt.State != KeyPressState.Released);
         }
 
-        public void UpdateParentPosition(IDrawable elem, float dt)
+        public void GetPositionDiff(float dt, out int outDx, out int outDy)
         {
             var dx = 0;
             var dy = 0;
@@ -57,10 +57,9 @@ namespace OpenNefia.Core.UI
 
             var delta = 1000f;
             var amount = (int)(dt * delta);
-            Dx = amount * dx;
-            Dy = amount * dy;
 
-            elem.SetPosition(elem.X + Dx, elem.Y + Dy);
+            outDx = amount * dx;
+            outDy = amount * dy;
         }
     }
 }

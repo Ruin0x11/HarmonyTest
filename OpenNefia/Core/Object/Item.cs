@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
-    public sealed class CharaObject : MapObject
+    public sealed class Item : MapObject
     {
         public Stat<ChipDef> Chip;
 
-        public CharaObject(int x, int y, ChipDef chip) : base(x, y)
+        public Item(int x, int y, ChipDef chip) : base(x, y)
         {
             Chip = new Stat<ChipDef>(chip);
         }
 
-        public override string TypeKey => "Chara";
+        public override string TypeKey => "Item";
 
         public override void Refresh()
         {

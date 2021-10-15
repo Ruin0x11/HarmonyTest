@@ -85,7 +85,6 @@ namespace OpenNefia.Core
             for (int i = 0; i < _TileMemoryInds.Length; i++)
             {
                 _TileMemoryInds[i] = _TileInds[i];
-                _MapObjectMemory.RevealObjects(i);
                 _InSight[i] = _LastSightId;
             }
             this._RedrawAllThisTurn = true;
@@ -106,7 +105,7 @@ namespace OpenNefia.Core
         private bool ShouldShowMemory(MapObjectMemory memory)
         {
             // TODO
-            return memory.TypeKey != "Chara" && false;
+            return memory.TypeKey != "Chara";
         }
 
         public void Redraw()

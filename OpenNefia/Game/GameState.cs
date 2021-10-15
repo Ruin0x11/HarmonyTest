@@ -19,7 +19,7 @@ namespace OpenNefia.Game
         internal UidTracker UidTracker;
         internal TileIndexMapping TileIndexMapping;
         internal ICoords Coords;
-        internal CharaObject? Player;
+        internal Chara? Player;
 
         public GameState()
         {

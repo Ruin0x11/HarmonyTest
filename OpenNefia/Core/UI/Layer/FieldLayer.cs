@@ -11,11 +11,42 @@ using System.Linq;
 
 namespace OpenNefia.Core.UI.Layer
 {
+    internal class Camera
+    {
+        private InstancedMap Map;
+        private IDrawable Parent;
+        private int _ScreenX;
+        private int _ScreenY;
+        public int ScreenX { get => _ScreenX; }
+        public int ScreenY { get => _ScreenY; }
+
+        public Camera(InstancedMap map, IDrawable parent)
+        {
+            Map = map;
+            Parent = parent;
+            _ScreenX = 0;
+            _ScreenY = 0;
+        }
+
+        public void CenterOn(int sx, int sy)
+        {
+            var coords = GraphicsEx.GetCoords();
+            coords.BoundDrawPosition(sx, sy, this.Map.Width, this.Map.Height, this.Parent.Width, this.Parent.Height, out _ScreenX, out _ScreenY);
+        }
+
+        public void CenterOn(MapObject obj)
+        {
+            obj.GetScreenPos(out var sx, out var sy);
+            CenterOn(sx, sy);
+        }
+    }
+
     public class FieldLayer : BaseUiLayer<string>
     {
         public InstancedMap Map { get; private set; }
 
         private UiScroller Scroller;
+        private Camera Camera;
         private MapRenderer Renderer;
         private UiFpsCounter FpsCounter;
 
@@ -31,6 +62,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             Map = new InstancedMap(500, 500, TileDefOf.Carpet5);
             Scroller = new UiScroller();
+            Camera = new Camera(this.Map, this);
             Things = new List<Thing>();
             FontText = FontAsset.Entries.WindowTitle;
 
@@ -43,7 +75,7 @@ namespace OpenNefia.Core.UI.Layer
                 x += 1;
             }
 
-            var player = new CharaObject(2, 2, ChipDefOf.CharaChicken);
+            var player = new Chara(2, 2, ChipDefOf.CharaChicken);
             Map.TakeObject(player);
             GameWrapper.Instance.State.Player = player;
 
@@ -52,13 +84,14 @@ namespace OpenNefia.Core.UI.Layer
             MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
 
-            for (int i = 0; i < 1; i++)
-                Map.TakeObject(new ItemObject(5 + i, 5, ChipDefOf.ItemComputer));
-            for (int i = 0; i < 1; i++)
-                Map.TakeObject(new CharaObject(5 + i, 7, ChipDefOf.CharaCat));
+            for (int i = 0; i < 100; i++)
+                Map.TakeObject(new Item(5 + i, 5, ChipDefOf.ItemComputer));
+            for (int i = 0; i < 100; i++)
+                Map.TakeObject(new Chara(5 + i, 7, ChipDefOf.CharaCat));
 
-            Map.MemorizeAll();
+            Map.ClearMemory(TileDefOf.WallForestFog);
             Map.RefreshVisibility();
+            Camera.CenterOn(player);
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
@@ -100,8 +133,12 @@ namespace OpenNefia.Core.UI.Layer
         {
             var player = GameWrapper.Instance.State.Player;
 
-            player?.SetPosition(player.X + dx, player.Y + dy);
-            Map.RefreshVisibility();
+            if (player != null)
+            {
+                player.SetPosition(player.X + dx, player.Y + dy);
+                Camera.CenterOn(player);
+                Map.RefreshVisibility();
+            }
         }
 
         private void PlaceTile(MouseButtonEvent evt)
@@ -182,7 +219,9 @@ namespace OpenNefia.Core.UI.Layer
                 this.Renderer.RefreshAllLayers();
             }
 
-            this.Scroller.UpdateParentPosition(this, dt);
+            this.Scroller.GetPositionDiff(dt, out var dx, out var dy);
+
+            this.SetPosition(Camera.ScreenX, Camera.ScreenY);
 
             if (PlacingTile != null)
             {
