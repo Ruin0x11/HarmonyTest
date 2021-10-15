@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Object
         {
             data.ExposeWeak(ref ParentObject!, nameof(ParentObject));
             data.ExposeDeep(ref MaxWeight, nameof(MaxWeight));
-            data.ExposeDeep(ref _Pool, nameof(_Pool));
+            data.ExposeDeep(ref _Pool!, nameof(_Pool));
         }
 
         public string GetUniqueIndex() => $"{nameof(ItemInventory)}_{_Pool.Uid}";

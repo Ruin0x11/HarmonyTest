@@ -287,34 +287,38 @@ namespace OpenNefia.Serial
             }
         }
 
-        public void ExposeDeep<T>(ref T data, string name)
+        public void ExposeDeep<T>(ref T data, string name, params object[] ctorParams)
         {
             var ty = typeof(T);
 
             if (this.Stage == SerialStage.Saving)
             {
-                if (data != null)
+                if (typeof(IDataExposable).IsAssignableFrom(ty))
                 {
-                    if (typeof(IDataExposable).IsAssignableFrom(ty))
-                    {
-                        var comp = new NbtCompound(name);
-                        EnterCompound(comp);
-                        ((IDataExposable)data).Expose(this);
-                        ExitCompound();
-                        CurrentCompound.Add(comp);
+                    var comp = new NbtCompound(name);
+                    EnterCompound(comp);
 
-                        if (typeof(IDataReferenceable).IsAssignableFrom(ty))
-                        {
-                            var index = ((IDataReferenceable)data).GetUniqueIndex();
-                            if (FoundRefs.ContainsKey(index))
-                                Errors.Add($"Overwriting existing deep saved compound '{index}' (of type '{ty.Name}')");
-                            FoundRefs[index] = data;
-                        }
-                    }
-                    else
+                    if (data!.GetType() != ty || ty.IsGenericTypeDefinition)
                     {
-                        ExposeValue<T>(ref data!, name);
+                        comp.Add(new NbtString("@Class", data.GetType().FullName));
                     }
+
+                    ((IDataExposable)data).Expose(this);
+
+                    if (typeof(IDataReferenceable).IsAssignableFrom(ty))
+                    {
+                        var index = ((IDataReferenceable)data).GetUniqueIndex();
+                        if (FoundRefs.ContainsKey(index))
+                            Errors.Add($"Overwriting existing deep saved compound '{index}' (of type '{ty.Name}')");
+                        FoundRefs[index] = data;
+                    }
+
+                    ExitCompound();
+                    CurrentCompound.Add(comp);
+                }
+                else
+                {
+                    ExposeValue<T>(ref data!, name);
                 }
             }
             else if (this.Stage == SerialStage.LoadingDeep | this.Stage == SerialStage.ResolvingRefs)
@@ -324,7 +328,18 @@ namespace OpenNefia.Serial
                     var compound = CurrentCompound.Get<NbtCompound>(name)!;
                     if (EnterCompound(compound))
                     {
-                        ((IDataExposable)data!).Expose(this);
+                        if (data == null)
+                        {
+                            var instantiateType = ty;
+                            var className = compound.Get<NbtString>("@Class");
+                            if (className != null)
+                            {
+                            }
+                            Console.WriteLine($"Instantiate class: {instantiateType}");
+                            data = (T)Activator.CreateInstance(instantiateType, ctorParams)!;
+                        }
+
+                        ((IDataExposable)data).Expose(this);
 
                         if (this.Stage == SerialStage.LoadingDeep && typeof(IDataReferenceable).IsAssignableFrom(ty))
                         {
@@ -451,8 +466,8 @@ namespace OpenNefia.Serial
             var valueList = data.Values.ToList();
 
             EnterCompound(dictCompound);
-            ExposeCollection(ref keyList, "Keys", keyMode);
-            ExposeCollection(ref valueList, "Values", valueMode);
+            ExposeCollection(ref keyList, "@Keys", keyMode);
+            ExposeCollection(ref valueList, "@Values", valueMode);
             ExitCompound();
 
             if (Stage == SerialStage.Saving)
@@ -556,7 +571,7 @@ namespace OpenNefia.Serial
                 this.EnterCompound(listCompound);
 
                 var count = data.Count;
-                ExposeValue(ref count, "Count");
+                ExposeValue(ref count, "@Count");
 
                 if (mode == ExposeMode.Deep)
                 {
@@ -564,7 +579,7 @@ namespace OpenNefia.Serial
                     {
                         for (int i = 0; i < count; i++)
                         {
-                            T entry = CreateDefault<T>();
+                            T entry = default(T)!;
                             this.ExposeDeep(ref entry!, i.ToString());
                             data.Add(entry);
                         }
@@ -584,7 +599,7 @@ namespace OpenNefia.Serial
                     {
                         for (int i = 0; i < count; i++)
                         {
-                            T entry = CreateDefault<T>();
+                            T entry = default(T)!;
                             this.ExposeWeak(ref entry!, i.ToString());
                             data.Add(entry);
                         }
@@ -630,6 +645,11 @@ namespace OpenNefia.Serial
 
         private T CreateDefault<T>()
         {
+            if (typeof(T).IsAbstract)
+            {
+                throw new Exception($"Can't instantiate abstract class '{typeof(T)}'");
+            }
+
             if (typeof(T) == typeof(string))
             {
                 return (T)Convert.ChangeType(string.Empty, typeof(string));
