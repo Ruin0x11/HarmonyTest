@@ -74,6 +74,7 @@ namespace OpenNefia.Core.Object
         {
             var newObject = (MapObject)this.MemberwiseClone();
             newObject._CurrentLocation = null;
+            newObject._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
             return newObject;
         }
     }

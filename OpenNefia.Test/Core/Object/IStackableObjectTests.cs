@@ -100,6 +100,7 @@ namespace OpenNefia.Test.Core.Object
             Assert.AreEqual(6, item1.Amount);
             Assert.IsNull(separated.CurrentLocation);
             Assert.IsNotNull(item1.CurrentLocation);
+            Assert.AreNotEqual(item1.Uid, separated.Uid);
         }
 
         [Test]
