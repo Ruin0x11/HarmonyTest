@@ -15,10 +15,9 @@ namespace OpenNefia.Core.Object
         public ulong Uid { get => _Uid; }
         public Love.Color Color = Love.Color.White;
 
-        public MapObject(int x, int y)
+        public MapObject()
         {
             this._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
-            this.SetPosition(x, y);
         }
 
         private bool _Disposed = false;
@@ -31,9 +30,26 @@ namespace OpenNefia.Core.Object
 
         public void SetPosition(int x, int y)
         {
+            var map = this.CurrentMap;
+
+            if (map != null && !map.IsInBounds(x, y))
+            {
+                return;
+            }
+
+            var oldX = this._X;
+            var oldY = this._Y;
+
             this._X = x;
             this._Y = y;
+            
             this._CurrentLocation?.SetPosition(this, x, y);
+
+            if (map != null)
+            {
+                map.RefreshTile(oldX, oldY);
+                map.RefreshTile(x, y);
+            }
         }
 
         public void ReleaseOwnership()
@@ -57,6 +73,29 @@ namespace OpenNefia.Core.Object
         public abstract void ProduceMemory(MapObjectMemory memory);
 
         public abstract void Refresh();
+
+        public virtual void RefreshTileOnMap()
+        {
+            this.CurrentMap?.RefreshTile(this.X, this.Y);
+        }
+
+        public InstancedMap? CurrentMap
+        {
+            get
+            {
+                var location = this.CurrentLocation;
+                while (location != null)
+                {
+                    if (location is InstancedMap)
+                    {
+                        return location as InstancedMap;
+                    }
+
+                    location = location.ParentLocation;
+                }
+                return null;
+            }
+        }
 
         public virtual void Expose(DataExposer data)
         {

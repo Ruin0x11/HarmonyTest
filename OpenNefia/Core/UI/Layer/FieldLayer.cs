@@ -75,8 +75,8 @@ namespace OpenNefia.Core.UI.Layer
                 x += 1;
             }
 
-            var player = new Chara(2, 2, ChipDefOf.CharaChicken);
-            Map.TakeObject(player);
+            var player = new Chara(ChipDefOf.CharaChicken);
+            Map.TakeObject(player, 2, 2);
             GameWrapper.Instance.State.Player = player;
 
             MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
@@ -85,9 +85,9 @@ namespace OpenNefia.Core.UI.Layer
             MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
 
             for (int i = 0; i < 10; i++)
-                Map.TakeObject(new Item(5 + i, 5, ChipDefOf.ItemComputer));
+                Map.TakeObject(new Item(ChipDefOf.ItemComputer), 5 + i, 5);
             for (int i = 0; i < 10; i++)
-                Map.TakeObject(new Chara(5 + i, 7, ChipDefOf.CharaCat));
+                Map.TakeObject(new Chara(ChipDefOf.CharaCat), 5 + i, 7);
 
             Map.ClearMemory(TileDefOf.WallForestFog);
             Map.RefreshVisibility();
@@ -110,10 +110,12 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.SaveLoad();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
-            this.Keybinds[Keys.W] += (_) => this.MovePlayer(0, -1);
-            this.Keybinds[Keys.A] += (_) => this.MovePlayer(-1, 0);
-            this.Keybinds[Keys.S] += (_) => this.MovePlayer(0, 1);
-            this.Keybinds[Keys.D] += (_) => this.MovePlayer(1, 0);
+            this.Keybinds[Keybind.Entries.North] += (_) => this.MovePlayer(0, -1);
+            this.Keybinds[Keybind.Entries.South] += (_) => this.MovePlayer(0, 1);
+            this.Keybinds[Keybind.Entries.West] += (_) => this.MovePlayer(-1, 0);
+            this.Keybinds[Keybind.Entries.East] += (_) => this.MovePlayer(1, 0);
+            this.Keybinds[Keys.G] += (_) => this.GetItem();
+            this.Keybinds[Keys.D] += (_) => this.DropItem();
             this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
             this.Scroller.BindKeys(this);
@@ -137,6 +139,46 @@ namespace OpenNefia.Core.UI.Layer
                 player.SetPosition(player.X + dx, player.Y + dy);
                 Camera.CenterOn(player);
                 Map.RefreshVisibility();
+            }
+        }
+
+        private void GetItem()
+        {
+            var player = GameWrapper.Instance.State.Player;
+
+            if (player != null)
+            {
+                var item = Map.At<Item>(player.X, player.Y).FirstOrDefault();
+
+                if (item != null && player.TakeItem(item))
+                {
+                    Gui.PlaySound(SoundDefOf.Get1);
+
+                    if (item.StackAll())
+                    {
+                        Gui.PlaySound(SoundDefOf.Heal1);
+                    }
+                }
+            }
+        }
+
+        private void DropItem()
+        {
+            var player = GameWrapper.Instance.State.Player;
+
+            if (player != null)
+            {
+                var item = player.Inventory.EnumerateType<Item>().FirstOrDefault();
+
+                if (item != null && player.DropItem(item))
+                {
+                    Gui.PlaySound(SoundDefOf.Drop1);
+
+                    if (item.StackAll())
+                    {
+                        Gui.PlaySound(SoundDefOf.AtkChaos);
+                    }
+                }
             }
         }
 

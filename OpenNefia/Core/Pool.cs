@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core
 {
-    internal sealed class Pool : ILocation
+    public sealed class Pool : ILocation
     {
         private ulong _Uid;
         public ulong Uid { get => _Uid; }
@@ -36,7 +36,7 @@ namespace OpenNefia.Core
         {
         }
 
-        public bool TakeObject(MapObject obj)
+        public bool TakeObject(MapObject obj, int x, int y)
         {
             if (obj.Disposed)
             {
@@ -53,6 +53,8 @@ namespace OpenNefia.Core
                 obj._CurrentLocation.ReleaseObject(obj);
             }
 
+            obj._X = x;
+            obj._Y = y;
             obj._CurrentLocation = this;
             DeepObjects.Add(obj);
             ContainedObjectUids.Add(obj.Uid);
@@ -65,6 +67,7 @@ namespace OpenNefia.Core
             if (!ContainedObjectUids.Contains(obj.Uid))
                 throw new Exception($"Object {obj} not managed by pool {this}");
 
+            obj.RefreshTileOnMap();
             DeepObjects.Remove(obj);
             ContainedObjectUids.Remove(obj.Uid);
             obj._CurrentLocation = null;
@@ -75,7 +78,10 @@ namespace OpenNefia.Core
             return ContainedObjectUids.Contains(obj.Uid);
         }
 
-        public bool CanReceiveObject(MapObject obj) => true;
+        public bool CanReceiveObject(MapObject obj, int x, int y)
+        {
+            return !HasObject(obj) && x >= 0 && y >= 0 && x < Width && y < Height;
+        }
 
         public void Expose(DataExposer data)
         {
@@ -110,6 +116,10 @@ namespace OpenNefia.Core
                 }
             }
         }
+
+        public IEnumerable<T> At<T>(int x, int y) where T : MapObject => At(x, y).Where(x => x is T).Select(x => (x as T)!);
+
+        public IEnumerable<T> EnumerateType<T>() where T : MapObject => this.Where(x => x is T).Select(x => (x as T)!);
 
         public IEnumerator<MapObject> GetEnumerator() => DeepObjects.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => DeepObjects.GetEnumerator();

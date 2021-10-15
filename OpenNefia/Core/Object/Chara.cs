@@ -18,18 +18,18 @@ namespace OpenNefia.Core.Object
         private ItemInventory _Inventory;
         public ItemInventory Inventory { get => _Inventory; }
 
-        public Chara(int x, int y, ChipDef chip) : base(x, y)
+        public Chara(ChipDef chip) : base()
         {
             Chip = new DefStat<ChipDef>(chip);
             _Inventory = new ItemInventory(this);
 
-            Inventory.TakeObject(new Item(0, 0, ChipDefOf.ItemPutitoro));
-            Inventory.TakeObject(new Item(0, 0, ChipDefOf.ItemPutitoro));
-            Inventory.TakeObject(new Item(0, 0, ChipDefOf.ItemPutitoro));
+            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
+            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
+            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
         }
 
 #pragma warning disable CS8618
-        private Chara() : base(0, 0) { }
+        private Chara() : base() { }
 #pragma warning restore CS8618
 
         public override string TypeKey => "Chara";
@@ -37,6 +37,26 @@ namespace OpenNefia.Core.Object
         public override void Refresh()
         {
             Chip.Refresh();
+        }
+
+        public bool TakeItem(Item item)
+        {
+            if (!this.Inventory.CanReceiveObject(item))
+                return false;
+
+            return this.Inventory.TakeObject(item);
+        }
+
+        public bool DropItem(Item item)
+        {
+            var map = this.CurrentMap;
+            if (map == null)
+                return false;
+
+            if (!this.Inventory.HasObject(item))
+                return false;
+
+            return map.TakeObject(item, this.X, this.Y);
         }
 
         public override void Expose(DataExposer data)

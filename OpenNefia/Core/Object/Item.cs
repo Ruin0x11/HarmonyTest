@@ -15,13 +15,13 @@ namespace OpenNefia.Core.Object
     {
         public DefStat<ChipDef> Chip;
 
-        public Item(int x, int y, ChipDef chip) : base(x, y)
+        public Item(ChipDef chip) : base()
         {
             Chip = new DefStat<ChipDef>(chip);
         }
 
 #pragma warning disable CS8618
-        private Item() : base(0, 0) { }
+        private Item() : base() { }
 #pragma warning restore CS8618
 
         public override string TypeKey => "Item";
@@ -106,7 +106,7 @@ namespace OpenNefia.Core.Object
             foreach (var obj in this.CurrentLocation!)
             {
                 var item = obj as Item;
-                if (item != null && this.CanStackWith(item))
+                if (item != null && item.X == this.X && item.Y == this.Y && this.CanStackWith(item))
                 {
                     toStack.Add(item);
                 }

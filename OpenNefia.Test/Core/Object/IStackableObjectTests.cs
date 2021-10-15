@@ -15,7 +15,7 @@ namespace OpenNefia.Test.Core.Object
         public void TestCanStackWithSelf()
         {
             var chipDef = new ChipDef("Test");
-            var item1 = new Item(0, 0, chipDef);
+            var item1 = new Item(chipDef);
             Assert.IsFalse(item1.CanStackWith(item1));
         }
 
@@ -23,8 +23,8 @@ namespace OpenNefia.Test.Core.Object
         public void TestCanStackWithOther()
         {
             var chipDef = new ChipDef("Test");
-            var item1 = new Item(0, 0, chipDef);
-            var item2 = new Item(1, 1, chipDef);
+            var item1 = new Item(chipDef);
+            var item2 = new Item(chipDef);
             Assert.IsTrue(item1.CanStackWith(item2));
             Assert.IsTrue(item2.CanStackWith(item1));
         }
@@ -33,8 +33,8 @@ namespace OpenNefia.Test.Core.Object
         public void TestCanStackWithDisposed()
         {
             var chipDef = new ChipDef("Test");
-            var item1 = new Item(0, 0, chipDef);
-            var item2 = new Item(1, 1, chipDef);
+            var item1 = new Item(chipDef);
+            var item2 = new Item(chipDef);
             item2.Dispose();
             Assert.IsFalse(item1.CanStackWith(item2));
             Assert.IsFalse(item2.CanStackWith(item1));
@@ -46,8 +46,8 @@ namespace OpenNefia.Test.Core.Object
             var chipDef1 = new ChipDef("Test1");
             var chipDef2 = new ChipDef("Test2");
 
-            var item1 = new Item(0, 0, chipDef1);
-            var item2 = new Item(1, 1, chipDef2);
+            var item1 = new Item(chipDef1);
+            var item2 = new Item(chipDef2);
 
             Assert.IsFalse(item1.CanStackWith(item2));
             Assert.IsFalse(item2.CanStackWith(item1));
@@ -58,7 +58,7 @@ namespace OpenNefia.Test.Core.Object
         {
             var chipDef1 = new ChipDef("Test1");
 
-            var item1 = new Item(0, 0, chipDef1);
+            var item1 = new Item(chipDef1);
             item1.Amount = 10;
 
             Item? separated;
@@ -72,7 +72,7 @@ namespace OpenNefia.Test.Core.Object
         {
             var chipDef1 = new ChipDef("Test1");
 
-            var item1 = new Item(0, 0, chipDef1);
+            var item1 = new Item(chipDef1);
             item1.Amount = 10;
 
             Item? separated;
@@ -86,8 +86,8 @@ namespace OpenNefia.Test.Core.Object
         public void TestSeparate()
         {
             var chipDef1 = new ChipDef("Test1");
-            var parent = new Chara(0, 0, chipDef1);
-            var item1 = new Item(0, 0, chipDef1);
+            var parent = new Chara(chipDef1);
+            var item1 = new Item(chipDef1);
             item1.Amount = 10;
 
             parent.Inventory.TakeObject(item1);
@@ -107,7 +107,7 @@ namespace OpenNefia.Test.Core.Object
         public void TestStackWithSame()
         {
             var chipDef1 = new ChipDef("Test1");
-            var item1 = new Item(0, 0, chipDef1);
+            var item1 = new Item(chipDef1);
 
             Assert.IsFalse(item1.StackWith(item1));
         }
@@ -116,8 +116,8 @@ namespace OpenNefia.Test.Core.Object
         public void TestStackWith()
         {
             var chipDef1 = new ChipDef("Test1");
-            var item1 = new Item(0, 0, chipDef1);
-            var item2 = new Item(0, 0, chipDef1);
+            var item1 = new Item(chipDef1);
+            var item2 = new Item(chipDef1);
             item1.Amount = 5;
             item2.Amount = 8;
 
@@ -135,10 +135,10 @@ namespace OpenNefia.Test.Core.Object
         {
             var chipDef1 = new ChipDef("Test1");
             var chipDef2 = new ChipDef("Test2");
-            var item1 = new Item(0, 0, chipDef1);
-            var item2 = new Item(0, 0, chipDef1);
-            var item3 = new Item(0, 0, chipDef2);
-            var parent = new Chara(0, 0, chipDef1);
+            var item1 = new Item(chipDef1);
+            var item2 = new Item( chipDef1);
+            var item3 = new Item(chipDef2);
+            var parent = new Chara(chipDef1);
 
             parent.Inventory.TakeObject(item1);
             parent.Inventory.TakeObject(item2);

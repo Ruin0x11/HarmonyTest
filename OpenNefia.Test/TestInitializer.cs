@@ -1,7 +1,5 @@
 ﻿using System;
 using Love;
-using Love.Fakes;
-using Microsoft.QualityTools.Testing.Fakes;
 using NUnit.Framework;
 
 [SetUpFixture]

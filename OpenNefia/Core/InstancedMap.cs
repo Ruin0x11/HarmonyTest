@@ -64,6 +64,11 @@ namespace OpenNefia.Core
             ClearMemory(defaultTile);
         }
 
+        public void RefreshTile(int x, int y)
+        {
+            this._DirtyTilesThisTurn.Add(x + y * Height);
+        }
+
         public void Clear(TileDef tile)
         {
             for (int i = 0; i < _TileInds.Length; i++)
@@ -283,12 +288,14 @@ namespace OpenNefia.Core
             return GetTile(x, y)! == GetTileMemory(x, y)!;
         }
 
-        public bool TakeObject(MapObject obj) => _Pool.TakeObject(obj);
+        public bool TakeObject(MapObject obj, int x, int y) => _Pool.TakeObject(obj, x, y);
         public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
         public void ReleaseObject(MapObject obj) => _Pool.ReleaseObject(obj);
-        public bool CanReceiveObject(MapObject obj) => true;
+        public bool CanReceiveObject(MapObject obj, int x, int y) => _Pool.CanReceiveObject(obj, x, y);
         public void SetPosition(MapObject mapObject, int x, int y) => _Pool.SetPosition(mapObject, x, y);
         public IEnumerable<MapObject> At(int x, int y) => _Pool.At(x, y);
+        public IEnumerable<T> At<T>(int x, int y) where T : MapObject => _Pool.At<T>(x, y);
+        public IEnumerable<T> EnumerateType<T>() where T : MapObject => _Pool.EnumerateType<T>();
         public IEnumerator<MapObject> GetEnumerator() => _Pool.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _Pool.GetEnumerator();
 
