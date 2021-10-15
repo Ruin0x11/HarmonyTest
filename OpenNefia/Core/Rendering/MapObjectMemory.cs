@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Serial;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace OpenNefia.Core.Rendering
         Removed
     }
 
-    public class MapObjectMemory
+    public class MapObjectMemory : IDataExposable
     {
         public ulong ObjectUid;
         public bool IsVisible;
@@ -37,5 +38,24 @@ namespace OpenNefia.Core.Rendering
         internal int ZOrder;
         internal MemoryState State;
         internal string TypeKey = string.Empty;
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeValue(ref ObjectUid, nameof(ObjectUid));
+            data.ExposeValue(ref IsVisible, nameof(IsVisible));
+            data.ExposeValue(ref ChipIndex!, nameof(ChipIndex));
+            data.ExposeValue(ref ScreenXOffset, nameof(ScreenXOffset));
+            data.ExposeValue(ref ScreenYOffset, nameof(ScreenYOffset));
+            data.ExposeValue(ref Rotation, nameof(Rotation));
+            data.ExposeValue(ref Color, nameof(Color));
+            data.ExposeValue(ref ShadowType, nameof(ShadowType));
+
+            data.ExposeValue(ref Index, nameof(Index));
+            data.ExposeValue(ref TileX, nameof(TileX));
+            data.ExposeValue(ref TileY, nameof(TileY));
+            data.ExposeValue(ref ZOrder, nameof(ZOrder));
+            data.ExposeValue(ref State, nameof(State));
+            data.ExposeValue(ref TypeKey!, nameof(TypeKey));
+        }
     }
 }

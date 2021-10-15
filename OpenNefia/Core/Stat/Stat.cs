@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stat
 {
-    public struct Stat<T> : IRefreshable, IDataExposable where T: IDataExposable
+    public class Stat<T> : IRefreshable, IDataExposable where T: IDataExposable
     {
         public T FinalValue;
         public T BaseValue;
+
+        public Stat() : this(default(T)!) { }
 
         public Stat(T Value)
         {

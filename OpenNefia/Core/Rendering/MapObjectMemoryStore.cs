@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Serial;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal class MapObjectMemoryStore : IEnumerable<MapObjectMemory>
+    internal class MapObjectMemoryStore : IEnumerable<MapObjectMemory>, IDataExposable
     {
         private InstancedMap Map;
         internal int CurrentIndex;
@@ -24,6 +25,34 @@ namespace OpenNefia.Core.Rendering
             this.Positional = new List<MapObjectMemory>?[map.Width * map.Height];
             this.Added = new HashSet<MapObjectMemory>();
             this.Removed = new Stack<MapObjectMemory>();
+        }
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeWeak(ref Map!, nameof(Map));
+            data.ExposeValue(ref CurrentIndex, nameof(CurrentIndex));
+            data.ExposeCollection(ref AllMemory, nameof(AllMemory), ExposeMode.Deep, ExposeMode.Deep);
+
+            if (data.Stage == SerialStage.ResolvingRefs)
+            {
+                Added.Clear();
+                Removed.Clear();
+                Positional = new List<MapObjectMemory>?[Map.Width * Map.Height];
+
+                foreach (var memory in AllMemory.Values)
+                {
+                    var index = memory.TileX + Map.Width * memory.TileY;
+                    var at = Positional[index];
+
+                    if (at == null)
+                    {
+                        at = new List<MapObjectMemory>();
+                        Positional[index] = at;
+                    }
+
+                    at.Add(memory);
+                }
+            }
         }
 
         public IEnumerator<MapObjectMemory> GetEnumerator() => AllMemory.Values.GetEnumerator();

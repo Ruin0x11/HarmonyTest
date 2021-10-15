@@ -4,6 +4,7 @@ using OpenNefia.Core.Data.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,183 +68,65 @@ namespace OpenNefia.Serial
             if (this.Stage == SerialStage.Saving)
             {
                 var ty = typeof(T);
-
-                switch (Type.GetTypeCode(ty))
+                if (ty.IsEnum)
                 {
-                    case TypeCode.Boolean:
-                    case TypeCode.Char:
-                    case TypeCode.Byte:
-                    case TypeCode.SByte:
-                        CurrentCompound.Add(new NbtByte(name, (byte)Convert.ChangeType(data, typeof(byte))!));
-                        break;
-                    case TypeCode.Int16:
-                    case TypeCode.UInt16:
-                        CurrentCompound.Add(new NbtShort(name, (short)Convert.ChangeType(data, typeof(short))!));
-                        break;
-                    case TypeCode.Int32:
-                    case TypeCode.UInt32:
-                        CurrentCompound.Add(new NbtInt(name, (int)Convert.ChangeType(data, typeof(int))!));
-                        break;
-                    case TypeCode.Int64:
-                    case TypeCode.UInt64:
-                        CurrentCompound.Add(new NbtLong(name, (long)Convert.ChangeType(data, typeof(long))!));
-                        break;
-                    case TypeCode.Single:
-                        CurrentCompound.Add(new NbtFloat(name, (float)Convert.ChangeType(data, typeof(float))!));
-                        break;
-                    case TypeCode.Double:
-                        CurrentCompound.Add(new NbtDouble(name, (double)Convert.ChangeType(data, typeof(double))!));
-                        break;
-                    case TypeCode.String:
-                        CurrentCompound.Add(new NbtString(name, (string)Convert.ChangeType(data, typeof(string))!));
-                        break;
-
-                    case TypeCode.Object:
-                        var comp = new NbtCompound(name);
-                        EnterCompound(comp);
-
-                        if (ty == typeof(Love.Quad))
-                        {
-                            var quad = (data as Love.Quad)!;
-                            var viewport = quad.GetViewport();
-                            var textureDimensions = quad.GetTextureDimensions();
-                            ExposeValue(ref viewport, "Viewport");
-                            ExposeValue(ref textureDimensions, "TextureDimensions");
-                        }
-                        else if (ty == typeof(Love.Point))
-                        {
-                            var point = (Love.Point)Convert.ChangeType(data, typeof(Love.Point))!;
-                            ExposeValue(ref point.X, "X");
-                            ExposeValue(ref point.Y, "Y");
-                        }
-                        else if (ty == typeof(Love.Vector2))
-                        {
-                            var vec2 = (Love.Vector2)Convert.ChangeType(data, typeof(Love.Vector2))!;
-                            ExposeValue(ref vec2.X, "X");
-                            ExposeValue(ref vec2.Y, "Y");
-                        }
-                        else if (ty == typeof(Love.RectangleF))
-                        {
-                            var rect = (Love.RectangleF)Convert.ChangeType(data, typeof(Love.RectangleF))!;
-                            ExposeValue(ref rect.X, "X");
-                            ExposeValue(ref rect.Y, "Y");
-                            ExposeValue(ref rect.Width, "Width");
-                            ExposeValue(ref rect.Height, "Height");
-                        }
-                        else if (ty == typeof(Love.Color))
-                        {
-                            var color = (Love.Color)Convert.ChangeType(data, typeof(Love.Color))!;
-                            ExposeValue(ref color.r, "r");
-                            ExposeValue(ref color.g, "g");
-                            ExposeValue(ref color.b, "b");
-                            ExposeValue(ref color.a, "a");
-                        }
-                        else
-                        {
-                            throw new Exception($"Cannot serialize value of type {ty.Name}");
-                        }
-
-                        ExitCompound();
-                        CurrentCompound.Add(comp);
-
-                        break;
-
-                    case TypeCode.Decimal:
-                    case TypeCode.DateTime:
-                    case TypeCode.Empty:
-                    case TypeCode.DBNull:
-                        throw new Exception($"Cannot serialize value of type {ty.Name}");
+                    CurrentCompound.Add(new NbtString(name, Enum.GetName(ty, data!)));
                 }
-            }
-            else if (this.Stage == SerialStage.LoadingDeep | this.Stage == SerialStage.ResolvingRefs)
-            {
-                var ty = typeof(T);
-
-                switch (Type.GetTypeCode(ty))
+                else
                 {
-                    case TypeCode.Boolean:
-                    case TypeCode.Char:
-                    case TypeCode.Byte:
-                    case TypeCode.SByte:
-                        var byteTag = CurrentCompound.Get<NbtByte>(name);
-                        if (byteTag != null)
-                            data = (T)Convert.ChangeType(byteTag.ByteValue, ty);
-                        else
-                            data = defaultValue;
-                        break;
-                    case TypeCode.Int16:
-                    case TypeCode.UInt16:
-                        var shortTag = CurrentCompound.Get<NbtShort>(name);
-                        if (shortTag != null)
-                            data = (T)Convert.ChangeType(shortTag.ShortValue, ty);
-                        else
-                            data = defaultValue;
-                        break;
-                    case TypeCode.Int32:
-                    case TypeCode.UInt32:
-                        var intTag = CurrentCompound.Get<NbtInt>(name);
-                        if (intTag != null)
-                            data = (T)Convert.ChangeType(intTag.IntValue, ty);
-                        else
-                            data = defaultValue;
-                        break;
-                    case TypeCode.Int64:
-                    case TypeCode.UInt64:
-                        var longTag = CurrentCompound.Get<NbtLong>(name);
-                        if (longTag != null)
-                            data = (T)Convert.ChangeType(longTag.LongValue, ty);
-                        else
-                            data = defaultValue;
-                        break;
-                    case TypeCode.Single:
-                        var floatTag = CurrentCompound.Get<NbtFloat>(name);
-                        if (floatTag != null)
-                            data = (T)Convert.ChangeType(floatTag.FloatValue, ty);
-                        else
-                            data = defaultValue; 
-                        break;
-                    case TypeCode.Double:
-                        var doubleTag = CurrentCompound.Get<NbtDouble>(name);
-                        if (doubleTag != null)
-                            data = (T)Convert.ChangeType(doubleTag.DoubleValue, ty);
-                        else
-                            data = defaultValue; 
-                        break;
-                    case TypeCode.String:
-                        var stringTag = CurrentCompound.Get<NbtString>(name)!;
-                        if (stringTag != null)
-                            data = (T)Convert.ChangeType(stringTag.StringValue, ty);
-                        else
-                            data = defaultValue;
-                        break;
+                    switch (Type.GetTypeCode(ty))
+                    {
+                        case TypeCode.Boolean:
+                        case TypeCode.Char:
+                        case TypeCode.Byte:
+                        case TypeCode.SByte:
+                            CurrentCompound.Add(new NbtByte(name, (byte)Convert.ChangeType(data, typeof(byte))!));
+                            break;
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                            CurrentCompound.Add(new NbtShort(name, (short)Convert.ChangeType(data, typeof(short))!));
+                            break;
+                        case TypeCode.Int32:
+                        case TypeCode.UInt32:
+                            CurrentCompound.Add(new NbtInt(name, (int)Convert.ChangeType(data, typeof(int))!));
+                            break;
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                            CurrentCompound.Add(new NbtLong(name, (long)Convert.ChangeType(data, typeof(long))!));
+                            break;
+                        case TypeCode.Single:
+                            CurrentCompound.Add(new NbtFloat(name, (float)Convert.ChangeType(data, typeof(float))!));
+                            break;
+                        case TypeCode.Double:
+                            CurrentCompound.Add(new NbtDouble(name, (double)Convert.ChangeType(data, typeof(double))!));
+                            break;
+                        case TypeCode.String:
+                            CurrentCompound.Add(new NbtString(name, (string)Convert.ChangeType(data, typeof(string))!));
+                            break;
 
-                    case TypeCode.Object:
-                        var comp = CurrentCompound.Get<NbtCompound>(name)!;
+                        case TypeCode.Object:
+                            var comp = new NbtCompound(name);
+                            EnterCompound(comp);
 
-                        if (EnterCompound(comp))
-                        {
                             if (ty == typeof(Love.Quad))
                             {
-                                var viewport = new Love.RectangleF(0, 0, 0, 0);
-                                var textureDimensions = new Love.Vector2(0, 0);
+                                var quad = (data as Love.Quad)!;
+                                var viewport = quad.GetViewport();
+                                var textureDimensions = quad.GetTextureDimensions();
                                 ExposeValue(ref viewport, "Viewport");
                                 ExposeValue(ref textureDimensions, "TextureDimensions");
-                                var quad = Love.Graphics.NewQuad(viewport.X, viewport.Y, viewport.Width, viewport.Height, textureDimensions.X, textureDimensions.Y);
-                                data = (T)Convert.ChangeType(quad, ty);
                             }
                             else if (ty == typeof(Love.Point))
                             {
                                 var point = (Love.Point)Convert.ChangeType(data, typeof(Love.Point))!;
                                 ExposeValue(ref point.X, "X");
                                 ExposeValue(ref point.Y, "Y");
-                                data = (T)Convert.ChangeType(point, ty);
                             }
                             else if (ty == typeof(Love.Vector2))
                             {
                                 var vec2 = (Love.Vector2)Convert.ChangeType(data, typeof(Love.Vector2))!;
                                 ExposeValue(ref vec2.X, "X");
                                 ExposeValue(ref vec2.Y, "Y");
-                                data = (T)Convert.ChangeType(vec2, ty);
                             }
                             else if (ty == typeof(Love.RectangleF))
                             {
@@ -252,7 +135,6 @@ namespace OpenNefia.Serial
                                 ExposeValue(ref rect.Y, "Y");
                                 ExposeValue(ref rect.Width, "Width");
                                 ExposeValue(ref rect.Height, "Height");
-                                data = (T)Convert.ChangeType(rect, ty);
                             }
                             else if (ty == typeof(Love.Color))
                             {
@@ -261,24 +143,165 @@ namespace OpenNefia.Serial
                                 ExposeValue(ref color.g, "g");
                                 ExposeValue(ref color.b, "b");
                                 ExposeValue(ref color.a, "a");
-                                data = (T)Convert.ChangeType(color, ty);
                             }
                             else
                             {
-                                throw new Exception($"Cannot deserialize value of type {ty.Name}");
+                                throw new Exception($"Cannot serialize value of type {ty.Name}");
                             }
 
                             ExitCompound();
-                        }
+                            CurrentCompound.Add(comp);
 
-                        break;
+                            break;
 
-                    case TypeCode.Decimal:
-                    case TypeCode.DateTime:
-                    case TypeCode.Empty:
-                    case TypeCode.DBNull:
-                    default:
-                        throw new Exception($"Cannot deserialize value of type {ty.Name}");
+                        case TypeCode.Decimal:
+                        case TypeCode.DateTime:
+                        case TypeCode.Empty:
+                        case TypeCode.DBNull:
+                            throw new Exception($"Cannot serialize value of type {ty.Name}");
+                    }
+                }
+            }
+            else if (this.Stage == SerialStage.LoadingDeep | this.Stage == SerialStage.ResolvingRefs)
+            {
+                var ty = typeof(T);
+
+                if (ty.IsEnum)
+                {
+                    var stringTag = CurrentCompound.Get<NbtString>(name);
+                    var value = stringTag.StringValue;
+                    if (Enum.IsDefined(ty, value))
+                    {
+                        data = (T)Convert.ChangeType(Enum.Parse(ty, value), ty)!;
+                    }
+                    else
+                    {
+                        throw new Exception($"Enum '{ty}' does not have variant '{value}'");
+                    }
+                }
+                else
+                {
+                    switch (Type.GetTypeCode(ty))
+                    {
+                        case TypeCode.Boolean:
+                        case TypeCode.Char:
+                        case TypeCode.Byte:
+                        case TypeCode.SByte:
+                            var byteTag = CurrentCompound.Get<NbtByte>(name);
+                            if (byteTag != null)
+                                data = (T)Convert.ChangeType(byteTag.ByteValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                            var shortTag = CurrentCompound.Get<NbtShort>(name);
+                            if (shortTag != null)
+                                data = (T)Convert.ChangeType(shortTag.ShortValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.Int32:
+                        case TypeCode.UInt32:
+                            var intTag = CurrentCompound.Get<NbtInt>(name);
+                            if (intTag != null)
+                                data = (T)Convert.ChangeType(intTag.IntValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                            var longTag = CurrentCompound.Get<NbtLong>(name);
+                            if (longTag != null)
+                                data = (T)Convert.ChangeType(longTag.LongValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.Single:
+                            var floatTag = CurrentCompound.Get<NbtFloat>(name);
+                            if (floatTag != null)
+                                data = (T)Convert.ChangeType(floatTag.FloatValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.Double:
+                            var doubleTag = CurrentCompound.Get<NbtDouble>(name);
+                            if (doubleTag != null)
+                                data = (T)Convert.ChangeType(doubleTag.DoubleValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+                        case TypeCode.String:
+                            var stringTag = CurrentCompound.Get<NbtString>(name)!;
+                            if (stringTag != null)
+                                data = (T)Convert.ChangeType(stringTag.StringValue, ty);
+                            else
+                                data = defaultValue;
+                            break;
+
+                        case TypeCode.Object:
+                            var comp = CurrentCompound.Get<NbtCompound>(name)!;
+
+                            if (EnterCompound(comp))
+                            {
+                                if (ty == typeof(Love.Quad))
+                                {
+                                    var viewport = new Love.RectangleF(0, 0, 0, 0);
+                                    var textureDimensions = new Love.Vector2(0, 0);
+                                    ExposeValue(ref viewport, "Viewport");
+                                    ExposeValue(ref textureDimensions, "TextureDimensions");
+                                    var quad = Love.Graphics.NewQuad(viewport.X, viewport.Y, viewport.Width, viewport.Height, textureDimensions.X, textureDimensions.Y);
+                                    data = (T)Convert.ChangeType(quad, ty);
+                                }
+                                else if (ty == typeof(Love.Point))
+                                {
+                                    var point = (Love.Point)Convert.ChangeType(data, typeof(Love.Point))!;
+                                    ExposeValue(ref point.X, "X");
+                                    ExposeValue(ref point.Y, "Y");
+                                    data = (T)Convert.ChangeType(point, ty);
+                                }
+                                else if (ty == typeof(Love.Vector2))
+                                {
+                                    var vec2 = (Love.Vector2)Convert.ChangeType(data, typeof(Love.Vector2))!;
+                                    ExposeValue(ref vec2.X, "X");
+                                    ExposeValue(ref vec2.Y, "Y");
+                                    data = (T)Convert.ChangeType(vec2, ty);
+                                }
+                                else if (ty == typeof(Love.RectangleF))
+                                {
+                                    var rect = (Love.RectangleF)Convert.ChangeType(data, typeof(Love.RectangleF))!;
+                                    ExposeValue(ref rect.X, "X");
+                                    ExposeValue(ref rect.Y, "Y");
+                                    ExposeValue(ref rect.Width, "Width");
+                                    ExposeValue(ref rect.Height, "Height");
+                                    data = (T)Convert.ChangeType(rect, ty);
+                                }
+                                else if (ty == typeof(Love.Color))
+                                {
+                                    var color = (Love.Color)Convert.ChangeType(data, typeof(Love.Color))!;
+                                    ExposeValue(ref color.r, "r");
+                                    ExposeValue(ref color.g, "g");
+                                    ExposeValue(ref color.b, "b");
+                                    ExposeValue(ref color.a, "a");
+                                    data = (T)Convert.ChangeType(color, ty);
+                                }
+                                else
+                                {
+                                    throw new Exception($"Cannot deserialize value of type {ty.Name}");
+                                }
+
+                                ExitCompound();
+                            }
+
+                            break;
+
+                        case TypeCode.Decimal:
+                        case TypeCode.DateTime:
+                        case TypeCode.Empty:
+                        case TypeCode.DBNull:
+                        default:
+                            throw new Exception($"Cannot deserialize value of type {ty.Name}");
+                    }
                 }
             }
             else if (this.Stage == SerialStage.Invalid)
@@ -331,12 +354,19 @@ namespace OpenNefia.Serial
                         if (data == null)
                         {
                             var instantiateType = ty;
-                            var className = compound.Get<NbtString>("@Class");
-                            if (className != null)
+                            var classTag = compound.Get<NbtString>("@Class");
+                            if (classTag != null)
                             {
+                                var typeName = classTag.StringValue;
+                                var type = FindTypeWithName(typeName);
+                                if (type == null)
+                                {
+                                    throw new Exception($"Cannot find type with name {typeName} in all loaded assemblies");
+                                }
+                                instantiateType = type;
                             }
                             Console.WriteLine($"Instantiate class: {instantiateType}");
-                            data = (T)Activator.CreateInstance(instantiateType, ctorParams)!;
+                            data = (T)Activator.CreateInstance(instantiateType, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, ctorParams, null, null)!;
                         }
 
                         ((IDataExposable)data).Expose(this);
@@ -359,6 +389,20 @@ namespace OpenNefia.Serial
             {
                 throw new Exception("Cannot use an invalid serializer.");
             }
+        }
+
+        private Type? FindTypeWithName(string typeName)
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var type = assembly.GetType(typeName, throwOnError: false, ignoreCase: true);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+            return Type.GetType(typeName, throwOnError: false, ignoreCase: true);
         }
 
         public void ExposeWeak<T>(ref T? data, string tagName, T? defaultValue = default(T))
@@ -404,10 +448,9 @@ namespace OpenNefia.Serial
         {
             NbtCompound defCompound;
 
-            var def = data as Def;
             var defTypeObj = DefLoader.GetDirectDefType(typeof(T));
 
-            if (def == null || defTypeObj == null)
+            if (defTypeObj == null)
             {
                 throw new Exception($"{typeof(T)} is not a subclass of Def");
             }
@@ -417,7 +460,7 @@ namespace OpenNefia.Serial
             if (this.Stage == SerialStage.Saving)
             {
                 defCompound = new NbtCompound(tagName);
-                defId = def.Id;
+                defId = (data as Def)!.Id;
             }
             else
             {
@@ -435,7 +478,7 @@ namespace OpenNefia.Serial
             }
             else if (Stage == SerialStage.LoadingDeep)
             {
-                def = DefLoader.GetDef(defTypeObj, defId);
+                var def = DefLoader.GetDef(defTypeObj, defId);
                 if (def == null)
                 {
                     throw new Exception($"Def {defTypeObj.Name}.{defId} does not exist.");
@@ -492,6 +535,7 @@ namespace OpenNefia.Serial
 
             if (Stage == SerialStage.LoadingDeep)
             {
+                data = new T[list.Count];
                 for (var i = 0; i < data.Length; i++)
                 {
                     data[i] = list[i];

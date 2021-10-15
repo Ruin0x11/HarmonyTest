@@ -24,15 +24,6 @@ namespace OpenNefia.Core.Rendering
 
         public void Clear()
         {
-            foreach (var drawable in ToDraw)
-            {
-                drawable.Dispose();
-            }
-            foreach (var batch in SpriteBatches)
-            {
-                batch.Dispose();
-            }
-
             ByIndex.Clear();
             ToDraw.Clear();
             SpriteBatches.Clear();

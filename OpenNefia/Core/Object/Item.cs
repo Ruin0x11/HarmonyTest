@@ -20,6 +20,10 @@ namespace OpenNefia.Core.Object
             Chip = new DefStat<ChipDef>(chip);
         }
 
+#pragma warning disable CS8618
+        private Item() : base(0, 0) { }
+#pragma warning restore CS8618
+
         public override string TypeKey => "Item";
 
         public override void Refresh()
@@ -30,7 +34,7 @@ namespace OpenNefia.Core.Object
         {
             base.Expose(data);
 
-            data.ExposeDeep(ref Chip, nameof(Chip));
+            data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
         }
 
         public override void ProduceMemory(MapObjectMemory memory)

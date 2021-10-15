@@ -28,6 +28,10 @@ namespace OpenNefia.Core.Object
             Inventory.TakeObject(new Item(0, 0, ChipDefOf.ItemPutitoro));
         }
 
+#pragma warning disable CS8618
+        private Chara() : base(0, 0) { }
+#pragma warning restore CS8618
+
         public override string TypeKey => "Chara";
 
         public override void Refresh()
@@ -39,8 +43,8 @@ namespace OpenNefia.Core.Object
         {
             base.Expose(data);
 
-            data.ExposeDeep(ref Chip, nameof(Chip));
-            data.ExposeDeep(ref _Inventory, nameof(_Inventory));
+            data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
+            data.ExposeDeep(ref _Inventory, nameof(_Inventory), this);
         }
 
         public override void ProduceMemory(MapObjectMemory memory)

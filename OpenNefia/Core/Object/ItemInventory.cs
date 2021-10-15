@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Object
         public ItemInventory(MapObject parent)
         {
             ParentObject = parent;
-            MaxWeight = new ValueStat<int>();
+            MaxWeight = new ValueStat<int>(0);
             _Pool = new Pool(GameWrapper.Instance.State.UidTracker.GetNextAndIncrement(), this);
         }
 

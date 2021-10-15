@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stat
 {
-    public struct DefStat<T> : IRefreshable, IDataExposable where T : Def
+    public class DefStat<T> : IRefreshable, IDataExposable where T : Def
     {
         public T FinalValue;
         public T BaseValue;

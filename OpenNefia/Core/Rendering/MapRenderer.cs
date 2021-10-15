@@ -21,6 +21,9 @@ namespace OpenNefia.Core.Rendering
         public void SetMap(InstancedMap map)
         {
             Map = map;
+            TileLayers.Clear();
+            TileLayers.Add(new TileAndChipTileLayer(map));
+            TileLayers.Add(new ShadowTileLayer(map));
             RefreshAllLayers();
         }
 

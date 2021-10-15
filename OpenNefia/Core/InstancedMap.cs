@@ -197,6 +197,20 @@ namespace OpenNefia.Core
             data.ExposeCollection(ref _TileMemoryInds, nameof(_TileMemoryInds));
             data.ExposeCollection(ref _InSight, nameof(_InSight));
             data.ExposeValue(ref _LastSightId, nameof(_LastSightId));
+            data.ExposeDeep(ref _MapObjectMemory, nameof(_MapObjectMemory), this);
+
+            if (data.Stage == SerialStage.ResolvingRefs)
+            {
+                this._ShadowMap = new ShadowMap(this);
+                foreach (var obj in this._Pool)
+                {
+                    if (obj.Uid == GameWrapper.Instance.State.Player?.Uid)
+                    {
+                        GameWrapper.Instance.State.Player = (Chara)obj;
+                    }
+                }
+                this.Redraw();
+            }
         }
 
         public static void Save(InstancedMap map, string filepath)
@@ -278,6 +292,6 @@ namespace OpenNefia.Core
         public IEnumerator<MapObject> GetEnumerator() => _Pool.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _Pool.GetEnumerator();
 
-        public string GetUniqueIndex() => $"InstancedMap_{_Uid}";
+        public string GetUniqueIndex() => $"{nameof(InstancedMap)}_{_Uid}";
     }
 }
