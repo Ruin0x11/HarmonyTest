@@ -1,13 +1,9 @@
 ﻿using OpenNefia.Serial;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stat
 {
-    public class ValueStat<T> : IRefreshable, IDataExposable where T : struct
+    public class ValueStat<T> : IStat<T>, IComparable<ValueStat<T>>, IEquatable<ValueStat<T>> where T : struct, IComparable<T>, IEquatable<T>
     {
         public T FinalValue;
         public T BaseValue;
@@ -25,6 +21,17 @@ namespace OpenNefia.Core.Stat
             this.FinalValue = this.BaseValue;
         }
 
+        public int CompareTo(ValueStat<T>? other) => this.FinalValue.CompareTo(other!.FinalValue);
+
+        public bool Equals(ValueStat<T>? other)
+        {
+            if (this.BaseValue.Equals(other!.BaseValue))
+            {
+                return this.FinalValue.Equals(other.FinalValue);
+            }
+            return false;
+        }
+
         public void Expose(DataExposer data)
         {
             data.ExposeValue(ref FinalValue, nameof(FinalValue));
@@ -32,5 +39,15 @@ namespace OpenNefia.Core.Stat
         }
 
         public static implicit operator T(ValueStat<T> s) => s.BaseValue;
+
+        public static bool operator ==(ValueStat<T> left, ValueStat<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(ValueStat<T> left, ValueStat<T> right)
+        {
+            return !(left == right);
+        }
     }
 }

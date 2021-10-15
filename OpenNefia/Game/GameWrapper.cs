@@ -27,14 +27,13 @@ namespace OpenNefia.Game
 
         public ModLoader ModLoader = new ModLoader();
 
-        private Love.Canvas TargetCanvas;
+        private Love.Canvas? TargetCanvas;
 
         public GameWrapper()
         {
             Scene = new GameScene(this);
             State = new GameState();
             Layers = new List<IUiLayer>();
-            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         }
 
         public void Draw()
@@ -150,6 +149,8 @@ namespace OpenNefia.Game
 
         public void MainCode(string[] args)
         {
+            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+
             Startup.Run();
 
             var layer = new Core.UI.Layer.FieldLayer();

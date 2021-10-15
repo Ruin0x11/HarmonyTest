@@ -2,7 +2,6 @@
 using OpenNefia.Core.Data.Types.DefOf;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.Util;
 using OpenNefia.Game;
 using System;
@@ -287,6 +286,7 @@ namespace OpenNefia.Core
         public bool TakeObject(MapObject obj) => _Pool.TakeObject(obj);
         public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
         public void ReleaseObject(MapObject obj) => _Pool.ReleaseObject(obj);
+        public bool CanReceiveObject(MapObject obj) => true;
         public void SetPosition(MapObject mapObject, int x, int y) => _Pool.SetPosition(mapObject, x, y);
         public IEnumerable<MapObject> At(int x, int y) => _Pool.At(x, y);
         public IEnumerator<MapObject> GetEnumerator() => _Pool.GetEnumerator();

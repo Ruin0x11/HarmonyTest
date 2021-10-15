@@ -38,13 +38,14 @@ namespace OpenNefia.Core.Object
 
         public bool TakeObject(MapObject obj)
         {
-            if (!(obj is Item))
-            {
+            if (!CanReceiveObject(obj))
                 return false;
-            }
 
             return _Pool.TakeObject(obj);
         }
+
+        public bool CanReceiveObject(MapObject obj) => obj is Item;
+
         public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
         public void ReleaseObject(MapObject obj) =>  _Pool.ReleaseObject(obj);
         public void SetPosition(MapObject mapObject, int x, int y) =>_Pool.SetPosition(mapObject, x, y);

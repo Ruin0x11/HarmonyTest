@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data
 {
-    public class Def
+    public class Def : IComparable<Def>, IEquatable<Def>
     {
         public string Id { get; }
 
@@ -31,5 +31,17 @@ namespace OpenNefia.Core.Data
         }
 
         public override string ToString() => $"<Def {this.GetType().Name}.{this.Id}>";
+
+        public int CompareTo(Def? other)
+        {
+            if (this.Mod == other?.Mod)
+                return this.Id.CompareTo(other?.Id);
+            return -1;
+        }
+
+        public bool Equals(Def? other)
+        {
+            return this.Mod == other?.Mod && this.Id == other?.Id;
+        }
     }
 }

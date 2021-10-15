@@ -1,4 +1,5 @@
-﻿using OpenNefia.Serial;
+﻿using OpenNefia.Core.Object;
+using OpenNefia.Serial;
 using System.Collections.Generic;
 
 namespace OpenNefia.Core
@@ -9,6 +10,7 @@ namespace OpenNefia.Core
 
         public bool TakeObject(MapObject obj);
         public bool HasObject(MapObject obj);
+        public bool CanReceiveObject(MapObject obj);
         public void ReleaseObject(MapObject obj);
         void SetPosition(MapObject mapObject, int x, int y);
 

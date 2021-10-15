@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stat
 {
-    public class Stat<T> : IRefreshable, IDataExposable where T: IDataExposable
+    public class Stat<T> : IStat<T>, IComparable<Stat<T>>, IEquatable<Stat<T>> where T: IDataExposable, IComparable<T>, IEquatable<T>
     {
         public T FinalValue;
         public T BaseValue;
@@ -23,6 +23,17 @@ namespace OpenNefia.Core.Stat
         public void Refresh()
         {
             this.FinalValue = this.BaseValue;
+        }
+
+        public int CompareTo(Stat<T>? other) => this.FinalValue.CompareTo(other!.FinalValue);
+
+        public bool Equals(Stat<T>? other)
+        {
+            if (this.BaseValue.Equals(other!.BaseValue))
+            {
+                return this.FinalValue.Equals(other.FinalValue);
+            }
+            return false;
         }
 
         public void Expose(DataExposer data)

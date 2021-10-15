@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
-    public sealed class Item : MapObject
+    public sealed class Item : MapObject, IStackableObject<Item>
     {
         public DefStat<ChipDef> Chip;
 
@@ -26,8 +26,11 @@ namespace OpenNefia.Core.Object
 
         public override string TypeKey => "Item";
 
+        public int Amount { get; set; } = 1;
+
         public override void Refresh()
         {
+            this.Chip.Refresh();
         }
 
         public override void Expose(DataExposer data)
@@ -44,6 +47,104 @@ namespace OpenNefia.Core.Object
             memory.IsVisible = true;
             memory.ScreenXOffset = 0;
             memory.ScreenYOffset = 0;
+        }
+
+
+        public bool CanStackWith(Item other)
+        {
+            if (this.Disposed || other.Disposed)
+                return false;
+
+            if (this == other)
+                return false;
+
+            return this.Chip.Equals(other.Chip);
+        }
+
+        public bool Separate(int amount, out Item? separated)
+        {
+            if (amount < 0 || amount > this.Amount)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), amount, $"Amount must be > 0 and <= {this.Amount}");
+            }
+
+            if (amount == 0)
+            {
+                separated = null;
+                return false;
+            }
+
+            separated = (Item)this.Clone();
+
+            separated.Amount = amount;
+            this.Amount -= amount;
+
+            return true;
+        }
+
+        public bool StackWith(Item other)
+        {
+            if (!this.CanStackWith(other))
+                return false;
+
+            this.Amount += other.Amount;
+            other.Amount = 0;
+            other.Dispose();
+
+            return true;
+        }
+
+        public bool StackAll(bool showMessage = false)
+        {
+            if (this.CurrentLocation == null)
+                return false;
+
+            var didStack = false;
+
+            List<Item> toStack = new List<Item>();
+
+            foreach (var obj in this.CurrentLocation!)
+            {
+                var item = obj as Item;
+                if (item != null && this.CanStackWith(item))
+                {
+                    toStack.Add(item);
+                }
+            }
+
+            foreach (var item in toStack)
+            {
+                item.ReleaseOwnership();
+                this.StackWith(item);
+                didStack = true;
+            }
+            
+            if (didStack && showMessage)
+            {
+                // TODO
+                Console.WriteLine("Stacked.");
+            }
+
+            return didStack;
+        }
+
+        public bool MoveSome(int amount, ILocation where, int x, int y)
+        {
+            if (!this.Separate(amount, out var separated))
+                return false;
+
+            if (!where.CanReceiveObject(separated!))
+            {
+                this.StackWith(separated!);
+                return false;
+            }
+
+            if (!where.TakeObject(separated!))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -2,9 +2,9 @@
 using OpenNefia.Game;
 using OpenNefia.Serial;
 
-namespace OpenNefia.Core
+namespace OpenNefia.Core.Object
 {
-    public abstract class MapObject : IDataExposable, IDataReferenceable, IRefreshable
+    public abstract class MapObject : IDataExposable, IDataReferenceable, IRefreshable, IOwned
     {
         internal int _X;
         internal int _Y;
@@ -36,9 +36,14 @@ namespace OpenNefia.Core
             this._CurrentLocation?.SetPosition(this, x, y);
         }
 
+        public void ReleaseOwnership()
+        {
+            this.CurrentLocation?.ReleaseObject(this);
+        }
+
         public void Dispose()
         {
-            this._CurrentLocation?.ReleaseObject(this);
+            this.ReleaseOwnership();
             this._Disposed = true;
         }
 
@@ -64,5 +69,12 @@ namespace OpenNefia.Core
         }
 
         public string GetUniqueIndex() => $"MapObject_{Uid}";
+
+        public MapObject Clone()
+        {
+            var newObject = (MapObject)this.MemberwiseClone();
+            newObject._CurrentLocation = null;
+            return newObject;
+        }
     }
 }

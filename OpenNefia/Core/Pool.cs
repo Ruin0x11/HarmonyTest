@@ -1,4 +1,5 @@
-﻿using OpenNefia.Serial;
+﻿using OpenNefia.Core.Object;
+using OpenNefia.Serial;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,6 +74,8 @@ namespace OpenNefia.Core
         {
             return ContainedObjectUids.Contains(obj.Uid);
         }
+
+        public bool CanReceiveObject(MapObject obj) => true;
 
         public void Expose(DataExposer data)
         {
