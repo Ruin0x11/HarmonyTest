@@ -408,6 +408,7 @@ namespace OpenNefia.Serial
         public void ExposeWeak<T>(ref T? data, string tagName, T? defaultValue = default(T))
         {
             var ty = typeof(T);
+
             if (this.Stage == SerialStage.Saving)
             {
                 if (typeof(IDataReferenceable).IsAssignableFrom(ty))

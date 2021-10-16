@@ -17,9 +17,19 @@ namespace OpenNefia.Core.Data
 
         public BaseMod? Mod { get; internal set; }
 
+        public uint HotReloadId { get; internal set; }
+
         public Def(string id)
         {
             this.Id = id;
+        }
+
+        public bool CanHotReload
+        {
+            get
+            {
+                return this.GetType()?.StructLayoutAttribute?.Value == System.Runtime.InteropServices.LayoutKind.Sequential;
+            }
         }
 
         public virtual void OnResolveReferences()

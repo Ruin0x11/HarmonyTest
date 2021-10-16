@@ -19,13 +19,13 @@ namespace OpenNefia.Core.Data.Types
             public const string Background = nameof(Background);
         }
 
-        public FontDef(string id) : this(id, 14, 12, FontAttributes.None, null, null, null) { }
+        public FontDef(string id) : this(id, 14, 12, FontFormatting.None, null, null, null) { }
 
-        public FontDef(string id, int size = 14, int smallSize = 12, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null, ColorDef? fgColor = null, ColorDef? bgColor = null) : base(id)
+        public FontDef(string id, int size = 14, int smallSize = 12, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null, ColorDef? fgColor = null, ColorDef? bgColor = null) : base(id)
         {
             this.Size = size;
             this.SmallSize = smallSize;
-            this.Attributes = style; 
+            this.Formatting = style; 
             this.FontFilepath = fontFilepath;
             this.ExtraColors = new Dictionary<string, ColorDef>();
 
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Data.Types
         public int SmallSize = 12;
 
         [DefUseAttributes]
-        public FontAttributes Attributes = FontAttributes.None;
+        public FontFormatting Formatting = FontFormatting.None;
 
         [DefUseAttributes]
         public FontStyle Style = FontStyle.Normal;

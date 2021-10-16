@@ -115,7 +115,7 @@ namespace OpenNefia.Core.Rendering
             return Love.Graphics.GetFont().GetHeight();
         }
 
-        public enum FontAttributes
+        public enum FontFormatting
         {
             None = 0x0,
             Bold = 0x1,
@@ -134,14 +134,14 @@ namespace OpenNefia.Core.Rendering
         private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
         private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/Font/MS-Gothic.ttf");
 
-        public static void SetFont(int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
+        public static void SetFont(int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
         {
             Love.Graphics.SetFont(GetFont(size, style, fontFilepath));
         }
 
         public static void SetFont(FontDef spec, bool noColor = false)
         {
-            SetFont(spec.Size, spec.Attributes, spec.FontFilepath);
+            SetFont(spec.Size, spec.Formatting, spec.FontFilepath);
             if (!noColor)
                 SetColor(spec.Color);
         }
@@ -156,17 +156,17 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
         }
 
-        public static Love.Text NewText(string text, int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
+        public static Love.Text NewText(string text, int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
         {
             return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
         }
 
         public static Love.Text NewText(string text, FontDef spec)
         {
-            return NewText(text, spec.Size, spec.Attributes, spec.FontFilepath);
+            return NewText(text, spec.Size, spec.Formatting, spec.FontFilepath);
         }
 
-        public static Love.Font GetFont(int size, FontAttributes style = FontAttributes.None, IResourcePath? fontFilepath = null)
+        public static Love.Font GetFont(int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
         {
             if (FontCache.TryGetValue(size, out Love.Font? cachedFont))
             {
@@ -183,7 +183,7 @@ namespace OpenNefia.Core.Rendering
 
         public static Font GetFont(FontDef spec)
         {
-            return GetFont(spec.Size, spec.Attributes, spec.FontFilepath);
+            return GetFont(spec.Size, spec.Formatting, spec.FontFilepath);
         }
 
         /// <summary>
