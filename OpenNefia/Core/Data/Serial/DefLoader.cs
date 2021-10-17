@@ -129,11 +129,6 @@ namespace OpenNefia.Core.Data.Serial
             // Resolve dependencies between defs.
             ResolveCrossRefs(deserializer);
 
-            // Apply the active ThemeDefs and merge them into the affected defs.
-            ApplyActiveThemes(deserializer);
-
-            AllDefs.Clear();
-
             Logger.Info($"[DefLoader] Finished loading.");
         }
 
@@ -176,8 +171,9 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        private static void ApplyActiveThemes(DefDeserializer deserializer)
+        internal static void ApplyActiveThemes()
         {
+            var deserializer = new DefDeserializer();
             var theme = ThemeDefOf.TestTheme;
 
             var finalResult = new PatchResult();

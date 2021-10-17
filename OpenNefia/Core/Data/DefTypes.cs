@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Data.Serial
+namespace OpenNefia.Core.Data
 {
     public static class DefTypes
     {
@@ -46,19 +46,6 @@ namespace OpenNefia.Core.Data.Serial
                         if (containingMod.Instance?.GetType() == typeof(CoreMod))
                         {
                             Storage[ty.Name] = ty;
-                        }
-                    }
-
-                    var defSerializableTypes = assembly.GetTypes().Where(x => typeof(IDefSerializable).IsAssignableFrom(x));
-
-                    foreach (var ty in defSerializableTypes)
-                    {
-                        foreach (var property in ty.GetProperties())
-                        {
-                            if (HasDefSerialAttribute(property))
-                            {
-                                errors.Add($"Def property {property.Name} of type {ty.Name} must be a field instead of a property to be marked with attributes and serialized");
-                            }
                         }
                     }
                 }

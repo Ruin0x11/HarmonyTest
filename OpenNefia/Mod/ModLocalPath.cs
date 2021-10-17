@@ -10,8 +10,8 @@ namespace OpenNefia.Mod
 {
     public class ModLocalPath : IResourcePath
     {
-        ModInfo ModInfo;
-        string Subpath;
+        public ModInfo ModInfo { get; }
+        public string Subpath { get; }
 
         public Type ModType { get => this.ModInfo.Instance!.GetType(); }
 

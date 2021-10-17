@@ -5,13 +5,20 @@ using System.Collections.Generic;
 using OpenNefia.Game;
 using Mono.Cecil;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace OpenNefia
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                await Cli.CliEntryPoint.Main(args);
+                return;
+            }
+
             var bootConfig = new BootConfig()
             {
                 WindowTitle = "OpenNefia.NET",

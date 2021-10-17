@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Data
 
         public uint HotReloadId { get; internal set; }
 
-        public XElement? OriginalXml { get; internal set; }
+        public XElement OriginalXml { get; internal set; } = new XElement("_");
 
         public DefIdentifier Identifier { get; }
 
@@ -46,8 +46,6 @@ namespace OpenNefia.Core.Data
         public virtual void OnResolveReferences()
         {
         }
-
-        public virtual bool IsThemable => false;
 
         public virtual void OnMerge()
         {

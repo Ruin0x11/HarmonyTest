@@ -15,6 +15,7 @@ namespace OpenNefia.Game
         {
             GameWrapper.Instance.ModLoader.Execute();
             DefLoader.LoadAll();
+            DefLoader.ApplyActiveThemes();
 
             Logger.Info($"[Startup] Load chip atlas.");
 
