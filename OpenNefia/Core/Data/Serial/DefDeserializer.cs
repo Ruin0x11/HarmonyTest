@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Data.Serial
     {
         // The IDs of each Def will not be namespaced with the adding mod name and a period.
         // The ID will be modified in-place to add them during the deserialize process.
-        // Id="Window" => id="Core.Window"
+        // Id="Window" => Id="Core.Window"
         FromDisk,
         
         // The def was already loaded from disk, so the Id attribute will have already been modified.

@@ -230,7 +230,9 @@ namespace OpenNefia.Core.UI.Layer
 
         public void SaveLoad()
         {
+            Console.WriteLine("Saving...");
             InstancedMap.Save(Map, "TestMap.nbt");
+            Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
             Renderer.SetMap(Map);
         }

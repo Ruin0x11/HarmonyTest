@@ -5,5 +5,5 @@
   <FontDef Id="WindowTitle" Size="15" SmallSize="14" Style="Outlined" />
   <FontDef Id="WindowKeyHints" Size="12" SmallSize="10" />
   <FontDef Id="PromptText" Size="16" SmallSize="14" FgColor="Core.TextWhite" BgColor="Core.TextBlack" />
-  <FontDef Id="FpsCounter" Size="14" SmallSize="14" FgColor="Core.TextWhite" />
+  <FontDef Id="FpsCounter" Size="14" SmallSize="14" Style="Outlined" />
 </Defs>

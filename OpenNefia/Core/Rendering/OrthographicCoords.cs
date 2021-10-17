@@ -9,36 +9,31 @@ namespace OpenNefia.Core.Rendering
 {
     internal class OrthographicCoords : ICoords
     {
-        public void GetSize(out int tileWidth, out int tileHeight)
-        {
-            tileWidth = Constants.TILE_SIZE;
-            tileHeight = Constants.TILE_SIZE;
-        }
+        public int TileWidth { get => Constants.TILE_SIZE; }
+        public int TileHeight { get => Constants.TILE_SIZE; }
 
         public void GetTiledSize(int screenWidth, int screenHeight, out int tiledWidth, out int tiledHeight)
         {
-            tiledWidth = (screenWidth / Constants.TILE_SIZE) + 1;
-            tiledHeight = (screenHeight / Constants.TILE_SIZE) + 1;
+            tiledWidth = (screenWidth / TileWidth) + 1;
+            tiledHeight = (screenHeight / TileHeight) + 1;
         }
 
         public void TileToScreen(int tileX, int tileY, out int screenX, out int screenY)
         {
-            screenX = tileX * Constants.TILE_SIZE;
-            screenY = tileY * Constants.TILE_SIZE;
+            screenX = tileX * TileWidth;
+            screenY = tileY * TileHeight;
         }
 
         public void ScreenToTile(int screenX, int screenY, out int tileX, out int tileY)
         {
-            tileX = screenX / Constants.TILE_SIZE;
-            tileY = screenY / Constants.TILE_SIZE;
+            tileX = screenX / TileWidth;
+            tileY = screenY / TileHeight;
         }
 
         public void BoundDrawPosition(int screenX, int screenY, int tiledWidth, int tiledHeight, int viewportWidth, int viewportHeight, out int drawX, out int drawY)
         {
-            var tileSize = Constants.TILE_SIZE;
-
-            var mapScreenWidth = tiledWidth * tileSize;
-            var mapScreenHeight = tiledHeight * tileSize;
+            var mapScreenWidth = tiledWidth * TileWidth;
+            var mapScreenHeight = tiledHeight * TileHeight;
 
             var maxX = mapScreenWidth - viewportWidth;
             var maxY = mapScreenHeight - viewportHeight;

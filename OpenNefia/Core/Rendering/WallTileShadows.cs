@@ -84,7 +84,8 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            Coords.GetSize(out var tileW, out var tileH);
+            var tileW = Coords.TileWidth;
+            var tileH = Coords.TileHeight;
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, 20);
