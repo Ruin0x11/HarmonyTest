@@ -118,5 +118,10 @@ namespace OpenNefia.Core.Data.Types
                 }
             }
         }
+
+        public override void OnMerge()
+        {
+            this._LoveFont = null;
+        }
     }
 }

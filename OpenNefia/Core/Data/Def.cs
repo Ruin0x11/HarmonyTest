@@ -43,16 +43,15 @@ namespace OpenNefia.Core.Data
             throw new Exception($"Def type {type} is not a subclass of Def!");
         }
 
-        public bool CanHotReload
-        {
-            get
-            {
-                return this.GetType()?.StructLayoutAttribute?.Value == System.Runtime.InteropServices.LayoutKind.Sequential;
-            }
-        }
-
         public virtual void OnResolveReferences()
         {
+        }
+
+        public virtual bool IsThemable => false;
+
+        public virtual void OnMerge()
+        {
+
         }
 
         public virtual void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType)

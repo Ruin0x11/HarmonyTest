@@ -219,23 +219,16 @@ namespace OpenNefia.Core.Data.Serial
             if (result.IsSuccess)
             {
                 var mergingDef = result.Value;
-                MergeDefs(originalDef, mergingDef);
+                var mergeResult = DefMerger.Merge(originalDef, mergingDef);
+                if (mergeResult.IsFailed)
+                {
+                    throw new Exception($"Failed to patch def instance: {mergeResult}");
+                }
             }
             else
             {
                 throw new Exception($"Failed to patch def node: {result}");
             }
-        }
-
-        private static void MergeDefs(Def originalDef, Def mergingDef)
-        {
-            var t1 = originalDef.GetDirectDefType();
-            var t2 = mergingDef.GetDirectDefType();
-            if (t1 != t2)
-            {
-                throw new Exception($"Cannot merge defs of type {t1} and {t2}.");
-            }
-            Console.WriteLine($"Merge {originalDef} {mergingDef}");
         }
 
         private static void AddDefs()
