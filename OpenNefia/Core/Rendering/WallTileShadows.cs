@@ -31,13 +31,13 @@ namespace OpenNefia.Core.Rendering
 
         public void SetTile(int x, int y, TileDef tile)
         {
-            var tileIndex = tile.Tile.TileIndex;
-            if (tile.Wall != null)
+            var tileIndex = tile.Image.TileIndex;
+            if (tile.WallImage != null)
             {
                 var oneTileDown = Map.GetTile(x, y + 1);
-                if (oneTileDown != null && oneTileDown.Wall == null && Map.IsMemorized(x, y + 1))
+                if (oneTileDown != null && oneTileDown.WallImage == null && Map.IsMemorized(x, y + 1))
                 {
-                    tileIndex = tile.Wall.TileIndex;
+                    tileIndex = tile.WallImage.TileIndex;
                     BottomShadows.Add(y * Map.Width + x);
                 }
                 else
@@ -47,7 +47,7 @@ namespace OpenNefia.Core.Rendering
                 }
 
                 var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
                 {
                     TopShadows.Remove(y * Map.Width + x);
                     BottomShadows.Remove((y - 1) * Map.Width + x);
@@ -61,7 +61,7 @@ namespace OpenNefia.Core.Rendering
             {
                 TopShadows.Remove(y * Map.Width + x);
                 var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
                 {
                     BottomShadows.Add((y - 1) * Map.Width + x);
                 }

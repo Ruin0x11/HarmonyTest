@@ -9,19 +9,41 @@ using System.Xml;
 
 namespace OpenNefia.Core.Data
 {
-    public class Def : IComparable<Def>, IEquatable<Def>, IDefSerializable
+    public abstract class Def : IComparable<Def>, IEquatable<Def>, IDefSerializable
     {
         public string Id { get; }
 
         public int? ElonaId { get; internal set; }
 
-        public BaseMod? Mod { get; internal set; }
+        public ModInfo? Mod { get; internal set; }
 
         public uint HotReloadId { get; internal set; }
 
-        public Def(string id)
+        public XmlNode? OriginalXml { get; internal set; }
+
+        public DefIdentifier Identifier { get; }
+
+        internal Def(string id)
         {
             this.Id = id;
+            this.Identifier = new DefIdentifier(GetDirectDefType(), this.Id);
+        }
+
+        public Type GetDirectDefType()
+        {
+            var type = this.GetType();
+
+            while (type.BaseType != null && type.BaseType != typeof(object))
+            {
+                if (type.BaseType == typeof(Def))
+                {
+                    return type;
+                }
+
+                type = type.BaseType;
+            }
+
+            throw new Exception($"Def type {type} is not a subclass of Def!");
         }
 
         public bool CanHotReload

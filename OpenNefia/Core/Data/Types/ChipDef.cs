@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Data.Types
     public class ChipDef : Def
     {
         [DefRequired]
-        public TileSpec Tile = null!;
+        public TileSpec Image = null!;
 
         public ChipDef(string id) : base(id)
         {
@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Data.Types
 
         public override void OnResolveReferences()
         {
-            Tile.TileIndex = $"{this.Id}:{this.Tile.TileId}";
+            Image.TileIndex = $"{this.Id}:{this.Image.TileId}";
         }
     }
 }

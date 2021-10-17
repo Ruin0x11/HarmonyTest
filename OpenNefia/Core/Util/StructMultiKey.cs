@@ -27,7 +27,7 @@ using System;
 
 namespace OpenNefia.Core.Util
 {
-    public readonly struct StructMultiKey<T1, T2> : IEquatable<StructMultiKey<T1, T2>>
+    public struct StructMultiKey<T1, T2> : IEquatable<StructMultiKey<T1, T2>>
     {
         public readonly T1 Value1;
         public readonly T2 Value2;

@@ -1,4 +1,7 @@
-﻿using OpenNefia.Game;
+﻿using OpenNefia.Core.Data.Patch;
+using OpenNefia.Core.Data.Types.DefOf;
+using OpenNefia.Core.Extensions;
+using OpenNefia.Game;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
@@ -7,13 +10,23 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace OpenNefia.Core.Data.Serial
 {
     internal static class DefLoader
     {
-        private static readonly Dictionary<Type, Dictionary<string, Def>> AllDefs = new Dictionary<Type, Dictionary<string, Def>>();
-        private static readonly List<IDefCrossRef> PendingCrossRefs = new List<IDefCrossRef>();
+        private static readonly Dictionary<DefIdentifier, Def> AllDefs = new Dictionary<DefIdentifier, Def>();
+        private static readonly Dictionary<XmlNode, ModInfo> NodeToAddingMod = new Dictionary<XmlNode, ModInfo>();
+        internal static XmlDocument MasterDefXML;
+        private static XmlElement MasterDefsElement;
+
+        static DefLoader()
+        {
+            MasterDefXML = new XmlDocument();
+            MasterDefsElement = MasterDefXML.CreateElement("Defs");
+            MasterDefXML.AppendChild(MasterDefsElement);
+        }
 
         internal static Type? GetDirectDefType(Type type)
         {
@@ -28,20 +41,34 @@ namespace OpenNefia.Core.Data.Serial
             return GetDirectDefType(type.BaseType!);
         }
 
-        internal static void Load(string filepath, ModInfo mod, DefDeserializer deserializer)
+        internal static void AppendDefXml(string filepath, ModInfo modInfo, DefDeserializer deserializer)
         {
-            var defSet = new DefSet(filepath, mod, deserializer);
-            foreach (var def in defSet.Defs)
+            var xmlDocument = new XmlDocument();
+            xmlDocument.Load(filepath);
+
+            var root = xmlDocument.DocumentElement;
+            if (root?.Name != "Defs")
             {
-                var ty = GetDirectDefType(def.GetType());
-                if (ty == null)
+                return;
+            }
+
+            foreach (var node in root.ChildNodes.Cast<XmlNode>())
+            {
+                if (DefDeserializer.IsValidDefNode(node))
                 {
-                    throw new Exception($"Type {def.GetType()} is not a descendent of type that inherits from Def");
+                    var ownedNode = MasterDefsElement.OwnerDocument.ImportNode(node, true);
+                    MasterDefsElement.AppendChild(ownedNode);
+                    NodeToAddingMod.Add(ownedNode, modInfo);
                 }
-                AllDefs[ty].Add(def.Id, def);
+                else
+                {
+                    Console.WriteLine($"Skipping invalid def node {node.Name}");
+                }
             }
         }
 
+        internal static Def? GetDef(DefIdentifier identifier) => GetDef(identifier.DefType, identifier.DefId);
+        
         internal static Def? GetDef(Type defType, string defId)
         {
             var args = new object[] { defId };
@@ -55,44 +82,30 @@ namespace OpenNefia.Core.Data.Serial
             return (Def?)get.Invoke(null, args);
         }
 
-        private static void ResolveCrossRefs()
+        private static void ResolveCrossRefs(DefDeserializer defDeserializer)
         {
             Logger.Info($"[DefLoader] ResolveCrossRefs");
 
             List<string> errors = new List<string>();
 
-            foreach (var crossRef in PendingCrossRefs)
+            foreach (var crossRef in defDeserializer.CrossRefs)
             {
                 crossRef.Resolve(errors);
             }
 
-            foreach (var (defType, defs) in AllDefs)
+            foreach (var def in AllDefs.Values)
             {
-                foreach (var (defId, def) in defs)
-                {
-                    def.OnResolveReferences();
-                    def.ValidateDefField(errors);
-                }
+                def.OnResolveReferences();
+                def.ValidateDefField(errors);
             }
 
             CheckErrors(errors, $"Errors resolving crossreferences between defs");
 
-            PendingCrossRefs.Clear();
+            defDeserializer.CrossRefs.Clear();
         }
 
-        internal static void LoadAll()
+        private static void BuildMasterXMLDocument(DefDeserializer deserializer)
         {
-            Logger.Info($"[DefLoader] Loading all defs...");
-
-            DefTypes.ScanAllTypes();
-
-            foreach (var ty in DefTypes.AllDefTypes)
-            {
-                AllDefs[ty] = new Dictionary<string, Def>();
-            }
-
-            var deserializer = new DefDeserializer();
-
             foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
             {
                 var path = new ModLocalPath(modInfo, "Defs");
@@ -101,14 +114,28 @@ namespace OpenNefia.Core.Data.Serial
                 {
                     foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
                     {
-                        Load(defSetFile, modInfo, deserializer);
+                        AppendDefXml(defSetFile, modInfo, deserializer);
                     }
                 }
             }
 
-            PendingCrossRefs.AddRange(deserializer.CrossRefs);
-
             CheckErrors(deserializer.Errors, "Errors loading defs");
+        }
+
+        internal static void LoadAll()
+        {
+            Logger.Info($"[DefLoader] Loading all defs...");
+
+            DefTypes.ScanAllTypes();
+
+            var deserializer = new DefDeserializer();
+
+            // Build an XML document holding all defs.
+            // The reason it's kept in one place is for running XPath operations on everything later.
+            BuildMasterXMLDocument(deserializer);
+
+            // Load all defs in the master XML def document.
+            LoadDefs(deserializer);
 
             // Add all defs to the database.
             AddDefs();
@@ -117,11 +144,86 @@ namespace OpenNefia.Core.Data.Serial
             PopulateStaticEntries();
 
             // Resolve dependencies between defs.
-            ResolveCrossRefs();
+            ResolveCrossRefs(deserializer);
+
+            // Apply the active ThemeDefs and merge them into the affected defs.
+            ApplyActiveThemes(deserializer);
 
             AllDefs.Clear();
 
             Logger.Info($"[DefLoader] Finished loading.");
+        }
+
+        private static void LoadDefs(DefDeserializer deserializer)
+        {
+            Logger.Info($"[DefLoader] LoadDefs");
+
+            foreach (var node in MasterDefXML!.DocumentElement!.ChildNodes.Cast<XmlNode>())
+            {
+                var containingMod = NodeToAddingMod[node]!;
+                var result = deserializer.DeserializeDef(node, containingMod);
+
+                if (result.IsSuccess)
+                {
+                    var defInstance = result.Value;
+                    AllDefs.Add(defInstance.Identifier, defInstance);
+                }
+            }
+        }
+
+        private static void ApplyActiveThemes(DefDeserializer deserializer)
+        {
+            var theme = ThemeDefOf.TestTheme;
+
+            var finalResult = new PatchResult();
+
+            foreach (var patch in theme.Operations)
+            {
+                var result = patch.Apply(MasterDefXML);
+                if (result.IsSuccess)
+                {
+                    finalResult.Merge(result.Value);
+                }
+                else
+                {
+                    Console.WriteLine($"Patch failure: {result}");
+                }
+            }
+
+            finalResult.AffectedDefs
+                .Select(ident => DefLoader.GetDef(ident))
+                .WhereNotNull()
+                .ForEach(def => ReloadDef(def, deserializer));
+
+            ResolveCrossRefs(deserializer);
+        }
+
+        private static void ReloadDef(Def originalDef, DefDeserializer deserializer)
+        {
+            var node = originalDef.OriginalXml!;
+            var containingMod = NodeToAddingMod[node]!;
+            var result = deserializer.DeserializeDef(node, containingMod);
+
+            if (result.IsSuccess)
+            {
+                var mergingDef = result.Value;
+                MergeDefs(originalDef, mergingDef);
+            }
+            else
+            {
+                throw new Exception($"Failed to patch def node: {result}");
+            }
+        }
+
+        private static void MergeDefs(Def originalDef, Def mergingDef)
+        {
+            var t1 = originalDef.GetDirectDefType();
+            var t2 = mergingDef.GetDirectDefType();
+            if (t1 != t2)
+            {
+                throw new Exception($"Cannot merge defs of type {t1} and {t2}.");
+            }
+            Console.WriteLine($"Merge {originalDef} {mergingDef}");
         }
 
         private static void AddDefs()
@@ -130,22 +232,18 @@ namespace OpenNefia.Core.Data.Serial
 
             List<string> errors = new List<string>();
 
-            foreach (var (defType, defs) in AllDefs)
+            foreach (var def in AllDefs.Values)
             {
-                var store = typeof(DefStore<>)!.MakeGenericType(defType)!;
-                foreach (var (defId, def) in defs)
+                var store = typeof(DefStore<>)!.MakeGenericType(def.GetType())!;
+                var contains = store.GetMethod("ContainsDefId")!;
+                if ((bool)contains.Invoke(null, new object[] { def.Id })!)
                 {
-                    var args = new object[] { def };
-                    var contains = store.GetMethod("ContainsDefId")!;
-                    if ((bool)contains.Invoke(null, new object[] { def.Id })!)
-                    {
-                        errors.Add($"Def with same ID already exists: {def}");
-                    }
-                    else
-                    {
-                        var add = store.GetMethod("AddDef", BindingFlags.NonPublic | BindingFlags.Static)!;
-                        add.Invoke(store, new object[] { def });
-                    }
+                    errors.Add($"Def with same ID already exists: {def}");
+                }
+                else
+                {
+                    var add = store.GetMethod("AddDef", BindingFlags.NonPublic | BindingFlags.Static)!;
+                    add.Invoke(store, new object[] { def });
                 }
             }
 

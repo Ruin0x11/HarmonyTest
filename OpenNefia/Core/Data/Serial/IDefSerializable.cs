@@ -6,10 +6,7 @@ namespace OpenNefia.Core.Data.Serial
 {
     public interface IDefSerializable
     {
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
-        {
-            deserializer.PopulateAllFields(node, this, containingModType);
-        }
+        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType);
 
         public void ValidateDefField(List<string> errors)
         {

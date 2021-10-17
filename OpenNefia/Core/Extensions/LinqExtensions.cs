@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Extensions
 			foreach (var e in ie) action(e, i++);
 		}
 
-		public static IEnumerable<T> WhereNonNull<T>(this IEnumerable<T?> iterator)
+		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> iterator)
 		{
 			foreach (var item in iterator)
 			{

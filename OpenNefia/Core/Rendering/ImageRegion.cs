@@ -45,6 +45,11 @@ namespace OpenNefia.Core.Rendering
             KeyColor = keyColor;
         }
 
+        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        {
+            deserializer.PopulateAllFields(node, this, containingModType);
+        }
+
         public ImageRegion()
         {
         }

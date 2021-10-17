@@ -27,13 +27,13 @@ namespace OpenNefia.Core.Data.Types
     public class TileDef : Def
     {
         [DefRequired]
-        public TileSpec Tile = null!;
+        public TileSpec Image = null!;
 
         public bool IsSolid = false;
 
         public bool IsOpaque = false;
 
-        public TileSpec? Wall = null;
+        public TileSpec? WallImage = null;
 
         public TileKind Kind = TileKind.None;
         public TileKind Kind2 = TileKind.None;
@@ -44,12 +44,12 @@ namespace OpenNefia.Core.Data.Types
 
         public override void OnResolveReferences()
         {
-            Tile.TileIndex = $"{this.Id}:Tile";
-            if (this.Wall != null)
+            Image.TileIndex = $"{this.Id}:Tile";
+            if (this.WallImage != null)
             {
-                Tile.HasOverhang = true;
-                Wall.HasOverhang = true;
-                Wall.TileIndex = $"{this.Id}:Tile_Wall";
+                Image.HasOverhang = true;
+                WallImage.HasOverhang = true;
+                WallImage.TileIndex = $"{this.Id}:Tile_Wall";
             }
         }
     }

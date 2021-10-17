@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace OpenNefia.Core.Data
 {
@@ -17,6 +18,11 @@ namespace OpenNefia.Core.Data
 
         internal static void AddDef(T def)
         {
+            if (def.OriginalXml == null)
+            {
+                throw new Exception("Tracked defs must have original XML (for theme merging purposes)");
+            }
+
             AllDefs.Add(def.Id, def);
             AllDefsList.Add(def);
         }

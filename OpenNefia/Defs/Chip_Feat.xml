@@ -2,270 +2,270 @@
 <Defs>
   <ChipDef ElonaId="231" Id="FeatStairsDown">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="232" Id="FeatStairsUp">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="233" Id="FeatHidden">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="96" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="96" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="234" Id="FeatTrap">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="144" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="144" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="235" Id="FeatBar">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="192" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="192" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="236" Id="FeatDoorWoodenOpen">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="240" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="240" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="237" Id="FeatLockedHatch">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="288" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="288" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="238" Id="FeatMaterialDig">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="336" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="336" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="239" Id="FeatMaterialGem">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="384" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="384" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="240" Id="FeatMaterialWood">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="432" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="432" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="241" Id="FeatDoorSfOpen">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="480" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="480" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="242" Id="FeatPot">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="528" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="528" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="243" Id="FeatMaterialCrafting">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="576" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="576" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="244" Id="FeatMaterialMine">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="624" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="624" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="245" Id="FeatMaterialFish">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="672" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="672" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="246" Id="FeatMaterialPlant">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="720" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="720" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="247" Id="FeatPlant0">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="768" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="768" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="248" Id="FeatPlant1">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="816" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="816" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="249" Id="FeatPlant2">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="864" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="864" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="250" Id="FeatPlant3">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="912" Y="336"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="912" Y="336"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="264" Id="FeatDoorEasternOpen">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="384"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="384"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="265" Id="FeatDoorJailOpen">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="384"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="384"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="284" Id="FeatMoongate">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="960" Y="384"  Width="48" Height="96" CountX="2" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="960" Y="384"  Width="48" Height="96" CountX="2" />
   </ChipDef>
   <ChipDef ElonaId="726" Id="FeatDoorWoodenClosed">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="0" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="727" Id="FeatQuestBoard">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="48" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="728" Id="FeatDoorSfClosed">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="96" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="96" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="729" Id="FeatVotingBox">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="144" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="144" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="730" Id="FeatDoorEasternClosed">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="192" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="192" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="731" Id="FeatTomb">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="240" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="240" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="732" Id="FeatPoliticsBoard">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="288" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="288" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="733" Id="FeatDoorJailClosed">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map1.bmp" X="336" Y="1056" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map1.bmp" X="336" Y="1056" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="132" Id="FeatAreaCity">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="133" Id="FeatAreaCave">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="48" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="48" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="134" Id="FeatAreaRock">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="96" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="96" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="135" Id="FeatAreaTree">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="144" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="144" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="136" Id="FeatAreaPalace">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="192" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="192" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="137" Id="FeatAreaTower">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="240" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="240" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="138" Id="FeatAreaYourDungeon">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="288" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="288" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="139" Id="FeatAreaLesimas">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="336" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="336" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="140" Id="FeatAreaTemple">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="384" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="384" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="141" Id="FeatAreaCrypt">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="432" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="432" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="142" Id="FeatAreaVillage">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="480" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="480" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="143" Id="FeatAreaTown">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="528" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="528" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="144" Id="FeatAreaCastle">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="576" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="576" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="145" Id="FeatAreaTowerOfFire">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="624" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="624" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="146" Id="FeatAreaDungeon">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="672" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="672" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="147" Id="FeatAreaTruceGround">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="720" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="720" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="148" Id="FeatAreaTent">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="768" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="768" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="149" Id="FeatAreaGod">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="816" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="816" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="150" Id="FeatAreaMuseum">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="864" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="864" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="151" Id="FeatAreaShop">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="912" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="912" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="152" Id="FeatAreaCrop">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="960" Y="192"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="960" Y="192"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="153" Id="FeatAreaStorageHouse">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1008" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1008" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="154" Id="FeatAreaRanch">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1056" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1056" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="155" Id="FeatAreaEmbassy">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1104" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1104" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="156" Id="FeatAreaVillageSnow">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1152" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1152" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="157" Id="FeatAreaMiralAndGaroksWorkshop">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1200" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1200" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="158" Id="FeatAreaBorderTent">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1248" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1248" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="159" Id="FeatAreaTheSmokeAndPipe">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1296" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1296" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="160" Id="FeatAreaPyramid">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1344" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1344" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="161" Id="FeatAreaJail">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="1392" Y="192" Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="1392" Y="192" Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="363" Id="FeatBuildingMountain">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="0" Y="528"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="364" Id="FeatBuildingCrop">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="48" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="48" Y="528"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="365" Id="FeatBuildingHouse1">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="96" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="96" Y="528"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="366" Id="FeatBuildingHouse2">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="144" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="144" Y="528"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="367" Id="FeatBuildingHouse3">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="192" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="192" Y="528"  Width="48" Height="48" />
   </ChipDef>
   <ChipDef ElonaId="368" Id="FeatBuildingLighthouse">
     <Group>Feat</Group>
-    <Tile><ImageRegion SourceImagePath="Assets/Graphic/map0.bmp" X="240" Y="528"  Width="48" Height="48" /></Tile>
+    <Image SourceImagePath="Assets/Graphic/map0.bmp" X="240" Y="528"  Width="48" Height="48" />
   </ChipDef>
 </Defs>

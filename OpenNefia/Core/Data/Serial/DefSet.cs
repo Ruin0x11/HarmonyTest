@@ -10,18 +10,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace OpenNefia.Core.Data
+namespace OpenNefia.Core.Data.Serial
 {
     internal class DefSet
     {
-        private string Filepath;
-        public List<Def> Defs { get; internal set; }
+        public string Filepath { get; }
+        public XmlDocument XmlDocument { get; }
+        public Dictionary<DefIdentifier, Def> Defs { get; }
         public ModInfo ContainingMod { get; }
 
         public DefSet(string filepath, ModInfo containingMod, DefDeserializer deserializer)
         {
             this.Filepath = filepath;
-            this.Defs = new List<Def>();
+            this.XmlDocument = new XmlDocument();
+            this.Defs = new Dictionary<DefIdentifier, Def>();
             this.ContainingMod = containingMod;
             this.Load(deserializer);
         }
@@ -31,10 +33,9 @@ namespace OpenNefia.Core.Data
             if (!File.Exists(this.Filepath))
                 throw new FileNotFoundException($"Def set file {this.Filepath} does not exist.");
 
-            var doc = new XmlDocument();
-            doc.Load(this.Filepath);
+            XmlDocument.Load(this.Filepath);
 
-            var root = doc.DocumentElement!;
+            var root = XmlDocument.DocumentElement!;
             if (root.Name != "Defs")
             {
                 throw new DefLoadException("'Defs' element not found in root");
@@ -43,17 +44,12 @@ namespace OpenNefia.Core.Data
             foreach (var elem in root.ChildNodes)
             {
                 var node = (XmlNode)elem;
-                var name = node.Name;
+                var result = deserializer.DeserializeDef(node, ContainingMod);
 
-                var defType = DefTypes.GetDefTypeFromName(name);
-                if (defType == null)
-                    throw new DefLoadException($"Def type '{name}' not found.");
-
-                var defInstance = deserializer.DeserializeDef(defType, node, ContainingMod);
-
-                if (defInstance != null)
+                if (result.IsSuccess)
                 {
-                    Defs.Add(defInstance);
+                    var defInstance = result.Value;
+                    Defs.Add(defInstance.Identifier, defInstance);
                 }
             }
         }

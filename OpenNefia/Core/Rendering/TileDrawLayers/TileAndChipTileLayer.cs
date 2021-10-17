@@ -57,27 +57,27 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             // If the tile is a wall, convert the displayed tile to that of
             // the bottom wall if appropriate.
-            var tileIndex = tile.Tile.TileIndex;
-            if (tile.Wall != null)
+            var tileIndex = tile.Image.TileIndex;
+            if (tile.WallImage != null)
             {
                 var oneTileDown = Map.GetTile(x, y + 1);
-                if (oneTileDown != null && oneTileDown.Wall == null && Map.IsMemorized(x, y + 1))
+                if (oneTileDown != null && oneTileDown.WallImage == null && Map.IsMemorized(x, y + 1))
                 {
-                    tileIndex = tile.Wall.TileIndex;
+                    tileIndex = tile.WallImage.TileIndex;
                 }
 
                 var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
                 {
-                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Tile.TileIndex);
+                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Image.TileIndex);
                 }
             }
             else if (y > 0)
             {
                 var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.Wall != null && Map.IsMemorized(x, y - 1))
+                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
                 {
-                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Wall.TileIndex);
+                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.WallImage.TileIndex);
                 }
             }
 

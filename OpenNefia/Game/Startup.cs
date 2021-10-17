@@ -20,15 +20,15 @@ namespace OpenNefia.Game
 
             var atlasFactory = new TileAtlasFactory();
             var chipAtlas = atlasFactory
-                .LoadTiles(DefStore<ChipDef>.Enumerate().Select(x => x.Tile))
+                .LoadTiles(DefStore<ChipDef>.Enumerate().Select(x => x.Image))
                 .Build();
 
             Logger.Info($"[Startup] Load tile atlas.");
 
             atlasFactory = new TileAtlasFactory();
             var tileAtlas = atlasFactory
-                .LoadTiles(DefStore<TileDef>.Enumerate().Select(x => x.Tile))
-                .LoadTiles(DefStore<TileDef>.Enumerate().Where(x => x.Wall != null).Select(x => x.Wall!))
+                .LoadTiles(DefStore<TileDef>.Enumerate().Select(x => x.Image))
+                .LoadTiles(DefStore<TileDef>.Enumerate().Where(x => x.WallImage != null).Select(x => x.WallImage!))
                 .Build();
 
             Atlases.Chip = chipAtlas;

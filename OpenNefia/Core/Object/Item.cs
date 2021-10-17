@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Object
 
         public override void ProduceMemory(MapObjectMemory memory)
         {
-            memory.ChipIndex = Chip.FinalValue.Tile.TileIndex;
+            memory.ChipIndex = Chip.FinalValue.Image.TileIndex;
             memory.Color = this.Color;
             memory.IsVisible = true;
             memory.ScreenXOffset = 0;

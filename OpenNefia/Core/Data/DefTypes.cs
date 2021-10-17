@@ -47,12 +47,6 @@ namespace OpenNefia.Core.Data
                             errors.Add($"Def property {property.Name} of type {ty.Name} must be a field instead of a property to be marked with attributes and serialized");
                         }
                     }
-
-                    var layout = ty.StructLayoutAttribute;
-                    if (layout.Value != System.Runtime.InteropServices.LayoutKind.Sequential)
-                    {
-                        errors.Add($"Def {ty} must have Sequential layout to support hot-reloading");
-                    }
                 }
             }
 

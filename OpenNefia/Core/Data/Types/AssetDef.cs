@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types.Assets;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Data.Types.Assets;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Mod;
 using System;
@@ -6,9 +7,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace OpenNefia.Core.Data.Types
 {
+    public class AssetSpec : IDefSerializable
+    {
+        /// <summary>
+        /// Path of an image to use.
+        /// </summary>
+        public IResourcePath? ImagePath;
+
+        /// <summary>
+        /// Information for a region of an image to cut out and use for this <see cref="AssetDef"/>.
+        /// </summary>
+        public ImageRegion? ImageRegion;
+
+        /// <summary>
+        /// Filter to apply to the image.
+        /// </summary>
+        public ImageFilter? ImageFilter;
+
+        public AssetSpec()
+        {
+        }
+
+        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        {
+            if (node.Attributes?["SourceImagePath"] != null)
+            {
+                this.ImageRegion = new ImageRegion();
+                this.ImageRegion.DeserializeDefField(deserializer, node, containingModType);
+            }
+            else if (node.InnerText != null)
+            {
+                this.ImagePath = new ModLocalPath(containingModType, node.InnerText);
+            }
+        }
+
+        public void ValidateDefField(List<string> errors)
+        {
+            if (ImagePath == null && ImageRegion == null)
+            {
+                errors.Add($"One of ImagePath or ImageRegion must be declared.");
+            }
+        }
+    }
+
     public class AssetDef : Def
     {
         /// <summary>
@@ -33,20 +78,9 @@ namespace OpenNefia.Core.Data.Types
         public AssetDef(string id) : base(id) { }
 
         /// <summary>
-        /// Path of an image to use.
+        /// Image to use for this asset.
         /// </summary>
-        public IResourcePath? ImagePath;
-
-        /// <summary>
-        /// Information for a region of an image to cut out and use for this <see cref="AssetDef"/>.
-        /// </summary>
-        public ImageRegion? ImageRegion;
-
-        /// <summary>
-        /// Filter to apply to the image.
-        /// </summary>
-        public ImageFilter? ImageFilter;
-
+        public AssetSpec Image = new AssetSpec();
 
         /// <summary>
         /// Number of tiled images in the X direction. Each will get its own quad when the asset is instantiated.

@@ -664,7 +664,7 @@ namespace OpenNefia.Serial
                     {
                         for (int i = 0; i < count; i++)
                         {
-                            Def def = new Def("");
+                            Def def = null!;
                             this.ExposeDef(ref def!, i.ToString());
                             data.Add((T)Convert.ChangeType(def, typeof(T)));
                         }

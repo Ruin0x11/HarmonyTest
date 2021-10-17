@@ -80,23 +80,25 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Image image;
 
-            if (asset.ImagePath != null)
+            var imageSpec = asset.Image;
+
+            if (imageSpec.ImagePath != null)
             {
-                var path = asset.ImagePath.Resolve();
+                var path = imageSpec.ImagePath.Resolve();
                 image = ImageLoader.NewImage(path);
             }
-            else if (asset.ImageRegion != null)
+            else if (imageSpec.ImageRegion != null)
             {
-                image = LoadImageSource(asset.ImageRegion);
+                image = LoadImageSource(imageSpec.ImageRegion);
             }
             else
             {
                 throw new ArgumentException($"Asset has neither ImagePath nor ImageRegion: {asset.Id}");
             }
 
-            if (asset.ImageFilter != null)
+            if (imageSpec.ImageFilter != null)
             {
-                image.SetFilter(asset.ImageFilter.Min, asset.ImageFilter.Mag, asset.ImageFilter.Anisotropy);
+                image.SetFilter(imageSpec.ImageFilter.Min, imageSpec.ImageFilter.Mag, imageSpec.ImageFilter.Anisotropy);
             }
 
             return image;

@@ -73,7 +73,7 @@ namespace OpenNefia.Mod
 
                 if (HasMod(assembly))
                 {
-                    var modInfos = assembly.MainModule.Types.Select(t => GetModInfo(t, dllPath)).WhereNonNull().ToList();
+                    var modInfos = assembly.MainModule.Types.Select(t => GetModInfo(t, dllPath)).WhereNotNull().ToList();
                     scannedMods.AddRange(modInfos);
                 }
             };

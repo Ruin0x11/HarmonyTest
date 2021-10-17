@@ -1,12 +1,15 @@
-﻿using Love;
+﻿using FluentResults;
+using Love;
 using OpenNefia.Mod;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Serial
 {
@@ -22,38 +25,102 @@ namespace OpenNefia.Core.Data.Serial
             this.CrossRefs = new List<IDefCrossRef>();
         }
 
-        public Def? DeserializeDef(Type defType, XmlNode node, ModInfo containingMod)
+        /// <summary>
+        /// Parses a def ID and type from an XML node.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XmlNode node)
         {
-            var id = node.Attributes?["Id"]?.Value;
+            var defType = DefTypes.GetDefTypeFromName(node.Name);
 
-            if (id == null)
-                throw new DefLoadException($"Def has no ID.");
-
-            var className = node.Attributes?["Class"]?.Value;
-
-            if (className != null)
+            if (defType == null)
             {
-                var klassType = Type.GetType(className);
-                if (klassType == null)
-                {
-                    this.Errors.Add($"Could not find class with name '{className}' (parent: '{defType.FullName}')");
-                    return null;
-                }
-                else if (!klassType.IsSubclassOf(defType))
-                {
-                    this.Errors.Add($"Class '{klassType}' is not a subclass of parent def type '{defType.FullName}'");
-                    return null;
-                }
-                else
-                {
-                    defType = klassType;
-                }
+                return Result.Fail($"Def type '{node.Name}' not found.");
             }
 
-            var fullId = $"{containingMod.Metadata.Name}.{id}";
+            var defId = node.Attributes?["Id"]?.Value;
 
-            var defInstance = (Def)Activator.CreateInstance(defType, fullId)!;
-            defInstance.Mod = (BaseMod)containingMod.Instance!;
+            if (defId == null)
+            {
+                return Result.Fail($"Def has no ID.");
+            }
+
+            return Result.Ok(new DefIdentifier(defType, defId));
+        }
+
+        /// <summary>
+        /// Parses a def ID and type from an XML node.
+        /// </summary>
+        /// <param name="nav"></param>
+        /// <returns></returns>
+        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XPathNavigator nav)
+        {
+            var defType = DefTypes.GetDefTypeFromName(nav.Name);
+
+            if (defType == null)
+            {
+                return Result.Fail($"Def type '{nav.Name}' not found.");
+            }
+
+            var defId = nav.GetAttribute("Id", string.Empty);
+
+            if (defId == null)
+            {
+                return Result.Fail($"Def has no ID.");
+            }
+
+            return Result.Ok(new DefIdentifier(defType, defId));
+        }
+
+        public static bool IsValidDefNode(XmlNode node) => GetDefIdAndTypeFromNode(node).IsSuccess;
+        public static bool IsValidDefNode(XPathNavigator node) => GetDefIdAndTypeFromNode(node).IsSuccess;
+
+        public Result<Type> GetConcreteTypeFromNode(XmlNode node, Type baseType)
+        {
+            var className = node.Attributes?["Class"]?.Value;
+
+            if (className == null)
+            {
+                return Result.Ok(baseType);
+            }
+
+            var klassType = Type.GetType(className);
+
+            if (klassType == null)
+            {
+                return Result.Fail($"Could not find class with name '{className}' (parent: '{baseType.FullName}')");
+            }
+            else if (!klassType.IsSubclassOf(baseType))
+            {
+                return Result.Fail($"Class '{klassType}' is not a subclass of parent type '{baseType.FullName}'");
+            }
+            else
+            {
+                return Result.Ok(klassType);
+            }
+        }
+
+        public Result<Def> DeserializeDef(XmlNode node, ModInfo containingMod)
+        {
+            var (defBaseType, defId) = GetDefIdAndTypeFromNode(node).Value;
+
+            var defTypeResult = GetConcreteTypeFromNode(node, defBaseType);
+
+            if (defTypeResult.IsFailed)
+            {
+                return defTypeResult.ToResult<Def>();
+            }
+
+            var fullId = $"{containingMod.Metadata.Name}.{defId}";
+            if (defId.Contains(".") || defId.Contains(":"))
+            {
+                throw new Exception("Def ID cannot contain period or colon");
+            }
+            node.Attributes!["Id"]!.Value = fullId;
+
+            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, fullId)!;
+            defInstance.Mod = containingMod;
 
             var elonaId = node.Attributes?["ElonaId"]?.Value;
 
@@ -72,7 +139,9 @@ namespace OpenNefia.Core.Data.Serial
                 throw new Exception($"Error loading def {fullId} ({this.Errors.Count} errors)\n{errors}");
             }
 
-            return defInstance;
+            defInstance.OriginalXml = node;
+
+            return Result.Ok(defInstance);
         }
 
         private static string GetTargetXmlNodeName(FieldInfo field)
@@ -256,54 +325,105 @@ namespace OpenNefia.Core.Data.Serial
             return color;
         }
 
-        private void PopulateObjectField(XmlNode childNode, object target, FieldInfo field, Type containingModType)
+        private Result<object> GetObject(XmlNode node, Type ty, Type containingModType)
         {
-            var value = childNode.InnerText!;
-            var ty = field.FieldType;
+            var value = node.InnerText!;
 
             if (ty == typeof(IResourcePath))
             {
                 IResourcePath path = ParseModLocalPath(value, containingModType);
-                field.SetValue(target, path);
+                return Result.Ok((object)path);
             }
             else if (ty == typeof(Love.Color))
             {
-                Love.Color color = ParseLoveColor(childNode);
-                field.SetValue(target, color);
-            }
-            else if (ty.IsSubclassOf(typeof(Def)))
-            {
-                // Defer setting until all defs have been loaded.
-                var crossRef = new DefFieldCrossRef(ty, value, target, field);
-                this.CrossRefs.Add(crossRef);
+                Love.Color color = ParseLoveColor(node);
+                return Result.Ok((object)color);
             }
             else if (ty.IsEnum)
             {
                 if (Enum.IsDefined(ty, value))
                 {
                     var parsed = Enum.Parse(ty, value);
-                    field.SetValue(target, parsed);
+                    return Result.Ok((object)parsed);
                 }
                 else
                 {
-                    this.Errors.Add($"Enum '{field.FieldType}' does not have variant '{value}' (on field '{field.Name}')");
+                    return Result.Fail($"Enum '{ty}' does not have variant '{value}'");
                 }
             }
             else if (typeof(IDefSerializable).IsAssignableFrom(ty))
             {
                 var fieldInstance = (IDefSerializable)Activator.CreateInstance(ty)!;
-                fieldInstance.DeserializeDefField(this, childNode, containingModType);
-                PopulateAllFields(childNode, fieldInstance, containingModType);
+                fieldInstance.DeserializeDefField(this, node, containingModType);
+                PopulateAllFields(node, fieldInstance, containingModType);
                 fieldInstance.ValidateDefField(this.Errors);
-                field.SetValue(target, fieldInstance);
+                return Result.Ok((object)fieldInstance);
+            }
+            else if (ty.IsGenericType)
+            {
+                if (ty.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var listTy = ty.GetGenericArguments()[0];
+                    var list = (IList)Activator.CreateInstance(ty)!;
+
+                    foreach (var childNode in node.ChildNodes.Cast<XmlNode>())
+                    {
+                        if (childNode.Name != "li" || childNode.ChildNodes.Count != 1)
+                        {
+                            return Result.Fail($"Generic list entries must have nodes named 'li' with one element only (type {ty}");
+                        }
+                        else
+                        {
+                            list.Add(GetObject(childNode.ChildNodes[0]!, listTy, containingModType));
+                        }
+                    }
+
+                    return Result.Ok((object)list);
+                }
+                else
+                {
+                    return Result.Fail($"Cannot set generic field of type '{ty}'");
+                }
+            }
+
+            return Result.Fail($"Cannot set field of type '{ty}'");
+        }
+
+        private void PopulateObjectField(XmlNode node, object target, FieldInfo field, Type containingModType)
+        {
+            var tyResult = GetConcreteTypeFromNode(node, field.FieldType);
+
+            if (tyResult.IsFailed)
+            {
+                this.Errors.Add(tyResult.ToString());
+                return;
+            }
+
+            var ty = tyResult.Value;
+
+            var value = node.Value!;
+
+            if (ty.IsSubclassOf(typeof(Def)))
+            {
+                // Defer setting until all defs have been loaded.
+                var crossRef = new DefFieldCrossRef(ty, value, target, field);
+                this.CrossRefs.Add(crossRef);
             }
             else
             {
-                this.Errors.Add($"Cannot set field '{field.Name}' of type '{field.FieldType}'");
+                var result = GetObject(node, ty, containingModType);
+                if (result.IsSuccess)
+                {
+                    field.SetValue(target, result.Value);
+                }
+                else
+                {
+                    this.Errors.Add($"Error setting field {field.Name} ({ty}): {result}");
+                }
             }
         }
 
-        public void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T: Def
+        public void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T : Def
         {
             this.CrossRefs.Add(new DefCustomCrossRef<TRecv, T>(typeof(T), defId, receiver, onResolveCrossRef));
         }
