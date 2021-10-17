@@ -17,14 +17,14 @@ namespace OpenNefia.Core.Data.Serial
     internal static class DefLoader
     {
         private static readonly Dictionary<DefIdentifier, Def> AllDefs = new Dictionary<DefIdentifier, Def>();
-        private static readonly Dictionary<XElement, ModInfo> NodeToAddingMod = new Dictionary<XElement, ModInfo>();
+        private static readonly Dictionary<DefIdentifier, ModInfo> FullDefIdToAddingMod = new Dictionary<DefIdentifier, ModInfo>();
         internal static XDocument MasterDefXML;
         private static XElement MasterDefsElement;
 
         static DefLoader()
         {
-            MasterDefsElement = new XElement("Defs");
-            MasterDefXML = new XDocument(MasterDefsElement);
+            MasterDefXML = new XDocument(new XElement("Defs"));
+            MasterDefsElement = MasterDefXML.Element("Defs")!;
         }
 
         internal static Type? GetDirectDefType(Type type)
@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Data.Serial
 
         private static bool HasNamespacedDefTypeName(XElement ownedNode)
         {
-            return !ownedNode.Name.LocalName.Contains(".");
+            return ownedNode.Name.LocalName.Contains(".");
         }
 
         internal static void AppendDefXml(string filepath, ModInfo modInfo, DefDeserializer deserializer)
@@ -57,16 +57,16 @@ namespace OpenNefia.Core.Data.Serial
 
             foreach (var node in root.Elements())
             {
-                if (DefDeserializer.IsValidDefNode(node))
+                var defIdentifier = DefDeserializer.GetDefIdAndTypeFromElement(node);
+                if (defIdentifier.IsSuccess)
                 {
                     // <AssetDef/> -> <Core.AssetDef/>
                     if (!HasNamespacedDefTypeName(node))
                     {
                         node.Name = $"{modInfo.Metadata.Name}.{node.Name}";
                     }
-
                     MasterDefsElement.Add(node);
-                    NodeToAddingMod.Add(node, modInfo);
+                    FullDefIdToAddingMod.Add(defIdentifier.Value, modInfo);
                 }
                 else
                 {
@@ -168,7 +168,8 @@ namespace OpenNefia.Core.Data.Serial
 
             foreach (var element in MasterDefsElement.Elements())
             {
-                var containingMod = NodeToAddingMod[element]!;
+                var defIdentifier = DefDeserializer.GetDefIdAndTypeFromElement(element)!.Value;
+                var containingMod = FullDefIdToAddingMod[defIdentifier];
                 var result = deserializer.DeserializeDef(element, containingMod);
 
                 if (result.IsSuccess)
@@ -209,11 +210,12 @@ namespace OpenNefia.Core.Data.Serial
         private static void ReloadDef(Def originalDef, DefDeserializer deserializer)
         {
             var element = originalDef.OriginalXml!;
-            var containingMod = NodeToAddingMod[element]!;
+            var containingMod = originalDef.Mod!;
             var result = deserializer.DeserializeDef(element, containingMod);
 
             if (result.IsSuccess)
             {
+                FullDefIdToAddingMod[originalDef.Identifier] = containingMod;
                 var mergingDef = result.Value;
                 MergeDefs(originalDef, mergingDef);
             }

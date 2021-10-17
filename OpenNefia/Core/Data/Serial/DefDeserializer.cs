@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Data.Serial
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XElement node)
+        public static Result<DefIdentifier> GetDefIdAndTypeFromElement(XElement node)
         {
             var defType = DefTypes.GetDefTypeFromName(node.Name.LocalName);
 
@@ -48,33 +48,6 @@ namespace OpenNefia.Core.Data.Serial
 
             return Result.Ok(new DefIdentifier(defType, defId));
         }
-
-        /// <summary>
-        /// Parses a def ID and type from an XML node.
-        /// </summary>
-        /// <param name="nav"></param>
-        /// <returns></returns>
-        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XPathNavigator nav)
-        {
-            var defType = DefTypes.GetDefTypeFromName(nav.Name);
-
-            if (defType == null)
-            {
-                return Result.Fail($"Def type '{nav.Name}' not found.");
-            }
-
-            var defId = nav.GetAttribute("Id", string.Empty);
-
-            if (defId == null)
-            {
-                return Result.Fail($"Def has no ID.");
-            }
-
-            return Result.Ok(new DefIdentifier(defType, defId));
-        }
-
-        public static bool IsValidDefNode(XElement node) => GetDefIdAndTypeFromNode(node).IsSuccess;
-        public static bool IsValidDefNode(XPathNavigator node) => GetDefIdAndTypeFromNode(node).IsSuccess;
 
         public Result<Type> GetConcreteTypeFromNode(XElement node, Type baseType)
         {
@@ -103,7 +76,7 @@ namespace OpenNefia.Core.Data.Serial
 
         public Result<Def> DeserializeDef(XElement node, ModInfo containingMod)
         {
-            var (defBaseType, defId) = GetDefIdAndTypeFromNode(node).Value;
+            var (defBaseType, defId) = GetDefIdAndTypeFromElement(node).Value;
 
             var defTypeResult = GetConcreteTypeFromNode(node, defBaseType);
 
@@ -229,9 +202,23 @@ namespace OpenNefia.Core.Data.Serial
             if (field.GetCustomAttribute<DefIgnoredAttribute>() != null)
                 return;
 
-            if (field.FieldType.IsValueType)
+            var ty = field.FieldType;
+            var value = attribute.Value;
+
+            if (ty.IsValueType)
             {
-                PopulateValueTypeField(attribute.Value, target, field, containingModType);
+                PopulateValueTypeField(value, target, field, containingModType);
+            }
+            else if (ty == typeof(IResourcePath))
+            {
+                IResourcePath path = ParseModLocalPath(value, containingModType);
+                field.SetValue(target, path);
+            }
+            else if (ty.IsSubclassOf(typeof(Def)))
+            {
+                // Defer setting until all defs have been loaded.
+                var crossRef = new DefFieldCrossRef(ty, value, target, field);
+                this.CrossRefs.Add(crossRef);
             }
             else
             {

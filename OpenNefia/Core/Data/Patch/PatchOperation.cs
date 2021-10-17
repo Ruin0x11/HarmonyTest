@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Data.Patch
             {
                 if (parentElement.Name == "Defs" && parentElement.Parent == null)
                 {
-                    var defIdentResult = DefDeserializer.GetDefIdAndTypeFromNode(element);
+                    var defIdentResult = DefDeserializer.GetDefIdAndTypeFromElement(element);
                     if (defIdentResult.IsSuccess)
                     {
                         patchResult.AffectedDefs.Add(defIdentResult.Value);
