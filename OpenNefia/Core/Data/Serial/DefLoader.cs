@@ -234,7 +234,7 @@ namespace OpenNefia.Core.Data.Serial
 
             foreach (var def in AllDefs.Values)
             {
-                var store = typeof(DefStore<>)!.MakeGenericType(def.GetType())!;
+                var store = typeof(DefStore<>)!.MakeGenericType(def.GetDirectDefType())!;
                 var contains = store.GetMethod("ContainsDefId")!;
                 if ((bool)contains.Invoke(null, new object[] { def.Id })!)
                 {
