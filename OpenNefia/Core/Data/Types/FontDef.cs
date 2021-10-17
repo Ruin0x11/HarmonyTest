@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.Data.Types
@@ -76,14 +77,14 @@ namespace OpenNefia.Core.Data.Types
         internal int GetWidth(string text) => this.LoveFont.GetWidth(text);
         internal int GetHeight() => this.LoveFont.GetHeight();
 
-        public override void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public override void DeserializeDefField(IDefDeserializer deserializer, XElement node, Type containingModType)
         {
             base.DeserializeDefField(deserializer, node, containingModType);
 
-            var bgColor = node.Attributes?["BgColor"];
+            var bgColor = node.Attribute("BgColor");
             if (bgColor != null)
             {
-                deserializer.AddCrossRef<FontDef, ColorDef>(this, bgColor.InnerText, (o, colorDef) => o.ExtraColors.Add(ColorKinds.Background, colorDef));
+                deserializer.AddCrossRef<FontDef, ColorDef>(this, bgColor.Value, (o, colorDef) => o.ExtraColors.Add(ColorKinds.Background, colorDef));
             }
         }
 

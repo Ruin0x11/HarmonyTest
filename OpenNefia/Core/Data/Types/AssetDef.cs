@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Types
 {
@@ -32,16 +33,16 @@ namespace OpenNefia.Core.Data.Types
         {
         }
 
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public void DeserializeDefField(IDefDeserializer deserializer, XElement elem, Type containingModType)
         {
-            if (node.Attributes?["SourceImagePath"] != null)
+            if (elem.Attribute("SourceImagePath") != null)
             {
                 this.ImageRegion = new ImageRegion();
-                this.ImageRegion.DeserializeDefField(deserializer, node, containingModType);
+                this.ImageRegion.DeserializeDefField(deserializer, elem, containingModType);
             }
-            else if (node.InnerText != null)
+            else if (elem.Value != null)
             {
-                this.ImagePath = new ModLocalPath(containingModType, node.InnerText);
+                this.ImagePath = new ModLocalPath(containingModType, elem.Value);
             }
         }
 

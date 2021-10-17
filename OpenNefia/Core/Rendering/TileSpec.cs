@@ -4,7 +4,7 @@ using OpenNefia.Core.Util;
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -26,16 +26,16 @@ namespace OpenNefia.Core.Rendering
 
         }
 
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public void DeserializeDefField(IDefDeserializer deserializer, XElement node, Type containingModType)
         {
-            if (node.Attributes?["SourceImagePath"] != null)
+            if (node.Attribute("SourceImagePath") != null)
             {
                 this.ImageRegion = new ImageRegion();
                 this.ImageRegion.DeserializeDefField(deserializer, node, containingModType);
             }
-            else if (node.InnerText != null)
+            else if (node.Value != null)
             {
-                this.ImagePath = new ModLocalPath(containingModType, node.InnerText);
+                this.ImagePath = new ModLocalPath(containingModType, node.Value);
             }
         }
 

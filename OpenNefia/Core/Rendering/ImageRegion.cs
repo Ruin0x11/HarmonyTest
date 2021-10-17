@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -45,7 +46,7 @@ namespace OpenNefia.Core.Rendering
             KeyColor = keyColor;
         }
 
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public void DeserializeDefField(IDefDeserializer deserializer, XElement node, Type containingModType)
         {
             deserializer.PopulateAllFields(node, this, containingModType);
         }

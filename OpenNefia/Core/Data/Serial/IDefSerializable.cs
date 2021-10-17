@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Serial
 {
     public interface IDefSerializable
     {
-        public void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType);
+        public void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType);
 
         public void ValidateDefField(List<string> errors)
         {

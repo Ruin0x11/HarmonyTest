@@ -2,10 +2,7 @@
 using OpenNefia.Mod;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data
 {
@@ -19,7 +16,7 @@ namespace OpenNefia.Core.Data
 
         public uint HotReloadId { get; internal set; }
 
-        public XmlNode? OriginalXml { get; internal set; }
+        public XElement? OriginalXml { get; internal set; }
 
         public DefIdentifier Identifier { get; }
 
@@ -58,9 +55,9 @@ namespace OpenNefia.Core.Data
         {
         }
 
-        public virtual void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public virtual void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType)
         {
-            deserializer.PopulateAllFields(node, this, containingModType);
+            deserializer.PopulateAllFields(element, this, containingModType);
         }
 
         public virtual void ValidateDefField(List<string> errors)

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Serial
@@ -30,16 +30,16 @@ namespace OpenNefia.Core.Data.Serial
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XmlNode node)
+        public static Result<DefIdentifier> GetDefIdAndTypeFromNode(XElement node)
         {
-            var defType = DefTypes.GetDefTypeFromName(node.Name);
+            var defType = DefTypes.GetDefTypeFromName(node.Name.LocalName);
 
             if (defType == null)
             {
                 return Result.Fail($"Def type '{node.Name}' not found.");
             }
 
-            var defId = node.Attributes?["Id"]?.Value;
+            var defId = node.Attribute("Id")?.Value;
 
             if (defId == null)
             {
@@ -73,12 +73,12 @@ namespace OpenNefia.Core.Data.Serial
             return Result.Ok(new DefIdentifier(defType, defId));
         }
 
-        public static bool IsValidDefNode(XmlNode node) => GetDefIdAndTypeFromNode(node).IsSuccess;
+        public static bool IsValidDefNode(XElement node) => GetDefIdAndTypeFromNode(node).IsSuccess;
         public static bool IsValidDefNode(XPathNavigator node) => GetDefIdAndTypeFromNode(node).IsSuccess;
 
-        public Result<Type> GetConcreteTypeFromNode(XmlNode node, Type baseType)
+        public Result<Type> GetConcreteTypeFromNode(XElement node, Type baseType)
         {
-            var className = node.Attributes?["Class"]?.Value;
+            var className = node.Attribute("Class")?.Value;
 
             if (className == null)
             {
@@ -101,7 +101,7 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        public Result<Def> DeserializeDef(XmlNode node, ModInfo containingMod)
+        public Result<Def> DeserializeDef(XElement node, ModInfo containingMod)
         {
             var (defBaseType, defId) = GetDefIdAndTypeFromNode(node).Value;
 
@@ -117,12 +117,12 @@ namespace OpenNefia.Core.Data.Serial
             {
                 throw new Exception("Def ID cannot contain period or colon");
             }
-            node.Attributes!["Id"]!.Value = fullId;
+            node.Attribute("Id")!.Value = fullId;
 
             var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, fullId)!;
             defInstance.Mod = containingMod;
 
-            var elonaId = node.Attributes?["ElonaId"]?.Value;
+            var elonaId = node.Attribute("ElonaId")?.Value;
 
             if (elonaId != null)
                 defInstance.ElonaId = int.Parse(elonaId);
@@ -155,7 +155,7 @@ namespace OpenNefia.Core.Data.Serial
             return field.Name;
         }
 
-        public void PopulateAllFields(XmlNode node, object target, Type containingModType)
+        public void PopulateAllFields(XElement node, object target, Type containingModType)
         {
             foreach (var field in target.GetType().GetFields())
             {
@@ -180,19 +180,19 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        public void PopulateFieldByName(string name, XmlNode node, object target, Type containingModType)
+        public void PopulateFieldByName(string name, XElement node, object target, Type containingModType)
         {
             var field = target.GetType().GetField(name)!;
             PopulateFieldInfo(field, field.Name, node, target, containingModType);
         }
 
-        private void PopulateFieldInfo(FieldInfo field, string nodeName, XmlNode node, object target, Type containingModType)
+        private void PopulateFieldInfo(FieldInfo field, string nodeName, XElement node, object target, Type containingModType)
         {
             if (field.GetCustomAttribute<DefUseAttributesAttribute>() != null)
             {
-                if (node.Attributes?[nodeName] != null)
+                if (node.Attribute(nodeName) != null)
                 {
-                    PopulateField(node.Attributes[nodeName]!, target, field, containingModType);
+                    PopulateField(node.Attribute(nodeName)!, target, field, containingModType);
                 }
                 else
                 {
@@ -201,9 +201,9 @@ namespace OpenNefia.Core.Data.Serial
             }
             else
             {
-                if (node[field.Name] != null)
+                if (node.Element(nodeName) != null)
                 {
-                    PopulateField(node[nodeName]!, target, field, containingModType);
+                    PopulateField(node.Element(nodeName)!, target, field, containingModType);
                 }
                 else
                 {
@@ -212,25 +212,51 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        public void PopulateFieldByNode(string name, XmlNode node, object target, Type containingModType)
+        public void PopulateFieldByElement(string name, XElement element, object target, Type containingModType)
         {
             var field = target.GetType().GetField(name)!;
-            PopulateField(node, target, field, containingModType);
+            PopulateField(element, target, field, containingModType);
         }
 
-        public void PopulateField(XmlNode childNode, object target, FieldInfo field, Type containingModType)
+        public void PopulateFieldByAttribute(string name, XAttribute attribute, object target, Type containingModType)
+        {
+            var field = target.GetType().GetField(name)!;
+            PopulateField(attribute, target, field, containingModType);
+        }
+
+        public void PopulateField(XAttribute attribute, object target, FieldInfo field, Type containingModType)
         {
             if (field.GetCustomAttribute<DefIgnoredAttribute>() != null)
                 return;
 
-            var value = childNode.InnerText!;
-            var typeCode = Type.GetTypeCode(field.FieldType);
-
-            if (!field.FieldType.IsValueType)
+            if (field.FieldType.IsValueType)
             {
-                PopulateObjectField(childNode, target, field, containingModType);
+                PopulateValueTypeField(attribute.Value, target, field, containingModType);
             }
-            else if (field.FieldType.IsEnum)
+            else
+            {
+                throw new Exception($"Cannot populate object type {field.FieldType} with attributes.");
+            }
+        }
+
+        public void PopulateField(XElement childElement, object target, FieldInfo field, Type containingModType)
+        {
+            if (field.GetCustomAttribute<DefIgnoredAttribute>() != null)
+                return;
+
+            if (field.FieldType.IsValueType)
+            {
+                PopulateValueTypeField(childElement.Value, target, field, containingModType);
+            }
+            else
+            {
+                PopulateObjectField(childElement, target, field, containingModType);
+            }
+        }
+
+        private void PopulateValueTypeField(string value, object target, FieldInfo field, Type containingModType)
+        {
+            if (field.FieldType.IsEnum)
             {
                 if (Enum.IsDefined(field.FieldType, value))
                 {
@@ -244,6 +270,8 @@ namespace OpenNefia.Core.Data.Serial
             }
             else
             {
+                var typeCode = Type.GetTypeCode(field.FieldType);
+
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
@@ -293,8 +321,6 @@ namespace OpenNefia.Core.Data.Serial
                         break;
 
                     case TypeCode.Object:
-                        PopulateObjectField(childNode, target, field, containingModType);
-                        break;
                     case TypeCode.Empty:
                     case TypeCode.DBNull:
                         this.Errors.Add($"Unsupported typecode '{typeCode}' for type '{target.GetType()}', field '{field.Name}' ({field.FieldType})");
@@ -305,39 +331,55 @@ namespace OpenNefia.Core.Data.Serial
 
         private IResourcePath ParseModLocalPath(string value, Type containingModType) => new ModLocalPath(containingModType, value);
 
-        private Love.Color ParseLoveColor(XmlNode childNode)
+        private Love.Color ParseLoveColor(XElement childNode)
         {
             var color = new Love.Color();
 
-            var r = childNode["R"];
+            var r = childNode.Attribute("R");
             if (r != null)
-                color.r = byte.Parse(r.InnerText!);
-            var g = childNode["G"];
+                color.r = byte.Parse(r.Value!);
+            var g = childNode.Attribute("G");
             if (g != null)
-                color.g = byte.Parse(g.InnerText!);
-            var b = childNode["B"];
+                color.g = byte.Parse(g.Value!);
+            var b = childNode.Attribute("B");
             if (b != null)
-                color.b = byte.Parse(b.InnerText!);
-            var a = childNode["A"];
+                color.b = byte.Parse(b.Value!);
+            var a = childNode.Attribute("A");
             if (a != null)
-                color.a = byte.Parse(a.InnerText!);
+                color.a = byte.Parse(a.Value!);
 
             return color;
         }
 
-        private Result<object> GetObject(XmlNode node, Type ty, Type containingModType)
+        public Result<object> DeserializeObject(XElement element, Type baseType, Type containingModType)
         {
-            var value = node.InnerText!;
+            var value = element.Value!; 
+            
+            var tyResult = GetConcreteTypeFromNode(element, baseType);
 
-            if (ty == typeof(IResourcePath))
+            if (tyResult.IsFailed)
             {
-                IResourcePath path = ParseModLocalPath(value, containingModType);
-                return Result.Ok((object)path);
+                return tyResult.ToResult<object>();
+            }
+
+            var ty = tyResult.Value;
+
+            if (ty == typeof(string))
+            {
+                return Result.Ok((object)value);
+            }
+            else if (ty == typeof(XElement))
+            {
+                return Result.Ok((object)element);
             }
             else if (ty == typeof(Love.Color))
             {
-                Love.Color color = ParseLoveColor(node);
-                return Result.Ok((object)color);
+                return Result.Ok(Convert.ChangeType(ParseLoveColor(element), ty));
+            }
+            else if (ty == typeof(IResourcePath))
+            {
+                IResourcePath path = ParseModLocalPath(value, containingModType);
+                return Result.Ok((object)path);
             }
             else if (ty.IsEnum)
             {
@@ -354,10 +396,14 @@ namespace OpenNefia.Core.Data.Serial
             else if (typeof(IDefSerializable).IsAssignableFrom(ty))
             {
                 var fieldInstance = (IDefSerializable)Activator.CreateInstance(ty)!;
-                fieldInstance.DeserializeDefField(this, node, containingModType);
-                PopulateAllFields(node, fieldInstance, containingModType);
+                fieldInstance.DeserializeDefField(this, element, containingModType);
+                PopulateAllFields(element, fieldInstance, containingModType);
                 fieldInstance.ValidateDefField(this.Errors);
                 return Result.Ok((object)fieldInstance);
+            }
+            else if (ty.IsAbstract)
+            {
+                return Result.Fail($"Cannot instantiate abstract type {ty}");
             }
             else if (ty.IsGenericType)
             {
@@ -366,15 +412,15 @@ namespace OpenNefia.Core.Data.Serial
                     var listTy = ty.GetGenericArguments()[0];
                     var list = (IList)Activator.CreateInstance(ty)!;
 
-                    foreach (var childNode in node.ChildNodes.Cast<XmlNode>())
+                    foreach (var childElement in element.Elements())
                     {
-                        if (childNode.Name != "li" || childNode.ChildNodes.Count != 1)
+                        if (childElement.Name != "li" || !childElement.HasElements)
                         {
                             return Result.Fail($"Generic list entries must have nodes named 'li' with one element only (type {ty}");
                         }
                         else
                         {
-                            list.Add(GetObject(childNode.ChildNodes[0]!, listTy, containingModType));
+                            list.Add(DeserializeObject(childElement.Elements().First(), listTy, containingModType));
                         }
                     }
 
@@ -389,17 +435,9 @@ namespace OpenNefia.Core.Data.Serial
             return Result.Fail($"Cannot set field of type '{ty}'");
         }
 
-        private void PopulateObjectField(XmlNode node, object target, FieldInfo field, Type containingModType)
+        private void PopulateObjectField(XElement node, object target, FieldInfo field, Type containingModType)
         {
-            var tyResult = GetConcreteTypeFromNode(node, field.FieldType);
-
-            if (tyResult.IsFailed)
-            {
-                this.Errors.Add(tyResult.ToString());
-                return;
-            }
-
-            var ty = tyResult.Value;
+            var ty = field.FieldType;
 
             var value = node.Value!;
 
@@ -411,7 +449,7 @@ namespace OpenNefia.Core.Data.Serial
             }
             else
             {
-                var result = GetObject(node, ty, containingModType);
+                var result = DeserializeObject(node, ty, containingModType);
                 if (result.IsSuccess)
                 {
                     field.SetValue(target, result.Value);

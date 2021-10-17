@@ -1,15 +1,19 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Reflection;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Serial
 {
     public interface IDefDeserializer
     {
-        void PopulateAllFields(XmlNode node, object target, Type containingModType);
-        void PopulateField(XmlNode childNode, object target, FieldInfo field, Type containingModType);
-        void PopulateFieldByName(string name, XmlNode node, object target, Type containingModType);
-        void PopulateFieldByNode(string name, XmlNode node, object target, Type containingModType);
+        void PopulateAllFields(XElement element, object target, Type containingModType);
+        void PopulateField(XElement childElement, object target, FieldInfo field, Type containingModType);
+        void PopulateField(XAttribute childAttribute, object target, FieldInfo field, Type containingModType);
+        void PopulateFieldByName(string name, XElement element, object target, Type containingModType);
+        void PopulateFieldByElement(string name, XElement element, object target, Type containingModType);
+        void PopulateFieldByAttribute(string name, XAttribute attribute, object target, Type containingModType);
         void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T: Def;
+        Result<object> DeserializeObject(XElement element, Type ty, Type containingModType);
     }
 }

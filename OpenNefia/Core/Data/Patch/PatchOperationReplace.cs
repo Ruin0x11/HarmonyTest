@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Patch
 {
@@ -15,21 +17,20 @@ namespace OpenNefia.Core.Data.Patch
         public string XPath = string.Empty;
 
         [DefRequired]
-        public XmlNode Value = null!;
+        public XElement Value = null!;
 
-        public override Result<PatchResult> Apply(XmlDocument document)
+        public override Result<PatchResult> Apply(XDocument document)
         {
-            var nav = document.CreateNavigator()!;
-            var node = nav.SelectSingleNode(this.XPath);
+            var element = document.XPathSelectElement(this.XPath);
 
-            if (node == null)
+            if (element == null)
             {
                 return Result.Fail("XPath not found.");
             }
 
-            node.ReplaceSelf(Value.OuterXml);
+            element.ReplaceWith(Value);
 
-            return Result.Ok(PatchOperation.NodeToAffectedDefs(node));
+            return Result.Ok(PatchOperation.NodeToAffectedDefs(element));
         }
     }
 }

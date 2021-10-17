@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Patch
@@ -25,36 +25,28 @@ namespace OpenNefia.Core.Data.Patch
 
     public abstract class PatchOperation : IDefSerializable
     {
-        public abstract Result<PatchResult> Apply(XmlDocument document);
+        public abstract Result<PatchResult> Apply(XDocument document);
 
-        public virtual void DeserializeDefField(IDefDeserializer deserializer, XmlNode node, Type containingModType)
+        public virtual void DeserializeDefField(IDefDeserializer deserializer, XElement node, Type containingModType)
         {
             deserializer.PopulateAllFields(node, this, containingModType);
         }
 
-        public static PatchResult NodeToAffectedDefs(XPathNavigator? nav)
+        public static PatchResult NodeToAffectedDefs(XElement? element)
         {
             var patchResult = new PatchResult();
 
-            if (nav == null)
+            if (element == null)
             {
                 return patchResult;
             }
 
-            var defsNav = nav.Clone();
-            defsNav.MoveToRoot();
-
-            if (!defsNav.MoveToChild("Defs", string.Empty))
+            var parentElement = element.Parent;
+            while (parentElement != null)
             {
-                return patchResult;
-            }
-
-            var prevNav = nav.Clone();
-            while (nav.MoveToParent())
-            {
-                if (nav.IsSamePosition(defsNav))
+                if (parentElement.Name == "Defs" && parentElement.Parent == null)
                 {
-                    var defIdentResult = DefDeserializer.GetDefIdAndTypeFromNode(prevNav);
+                    var defIdentResult = DefDeserializer.GetDefIdAndTypeFromNode(element);
                     if (defIdentResult.IsSuccess)
                     {
                         patchResult.AffectedDefs.Add(defIdentResult.Value);
@@ -62,7 +54,8 @@ namespace OpenNefia.Core.Data.Patch
                     return patchResult;
                 }
 
-                prevNav.MoveToParent();
+                element = parentElement;
+                parentElement = parentElement.Parent;
             }
 
             // No defs affected.

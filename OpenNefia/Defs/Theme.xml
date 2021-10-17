@@ -3,7 +3,7 @@
   <ThemeDef Id="TestTheme">
     <Operations>
       <Operation Class="OpenNefia.Core.Data.Patch.PatchOperationReplace">
-        <XPath>/Defs/Core.AssetDef[Id = "Core.Window"]/Image</XPath>
+        <XPath>/Defs/Core.AssetDef[@Id="Core.Window"]/Image</XPath>
         <Value>
           <Image SourceImagePath="Assets/Graphic_Beautify/interface.bmp" X="0" Y="48" Width="264" Height="192" />
         </Value>

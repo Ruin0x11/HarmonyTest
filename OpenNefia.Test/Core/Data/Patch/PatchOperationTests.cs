@@ -4,6 +4,8 @@ using OpenNefia.Core.Data.Patch;
 using OpenNefia.Core.Data.Types;
 using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace OpenNefia.Test.Core.Data.Patch
 {
@@ -21,10 +23,8 @@ namespace OpenNefia.Test.Core.Data.Patch
   </AssetDef>
 </Defs>
 ";
-            var doc = new XmlDocument();
-            doc.LoadXml(xml);
-            var nav = doc.CreateNavigator()!;
-            var node = nav.SelectSingleNode("/Defs/AssetDef[@Id='Test']/a/b/c")!;
+            var doc = XDocument.Parse(xml);
+            var node = doc.XPathSelectElement("/Defs/AssetDef[@Id='Test']/a/b/c")!;
 
             var result = PatchOperation.NodeToAffectedDefs(node);
             Assert.AreEqual(1, result.AffectedDefs.Count());
@@ -33,7 +33,7 @@ namespace OpenNefia.Test.Core.Data.Patch
             Assert.AreEqual(typeof(AssetDef), list[0].DefType);
             Assert.AreEqual("Test", list[0].DefId);
 
-            result = PatchOperation.NodeToAffectedDefs(doc.CreateNavigator());
+            result = PatchOperation.NodeToAffectedDefs(doc.Root);
             Assert.AreEqual(0, result.AffectedDefs.Count());
         }
     }
