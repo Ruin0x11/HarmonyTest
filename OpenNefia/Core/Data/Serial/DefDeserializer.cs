@@ -13,10 +13,35 @@ using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Serial
 {
+    /// <summary>
+    /// Mode to deserialize Def IDs with.
+    /// 
+    /// The reason there are two modes:
+    /// 
+    /// 1. We want to enforce that the ID will be automatically prefixed with the name of the mod 
+    ///    that adds it. That means that the Id attribute as specified on-disk should not be 
+    ///    namespaced, as in Id="Window".
+    /// 2. But we also want to be able to use XPath selectors on Id attributes in a uniform way.
+    ///    It would be bad if we had to call both [Id="Window"] and [Id="Core.Window"] to search
+    ///    for the same Def.
+    /// 
+    /// <see cref="FromDisk"/> will add the mod name prefix, <see cref="AlreadyLoaded"/> will not touch it
+    /// and assume it's been prefixed already.
+    /// </summary>
+    public enum DefDeserializeMode
+    {
+        // The IDs of each Def will not be namespaced with the adding mod name and a period.
+        // The ID will be modified in-place to add them during the deserialize process.
+        // Id="Window" => id="Core.Window"
+        FromDisk,
+        
+        // The def was already loaded from disk, so the Id attribute will have already been modified.
+        AlreadyLoaded
+    }
+
     public class DefDeserializer : IDefDeserializer
     {
         internal List<string> Errors;
-
         internal List<IDefCrossRef> CrossRefs { get; }
 
         internal DefDeserializer()
@@ -74,7 +99,12 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        public Result<Def> DeserializeDef(XElement node, ModInfo containingMod)
+        public static bool IsNamespacedDefId(string defId)
+        {
+            return defId.Contains(".");
+        }
+
+        public Result<Def> DeserializeDef(XElement node, ModInfo containingMod, DefDeserializeMode mode)
         {
             var (defBaseType, defId) = GetDefIdAndTypeFromElement(node).Value;
 
@@ -85,14 +115,38 @@ namespace OpenNefia.Core.Data.Serial
                 return defTypeResult.ToResult<Def>();
             }
 
-            var fullId = $"{containingMod.Metadata.Name}.{defId}";
-            if (defId.Contains(".") || defId.Contains(":"))
-            {
-                throw new Exception("Def ID cannot contain period or colon");
-            }
-            node.Attribute("Id")!.Value = fullId;
+            string namespacedDefId = string.Empty;
 
-            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, fullId)!;
+            switch (mode)
+            {
+                case DefDeserializeMode.FromDisk:
+                    // This XElement is coming from disk.
+                    // Id attribute should not be namespaced.
+                    // Automatically prefix the ID with the mod that's adding it.
+                    if (defId.Contains(".") || defId.Contains(":"))
+                    {
+                        throw new Exception($"Def ID cannot contain period or colon: {defId}");
+                    }
+
+                    namespacedDefId = $"{containingMod.Metadata.Name}.{defId}";
+                    node.Attribute("Id")!.Value = namespacedDefId;
+
+                    break;
+                case DefDeserializeMode.AlreadyLoaded:
+                    // This XElement was sourced from a document previously deserialized by
+                    // a DefDeserializer in FromDisk mode.
+                    // The Id should be namespaced already.
+                    if (!IsNamespacedDefId(defId))
+                    {
+                        throw new Exception($"Expected a namespaced Def ID in Def XML, got: {defId}");
+                    }
+
+                    namespacedDefId = defId;
+
+                    break;
+            }
+
+            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, namespacedDefId)!;
             defInstance.Mod = containingMod;
 
             var elonaId = node.Attribute("ElonaId")?.Value;
@@ -109,7 +163,7 @@ namespace OpenNefia.Core.Data.Serial
                 {
                     errors += $"{error}\n";
                 }
-                throw new Exception($"Error loading def {fullId} ({this.Errors.Count} errors)\n{errors}");
+                throw new Exception($"Error loading def {namespacedDefId} ({this.Errors.Count} errors)\n{errors}");
             }
 
             defInstance.OriginalXml = node;
@@ -357,7 +411,14 @@ namespace OpenNefia.Core.Data.Serial
             }
             else if (ty == typeof(XElement))
             {
-                return Result.Ok((object)element);
+                if (!element.HasElements)
+                {
+                    return Result.Fail("XML element must have a child element to act as the field value.");
+                }
+                else
+                {
+                    return Result.Ok((object)element.Elements().First());
+                }
             }
             else if (ty == typeof(Love.Color))
             {

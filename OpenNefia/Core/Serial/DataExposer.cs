@@ -365,7 +365,6 @@ namespace OpenNefia.Serial
                                 }
                                 instantiateType = type;
                             }
-                            Console.WriteLine($"Instantiate class: {instantiateType}");
                             data = (T)Activator.CreateInstance(instantiateType, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, ctorParams, null, null)!;
                         }
 

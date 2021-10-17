@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Data.Patch
 
             element.ReplaceWith(Value);
 
-            return Result.Ok(PatchOperation.NodeToAffectedDefs(element));
+            return Result.Ok(new PatchResult());
         }
     }
 }

@@ -49,6 +49,7 @@ namespace OpenNefia.Mod
         {
             if (assembly.IsDynamic)
             {
+                // Can't invoke assembly.Location on dynamic assemblies.
                 return null;
             }
 

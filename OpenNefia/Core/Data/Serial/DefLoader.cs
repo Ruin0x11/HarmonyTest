@@ -14,10 +14,25 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Serial
 {
+    internal class LoadedDefElement
+    {
+        public DefIdentifier DefIdentifier;
+        public Def? Def;
+        public XElement? SourceXml;
+        public ModInfo AddingMod;
+        public bool NeedsMerge;
+
+        public LoadedDefElement(DefIdentifier defIdentifier, ModInfo addingMod)
+        {
+            DefIdentifier = defIdentifier;
+            AddingMod = addingMod;
+            NeedsMerge = false;
+        }
+    }
+
     internal static class DefLoader
     {
-        private static readonly Dictionary<DefIdentifier, Def> AllDefs = new Dictionary<DefIdentifier, Def>();
-        private static readonly Dictionary<DefIdentifier, ModInfo> FullDefIdToAddingMod = new Dictionary<DefIdentifier, ModInfo>();
+        private static readonly Dictionary<DefIdentifier, LoadedDefElement> AllDefs = new Dictionary<DefIdentifier, LoadedDefElement>();
         internal static XDocument MasterDefXML;
         private static XElement MasterDefsElement;
 
@@ -55,22 +70,22 @@ namespace OpenNefia.Core.Data.Serial
                 return;
             }
 
-            foreach (var node in root.Elements())
+            foreach (var elem in root.Elements())
             {
-                var defIdentifier = DefDeserializer.GetDefIdAndTypeFromElement(node);
+                var defIdentifier = DefDeserializer.GetDefIdAndTypeFromElement(elem);
                 if (defIdentifier.IsSuccess)
                 {
                     // <AssetDef/> -> <Core.AssetDef/>
-                    if (!HasNamespacedDefTypeName(node))
+                    if (!HasNamespacedDefTypeName(elem))
                     {
-                        node.Name = $"{modInfo.Metadata.Name}.{node.Name}";
+                        elem.Name = $"{modInfo.Metadata.Name}.{elem.Name}";
                     }
-                    MasterDefsElement.Add(node);
-                    FullDefIdToAddingMod.Add(defIdentifier.Value, modInfo);
+                    MasterDefsElement.Add(elem);
+                    AllDefs.Add(defIdentifier.Value, new LoadedDefElement(defIdentifier.Value, modInfo));
                 }
                 else
                 {
-                    Console.WriteLine($"Skipping invalid def node {node.Name}");
+                    Console.WriteLine($"Skipping invalid def node {elem.Name}");
                 }
             }
         }
@@ -88,46 +103,6 @@ namespace OpenNefia.Core.Data.Serial
 
             var get = store.GetMethod("Get")!;
             return (Def?)get.Invoke(null, args);
-        }
-
-        private static void ResolveCrossRefs(DefDeserializer defDeserializer)
-        {
-            Logger.Info($"[DefLoader] ResolveCrossRefs");
-
-            List<string> errors = new List<string>();
-
-            foreach (var crossRef in defDeserializer.CrossRefs)
-            {
-                crossRef.Resolve(errors);
-            }
-
-            foreach (var def in AllDefs.Values)
-            {
-                def.OnResolveReferences();
-                def.ValidateDefField(errors);
-            }
-
-            CheckErrors(errors, $"Errors resolving crossreferences between defs");
-
-            defDeserializer.CrossRefs.Clear();
-        }
-
-        private static void BuildMasterXMLDocument(DefDeserializer deserializer)
-        {
-            foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
-            {
-                var path = new ModLocalPath(modInfo, "Defs");
-                var resolved = path.Resolve();
-                if (Directory.Exists(resolved))
-                {
-                    foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
-                    {
-                        AppendDefXml(defSetFile, modInfo, deserializer);
-                    }
-                }
-            }
-
-            CheckErrors(deserializer.Errors, "Errors loading defs");
         }
 
         internal static void LoadAll()
@@ -162,6 +137,24 @@ namespace OpenNefia.Core.Data.Serial
             Logger.Info($"[DefLoader] Finished loading.");
         }
 
+        private static void BuildMasterXMLDocument(DefDeserializer deserializer)
+        {
+            foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
+            {
+                var path = new ModLocalPath(modInfo, "Defs");
+                var resolved = path.Resolve();
+                if (Directory.Exists(resolved))
+                {
+                    foreach (var defSetFile in Directory.EnumerateFiles(resolved, "*.xml"))
+                    {
+                        AppendDefXml(defSetFile, modInfo, deserializer);
+                    }
+                }
+            }
+
+            CheckErrors(deserializer.Errors, "Errors loading defs");
+        }
+
         private static void LoadDefs(DefDeserializer deserializer)
         {
             Logger.Info($"[DefLoader] LoadDefs");
@@ -169,13 +162,16 @@ namespace OpenNefia.Core.Data.Serial
             foreach (var element in MasterDefsElement.Elements())
             {
                 var defIdentifier = DefDeserializer.GetDefIdAndTypeFromElement(element)!.Value;
-                var containingMod = FullDefIdToAddingMod[defIdentifier];
-                var result = deserializer.DeserializeDef(element, containingMod);
+                var loadedDef = AllDefs[defIdentifier];
+                loadedDef.SourceXml = element;
+                var containingMod = loadedDef.AddingMod;
+                var result = deserializer.DeserializeDef(element, containingMod, DefDeserializeMode.FromDisk);
 
                 if (result.IsSuccess)
                 {
                     var defInstance = result.Value;
-                    AllDefs.Add(defInstance.Identifier, defInstance);
+                    loadedDef.Def = defInstance;
+                    loadedDef.SourceXml.Changed += (_, _) => loadedDef.NeedsMerge = true;
                 }
             }
         }
@@ -199,23 +195,29 @@ namespace OpenNefia.Core.Data.Serial
                 }
             }
 
-            finalResult.AffectedDefs
-                .Select(ident => DefLoader.GetDef(ident))
-                .WhereNotNull()
-                .ForEach(def => ReloadDef(def, deserializer));
+            AllDefs.Values
+                .Where(loadedDef => loadedDef.NeedsMerge)
+                .ForEach(loadedDef => ReloadDef(loadedDef!, deserializer));
 
             ResolveCrossRefs(deserializer);
         }
 
-        private static void ReloadDef(Def originalDef, DefDeserializer deserializer)
+        private static void ReloadDef(LoadedDefElement loadedDef, DefDeserializer deserializer)
         {
+            loadedDef.NeedsMerge = false;
+
+            var originalDef = loadedDef.Def;
+            if (originalDef == null)
+            {
+                throw new Exception($"Def {loadedDef.DefIdentifier} was marked as loaded, but its instance was null");
+            }
+
             var element = originalDef.OriginalXml!;
             var containingMod = originalDef.Mod!;
-            var result = deserializer.DeserializeDef(element, containingMod);
+            var result = deserializer.DeserializeDef(element, containingMod, DefDeserializeMode.AlreadyLoaded);
 
             if (result.IsSuccess)
             {
-                FullDefIdToAddingMod[originalDef.Identifier] = containingMod;
                 var mergingDef = result.Value;
                 MergeDefs(originalDef, mergingDef);
             }
@@ -242,7 +244,7 @@ namespace OpenNefia.Core.Data.Serial
 
             List<string> errors = new List<string>();
 
-            foreach (var def in AllDefs.Values)
+            foreach (var def in AllDefs.Values.Select(ld => ld.Def!))
             {
                 var store = typeof(DefStore<>)!.MakeGenericType(def.GetDirectDefType())!;
                 var contains = store.GetMethod("ContainsDefId")!;
@@ -258,6 +260,28 @@ namespace OpenNefia.Core.Data.Serial
             }
 
             CheckErrors(errors, "Errors adding defs");
+        }
+
+        private static void ResolveCrossRefs(DefDeserializer defDeserializer)
+        {
+            Logger.Info($"[DefLoader] ResolveCrossRefs");
+
+            List<string> errors = new List<string>();
+
+            foreach (var crossRef in defDeserializer.CrossRefs)
+            {
+                crossRef.Resolve(errors);
+            }
+
+            foreach (var loadedDef in AllDefs.Values)
+            {
+                loadedDef.Def!.OnResolveReferences();
+                loadedDef.Def!.ValidateDefField(errors);
+            }
+
+            CheckErrors(errors, $"Errors resolving crossreferences between defs");
+
+            defDeserializer.CrossRefs.Clear();
         }
 
         private static bool IsEntriesType(Type arg)
