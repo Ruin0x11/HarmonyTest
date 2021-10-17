@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Data
+namespace OpenNefia.Core.Data.Serial
 {
     public static class DefTypes
     {
@@ -36,8 +36,6 @@ namespace OpenNefia.Core.Data
 
                     foreach (var ty in defTypes)
                     {
-                        Console.WriteLine($"Load def type: {ty.FullName}");
-
                         var fullTypeName = $"{containingMod.Metadata.Name}.{ty.Name}";
                         
                         Storage[fullTypeName] = ty;
@@ -75,6 +73,8 @@ namespace OpenNefia.Core.Data
                 }
                 throw new Exception($"Errors validating def types:\n{errorMessage}");
             }
+
+            Console.WriteLine($"Loaded {Storage.Count} def types.");
         }
 
         private static bool HasDefSerialAttribute(PropertyInfo property)

@@ -3,6 +3,7 @@ using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Patch;
 using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Game;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace OpenNefia.Test.Core.Data.Patch
         [Test]
         public void TestGetDefIdAndTypeFromNode()
         {
+            GameWrapper.Instance.ModLoader.Execute();
             DefTypes.ScanAllTypes();
 
             var xml = @"
@@ -27,7 +29,7 @@ namespace OpenNefia.Test.Core.Data.Patch
             var doc = XDocument.Parse(xml);
 
             var elem = doc.XPathSelectElement("/Defs/AssetDef[@Id='Test']")!;
-            Assert.AreEqual(new DefIdentifier(typeof(AssetDef), "Test"), DefDeserializer.GetDefIdAndTypeFromElement(elem));
+            Assert.AreEqual(new DefIdentifier(typeof(AssetDef), "Test"), DefDeserializer.GetDefIdAndTypeFromElement(elem).Value);
         }
     }
 }

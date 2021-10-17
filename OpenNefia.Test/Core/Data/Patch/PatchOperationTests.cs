@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
-using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Patch;
+using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Game;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,6 +15,7 @@ namespace OpenNefia.Test.Core.Data.Patch
         [Test]
         public void TestNodeToAffectedDefs()
         {
+            GameWrapper.Instance.ModLoader.Execute();
             DefTypes.ScanAllTypes();
 
             var xml = @"

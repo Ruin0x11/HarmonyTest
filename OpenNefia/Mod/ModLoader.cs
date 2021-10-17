@@ -47,6 +47,11 @@ namespace OpenNefia.Mod
 
         public ModInfo? GetModFromAssembly(Assembly assembly)
         {
+            if (assembly.IsDynamic)
+            {
+                return null;
+            }
+
             return LoadedMods.Find(mod => mod.AssemblyLocation == assembly.Location);
         }
 
