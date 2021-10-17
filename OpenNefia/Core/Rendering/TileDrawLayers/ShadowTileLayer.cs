@@ -20,6 +20,10 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this.Batch = new ShadowBatch(map.Width, map.Height, Coords);
         }
 
+        public override void OnThemeSwitched()
+        {
+        }
+
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);

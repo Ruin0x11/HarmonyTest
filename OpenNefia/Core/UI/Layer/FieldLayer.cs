@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
@@ -115,6 +116,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.East] += (_) => this.MovePlayer(1, 0);
             this.Keybinds[Keys.G] += (_) => this.GetItem();
             this.Keybinds[Keys.D] += (_) => this.DropItem();
+            this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
             this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
             this.Scroller.BindKeys(this);
@@ -179,6 +181,22 @@ namespace OpenNefia.Core.UI.Layer
                     }
                 }
             }
+        }
+
+        bool IsBeautify = false;
+
+        private void ActivateBeautify()
+        {
+            if (IsBeautify)
+                return;
+
+            Console.WriteLine($"Applying beautify!");
+
+            DefLoader.ApplyActiveThemes(new List<ThemeDef>() { ThemeDefOf.Beautify });
+            Startup.RegenerateTileAtlases();
+            Renderer.OnThemeSwitched();
+            Map.Redraw();
+            IsBeautify = true;
         }
 
         private void PlaceTile(MouseButtonEvent evt)

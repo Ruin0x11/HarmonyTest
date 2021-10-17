@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Core.Data.Patch;
-using OpenNefia.Core.Data.Types.DefOf;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Game;
 using OpenNefia.Mod;
@@ -171,23 +171,28 @@ namespace OpenNefia.Core.Data.Serial
             }
         }
 
-        internal static void ApplyActiveThemes()
+        internal static void ApplyActiveThemes(List<ThemeDef> themes)
         {
+            // TODO reload any previously modified defs from
+            // their original XML.
+
             var deserializer = new DefDeserializer();
-            var theme = ThemeDefOf.TestTheme;
 
             var finalResult = new PatchResult();
 
-            foreach (var patch in theme.Operations)
+            foreach (var theme in themes)
             {
-                var result = patch.Apply(MasterDefXML);
-                if (result.IsSuccess)
+                foreach (var patch in theme.Operations)
                 {
-                    finalResult.Merge(result.Value);
-                }
-                else
-                {
-                    Console.WriteLine($"Patch failure: {result}");
+                    var result = patch.Apply(MasterDefXML);
+                    if (result.IsSuccess)
+                    {
+                        finalResult.Merge(result.Value);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Patch failure: {result}");
+                    }
                 }
             }
 

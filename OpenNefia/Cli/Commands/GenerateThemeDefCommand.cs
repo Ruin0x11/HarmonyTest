@@ -19,6 +19,9 @@ namespace OpenNefia.Cli.Commands
     [Verb(name: "generateThemeDef", HelpText = "Generate a ThemeDef XML file from a directory containing Elona asset files.")]
     internal class GenerateThemeDefOptions : BaseOptions
     {
+        [Option(longName: nameof(AssetDirectoryPrefix), shortName: 'p', HelpText = "Prefix that will hold the assets.")]
+        public string AssetDirectoryPrefix { get; set; } = "Assets";
+
         [Value(0, MetaName = nameof(InputDirectory), Required = true, HelpText = "Source directory containing graphic/, sound/, etc. folders")]
         public string InputDirectory { get; set; } = string.Empty;
 
@@ -114,7 +117,6 @@ namespace OpenNefia.Cli.Commands
         {
             foreach (var element in originalXml.Elements())
             {
-                Console.WriteLine(element.GetAbsoluteXPathDefAware());
                 var newElement = new XElement(element);
                 var changed = false;
 
@@ -124,7 +126,7 @@ namespace OpenNefia.Cli.Commands
                     if (SourcePaths.Contains(elonaPathSuffix))
                     {
                         // "Assets" + "graphic/character.bmp"
-                        e.Value = $"Assets/{elonaPathSuffix}";
+                        e.Value = $"{Options.AssetDirectoryPrefix}/{elonaPathSuffix}";
                         changed = true;
                     }
 
@@ -133,7 +135,7 @@ namespace OpenNefia.Cli.Commands
                         elonaPathSuffix = ToElonaPath(descAttribute.Value);
                         if (SourcePaths.Contains(elonaPathSuffix))
                         {
-                            descAttribute.Value = $"Assets/{elonaPathSuffix}";
+                            descAttribute.Value = $"{Options.AssetDirectoryPrefix}/{elonaPathSuffix}";
                             changed = true;
                         }
                     }

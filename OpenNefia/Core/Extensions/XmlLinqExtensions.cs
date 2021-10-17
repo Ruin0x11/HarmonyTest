@@ -12,19 +12,7 @@ namespace OpenNefia.Core.Extensions
         private static string relativeXPath(XElement e)
         {
             int index = e.IndexPosition();
-
-            var currentNamespace = e.Name.Namespace;
-
-            string name;
-            if (currentNamespace == null)
-            {
-                name = e.Name.LocalName;
-            }
-            else
-            {
-                string namespacePrefix = e.GetPrefixOfNamespace(currentNamespace)!;
-                name = namespacePrefix + ":" + e.Name.LocalName;
-            }
+            string name = e.Name.LocalName;
 
             // If the element is the root, no index is required
             return (index == -1) ? "/" + name : string.Format
@@ -44,7 +32,7 @@ namespace OpenNefia.Core.Extensions
         {
             if (IsDefElement(e))
             {
-                return $"/{e.Name.LocalName}[{e.Attribute("Id")}]";
+                return $"/{e.Name.LocalName}[@{e.Attribute("Id")}]";
             }
             else
             {

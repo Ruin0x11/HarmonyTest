@@ -1,8 +1,7 @@
 {
   "profiles": {
     "OpenNefia": {
-      "commandName": "Project",
-      "commandLineArgs": "generateThemeDef C:\\Users\\yuno\\build\\elona-next\\src\\mod\\beautify . Beautify"
+      "commandName": "Project"
     }
   }
 }

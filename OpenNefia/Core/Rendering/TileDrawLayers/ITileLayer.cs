@@ -9,6 +9,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     public interface ITileLayer : IDrawable
     {
+        void OnThemeSwitched();
         void RedrawAll();
         void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn);
     }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Core.Rendering.TileDrawLayers
+namespace OpenNefia.Core.Rendering
 {
     public static class FovRadius
     {
@@ -48,40 +48,6 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                     }
                 }
             }
-
-            //for (int y = 0; y < fovMax + 2; y++)
-            //{
-            //    for (int x = 0; x < fovMax + 2; x++)
-            //    {
-            //        if (fovMap[x, y])
-            //        {
-            //            Console.Write('#');
-            //        }
-            //        else
-            //        {
-            //            Console.Write(' ');
-            //        }
-            //    }
-            //    Console.Write('\n');
-            //}
-
-            //Console.WriteLine();
-
-            //for (int y = 0; y < fovMax + 2; y++)
-            //{
-            //    for (int x = 0; x < fovMax + 2; x++)
-            //    {
-            //        if (x < fovList[y, 0] || x > fovList[y, 1])
-            //        {
-            //            Console.Write('#');
-            //        }
-            //        else
-            //        {
-            //            Console.Write(' ');
-            //        }
-            //    }
-            //    Console.Write('\n');
-            //}
 
             Cache.Add(fovMax, fovList);
             

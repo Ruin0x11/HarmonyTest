@@ -27,6 +27,14 @@ namespace OpenNefia.Core.Rendering
             RefreshAllLayers();
         }
 
+        public void OnThemeSwitched()
+        {
+            foreach (var layer in TileLayers)
+            {
+                layer.OnThemeSwitched();
+            }
+        }
+
         public void RefreshAllLayers()
         {
             if (this.Map._RedrawAllThisTurn)

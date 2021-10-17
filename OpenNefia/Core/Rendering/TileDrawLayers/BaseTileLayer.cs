@@ -9,6 +9,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     public abstract class BaseTileLayer : BaseDrawable, ITileLayer
     {
+        public abstract void OnThemeSwitched();
         public abstract void RedrawAll();
         public abstract void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn);
     }

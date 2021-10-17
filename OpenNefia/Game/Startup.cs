@@ -11,12 +11,8 @@ namespace OpenNefia.Game
 {
     internal static class Startup
     {
-        internal static void Run()
+        internal static void RegenerateTileAtlases()
         {
-            GameWrapper.Instance.ModLoader.Execute();
-            DefLoader.LoadAll();
-            DefLoader.ApplyActiveThemes();
-
             Logger.Info($"[Startup] Load chip atlas.");
 
             var atlasFactory = new TileAtlasFactory();
@@ -34,6 +30,14 @@ namespace OpenNefia.Game
 
             Atlases.Chip = chipAtlas;
             Atlases.Tile = tileAtlas;
+        }
+
+        internal static void Run()
+        {
+            GameWrapper.Instance.ModLoader.Execute();
+            DefLoader.LoadAll();
+
+            RegenerateTileAtlases();
 
             InitTileMapping();
         }

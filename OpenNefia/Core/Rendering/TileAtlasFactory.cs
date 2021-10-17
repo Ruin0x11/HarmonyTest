@@ -144,6 +144,15 @@ namespace OpenNefia.Core.Rendering
                 foreach (var tile in TileSpecs.OrderBy(x => x.TileIndex))
                 {
                     sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.TileIndex));
+
+                    if (tile.ImagePath != null)
+                    {
+                        sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.ImagePath.Resolve()));
+                    }
+                    else if (tile.ImageRegion != null)
+                    {
+                        sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.ImageRegion.SourceImagePath.Resolve()));
+                    }
                 }
 
                 var data = sha256Hash.GetCurrentHash();

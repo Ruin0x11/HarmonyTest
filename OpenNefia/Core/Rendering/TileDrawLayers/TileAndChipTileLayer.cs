@@ -30,8 +30,9 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             WallShadows = new WallTileShadows(map, Coords);
         }
 
-        public void OnThemeSwitched(ICoords coords)
+        public override void OnThemeSwitched()
         {
+            var coords = GameWrapper.Instance.State.Coords;
             TileAtlas = Atlases.Tile;
             ChipAtlas = Atlases.Chip;
             Coords = coords;
