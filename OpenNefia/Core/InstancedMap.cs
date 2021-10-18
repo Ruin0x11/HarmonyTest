@@ -207,9 +207,9 @@ namespace OpenNefia.Core
                 this._ShadowMap = new ShadowMap(this);
                 foreach (var obj in this._Pool)
                 {
-                    if (obj.Uid == GameWrapper.Instance.State.Player?.Uid)
+                    if (obj.Uid == Chara.Player?.Uid)
                     {
-                        GameWrapper.Instance.State.Player = (Chara)obj;
+                        Chara.Player = (Chara)obj;
                     }
                 }
                 this.Redraw();

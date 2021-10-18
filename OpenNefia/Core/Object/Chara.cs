@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
+using OpenNefia.Game;
 using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,12 @@ namespace OpenNefia.Core.Object
 #pragma warning disable CS8618
         private Chara() : base() { }
 #pragma warning restore CS8618
+
+        public static Chara? Player 
+        { 
+            get => GameWrapper.Instance.State.Player; 
+            internal set => GameWrapper.Instance.State.Player = value; 
+        }
 
         public override string TypeKey => "Chara";
 

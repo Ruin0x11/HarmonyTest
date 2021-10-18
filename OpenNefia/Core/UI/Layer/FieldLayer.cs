@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Layer
 
             var player = new Chara(ChipDefOf.CharaChicken);
             Map.TakeObject(player, 2, 2);
-            GameWrapper.Instance.State.Player = player;
+            Chara.Player = player;
 
             MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
@@ -133,7 +133,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void MovePlayer(int dx, int dy)
         {
-            var player = GameWrapper.Instance.State.Player;
+            var player = Chara.Player;
 
             if (player != null)
             {
@@ -145,7 +145,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void GetItem()
         {
-            var player = GameWrapper.Instance.State.Player;
+            var player = Chara.Player;
 
             if (player != null)
             {
@@ -165,7 +165,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void DropItem()
         {
-            var player = GameWrapper.Instance.State.Player;
+            var player = Chara.Player;
 
             if (player != null)
             {
@@ -249,7 +249,7 @@ namespace OpenNefia.Core.UI.Layer
             Renderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
 
-            var player = GameWrapper.Instance.State.Player;
+            var player = Chara.Player;
             if (player != null)
             {
                 Camera.CenterOn(player);
@@ -318,7 +318,7 @@ namespace OpenNefia.Core.UI.Layer
 
             Love.Graphics.SetColor(255, 0, 0);
 
-            var player = GameWrapper.Instance.State.Player!;
+            var player = Chara.Player!;
             player.GetScreenPos(out var sx, out var sy);
             GraphicsEx.LineRect(X + sx, Y + sy, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
