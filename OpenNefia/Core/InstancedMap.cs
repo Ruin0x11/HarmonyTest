@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Serial;
+using FluentResults;
 
 namespace OpenNefia.Core
 {
@@ -17,10 +18,12 @@ namespace OpenNefia.Core
         int _Width;
         int _Height;
         ulong _Uid;
+        MapDef _Def;
 
         public int Width { get => _Width; }
         public int Height { get => _Height; }
         public ulong Uid { get => _Uid; }
+        public MapDef Def { get => _Def; }
 
         internal int[] _TileInds;
         internal int[] _TileMemoryInds;
@@ -38,15 +41,17 @@ namespace OpenNefia.Core
 
         public ILocation? ParentLocation => null;
 
-        public InstancedMap() : this(1, 1, TileDefOf.MapgenDefault) { }
+        internal InstancedMap() : this (1, 1, MapDefOf.Default, TileDefOf.Grass) { }
 
-        public InstancedMap(int width, int height) : this(width, height, TileDefOf.MapgenDefault) { }
-
-        public InstancedMap(int width, int height, TileDef defaultTile)
+        public InstancedMap(int width, int height, MapDef def, TileDef? defaultTile = null)
         {
+            if (defaultTile == null)
+                defaultTile = TileDefOf.Grass;
+
             _Width = width;
             _Height = height;
             _Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            _Def = def;
             _TileIndexMapping = GameWrapper.Instance.State.TileIndexMapping;
             _TileInds = new int[width * height];
             _TileMemoryInds = new int[width * height];
@@ -61,6 +66,11 @@ namespace OpenNefia.Core
 
             Clear(defaultTile);
             ClearMemory(defaultTile);
+        }
+
+        public static Result<InstancedMap> Generate(MapDef def)
+        {
+            return def.Generator.Generate(def);
         }
 
         public void RefreshTile(int x, int y)
@@ -126,7 +136,7 @@ namespace OpenNefia.Core
         {
             get
             {
-                for (int i = 0; i < Width * Height; i++)
+                for (int i = 0; i < _TileInds.Length; i++)
                 {
                     int tileIndex = _TileInds[i];
                     int x = i % Width;
@@ -171,7 +181,7 @@ namespace OpenNefia.Core
         {
             get
             {
-                for (int i = 0; i < Width * Height; i++)
+                for (int i = 0; i < _TileMemoryInds.Length; i++)
                 {
                     int tileIndex = _TileMemoryInds[i];
                     int x = i % Width;
@@ -187,6 +197,7 @@ namespace OpenNefia.Core
             data.ExposeValue(ref _Uid, nameof(_Uid));
             data.ExposeValue(ref _Width, nameof(_Width));
             data.ExposeValue(ref _Height, nameof(_Height));
+            data.ExposeDef(ref _Def!, nameof(_Def));
 
             if (data.Stage == SerialStage.LoadingDeep)
             {

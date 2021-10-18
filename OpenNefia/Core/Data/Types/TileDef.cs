@@ -29,6 +29,9 @@ namespace OpenNefia.Core.Data.Types
         [DefRequired]
         public TileSpec Image = null!;
 
+        [DefUseAttributes]
+        public int? ElonaAtlas = null;
+
         public bool IsSolid = false;
 
         public bool IsOpaque = false;
@@ -36,6 +39,7 @@ namespace OpenNefia.Core.Data.Types
         public TileSpec? WallImage = null;
 
         public TileKind Kind = TileKind.None;
+
         public TileKind Kind2 = TileKind.None;
 
         public TileDef(string id) : base(id)

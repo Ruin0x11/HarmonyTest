@@ -153,8 +153,8 @@ namespace OpenNefia.Game
 
             Startup.Run();
 
-            var layer = FieldLayer.Instance;
-            layer.Query();
+            FieldLayer.Instance = new FieldLayer();
+            FieldLayer.Instance.Query();
         }
     }
 }

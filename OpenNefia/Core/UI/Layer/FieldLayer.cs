@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI.Layer
 
     public class FieldLayer : BaseUiLayer<string>
     {
-        public static FieldLayer Instance = new FieldLayer();
+        public static FieldLayer Instance = null!;
 
         public InstancedMap Map { get; private set; }
 
@@ -65,7 +65,17 @@ namespace OpenNefia.Core.UI.Layer
 
         internal FieldLayer()
         {
-            Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
+            Map = InstancedMap.Generate(MapDefOf.NorthTyris).Value;
+            //Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
+            //this.InitMap();
+            
+            var player = new Chara(ChipDefOf.CharaChicken);
+            Map.TakeObject(player, 2, 2);
+            Chara.Player = player;
+
+            Map.ClearMemory(TileDefOf.WallForestFog);
+            Map.RefreshVisibility();
+
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
             Things = new List<Thing>();
@@ -79,8 +89,6 @@ namespace OpenNefia.Core.UI.Layer
                 Things.Add(new Thing(thingData, x, y));
                 x += 1;
             }
-
-            this.InitMap();
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
@@ -96,10 +104,6 @@ namespace OpenNefia.Core.UI.Layer
 
         private void InitMap()
         {
-            var player = new Chara(ChipDefOf.CharaChicken);
-            Map.TakeObject(player, 2, 2);
-            Chara.Player = player;
-
             MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
             MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
@@ -109,9 +113,6 @@ namespace OpenNefia.Core.UI.Layer
                 Map.TakeObject(new Item(ChipDefOf.ItemComputer), 5 + i, 5);
             for (int i = 0; i < 10; i++)
                 Map.TakeObject(new Chara(ChipDefOf.CharaCat), 5 + i, 7);
-
-            Map.ClearMemory(TileDefOf.WallForestFog);
-            Map.RefreshVisibility();
         }
 
         protected virtual void BindKeys()

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
 using OpenNefia.Game;
@@ -53,7 +54,7 @@ namespace OpenNefia.Core.Object
         {
             return EnumerateParents()
                 .Select(x => (x as ItemInventory)?.ParentObject as Chara)
-                .Where(x => x != null)
+                .WhereNotNull()
                 .FirstOrDefault();
         }
 
@@ -156,6 +157,9 @@ namespace OpenNefia.Core.Object
 
         public Item Clone()
         {
+            // TODO: This doesn't even work. It won't handle Dictionaries or other complex data structures.
+            // There will have to be an ICloneable interface implemented on map objects
+            // and aspects that does the deep copying manually, but it shouldn't be too hard.
             var newObject = (Item)this.MemberwiseClone();
             newObject._CurrentLocation = null;
             newObject._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();

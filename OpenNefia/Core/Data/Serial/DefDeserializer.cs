@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using Love;
+using OpenNefia.Core.Util;
 using OpenNefia.Mod;
 using System;
 using System.Collections;
@@ -146,7 +147,7 @@ namespace OpenNefia.Core.Data.Serial
                     break;
             }
 
-            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new object[] { namespacedDefId }, null)!;
+            var defInstance = (Def)ReflectionUtils.CreateFromPublicOrPrivateCtor(defTypeResult.Value, new object[] { namespacedDefId })!;
             defInstance.Mod = containingMod;
 
             var elonaId = node.Attribute("ElonaId")?.Value;
@@ -458,7 +459,7 @@ namespace OpenNefia.Core.Data.Serial
             }
             else if (typeof(IDefDeserializable).IsAssignableFrom(ty))
             {
-                var fieldInstance = (IDefDeserializable)Activator.CreateInstance(ty)!;
+                var fieldInstance = (IDefDeserializable)ReflectionUtils.CreateFromPublicOrPrivateCtor(ty)!;
                 fieldInstance.DeserializeDefField(this, element, containingModType);
                 PopulateAllFields(element, fieldInstance, containingModType);
                 fieldInstance.ValidateDefField(this.Errors);

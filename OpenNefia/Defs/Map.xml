@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <MapDef Id="Default">
+    <Generator Class="OpenNefia.Core.Map.Generator.EmptyMapGenerator"/>
+  </MapDef>
+  <MapDef ElonaId="4" Id="NorthTyris">
+    <Generator Class="OpenNefia.Core.Map.Generator.Elona122MapLoader">
+      <IdxFilePath>Assets/Map/ntyris.idx</IdxFilePath>
+    </Generator>
+  </MapDef>
+  <MapDef ElonaId="5" Id="Vernis">
+    <Generator Class="OpenNefia.Core.Map.Generator.Elona122MapLoader">
+      <IdxFilePath>Assets/Map/vernis.idx</IdxFilePath>
+    </Generator>
+  </MapDef>
+</Defs>

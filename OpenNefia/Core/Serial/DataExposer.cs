@@ -1,6 +1,7 @@
 ﻿using fNbt;
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -365,7 +366,7 @@ namespace OpenNefia.Serial
                                 }
                                 instantiateType = type;
                             }
-                            data = (T)Activator.CreateInstance(instantiateType, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, ctorParams, null, null)!;
+                            data = ReflectionUtils.CreateFromPublicOrPrivateCtor<T>(ctorParams)!;
                         }
 
                         ((IDataExposable)data).Expose(this);
@@ -685,21 +686,6 @@ namespace OpenNefia.Serial
                     CurrentCompound.Add(listCompound);
                 }
             }
-        }
-
-        private T CreateDefault<T>()
-        {
-            if (typeof(T).IsAbstract)
-            {
-                throw new Exception($"Can't instantiate abstract class '{typeof(T)}'");
-            }
-
-            if (typeof(T) == typeof(string))
-            {
-                return (T)Convert.ChangeType(string.Empty, typeof(string));
-            }
-
-            return (T)Activator.CreateInstance(typeof(T))!;
         }
 
         internal void Save()
