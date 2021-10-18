@@ -2,8 +2,7 @@
 {
     public enum EffectResult
     {
-        Succeeded,
+        Succeeded = 0,
         Failed,
-        Cancelled
     }
 }

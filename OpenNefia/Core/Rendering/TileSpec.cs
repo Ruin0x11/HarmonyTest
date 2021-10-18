@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class TileSpec : IDefSerializable
+    public class TileSpec : IDefDeserializable
     {
         [DefRequired(DefaultValue="Default")]
         public string TileId = string.Empty;

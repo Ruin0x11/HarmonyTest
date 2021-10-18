@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class AssetSpec : IDefSerializable
+    public class AssetSpec : IDefDeserializable
     {
         /// <summary>
         /// Path of an image to use.

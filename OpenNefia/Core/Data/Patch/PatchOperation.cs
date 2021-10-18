@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Data.Patch
         }
     }
 
-    public abstract class PatchOperation : IDefSerializable
+    public abstract class PatchOperation : IDefDeserializable
     {
         public abstract Result<PatchResult> Apply(XDocument document);
 

@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data.Serial
 {
-    public interface IDefSerializable
+    public interface IDefDeserializable
     {
         public void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType);
 

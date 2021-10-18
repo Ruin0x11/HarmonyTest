@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class PromptChoice<T> where T : struct
+    public class PromptChoice<T>
     {
-        public T Result;
+        public T Value;
         public string? Text = null;
         public uint? Index = null;
         public Keys Key = Keys.None;
 
         public PromptChoice(T result)
         {
-            this.Result = result;
+            this.Value = result;
         }
     }
 
-    public class Prompt<T> : BaseUiLayer<PromptChoice<T>> where T: struct
+    public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
     {
         public class UiPromptList : UiList<PromptChoice<T>>
         {
-            public UiPromptList(List<PromptChoice<T>> choices) : base(choices, itemHeight: 20)
+            public UiPromptList(IEnumerable<PromptChoice<T>> choices) : base(choices, itemHeight: 20)
             {
             }
 
@@ -35,7 +35,7 @@ namespace OpenNefia.Core.UI.Layer
                 if (choice.Text != null)
                     return choice.Text;
 
-                return $"{choice.Result}";
+                return $"{choice.Value}";
             }
 
             public override UiListChoiceKey GetChoiceKey(PromptChoice<T> choice, int index)
@@ -60,7 +60,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private int DefaultWidth;
 
-        public Prompt(List<PromptChoice<T>> choices, PromptOptions options)
+        public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
         {
             this.List = new UiPromptList(choices);
             this.Window = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Zero);
@@ -71,7 +71,20 @@ namespace OpenNefia.Core.UI.Layer
             this.BindKeys();
         }
 
-        public Prompt(List<PromptChoice<T>> choices) : this(choices, new PromptOptions()) { }
+        public Prompt(IEnumerable<PromptChoice<T>> choices)
+            : this(choices, new PromptOptions())
+        { 
+        }
+
+        public Prompt(IEnumerable<T> choices, PromptOptions options) 
+            : this(choices.Select(x => new PromptChoice<T>(x)), options) 
+        { 
+        }
+
+        public Prompt(IEnumerable<T> choices) 
+            : this(choices, new PromptOptions()) 
+        { 
+        }
 
         protected virtual void BindKeys()
         {

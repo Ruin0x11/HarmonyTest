@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Object;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Effect
 {
-    public interface IEffect
+    public interface IEffect : IDefDeserializable
     {
-        public EffectResult Apply();
+        public EffectResult Apply(EffectArguments args);
     }
 }

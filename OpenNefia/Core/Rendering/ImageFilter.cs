@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class ImageFilter : IDefSerializable
+    public class ImageFilter : IDefDeserializable
     {
         public Love.FilterMode Min = Love.FilterMode.Linear;
         public Love.FilterMode Mag = Love.FilterMode.Linear;

@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class ImageRegion : IDefSerializable
+    public class ImageRegion : IDefDeserializable
     {
         [DefRequired]
         [DefUseAttributes]

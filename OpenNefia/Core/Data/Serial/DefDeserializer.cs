@@ -83,19 +83,19 @@ namespace OpenNefia.Core.Data.Serial
                 return Result.Ok(baseType);
             }
 
-            var klassType = Type.GetType(className);
+            var classType = Type.GetType(className);
 
-            if (klassType == null)
+            if (classType == null)
             {
                 return Result.Fail($"Could not find class with name '{className}' (parent: '{baseType.FullName}')");
             }
-            else if (!klassType.IsSubclassOf(baseType))
+            else if (!baseType.IsAssignableFrom(classType))
             {
-                return Result.Fail($"Class '{klassType}' is not a subclass of parent type '{baseType.FullName}'");
+                return Result.Fail($"Class '{classType}' is not convertable to parent type '{baseType.FullName}'");
             }
             else
             {
-                return Result.Ok(klassType);
+                return Result.Ok(classType);
             }
         }
 
@@ -146,7 +146,7 @@ namespace OpenNefia.Core.Data.Serial
                     break;
             }
 
-            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, namespacedDefId)!;
+            var defInstance = (Def)Activator.CreateInstance(defTypeResult.Value, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new object[] { namespacedDefId }, null)!;
             defInstance.Mod = containingMod;
 
             var elonaId = node.Attribute("ElonaId")?.Value;
@@ -456,9 +456,9 @@ namespace OpenNefia.Core.Data.Serial
                     return Result.Fail($"Enum '{ty}' does not have variant '{value}'");
                 }
             }
-            else if (typeof(IDefSerializable).IsAssignableFrom(ty))
+            else if (typeof(IDefDeserializable).IsAssignableFrom(ty))
             {
-                var fieldInstance = (IDefSerializable)Activator.CreateInstance(ty)!;
+                var fieldInstance = (IDefDeserializable)Activator.CreateInstance(ty)!;
                 fieldInstance.DeserializeDefField(this, element, containingModType);
                 PopulateAllFields(element, fieldInstance, containingModType);
                 fieldInstance.ValidateDefField(this.Errors);
@@ -477,13 +477,18 @@ namespace OpenNefia.Core.Data.Serial
 
                     foreach (var childElement in element.Elements())
                     {
-                        if (childElement.Name != "li" || !childElement.HasElements)
+                        if (childElement.Name != "li")
                         {
-                            return Result.Fail($"Generic list entries must have nodes named 'li' with one element only (type {ty}");
+                            return Result.Fail($"Generic list entries must have nodes named 'li' (type {ty}");
                         }
                         else
                         {
-                            list.Add(DeserializeObject(childElement.Elements().First(), listTy, containingModType));
+                            var result = DeserializeObject(childElement, listTy, containingModType);
+                            if (result.IsFailed)
+                            {
+                                return result;
+                            }
+                            list.Add(result.Value);
                         }
                     }
 

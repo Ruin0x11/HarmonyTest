@@ -16,18 +16,20 @@ namespace OpenNefia.Core.UI
             Error
         }
 
-        public T? Result;
+        public bool IsSuccess { get => this.Type == ResultType.Finished; }
+
+        public T? Value;
         public UiResult<T>.ResultType Type;
 
         public UiResult(UiResult<T>.ResultType type, T? result)
         {
-            this.Result = result;
+            this.Value = result;
             this.Type = type;
         }
 
         public static UiResult<T> Finished(T result) => new UiResult<T>(ResultType.Finished, result);
         public static UiResult<T> Cancelled() => new UiResult<T>(ResultType.Cancelled, null);
 
-        public override string ToString() => $"{this.Type}({this.Result?.ToString()})";    
+        public override string ToString() => $"{this.Type}({this.Value?.ToString()})";    
     }
 }

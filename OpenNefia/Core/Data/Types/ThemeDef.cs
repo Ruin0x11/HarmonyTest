@@ -12,7 +12,7 @@ using System.Xml.XPath;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class ThemeOverrides : IDefSerializable, IEnumerable<PatchOperation>
+    public class ThemeOverrides : IDefDeserializable, IEnumerable<PatchOperation>
     {
         public List<PatchOperation> Operations = new List<PatchOperation>();
 

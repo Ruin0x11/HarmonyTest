@@ -1,9 +1,10 @@
-﻿using OpenNefia.Core.UI.Element;
+﻿using Love;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -70,6 +71,22 @@ namespace OpenNefia.Core.Rendering
         }
 
         public bool HasActiveDrawables() => Active.Count > 0;
+
+        /// <summary>
+        /// Called from update code.
+        /// </summary>
+        public void WaitForDrawables()
+        {
+            while (HasActiveDrawables())
+            {
+                var dt = Timer.GetDelta();
+                GameWrapper.Instance.Update(dt);
+                this.Update(dt);
+
+                GameWrapper.Instance.Draw();
+                GameWrapper.Instance.SystemStep();
+            }
+        }
 
         public override void Update(float dt)
         {

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using FluentResults;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
 using OpenNefia.Game;
@@ -39,6 +40,22 @@ namespace OpenNefia.Core.Object
         }
 
         public override string TypeKey => "Chara";
+
+        public static Result<Chara> Create(ILocation location, int x, int y)
+        {
+            var chara = new Chara(ChipDefOf.CharaRaceSlime);
+
+            if (!location.CanReceiveObject(chara, x, y))
+            {
+                return Result.Fail("Location could not receive object.");
+            }
+            if (!location.TakeObject(chara, x, y))
+            {
+                return Result.Fail("Location failed to receive object.");
+            }
+
+            return Result.Ok(chara);
+        }
 
         public override void Refresh()
         {

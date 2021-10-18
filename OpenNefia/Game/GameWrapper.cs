@@ -8,6 +8,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.Data;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Mod;
 
 namespace OpenNefia.Game
@@ -152,7 +153,7 @@ namespace OpenNefia.Game
 
             Startup.Run();
 
-            var layer = new Core.UI.Layer.FieldLayer();
+            var layer = FieldLayer.Instance;
             layer.Query();
         }
     }

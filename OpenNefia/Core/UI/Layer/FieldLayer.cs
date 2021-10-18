@@ -1,5 +1,7 @@
-﻿using OpenNefia.Core.Data.Serial;
+﻿using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Effect;
 using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
@@ -43,12 +45,14 @@ namespace OpenNefia.Core.UI.Layer
 
     public class FieldLayer : BaseUiLayer<string>
     {
+        public static FieldLayer Instance = new FieldLayer();
+
         public InstancedMap Map { get; private set; }
 
         private UiScroller Scroller;
         private Camera Camera;
         private MapRenderer MapRenderer;
-        private AsyncDrawables AsyncDrawables;
+        public AsyncDrawables AsyncDrawables { get; }
         private UiFpsCounter FpsCounter;
 
         private FontDef FontText;
@@ -59,7 +63,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public List<Thing> Things;
 
-        public FieldLayer()
+        internal FieldLayer()
         {
             Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
             Scroller = new UiScroller();
@@ -76,6 +80,22 @@ namespace OpenNefia.Core.UI.Layer
                 x += 1;
             }
 
+            this.InitMap();
+
+            var result = PrintMessage("dood");
+            Console.WriteLine($"Got back: {result}");
+            Message = result;
+            this.MouseText = "";
+
+            FpsCounter = new UiFpsCounter();
+            MapRenderer = new MapRenderer(this.Map);
+            AsyncDrawables = new AsyncDrawables();
+
+            this.BindKeys();
+        }
+
+        private void InitMap()
+        {
             var player = new Chara(ChipDefOf.CharaChicken);
             Map.TakeObject(player, 2, 2);
             Chara.Player = player;
@@ -92,17 +112,6 @@ namespace OpenNefia.Core.UI.Layer
 
             Map.ClearMemory(TileDefOf.WallForestFog);
             Map.RefreshVisibility();
-
-            var result = PrintMessage("dood");
-            Console.WriteLine($"Got back: {result}");
-            Message = result;
-            this.MouseText = "";
-
-            FpsCounter = new UiFpsCounter();
-            MapRenderer = new MapRenderer(this.Map);
-            AsyncDrawables = new AsyncDrawables();
-
-            this.BindKeys();
         }
 
         protected virtual void BindKeys()
@@ -118,6 +127,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.East] += (_) => this.MovePlayer(1, 0);
             this.Keybinds[Keys.G] += (_) => this.GetItem();
             this.Keybinds[Keys.D] += (_) => this.DropItem();
+            this.Keybinds[Keys.C] += (_) => this.CastSpell();
             this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
             this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
@@ -186,6 +196,16 @@ namespace OpenNefia.Core.UI.Layer
                         Gui.PlaySound(SoundDefOf.AtkChaos);
                     }
                 }
+            }
+        }
+
+        private void CastSpell()
+        {
+            var prompt = new Prompt<SpellDef>(DefStore<SpellDef>.Enumerate());
+            var result = prompt.Query();
+            if (result.IsSuccess)
+            {
+                Spell.CastSpell(result.Value!.Value, Chara.Player!);
             }
         }
 
@@ -278,7 +298,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             Console.WriteLine("Query layer!");
             var result = new TestLayer().Query();
-            Console.WriteLine($"Get result: {result.Result}");
+            Console.WriteLine($"Get result: {result.Value}");
 
             return null;
         }

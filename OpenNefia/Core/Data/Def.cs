@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data
 {
-    public abstract class Def : IComparable<Def>, IEquatable<Def>, IDefSerializable
+    public abstract class Def : IComparable<Def>, IEquatable<Def>, IDefDeserializable
     {
         public string Id { get; }
 
