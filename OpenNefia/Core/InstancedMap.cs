@@ -136,11 +136,11 @@ namespace OpenNefia.Core
         {
             get
             {
-                for (int i = 0; i < _TileInds.Length; i++)
+                for (int i = 0; i < Width * Height; i++)
                 {
                     int tileIndex = _TileInds[i];
                     int x = i % Width;
-                    int y = i / Height;
+                    int y = i / Width;
                     TileDef tileDef = _TileIndexMapping.IndexToTileDef[tileIndex];
                     yield return new Tuple<int, int, TileDef>(x, y, tileDef);
                 }
@@ -181,11 +181,11 @@ namespace OpenNefia.Core
         {
             get
             {
-                for (int i = 0; i < _TileMemoryInds.Length; i++)
+                for (int i = 0; i < Width * Height; i++)
                 {
                     int tileIndex = _TileMemoryInds[i];
                     int x = i % Width;
-                    int y = i / Height;
+                    int y = i / Width;
                     TileDef tileDef = _TileIndexMapping.IndexToTileDef[tileIndex];
                     yield return new Tuple<int, int, TileDef>(x, y, tileDef);
                 }

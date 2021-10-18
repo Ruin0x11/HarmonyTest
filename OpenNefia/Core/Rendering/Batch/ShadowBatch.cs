@@ -136,7 +136,7 @@ namespace OpenNefia.Core.Rendering
             for (int i = 0; i < WidthInTiles * HeightInTiles; i++)
             {
                 var x = i % WidthInTiles;
-                var y = i / HeightInTiles;
+                var y = i / WidthInTiles;
                 this.UpdateTileShadow(x, y, Tiles[i]);
             }
 

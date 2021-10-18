@@ -93,14 +93,14 @@ namespace OpenNefia.Core.Rendering
             foreach (var index in TopShadows)
             {
                 var tileX = index % Map.Width;
-                var tileY = index / Map.Height;
+                var tileY = index / Map.Width;
                 GraphicsEx.FilledRect(tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
             }
 
             foreach (var index in BottomShadows)
             {
                 var tileX = index % Map.Width;
-                var tileY = index / Map.Height;
+                var tileY = index / Map.Width;
 
                 GraphicsEx.SetColor(255, 255, 255, 16);
                 GraphicsEx.FilledRect(tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);

@@ -101,7 +101,7 @@ namespace OpenNefia.Core.Rendering
             var at = Positional[index];
 
             var x = index % Map.Width;
-            var y = index / Map.Height;
+            var y = index / Map.Width;
 
             if (at != null)
             {

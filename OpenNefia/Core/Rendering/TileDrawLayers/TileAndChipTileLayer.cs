@@ -126,7 +126,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             foreach (var index in dirtyTilesThisTurn)
             {
                 var x = index % Map.Width;
-                var y = index / Map.Height;
+                var y = index / Map.Width;
                 SetMapTile(x, y, Map.GetTileMemory(x, y)!);
             }
 
