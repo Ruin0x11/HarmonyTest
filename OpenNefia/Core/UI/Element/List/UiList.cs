@@ -306,6 +306,14 @@ namespace OpenNefia.Core.UI.Element.List
             }
         }
 
+        public override void Dispose()
+        {
+            foreach (var cell in this.Cells)
+            {
+                cell.Dispose();
+            }
+        }
+
         #endregion
 
         #region IList implementation

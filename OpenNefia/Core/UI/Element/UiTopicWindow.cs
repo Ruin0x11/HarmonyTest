@@ -182,5 +182,12 @@ namespace OpenNefia.Core.UI.Element
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }
+
+        public override void Dispose()
+        {
+            this.AssetTopicWindow.Dispose();
+            this.AssetWindow.Dispose();
+            this.TopicWindowBatch.Dispose();
+        }
     }
 }

@@ -84,5 +84,10 @@ namespace OpenNefia.Core.UI.Element
                     break;
             }
         }
+
+        public override void Dispose()
+        {
+            this.BakedText.Dispose();
+        }
     }
 }

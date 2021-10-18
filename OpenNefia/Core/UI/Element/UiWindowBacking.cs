@@ -86,5 +86,11 @@ namespace OpenNefia.Core.UI.Element
         {
             GraphicsEx.DrawSpriteBatch(this.Batch!, this.X, this.Y);
         }
+
+        public override void Dispose()
+        {
+            this.AssetWindow?.Dispose();
+            this.Batch?.Dispose();
+        }
     }
 }

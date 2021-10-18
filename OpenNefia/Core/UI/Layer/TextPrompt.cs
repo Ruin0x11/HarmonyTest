@@ -199,5 +199,16 @@ namespace OpenNefia.Core.UI.Layer
             GraphicsEx.SetColor(255, 255, 255, (int)this.CaretAlpha);
             this.AssetInputCaret.Draw(this.X + this.Text.Width + 34, this.Y + 5);
         }
+
+        public override void Dispose()
+        {
+            this.AssetLabelInput.Dispose();
+            this.AssetImeStatusEnglish.Dispose();
+            this.AssetImeStatusJapanese.Dispose();
+            this.AssetImeStatusNone.Dispose();
+            this.AssetInputCaret.Dispose();
+            this.Text.Dispose();
+            this.TopicWindow.Dispose();
+        }
     }
 }

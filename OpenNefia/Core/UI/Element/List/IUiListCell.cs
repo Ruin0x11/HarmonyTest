@@ -1,6 +1,8 @@
-﻿namespace OpenNefia.Core.UI.Element.List
+﻿using System;
+
+namespace OpenNefia.Core.UI.Element.List
 {
-    public interface IUiListCell<T> : IDrawable
+    public interface IUiListCell<T> : IDrawable, IDisposable
     {
         public int TextWidth { get; }
         public T Data { get; set; }

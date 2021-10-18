@@ -110,7 +110,7 @@ namespace OpenNefia.Core.UI.Element
                 this.WindowShadow.Draw();
                 Love.Graphics.SetBlendMode(BlendMode.Alpha);
             }
-            
+
             GraphicsEx.SetColor(Color.White);
             this.Window.Draw();
 
@@ -126,7 +126,7 @@ namespace OpenNefia.Core.UI.Element
             Love.Graphics.Line(
                 this.X + 50 + this.XOffset,
                 this.Y + this.Height - 48 - this.Height % 8,
-                this.X + this.Width - 40, 
+                this.X + this.Width - 40,
                 this.Y + this.Height - 48 - this.Height % 8);
 
             GraphicsEx.SetColor(this.ColorWindowBottomLine2);
@@ -137,6 +137,16 @@ namespace OpenNefia.Core.UI.Element
                 this.Y + this.Height - 49 - this.Height % 8);
 
             this.KeyHintText.Draw();
+        }
+
+        public override void Dispose()
+        {
+            this.AssetTipIcons.Dispose();
+            this.TitleText?.Dispose();
+            this.KeyHintText.Dispose();
+            this.Window.Dispose();
+            this.WindowShadow.Dispose();
+            this.TopicWindow.Dispose();
         }
     }
 }

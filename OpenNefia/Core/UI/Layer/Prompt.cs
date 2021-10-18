@@ -158,5 +158,11 @@ namespace OpenNefia.Core.UI.Layer
             this.Window.Draw();
             this.List.Draw();
         }
+
+        public override void Dispose()
+        {
+            this.Window.Dispose();
+            this.List.Dispose();
+        }
     }
 }

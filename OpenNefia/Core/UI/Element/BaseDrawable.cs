@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public abstract class BaseDrawable : IDrawable
+    public abstract class BaseDrawable : IDrawable, IDisposable
     {
         public int Width { get; private set; } = 0;
         public int Height { get; private set; } = 0;
@@ -39,5 +39,9 @@ namespace OpenNefia.Core.UI.Element
 
         public abstract void Update(float dt);
         public abstract void Draw();
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

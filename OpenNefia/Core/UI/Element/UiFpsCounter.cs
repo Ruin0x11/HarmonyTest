@@ -85,5 +85,10 @@ namespace OpenNefia.Core.UI.Element
         {
             Text.Draw();
         }
+
+        public override void Dispose()
+        {
+            Text.Dispose();
+        }
     }
 }

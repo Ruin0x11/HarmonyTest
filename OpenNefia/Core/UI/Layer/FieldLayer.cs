@@ -294,13 +294,14 @@ namespace OpenNefia.Core.UI.Layer
             // Gui.PlayMusic(MusicDefOf.Field1);
         }
 
-        private KeyActionResult? QueryLayer()
+        private void QueryLayer()
         {
-            Console.WriteLine("Query layer!");
-            var result = new TestLayer().Query();
-            Console.WriteLine($"Get result: {result.Value}");
-
-            return null;
+            using (var layer = new TestLayer())
+            {
+                Console.WriteLine("Query layer!");
+                var result = layer.Query();
+                Console.WriteLine($"Get result: {result.Value}");
+            }
         }
 
         public override void Update(float dt)

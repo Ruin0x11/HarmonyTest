@@ -104,5 +104,10 @@ namespace OpenNefia.Core.UI.Layer
             Graphics.SetColor(1f, 1f, 1f);
             this.WindowBacking.Draw();
         }
+
+        public override void Dispose()
+        {
+            this.WindowBacking.Dispose();
+        }
     }
 }
