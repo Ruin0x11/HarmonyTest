@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Effect
 {
-    public interface IEffect<TSource, TTarget> where TSource : MapObject where TTarget : MapObject
+    public interface IEffect
     {
-        public EffectResult Apply(TSource source, TTarget target);
+        public EffectResult Apply();
     }
 }

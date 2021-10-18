@@ -9,7 +9,6 @@ namespace OpenNefia.Core.UI
     internal class Constants
     {
         public const int INF_VERH = 88;
-        public const int TILE_SIZE = 48;
 
         public const float FRAME_MS = (16.66f / 1000f);
         public const float SCREEN_REFRESH = 20f * FRAME_MS;

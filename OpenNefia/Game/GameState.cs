@@ -26,7 +26,7 @@ namespace OpenNefia.Game
             CurrentMap = null;
             UidTracker = new UidTracker();
             TileIndexMapping = new TileIndexMapping();
-            Coords = new OrthographicCoords();
+            Coords = new IsometricCoords();
         }
 
         public void Expose(DataExposer data)

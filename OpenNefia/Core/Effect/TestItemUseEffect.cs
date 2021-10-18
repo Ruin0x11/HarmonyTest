@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Effect
 {
-    internal class TestItemUseEffect : IEffect<Item, Chara>
+    internal class TestItemUseEffect : IEffect
     {
-        public EffectResult Apply(Item source, Chara target)
+        public EffectResult Apply()
         {
-            Console.WriteLine($"I've been used: {source} - on {target}");
-
             return EffectResult.Succeeded;
         }
     }

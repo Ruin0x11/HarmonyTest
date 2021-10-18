@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Rendering
             RedrawAll = true;
             for (int tileY = 0; tileY < height; tileY++)
             {
-                Rows[tileY] = new TileBatchRow(TileAtlas, ChipAtlas, Coords, width, Constants.TILE_SIZE * tileY);
+                Rows[tileY] = new TileBatchRow(TileAtlas, ChipAtlas, Coords, width, tileY);
             }
         }
 
@@ -207,16 +207,15 @@ namespace OpenNefia.Core.Rendering
         internal ChipBatch ChipBatch;
         internal SpriteBatch TileOverhangBatch;
         private int TileWidth;
-        private int YOffset;
+        private int TiledYOffset;
         private int ScreenWidth;
         private bool HasOverhang = false;
         private ICoords Coords;
-        const int OVERHANG_HEIGHT = Constants.TILE_SIZE / 4;
 
         private TileAtlas TileAtlas;
         private TileAtlas ChipAtlas;
 
-        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int yOffset)
+        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int tiledYOffset)
         {
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
@@ -226,8 +225,8 @@ namespace OpenNefia.Core.Rendering
             ChipBatch = new ChipBatch(chipAtlas, coords);
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             
-            TileWidth = Constants.TILE_SIZE;
-            YOffset = yOffset;
+            TileWidth = Coords.TileWidth;
+            TiledYOffset = tiledYOffset;
             ScreenWidth = widthInTiles * TileWidth;
         }
 
@@ -260,12 +259,13 @@ namespace OpenNefia.Core.Rendering
                 }
                 else
                 {
-                    TileBatch.Add(tile.Quad, TileWidth * x, YOffset);
+                    Coords.TileToScreen(x, TiledYOffset, out var screenX, out var screenY);
+                    TileBatch.Add(tile.Quad, screenX, screenY);
 
                     if (tile.HasOverhang)
                     {
                         HasOverhang = true;
-                        TileOverhangBatch.Add(tile.Quad, TileWidth * x, YOffset);
+                        TileOverhangBatch.Add(tile.Quad, screenX, screenY);
                     }
                 }
             }
@@ -300,7 +300,7 @@ namespace OpenNefia.Core.Rendering
             {
                 // BUG: We need a proper C API at this point.
                 //Love.Graphics.SetScissor(screenX, screenY + YOffset - OVERHANG_HEIGHT, ScreenWidth, OVERHANG_HEIGHT);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - OVERHANG_HEIGHT);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - Coords.TileHeight / 4);
                 //Love.Graphics.SetScissor();
             }
         }

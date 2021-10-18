@@ -9,8 +9,10 @@ namespace OpenNefia.Core.Rendering
 {
     internal class OrthographicCoords : ICoords
     {
-        public int TileWidth { get => Constants.TILE_SIZE; }
-        public int TileHeight { get => Constants.TILE_SIZE; }
+        public const int TILE_SIZE = 48;
+
+        public int TileWidth { get => TILE_SIZE; }
+        public int TileHeight { get => TILE_SIZE; }
 
         public void GetTiledSize(int screenWidth, int screenHeight, out int tiledWidth, out int tiledHeight)
         {

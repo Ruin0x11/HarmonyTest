@@ -60,7 +60,7 @@ namespace OpenNefia.Cli
             }
         }
 
-        public static async Task Main(string[] args)
+        public static async Task Run(string[] args)
         {
             var parser = new Parser(with => with.HelpWriter = null);
             var verbs = EnumerateVerbs().ToArray();

@@ -320,7 +320,7 @@ namespace OpenNefia.Core.UI.Layer
 
             var player = GameWrapper.Instance.State.Player!;
             player.GetScreenPos(out var sx, out var sy);
-            GraphicsEx.LineRect(X + sx, Y + sy, Constants.TILE_SIZE, Constants.TILE_SIZE);
+            GraphicsEx.LineRect(X + sx, Y + sy, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

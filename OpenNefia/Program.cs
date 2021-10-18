@@ -15,7 +15,7 @@ namespace OpenNefia
         {
             if (args.Length > 0)
             {
-                await Cli.CliEntryPoint.Main(args);
+                await Cli.CliEntryPoint.Run(args);
                 return;
             }
 

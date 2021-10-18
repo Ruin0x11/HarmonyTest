@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Rendering
         public delegate void LoadTileDelegate(Love.Image image, Love.Quad quad, int rectX, int rectY);
         private LoadTileDelegate? OnLoadTile;
 
-        public TileAtlasFactory(int tileWidth = UI.Constants.TILE_SIZE, int tileHeight = UI.Constants.TILE_SIZE, int tileCountX = 48, int tileCountY = 48)
+        public TileAtlasFactory(int tileWidth = OrthographicCoords.TILE_SIZE, int tileHeight = OrthographicCoords.TILE_SIZE, int tileCountX = 48, int tileCountY = 48)
         {
             TileWidth = tileWidth;
             TileHeight = tileHeight;
