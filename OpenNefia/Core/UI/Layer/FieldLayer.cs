@@ -65,7 +65,7 @@ namespace OpenNefia.Core.UI.Layer
 
         internal FieldLayer()
         {
-            Map = InstancedMap.Generate(MapDefOf.NorthTyris).Value;
+            Map = InstancedMap.Generate(MapDefOf.Vernis).Value;
             //Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
             //this.InitMap();
             
@@ -120,7 +120,8 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
-            this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.SaveLoad();
+            this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
+            this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
             this.Keybinds[Keybind.Entries.North] += (_) => this.MovePlayer(0, -1);
             this.Keybinds[Keybind.Entries.South] += (_) => this.MovePlayer(0, 1);
@@ -255,10 +256,14 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
-        public void SaveLoad()
+        public void Save()
         {
             Console.WriteLine("Saving...");
             InstancedMap.Save(Map, "TestMap.nbt");
+        }
+
+        public void Load()
+        {
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
             MapRenderer.SetMap(Map);

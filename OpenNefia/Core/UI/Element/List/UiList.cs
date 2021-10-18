@@ -44,7 +44,7 @@ namespace OpenNefia.Core.UI.Element.List
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
 
-        public UiList(IEnumerable<T> choices, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+        public UiList(IEnumerable<IUiListCell<T>> cells, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
         {
             this.ItemHeight = itemHeight;
             this.ItemOffsetX = 0;
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.UI.Element.List
             this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
             this.FontListKeyName = FontDefOf.ListKeyName;
 
-            this.Cells = choices.Select((c, i) => this.MakeChoiceCell(c, i)).ToList();
+            this.Cells = cells.ToList();
 
             this.ChoiceKeys = new List<UiListChoiceKey>();
             this.KeyNameTexts = new List<IUiText>();
@@ -71,6 +71,11 @@ namespace OpenNefia.Core.UI.Element.List
             }
 
             this.BindKeys();
+        }
+
+        public UiList(IEnumerable<T> choices, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+            : this(choices.Select((c, i) => DefaultMakeChoiceCell(c, i)), itemHeight, itemOffsetX, itemOffsetY)
+        {
         }
 
         public UiList(int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
@@ -147,6 +152,11 @@ namespace OpenNefia.Core.UI.Element.List
         public override List<UiKeyHint> MakeKeyHints()
         {
             return new List<UiKeyHint>();
+        }
+
+        private static IUiListCell<T> DefaultMakeChoiceCell(T choice, int index)
+        {
+            return new UiListCell<T>(choice, $"{choice}");
         }
 
         public virtual IUiListCell<T> MakeChoiceCell(T choice, int index)

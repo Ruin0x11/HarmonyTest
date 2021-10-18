@@ -366,7 +366,7 @@ namespace OpenNefia.Serial
                                 }
                                 instantiateType = type;
                             }
-                            data = ReflectionUtils.CreateFromPublicOrPrivateCtor<T>(ctorParams)!;
+                            data = (T)ReflectionUtils.CreateFromPublicOrPrivateCtor(instantiateType, ctorParams)!;
                         }
 
                         ((IDataExposable)data).Expose(this);

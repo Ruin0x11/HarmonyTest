@@ -13,10 +13,5 @@ namespace OpenNefia.Core.Util
         {
             return Activator.CreateInstance(type, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, ctorParams, null)!;
         }
-
-        internal static T CreateFromPublicOrPrivateCtor<T>(object[]? ctorParams = null)
-        {
-            return (T)CreateFromPublicOrPrivateCtor(typeof(T), ctorParams)!;
-        }
     }
 }

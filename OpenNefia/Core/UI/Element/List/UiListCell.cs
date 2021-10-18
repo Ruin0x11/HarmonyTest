@@ -12,17 +12,10 @@ namespace OpenNefia.Core.UI.Element.List
     {
         public T Data { get; set; }
 
-        public FontDef FontListText;
-
-        private string? _Text;
         public string Text
         {
-            get => _Text!;
-            set
-            {
-                this._Text = value;
-                this.UiText = this.MakeUIText(this.Data, this._Text);
-            }
+            get => this.UiText.Text;
+            set => this.UiText.Text = value;
         }
         protected IUiText UiText;
 
@@ -30,20 +23,13 @@ namespace OpenNefia.Core.UI.Element.List
 
         public int XOffset { get; set; }
 
-        public UiListCell(T data, string text)
+        public UiListCell(T data, IUiText text)
         {
             this.Data = data;
-
-            this.FontListText = FontDefOf.ListText;
-
-            this.Text = text;
-            this.UiText = this.MakeUIText(data, this.Text);
+            this.UiText = text;
         }
 
-        protected virtual IUiText MakeUIText(T data, string rawText)
-        {
-            return new UiText(this.FontListText, rawText);
-        }
+        public UiListCell(T data, string text) : this(data, new UiText(FontDefOf.ListText, text)) {}
 
         public override void SetPosition(int x, int y)
         {

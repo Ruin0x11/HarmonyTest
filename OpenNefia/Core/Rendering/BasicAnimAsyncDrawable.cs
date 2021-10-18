@@ -40,7 +40,7 @@ namespace OpenNefia.Core.Rendering
         {
             this.BasicAnim = basicAnim;
 
-            var animeWait = 20f;
+            var animeWait = Config.AnimeWait;
             var maxFrames = this.BasicAnim.Asset.CountX;
             if (this.BasicAnim.FrameCount != null)
                 maxFrames = this.BasicAnim.FrameCount.Value;

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+  <FontDef Id="TitleScreenText" Size="13" SmallSize="13" FgColor="Core.TextWhite" />
+  <FontDef Id="ListTitleScreenText" Size="13" SmallSize="14" />
+  <FontDef Id="ListTitleScreenSubtext" Size="11" SmallSize="11" />
   <FontDef Id="ListText" Size="14" SmallSize="12" />
   <FontDef Id="ListKeyName" Size="15" SmallSize="13" Style="Outlined" />
   <FontDef Id="WindowTitle" Size="15" SmallSize="14" Style="Outlined" />

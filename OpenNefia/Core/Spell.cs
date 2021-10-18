@@ -26,9 +26,13 @@ namespace OpenNefia.Core
                 tileRange = spellDef.TileRange;
 
             var args = new EffectArguments(target, source, power, tileX, tileY, tileRange.Value, curseState, triggeredBy);
-            var spellResult = spellDef.Apply(args);
+            return CastSpell(spellDef, args);
+        }
 
+        public static Result<EffectResult> CastSpell(SpellDef spellDef, EffectArguments args)
+        {
+            var spellResult = spellDef.Apply(args);
             return Result.Ok(spellResult);
-        } 
+        }
     }
 }

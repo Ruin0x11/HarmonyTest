@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Object;
 using OpenNefia.Serial;
+using System.Collections.Generic;
 
 namespace OpenNefia.Core.Effect
 {
@@ -13,6 +14,7 @@ namespace OpenNefia.Core.Effect
         public int TileRange;
         public CurseState CurseState;
         public TriggeredBy TriggeredBy;
+        public Dictionary<string, object> ExtraData;
 
         public EffectArguments(Chara target,
             MapObject? source = null,
@@ -31,6 +33,7 @@ namespace OpenNefia.Core.Effect
             TileRange = tileRange;
             CurseState = curseState;
             TriggeredBy = triggeredBy;
+            ExtraData = new Dictionary<string, object>();
         }
 
         public void Expose(DataExposer data)
@@ -42,6 +45,7 @@ namespace OpenNefia.Core.Effect
             data.ExposeValue(ref Power, nameof(Power));
             data.ExposeValue(ref CurseState, nameof(CurseState));
             data.ExposeValue(ref TriggeredBy, nameof(TriggeredBy));
+            data.ExposeCollection(ref ExtraData, nameof(ExtraData));
         }
     }
 }
