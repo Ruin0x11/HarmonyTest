@@ -145,7 +145,7 @@ namespace OpenNefia.Core.Rendering
             }
             else
             {
-                this.Quads["1"] = Love.Graphics.NewQuad(0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+                this.Quads["0"] = Love.Graphics.NewQuad(0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
             }
 
             foreach (var pair in this.Regions)

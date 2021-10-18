@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         public ShadowTileLayer(InstancedMap map)
         {
             this.Map = map;
-            this.Coords = GraphicsEx.GetCoords();
+            this.Coords = GraphicsEx.Coords;
             this.Batch = new ShadowBatch(map.Width, map.Height, Coords);
         }
 

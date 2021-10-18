@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <BasicAnimDef ElonaId="8" Id="AnimSmoke">
+    <Asset>Core.AnimSmoke</Asset>
+    <Sound>Core.Offer1</Sound>
+  </BasicAnimDef>
+  <BasicAnimDef ElonaId="10" Id="AnimSparkle">
+    <Asset>Core.AnimSparkle</Asset>
+    <Sound>Core.Enc2</Sound>
+    <FrameCount>8</FrameCount>
+    <FrameDelayMillis>8</FrameDelayMillis>
+    <Rotation>0.2</Rotation>
+  </BasicAnimDef>
+  <BasicAnimDef ElonaId="11" Id="AnimBuff">
+    <Asset>Core.AnimBuff</Asset>
+    <Sound>Core.Enc</Sound>
+    <FrameCount>5</FrameCount>
+    <FrameDelayMillis>50</FrameDelayMillis>
+  </BasicAnimDef>
+  <BasicAnimDef ElonaId="14" Id="AnimCurse">
+    <Asset>Core.AnimCurse</Asset>
+    <FrameCount>5</FrameCount>
+    <FrameDelayMillis>50</FrameDelayMillis>
+  </BasicAnimDef>
+  <BasicAnimDef ElonaId="15" Id="AnimElec">
+    <Asset>Core.AnimElec</Asset>
+  </BasicAnimDef>
+</Defs>

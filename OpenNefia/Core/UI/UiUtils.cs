@@ -24,7 +24,7 @@ namespace OpenNefia.Core.UI
             var y = 0;
             if (ingame)
             {
-                var coords = GraphicsEx.GetCoords();
+                var coords = GraphicsEx.Coords;
                 var tiledHeight = Love.Graphics.GetHeight() / coords.TileHeight;
                 y = ((tiledHeight - 2) * coords.TileHeight - height) / 2 + 8;
             }

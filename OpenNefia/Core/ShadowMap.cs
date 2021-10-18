@@ -18,7 +18,7 @@ namespace OpenNefia.Core
         public ShadowMap(InstancedMap map)
         {
             this.Map = map;
-            this.Coords = GraphicsEx.GetCoords();
+            this.Coords = GraphicsEx.Coords;
             this.ShadowTiles = new ShadowTile[map.Width * map.Height];
         }
 

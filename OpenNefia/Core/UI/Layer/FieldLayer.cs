@@ -30,7 +30,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public void CenterOn(int sx, int sy)
         {
-            var coords = GraphicsEx.GetCoords();
+            var coords = GraphicsEx.Coords;
             coords.BoundDrawPosition(sx, sy, this.Map.Width, this.Map.Height, this.Parent.Width, this.Parent.Height, out _ScreenX, out _ScreenY);
         }
 
@@ -47,7 +47,8 @@ namespace OpenNefia.Core.UI.Layer
 
         private UiScroller Scroller;
         private Camera Camera;
-        private MapRenderer Renderer;
+        private MapRenderer MapRenderer;
+        private AsyncDrawables AsyncDrawables;
         private UiFpsCounter FpsCounter;
 
         private FontDef FontText;
@@ -98,7 +99,8 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseText = "";
 
             FpsCounter = new UiFpsCounter();
-            Renderer = new MapRenderer(this.Map);
+            MapRenderer = new MapRenderer(this.Map);
+            AsyncDrawables = new AsyncDrawables();
 
             this.BindKeys();
         }
@@ -161,6 +163,10 @@ namespace OpenNefia.Core.UI.Layer
                     }
                 }
             }
+
+            var drawable = new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimSmoke);
+            drawable.SetPosition(Rand.Rnd(Love.Graphics.GetWidth()), Rand.Rnd(Love.Graphics.GetHeight()));
+            AsyncDrawables.Enqueue(drawable);
         }
 
         private void DropItem()
@@ -194,7 +200,7 @@ namespace OpenNefia.Core.UI.Layer
 
             DefLoader.ApplyActiveThemes(new List<ThemeDef>() { ThemeDefOf.Beautify });
             Startup.RegenerateTileAtlases();
-            Renderer.OnThemeSwitched();
+            MapRenderer.OnThemeSwitched();
             Map.Redraw();
             IsBeautify = true;
         }
@@ -234,7 +240,7 @@ namespace OpenNefia.Core.UI.Layer
             InstancedMap.Save(Map, "TestMap.nbt");
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
-            Renderer.SetMap(Map);
+            MapRenderer.SetMap(Map);
         }
 
         public override void SetDefaultSize()
@@ -246,7 +252,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);
-            Renderer.SetSize(width, height);
+            MapRenderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
 
             var player = Chara.Player;
@@ -259,7 +265,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
-            Renderer.SetPosition(x, y);
+            MapRenderer.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
         }
 
@@ -282,7 +288,7 @@ namespace OpenNefia.Core.UI.Layer
             if (this.Map._NeedsRedraw)
             {
                 Map.RefreshVisibility();
-                this.Renderer.RefreshAllLayers();
+                this.MapRenderer.RefreshAllLayers();
             }
 
             this.Scroller.GetPositionDiff(dt, out var dx, out var dy);
@@ -292,7 +298,7 @@ namespace OpenNefia.Core.UI.Layer
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
-                var coords = GraphicsEx.GetCoords();
+                var coords = GraphicsEx.Coords;
                 coords.ScreenToTile((int)mouse.X - this.X, (int)mouse.Y - this.Y, out var tileX, out var tileY);
 
                 if (Map.GetTile(tileX, tileY) != PlacingTile)
@@ -306,7 +312,8 @@ namespace OpenNefia.Core.UI.Layer
                 }
             }
 
-            this.Renderer.Update(dt);
+            this.MapRenderer.Update(dt);
+            this.AsyncDrawables.Update(dt);
             this.FpsCounter.Update(dt);
         }
 
@@ -314,7 +321,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             Love.Graphics.SetColor(255, 255, 255);
 
-            this.Renderer.Draw();
+            this.MapRenderer.Draw();
 
             Love.Graphics.SetColor(255, 0, 0);
 
@@ -326,6 +333,8 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
             Love.Graphics.Print($"Player: ({player.X}, {player.Y})", 5, 35);
+
+            this.AsyncDrawables.Draw();
 
             this.FpsCounter.Draw();
         }

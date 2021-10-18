@@ -41,8 +41,7 @@ namespace OpenNefia.Core.Rendering
 
         internal static void GetWindowTiledSize(out int windowTiledW, out int windowTiledH)
         {
-            var coords = GetCoords();
-            coords.GetTiledSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight(), out windowTiledW, out windowTiledH);
+            Coords.GetTiledSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight(), out windowTiledW, out windowTiledH);
         }
 
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x = 0, float y = 0, float width = 0, float height = 0, float rotation = 0)
@@ -216,6 +215,6 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public static ICoords GetCoords() => GameWrapper.Instance.State.Coords;
+        public static ICoords Coords { get => GameWrapper.Instance.State.Coords; }
     }
 }

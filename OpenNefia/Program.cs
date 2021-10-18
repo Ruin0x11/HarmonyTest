@@ -11,11 +11,11 @@ namespace OpenNefia
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             if (args.Length > 0)
             {
-                await Cli.CliEntryPoint.Run(args);
+                Cli.CliEntryPoint.Run(args).GetAwaiter().GetResult();
                 return;
             }
 

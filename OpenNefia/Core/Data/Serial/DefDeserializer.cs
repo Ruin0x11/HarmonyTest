@@ -297,21 +297,26 @@ namespace OpenNefia.Core.Data.Serial
 
         private void PopulateValueTypeField(string value, object target, FieldInfo field, Type containingModType)
         {
-            if (field.FieldType.IsEnum)
+            DoPopulateValue(value, target, field, field.FieldType);
+        }
+
+        private void DoPopulateValue(string value, object target, FieldInfo field, Type type)
+        {
+            if (type.IsEnum)
             {
-                if (Enum.IsDefined(field.FieldType, value))
+                if (Enum.IsDefined(type, value))
                 {
-                    var parsed = Enum.Parse(field.FieldType, value);
+                    var parsed = Enum.Parse(type, value);
                     field.SetValue(target, parsed);
                 }
                 else
                 {
-                    this.Errors.Add($"Enum '{field.FieldType}' does not have variant '{value}' (on field '{field.Name}')");
+                    this.Errors.Add($"Enum '{type}' does not have variant '{value}' (on field '{field.Name}')");
                 }
             }
             else
             {
-                var typeCode = Type.GetTypeCode(field.FieldType);
+                var typeCode = Type.GetTypeCode(type);
 
                 switch (typeCode)
                 {
@@ -362,6 +367,16 @@ namespace OpenNefia.Core.Data.Serial
                         break;
 
                     case TypeCode.Object:
+                        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
+                            DoPopulateValue(value, target, field, Nullable.GetUnderlyingType(type)!);
+                        }
+                        else
+                        {
+                            this.Errors.Add($"Unsupported object type '{target.GetType()}', field '{field.Name}' ({field.FieldType})");
+                        }
+                        break;
+
                     case TypeCode.Empty:
                     case TypeCode.DBNull:
                         this.Errors.Add($"Unsupported typecode '{typeCode}' for type '{target.GetType()}', field '{field.Name}' ({field.FieldType})");
