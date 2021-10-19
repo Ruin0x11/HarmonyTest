@@ -2,6 +2,7 @@
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Map.Generator;
 using System;
 using System.Collections.Generic;
 using System.IO;

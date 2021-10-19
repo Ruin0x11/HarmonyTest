@@ -4,6 +4,7 @@ using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 using System;
 using System.Linq;
 
@@ -32,14 +33,26 @@ namespace OpenNefia.Game
             Atlases.Tile = tileAtlas;
         }
 
+        private static void InitGraphicsDefaults()
+        {
+            Love.Graphics.SetLineStyle(Love.LineStyle.Rough);
+            Love.Graphics.SetLineWidth(1);
+        }
+
         internal static void Run()
         {
             GameWrapper.Instance.ModLoader.Execute();
             DefLoader.LoadAll();
 
+            InitGraphicsDefaults();
+
             RegenerateTileAtlases();
 
             InitTileMapping();
+
+            // Only safe to instantiate UI components after Defs
+            // have been loaded (FontDef, ColorDef, AssetDef...)
+            GameWrapper.Instance.State.Repl = new ReplLayer();
         }
 
         private static void InitTileMapping()

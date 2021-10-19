@@ -48,12 +48,10 @@ namespace OpenNefia.Core.UI.Element
 
             if (this.Title != null)
                 this.TitleText = new UiText(this.FontWindowTitle, this.Title!);
-            this.KeyHintText = new UiText(this.FontWindowKeyHints);
+            this.KeyHintText = new UiText(this.FontWindowKeyHints, "hogepiyo");
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             this.TopicWindow = new UiTopicWindow();
-
-            this.KeyHintText.Text = "hogepiyo";
         }
 
         public override void SetPosition(int x, int y)

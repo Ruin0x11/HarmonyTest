@@ -8,6 +8,8 @@ namespace OpenNefia.Core.UI.Element
     {
         private Love.Text BakedText;
 
+        public bool NeedsRebake { get; private set; } = true;
+
         private FontDef _Font;
         public FontDef Font
         {
@@ -15,7 +17,7 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Font = value;
-                this.RebakeText();
+                this.NeedsRebake = true;
             }
         }
 
@@ -26,7 +28,7 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Text = value;
-                this.RebakeText();
+                this.NeedsRebake = true;
             }
         }
 
@@ -41,10 +43,11 @@ namespace OpenNefia.Core.UI.Element
 
 #pragma warning restore CS8618
 
-        protected void RebakeText()
+        public void RebakeText()
         {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.SetSize(0, 0);
+            this.NeedsRebake = false;
         }
 
         public override void SetSize(int width = 0, int height = 0)
@@ -54,6 +57,10 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Update(float dt)
         {
+            if (this.NeedsRebake)
+            {
+                this.RebakeText();
+            }
         }
 
         public override void Draw()

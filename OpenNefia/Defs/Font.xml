@@ -7,6 +7,7 @@
   <FontDef Id="ListKeyName" Size="15" SmallSize="13" Style="Outlined" />
   <FontDef Id="WindowTitle" Size="15" SmallSize="14" Style="Outlined" />
   <FontDef Id="WindowKeyHints" Size="12" SmallSize="10" />
-  <FontDef Id="PromptText" Size="16" SmallSize="14" FgColor="Core.TextWhite" BgColor="Core.TextBlack" />
+  <FontDef Id="PromptText" Size="16" SmallSize="14" FgColor="Core.TextWhite" />
+  <FontDef Id="ReplText" Size="13" SmallSize="13" FgColor="Core.TextWhite" />
   <FontDef Id="FpsCounter" Size="14" SmallSize="14" Style="Outlined" />
 </Defs>

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace OpenNefia.Game
         internal TileIndexMapping TileIndexMapping;
         internal ICoords Coords;
         internal Chara? Player;
+
+        public ReplLayer Repl { get; internal set; } = null!;
 
         public GameState()
         {

@@ -11,6 +11,7 @@ namespace OpenNefia.Core.Data.Types
         public static FontDef WindowTitle = null!;
         public static FontDef WindowKeyHints = null!;
         public static FontDef PromptText = null!;
+        public static FontDef ReplText = null!;
         public static FontDef FpsCounter = null!;
     }
 }

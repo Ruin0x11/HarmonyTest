@@ -57,6 +57,8 @@ namespace OpenNefia.Game
             }
         }
 
+        internal bool IsInActiveLayerList(IUiLayer layer) => this.Layers.Contains(layer);
+
         public void Update(float dt)
         {
             UpdateLayers(dt);

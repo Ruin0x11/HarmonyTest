@@ -50,6 +50,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         public override void Update(float dt)
         {
+            this.UiText.Update(dt);
         }
 
         public override void Dispose()

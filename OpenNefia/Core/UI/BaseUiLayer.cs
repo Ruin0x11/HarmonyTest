@@ -12,6 +12,7 @@ namespace OpenNefia.Core.UI
 {
     public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: class
     {
+        public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
 
@@ -39,6 +40,11 @@ namespace OpenNefia.Core.UI
 
         public virtual void OnQuery() 
         {
+        }
+
+        public virtual bool IsInActiveLayerList()
+        {
+            return GameWrapper.Instance.IsInActiveLayerList(this);
         }
 
         public virtual bool IsQuerying()
@@ -81,6 +87,16 @@ namespace OpenNefia.Core.UI
             GameWrapper.Instance.CurrentLayer?.HaltInput();
 
             GameWrapper.Instance.PushLayer(this);
+
+            // Global REPL hotkey
+            this.Keybinds[Keys.Backquote] += (_) =>
+            {
+                if (!GameWrapper.Instance.State.Repl.IsInActiveLayerList())
+                    GameWrapper.Instance.State.Repl.Query();
+            };
+
+            this.Result = null;
+            this.WasCancelled = false;
 
             UiResult<T>? result;
 

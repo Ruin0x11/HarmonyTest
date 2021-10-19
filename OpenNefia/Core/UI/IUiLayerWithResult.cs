@@ -4,6 +4,7 @@ namespace OpenNefia.Core.UI
 {
     public interface IUiLayerWithResult<T> : IUiLayer where T: class
     {
+        bool WasFinished { get; }
         bool WasCancelled { get; }
         T? Result { get; }
 
