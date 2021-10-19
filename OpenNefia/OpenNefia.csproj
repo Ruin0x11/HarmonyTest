@@ -55,6 +55,7 @@
     <None Remove="Assets\Icon\icon48.png" />
     <None Remove="Assets\Icon\icon64.png" />
     <None Remove="Defs\Asset.xml" />
+    <None Remove="Defs\Asset_Repl.xml" />
     <None Remove="Defs\Music.xml" />
   </ItemGroup>
     

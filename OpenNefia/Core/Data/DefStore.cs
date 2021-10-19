@@ -29,6 +29,7 @@ namespace OpenNefia.Core.Data
 
         public static bool ContainsDefId(string id) => AllDefs.ContainsKey(id);
         public static T Get(string id) => AllDefs[id];
+        public static T? GetOrNull(string id) => AllDefs.GetValueOrDefault(id);
 
         public static IEnumerable<T> Enumerate() => AllDefsList.AsEnumerable();
     }

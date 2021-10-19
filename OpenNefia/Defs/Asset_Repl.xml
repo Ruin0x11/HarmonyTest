@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AssetDef Id="ReplCompletionIcon_Array">
+    <Image>Assets/Core/Graphic/Repl/IconArray.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Boolean">
+    <Image>Assets/Core/Graphic/Repl/IconBoolean.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Class">
+    <Image>Assets/Core/Graphic/Repl/IconClass.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Color">
+    <Image>Assets/Core/Graphic/Repl/IconColor.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Constant">
+    <Image>Assets/Core/Graphic/Repl/IconConstant.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Document">
+    <Image>Assets/Core/Graphic/Repl/IconDocument.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_EnumeratorMember">
+    <Image>Assets/Core/Graphic/Repl/IconEnumeratorMember.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Enumerator">
+    <Image>Assets/Core/Graphic/Repl/IconEnumerator.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Event">
+    <Image>Assets/Core/Graphic/Repl/IconEvent.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Field">
+    <Image>Assets/Core/Graphic/Repl/IconField.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Folder">
+    <Image>Assets/Core/Graphic/Repl/IconFolder.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Interface">
+    <Image>Assets/Core/Graphic/Repl/IconInterface.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Key">
+    <Image>Assets/Core/Graphic/Repl/IconKey.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Keyword">
+    <Image>Assets/Core/Graphic/Repl/IconKeyword.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Library">
+    <Image>Assets/Core/Graphic/Repl/IconLibrary.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_LocalVariable">
+    <Image>Assets/Core/Graphic/Repl/IconLocalVariable.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Method">
+    <Image>Assets/Core/Graphic/Repl/IconMethod.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Misc">
+    <Image>Assets/Core/Graphic/Repl/IconMisc.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Namespace">
+    <Image>Assets/Core/Graphic/Repl/IconNamespace.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Numeric">
+    <Image>Assets/Core/Graphic/Repl/IconNumeric.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Operator">
+    <Image>Assets/Core/Graphic/Repl/IconOperator.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Parameter">
+    <Image>Assets/Core/Graphic/Repl/IconParameter.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Property">
+    <Image>Assets/Core/Graphic/Repl/IconProperty.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Ruler">
+    <Image>Assets/Core/Graphic/Repl/IconRuler.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Snippet">
+    <Image>Assets/Core/Graphic/Repl/IconSnippet.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_String">
+    <Image>Assets/Core/Graphic/Repl/IconString.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Structure">
+    <Image>Assets/Core/Graphic/Repl/IconStructure.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Unlink">
+    <Image>Assets/Core/Graphic/Repl/IconUnlink.png</Image>
+  </AssetDef>
+  <AssetDef Id="ReplCompletionIcon_Variable">
+    <Image>Assets/Core/Graphic/Repl/IconVariable.png</Image>
+  </AssetDef>
+</Defs>

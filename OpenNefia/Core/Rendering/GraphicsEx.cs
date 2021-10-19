@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Rendering
             }
             if (height > 0)
             {
-                sx = height / image.GetHeight();
+                sy = height / image.GetHeight();
             }
 
             var ox = 0f;

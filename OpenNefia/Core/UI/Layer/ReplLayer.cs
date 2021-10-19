@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpRepl.Services.Completion;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Completion;
+using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
@@ -57,7 +59,7 @@ namespace OpenNefia.Core.UI.Layer
             get => this.TextEditingLine.Text;
             set {
                 this.TextEditingLine.Text = value;
-                this.UpdateCompletions();
+                this.CaretPos = Math.Clamp(this.CaretPos, 0, this.TextEditingLine.Text.Length);
             }
         }
         public bool ShowCompletions { get; set; } = true;
@@ -95,17 +97,15 @@ namespace OpenNefia.Core.UI.Layer
         
         private int _CursorCharPos = 0;
         /// Stringwise width position of cursor. (not CJK width)
-        public int CursorCharPos
+        public int CaretPos
         {
             get => _CursorCharPos;
             set
             {
                 this._CursorCharPos = Math.Clamp(value, 0, this.EditingLine.Length);
-                var prefixToCursor = this.EditingLine.Substring(0, this.CursorCharPos);
+                var prefixToCursor = this.EditingLine.Substring(0, this.CaretPos);
                 var prefixWidth = this.FontReplText.GetWidth(prefixToCursor);
                 this.CursorX = prefixWidth;
-                this.Dt = 0f;
-                this.UpdateCompletions();
             }
         }
 
@@ -134,7 +134,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Executor = executor ?? new CSharpReplExecutor(this);
             this.Executor.Init();
 
-            this.CompletionsPane = new CompletionsPane();
+            this.CompletionsPane = new CompletionsPane((input, caret) => this.Executor.Complete(input, caret));
 
             this.BindKeys();
         }
@@ -144,32 +144,76 @@ namespace OpenNefia.Core.UI.Layer
             this.TextInput.Enabled = true;
             this.TextInput.Callback += (evt) => this.InsertText(evt.Text);
 
-            this.Keybinds[Keys.Up] += (_) => this.PreviousHistoryEntry();
-            this.Keybinds[Keys.Down] += (_) => this.NextHistoryEntry();
-            this.Keybinds[Keys.Left] += (_) => this.CursorCharPos -= 1;
-            this.Keybinds[Keys.Right] += (_) => this.CursorCharPos += 1;
+            this.Keybinds[Keys.Up] += (_) =>
+            {
+                if (this.CompletionsPane.IsVisible)
+                    this.CompletionsPane.Decrement();
+                else
+                    this.PreviousHistoryEntry();
+            };
+            this.Keybinds[Keys.Down] += (_) =>
+            {
+                if (this.CompletionsPane.IsVisible)
+                    this.CompletionsPane.Increment();
+                else
+                    this.NextHistoryEntry();
+            };
+            this.Keybinds[Keys.Left] += (_) =>
+            {
+                this.CaretPos -= 1;
+                this.UpdateCompletions();
+            };
+            this.Keybinds[Keys.Right] += (_) =>
+            {
+                this.CaretPos += 1;
+                this.UpdateCompletions();
+            };
             this.Keybinds[Keys.Backspace] += (_) => this.DeleteCharAtCursor();
             this.Keybinds[Keys.PageUp] += (_) => this.SetScrollbackPos(this.ScrollbackPos + (this.MaxLines / 2));
             this.Keybinds[Keys.PageDown] += (_) => this.SetScrollbackPos(this.ScrollbackPos - (this.MaxLines / 2));
-            this.Keybinds[Keys.Ctrl | Keys.A] += (_) => this.CursorCharPos = 0;
+            this.Keybinds[Keys.Ctrl | Keys.A] += (_) =>
+            {
+                this.CaretPos = 0;
+                this.UpdateCompletions();
+            };
+            this.Keybinds[Keys.Ctrl | Keys.E] += (_) =>
+            {
+                this.CaretPos = this.EditingLine.Length;
+                this.UpdateCompletions();
+            };
             this.Keybinds[Keys.Ctrl | Keys.F] += (_) => this.IsFullscreen = !this.IsFullscreen;
-            this.Keybinds[Keys.Ctrl | Keys.E] += (_) => this.CursorCharPos = this.EditingLine.Length;
             this.Keybinds[Keys.Ctrl | Keys.X] += (_) => this.CutText();
             this.Keybinds[Keys.Ctrl | Keys.C] += (_) => this.CopyText();
             this.Keybinds[Keys.Ctrl | Keys.V] += (_) => this.PasteText();
-            this.Keybinds[Keys.Enter] += (_) => this.SubmitText();
-            this.Keybinds[Keys.Cancel] += (_) => this.Cancel();
-            this.Keybinds[Keys.Escape] += (_) => this.Cancel();
-        }
-
-        /// <summary>
-        /// Splits on CJK width position.
-        /// </summary>
-        private static (string, string) SplitStringAtPos(string str, int pos)
-        {
-            var left = str.Substring(0, pos);
-            var right = str.Substring(pos);
-            return (left, right);
+            this.Keybinds[Keys.Ctrl | Keys.N] += (_) =>
+            {
+                if (!this.CompletionsPane.IsOpen)
+                    this.CompletionsPane.Open(this.CaretPos);
+                else
+                    this.CompletionsPane.Increment();
+            };
+            this.Keybinds[Keys.Ctrl | Keys.P] += (_) =>
+            {
+                if (!this.CompletionsPane.IsOpen)
+                    this.CompletionsPane.Open(this.CaretPos);
+                else
+                    this.CompletionsPane.Decrement();
+            };
+            this.Keybinds[Keys.Tab] += (_) => this.InsertCompletion();
+            this.Keybinds[Keys.Enter] += (_) =>
+            {
+                if (this.CompletionsPane.IsVisible)
+                    this.InsertCompletion();
+                else
+                    this.SubmitText();
+            };
+            this.Keybinds[Keys.Escape] += (_) =>
+            {
+                if (this.CompletionsPane.IsVisible)
+                    this.CompletionsPane.Close();
+                else
+                    this.Cancel();
+            };
         }
 
         public void InsertText(string inserted)
@@ -177,39 +221,26 @@ namespace OpenNefia.Core.UI.Layer
             if (inserted == string.Empty)
                 return;
 
-            var text = this.EditingLine;
+            this.EditingLine = this.EditingLine.Insert(this.CaretPos, inserted);
+            this.CaretPos += inserted.Length;
 
-            if (this.CursorCharPos == text.Length)
-            {
-                text += inserted;
-            }
-            else if (this.CursorCharPos == 0)
-            {
-                text = inserted + text;
-            }
-            else
-            {
-                var (left, right) = SplitStringAtPos(text, this.CursorCharPos);
-                text = left + inserted + right;
-            }
-
-            this.EditingLine = text;
-
-            this.CursorCharPos += inserted.Length;
+            this.UpdateCompletions();
         }
 
         public void DeleteCharAtCursor()
         {
-            if (this.CursorCharPos == 0)
+            if (this.CaretPos == 0)
             {
                 return;
             }
 
             var text = this.EditingLine;
-            text = text.Remove(this.CursorCharPos - 1, 1);
+            text = text.Remove(this.CaretPos - 1, 1);
+
+            this.CaretPos -= 1;
             this.EditingLine = text;
 
-            this.CursorCharPos -= 1;
+            this.UpdateCompletions();
         }
 
         public void SetScrollbackPos(int pos)
@@ -230,8 +261,8 @@ namespace OpenNefia.Core.UI.Layer
             {
                 if (this.HistoryPos - 1 < 0)
                 {
-                    this.EditingLine = "";
-                    this.HistoryPos = -1;
+                    //this.EditingLine = "";
+                    //this.HistoryPos = -1;
                 }
                 else if (this.HistoryPos - 1 <= this.History.Count)
                 {
@@ -253,8 +284,8 @@ namespace OpenNefia.Core.UI.Layer
             {
                 if (this.HistoryPos + 1 > this.History.Count - 1)
                 {
-                    this.EditingLine = "";
-                    this.HistoryPos = this.History.Count;
+                    //this.EditingLine = "";
+                    //this.HistoryPos = this.History.Count;
                 }
                 else if (this.HistoryPos + 1 <= this.History.Count)
                 {
@@ -268,6 +299,9 @@ namespace OpenNefia.Core.UI.Layer
         {
             ClipboardService.SetText(this.EditingLine);
             this.EditingLine = "";
+            this.CaretPos = 0;
+
+            this.UpdateCompletions();
         }
 
         public void CopyText()
@@ -281,29 +315,36 @@ namespace OpenNefia.Core.UI.Layer
             this.InsertText(text);
         }
 
+        private void InsertCompletion()
+        {
+            if (!this.CompletionsPane.IsOpen)
+                return;
+
+            var completion = this.CompletionsPane.SelectedItem;
+            if (completion == null)
+                return;
+
+            var text = this.EditingLine;
+
+            text = text.Remove(completion.Item.Span.Start, this.CaretPos - completion.Item.Span.Start);
+            text = text.Insert(completion.Item.Span.Start, completion.Item.DisplayText);
+            this.EditingLine = text;
+            this.CaretPos = completion.Item.Span.Start + completion.Item.DisplayText.Length;
+            this.CompletionsPane.Close();
+        }
+
         private void UpdateCompletions()
         {
-            if (!this.ShowCompletions)
+            this.Dt = 0f;
+
+            if (!this.ShowCompletions && this.CompletionsPane.IsOpen)
             {
-                this.CompletionsPane.Clear();
+                this.CompletionsPane.Close();
                 return;
             }
 
             this.CompletionsPane.SetPosition(this.CursorDisplayX, this.CursorDisplayY + this.FontReplText.GetHeight());
-
-            if (this.EditingLine != string.Empty)
-            {
-                if (this.Completions == null)
-                {
-                    this.Completions = this.Executor.Complete(this.EditingLine, this.CursorCharPos);
-                    this.CompletionsPane.SetFromCompletions(this.Completions);
-                }
-                this.CompletionsPane.FilterCompletions(this.EditingLine, this.CursorCharPos);
-            }
-            else
-            {
-                this.CompletionsPane.Clear();
-            }
+            this.CompletionsPane.TryToComplete(this.EditingLine, this.CaretPos);
         }
 
         public void Clear()
@@ -321,9 +362,10 @@ namespace OpenNefia.Core.UI.Layer
             this.TextEditingLine.Text = string.Empty;
             this.ScrollbackPos = 0;
             this.HistoryPos = -1;
-            this.CursorCharPos = 0;
+            this.CaretPos = 0;
             this.CursorX = 0;
-            this.UpdateCompletions();
+            this.Dt = 0;
+            this.CompletionsPane.Close();
 
             this.PrintText($"{this.TextCaret.Text}{code}");
 
@@ -340,7 +382,7 @@ namespace OpenNefia.Core.UI.Layer
                     this.PrintText(success.Result, this.ColorReplTextResult);
                     break;
                 case ReplExecutionResult.Error error:
-                    var text = $"Error: {error.Exception.StackTrace}\n{error.Exception.Message}";
+                    var text = $"Error: {error.Exception.Message}";
                     this.PrintError(text);
                     break;
                 default:
@@ -529,42 +571,78 @@ namespace OpenNefia.Core.UI.Layer
         }
     }
 
+    public delegate IReadOnlyCollection<CompletionItemWithDescription> CompletionCallback(string input, int caret);
+
     public class CompletionsPane : BaseDrawable
     {
         public int Padding { get; set; } = 5;
         public int BorderPadding { get; set; } = 4;
         public int MaxDisplayedEntries { get; set; } = 10;
+        public bool IsOpen { get; set; }
+        public bool IsVisible { get => this.IsOpen && this.FilteredView.Count > 0; }
 
-        private record CompletionPaneEntry(IUiText Text, CompletionItemWithDescription Completion);
+        public CompletionItemWithDescription? SelectedItem { get => this.FilteredView.SelectedItem?.Completion; }
+
+        private record CompletionPaneEntry(IUiText Text,
+                                           AssetDrawable Icon,
+                                           CompletionItemWithDescription Completion);
 
         private List<CompletionPaneEntry> Entries;
-
         private SlidingArrayWindow<CompletionPaneEntry> FilteredView;
+        private int CaretPosWhenOpened = int.MinValue;
+        private CompletionCallback Callback;
 
         public FontDef FontCompletion { get; }
         public ColorDef ColorCompletionBorder { get; }
         public ColorDef ColorCompletionBackground { get; }
+        internal ReplCompletionIcons AssetIcons { get; }
 
-        public CompletionsPane()
+        public CompletionsPane(CompletionCallback callback)
         {
             Entries = new List<CompletionPaneEntry>();
             FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+            Callback = callback;
+
             FontCompletion = FontDefOf.ReplCompletion;
             ColorCompletionBorder = ColorDefOf.ReplCompletionBorder;
             ColorCompletionBackground = ColorDefOf.ReplCompletionBackground;
+            AssetIcons = new ReplCompletionIcons();
+        }
+        
+        public void Open(int caret)
+        {
+            this.IsOpen = true;
+            this.CaretPosWhenOpened = caret;
+            this.Clear();
         }
 
-        public void SetFromCompletions(IReadOnlyCollection<CompletionItemWithDescription> completions)
+        private void Clear()
+        {
+            foreach (var item in this.Entries)
+                item.Text.Dispose();
+            this.Entries.Clear();
+            this.FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+        }
+
+        public void Close()
+        {
+            this.IsOpen = false;
+            this.CaretPosWhenOpened = int.MinValue;
+            this.FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+        }
+
+        public void SetFromCompletions(IReadOnlyCollection<CompletionItemWithDescription> completions, string input, int caret)
         {
             this.Clear();
 
-            foreach (var completion in completions.OrderBy(c => c.Item).Take(10))
+            foreach (var completion in completions)
             {
-                Entries.Add(new CompletionPaneEntry(new UiText(this.FontCompletion, completion.Item.DisplayText), completion));
+                Entries.Add(new CompletionPaneEntry(new UiText(this.FontCompletion, completion.Item.DisplayText),
+                                                    this.AssetIcons.GetIcon(completion.Item.Tags),
+                                                    completion));
             }
 
-            this.SetSize(0, 0);
-            this.SetPosition(this.X, this.Y);
+            this.FilterCompletions(input, caret);
         }
 
         public void Increment()
@@ -584,15 +662,7 @@ namespace OpenNefia.Core.UI.Layer
         public void FilterCompletions(string input, int caret)
         {
             bool Matches(CompletionItemWithDescription completion, string input) =>
-                completion.Item.DisplayText.StartsWith(input, StringComparison.CurrentCultureIgnoreCase);
-
-            string prefix;
-            if (caret == 0)
-                prefix = string.Empty;
-            else if (caret < input.Length)
-                prefix = input.Substring(0, caret);
-            else
-                prefix = input;
+                completion.Item.DisplayText.StartsWith(input.Substring(completion.Item.Span.Start), StringComparison.CurrentCultureIgnoreCase);
 
             var filtered = new List<CompletionPaneEntry>();
             var previouslySelectedItem = this.FilteredView.SelectedItem;
@@ -600,7 +670,7 @@ namespace OpenNefia.Core.UI.Layer
             for (var i = 0; i < Entries.Count; i++)
             {
                 var entry = Entries[i];
-                if (!Matches(entry.Completion, prefix)) continue;
+                if (!Matches(entry.Completion, input)) continue;
 
                 filtered.Add(entry);
                 if (entry.Completion.Item.DisplayText == previouslySelectedItem?.Completion.Item.DisplayText)
@@ -622,6 +692,65 @@ namespace OpenNefia.Core.UI.Layer
             this.SetPosition(this.X, this.Y);
         }
 
+        public void TryToComplete(string input, int caret)
+        {
+            if (ShouldAutomaticallyOpen(input, caret) is int offset and >= 0)
+            {
+                this.Close();
+                this.Open(caret - offset);
+            }
+
+            if (caret < this.CaretPosWhenOpened || string.IsNullOrWhiteSpace(input))
+            {
+                this.Clear();
+            }
+            else if (this.IsOpen)
+            {
+                if (this.Entries.Count == 0)
+                {
+                    var completions = this.Callback(input, caret);
+                    if (completions.Any())
+                    {
+                        this.SetFromCompletions(completions, input, caret);
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    this.FilterCompletions(input, caret);
+                    if (this.HasTypedPastCompletion(caret))
+                    {
+                        this.Close();
+                    }
+                }
+            }
+        }
+
+        private static int ShouldAutomaticallyOpen(string input, int caret)
+        {
+            if (caret > 0 && input[caret - 1] is '.' or '(') return 0; // typical "intellisense behavior", opens for new methods and parameters
+
+            if (caret == 1 && !char.IsWhiteSpace(input[0]) // 1 word character typed in brand new prompt
+                && (input.Length == 1 || !char.IsLetterOrDigit(input[1]))) // if there's more than one character on the prompt, but we're typing a new word at the beginning (e.g. "a| bar")
+            {
+                return 1;
+            }
+
+            // open when we're starting a new "word" in the prompt.
+            return caret - 2 >= 0
+                && char.IsWhiteSpace(input[caret - 2])
+                && char.IsLetter(input[caret - 1])
+                ? 1
+                : -1;
+        }
+
+        private bool HasTypedPastCompletion(int caret) =>
+            FilteredView.SelectedItem is not null
+            && FilteredView.SelectedItem.Completion.Item.DisplayText.Length < (caret - CaretPosWhenOpened);
+
         public override void SetSize(int width, int height)
         {
             width = 0;
@@ -629,7 +758,7 @@ namespace OpenNefia.Core.UI.Layer
             foreach (var entry in this.FilteredView)
             {
                 entry.Text.SetSize();
-                width = Math.Max(entry.Text.Width + Padding * 2, width);
+                width = Math.Max(entry.Text.Width + Padding * 2 + entry.Text.Height + 4, width);
                 height += entry.Text.Height;
             }
 
@@ -643,16 +772,8 @@ namespace OpenNefia.Core.UI.Layer
             base.SetPosition(x, y);
             foreach (var (entry, index) in this.FilteredView.WithIndex())
             {
-                entry.Text.SetPosition(x + Padding + BorderPadding, y + Padding + BorderPadding + (index * this.FontCompletion.GetHeight()));
+                entry.Text.SetPosition(x + Padding + BorderPadding + entry.Text.Height + 4, y + Padding + BorderPadding + (index * this.FontCompletion.GetHeight()));
             }
-        }
-
-        public void Clear()
-        {
-            foreach (var item in this.Entries)
-                item.Text.Dispose();
-            this.Entries.Clear();
-            this.FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
         }
 
         public override void Update(float dt)
@@ -661,7 +782,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Draw()
         {
-            if (this.FilteredView.Count == 0)
+            if (!this.IsVisible)
                 return;
 
             GraphicsEx.SetColor(this.ColorCompletionBackground);
@@ -677,6 +798,8 @@ namespace OpenNefia.Core.UI.Layer
                     GraphicsEx.SetColor(255, 255, 255, 128);
                     GraphicsEx.FilledRect(entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
+                GraphicsEx.SetColor(Love.Color.White);
+                entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
                 entry.Text.Draw();
             }
         }
