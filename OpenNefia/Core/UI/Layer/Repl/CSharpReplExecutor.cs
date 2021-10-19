@@ -19,6 +19,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
         private IConsole Console;
         private Configuration Config;
         private RoslynServices Roslyn;
+        private bool IsInitialized = false;
 
         internal sealed class NullLogger : ITraceLogger
         {
@@ -53,6 +54,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
                     "OpenNefia.Core.Data.Types",
                     "OpenNefia.Core.Extensions",
                     "OpenNefia.Core.Object",
+                    "OpenNefia.Core.UI",
                     "System.Linq",
                 }
             };
@@ -67,6 +69,9 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
         public void Init()
         {
+            if (this.IsInitialized)
+                return;
+
             var _ = Roslyn.WarmUpAsync(Config.LoadScriptArgs);
             var loadReferenceScript = string.Join("\r\n", Config.References.Select(reference => $@"#r ""{reference}"""));
             var loadReferenceScriptResult = Roslyn.EvaluateAsync(loadReferenceScript).ConfigureAwait(false)
@@ -74,6 +79,8 @@ namespace OpenNefia.Core.UI.Layer.Repl
             PrintAsync(Roslyn, Console, loadReferenceScriptResult, displayDetails: false)
                 .ConfigureAwait(false)
                 .GetAwaiter().GetResult();
+
+            this.IsInitialized = true;
         }
 
         public IReadOnlyCollection<CompletionItemWithDescription> Complete(string text, int caret)

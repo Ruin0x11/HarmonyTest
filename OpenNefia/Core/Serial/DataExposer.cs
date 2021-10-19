@@ -260,7 +260,7 @@ namespace OpenNefia.Serial
                                     {
                                         throw new Exception($"Cannot find type named {typeName} in any assembly.");
                                     }
-                                    data = (T)Convert.ChangeType(type, ty);
+                                    data = (T?)(object)type;
                                 }
                                 else if (ty == typeof(Love.Quad))
                                 {

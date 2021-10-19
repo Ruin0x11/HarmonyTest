@@ -19,8 +19,8 @@ namespace OpenNefia.Game
     /// </summary>
     public class Engine
     {
-        public static Engine Instance { get; private set; } = new Engine();
-        public static ModLoader ModLoader = new ModLoader();
+        public static Engine Instance { get; private set; } = null!;
+        public static ModLoader ModLoader = null!;
 
         private GameScene Scene;
         public List<IUiLayer> Layers { get; private set; }
@@ -30,6 +30,7 @@ namespace OpenNefia.Game
         {
             Scene = new GameScene(this);
             Layers = new List<IUiLayer>();
+            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         }
 
         public void Draw()
@@ -145,9 +146,19 @@ namespace OpenNefia.Game
             }
         }
 
-        public void MainCode(string[] args)
+        internal static void InitStaticGlobals()
         {
-            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            Instance = new Engine();
+            ModLoader = new ModLoader();
+
+            Current.InitStaticGlobals();
+        }
+
+        public static void MainCode(string[] args)
+        {
+            InitStaticGlobals();
+
+            Instance.SystemStep();
 
             Startup.Run();
 

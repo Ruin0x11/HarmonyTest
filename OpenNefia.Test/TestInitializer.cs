@@ -1,6 +1,7 @@
 ﻿using System;
 using Love;
 using NUnit.Framework;
+using OpenNefia.Game;
 
 [SetUpFixture]
 public class TestInitializerInNoNamespace
@@ -19,6 +20,7 @@ public class TestInitializerInNoNamespace
         };
 
         Boot.Init(bootConfig);
+        Engine.InitStaticGlobals();
     }
 
     [OneTimeTearDown]

@@ -9,7 +9,12 @@ namespace OpenNefia.Core
 {
     public static class Current
     {
-        public static GameState Game { get; internal set; } = new GameState();
+        public static GameState Game { get; internal set; } = null!;
         public static InstancedMap? Map { get => Game.CurrentMap; }
+
+        internal static void InitStaticGlobals()
+        {
+            Game = new GameState();
+        }
     }
 }

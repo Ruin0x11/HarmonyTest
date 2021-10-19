@@ -267,6 +267,8 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", Current.Game);
             MapRenderer.SetMap(Map);
+            Camera.CenterOn(Chara.Player!);
+            Map.RefreshVisibility();
         }
 
         public override void SetDefaultSize()

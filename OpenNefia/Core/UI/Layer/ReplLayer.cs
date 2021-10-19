@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CSharpRepl.Services.Completion;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Completion;
+using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
@@ -125,7 +126,6 @@ namespace OpenNefia.Core.UI.Layer
             this.ScrollbackBuffer = new CircularBuffer<ReplTextLine>(scrollbackSize);
 
             this.Executor = executor ?? new CSharpReplExecutor(this);
-            this.Executor.Init();
 
             this.CompletionsPane = new CompletionsPane((input, caret) => this.Executor.Complete(input, caret));
 
@@ -248,7 +248,7 @@ namespace OpenNefia.Core.UI.Layer
 
             if (search)
             {
-
+                // TODO
             }
             else
             {
@@ -272,7 +272,7 @@ namespace OpenNefia.Core.UI.Layer
 
             if (search)
             {
-
+                // TODO
             }
             else
             {
@@ -321,11 +321,22 @@ namespace OpenNefia.Core.UI.Layer
 
             var text = this.EditingLine;
 
+            var completeAgain = false;
+            var insertText = completion.Item.DisplayText;
+            if (completion.Item.Tags.Contains(WellKnownTags.Namespace))
+            {
+                insertText += ".";
+                completeAgain = true;
+            }
+
             text = text.Remove(completion.Item.Span.Start, this.CaretPos - completion.Item.Span.Start);
-            text = text.Insert(completion.Item.Span.Start, completion.Item.DisplayText);
+            text = text.Insert(completion.Item.Span.Start, insertText);
             this.EditingLine = text;
-            this.CaretPos = completion.Item.Span.Start + completion.Item.DisplayText.Length;
+            this.CaretPos = completion.Item.Span.Start + insertText.Length;
             this.CompletionsPane.Close();
+
+            if (completeAgain)
+                this.UpdateCompletions();
         }
 
         private void UpdateCompletions()
@@ -354,24 +365,27 @@ namespace OpenNefia.Core.UI.Layer
         {
             var code = this.TextEditingLine.Text;
 
-            this.TextEditingLine.Text = string.Empty;
-            this.ScrollbackPos = 0;
-            this.HistoryPos = -1;
-            this.CaretPos = 0;
-            this.CursorX = 0;
-            this.Dt = 0;
             this.CompletionsPane.Close();
-
-            this.PrintText($"{this.TextCaret.Text}{code}");
 
             if (code != string.Empty)
             {
                 this.History.Insert(0, code);
             }
 
-            var result = this.Executor.Execute(code);
+            this.TextEditingLine.Text = string.Empty;
+            this.ScrollbackPos = 0;
+            this.HistoryPos = -1;
+            this.CaretPos = 0;
+            this.CursorX = 0;
+            this.Dt = 0;
 
-            switch(result)
+            this.PrintText($"{this.TextCaret.Text}{code}");
+
+            this.IsExecuting = true;
+            var result = this.Executor.Execute(code);
+            this.IsExecuting = false;
+
+            switch (result)
             {
                 case ReplExecutionResult.Success success:
                     this.PrintText(success.Result, this.ColorReplTextResult);
@@ -432,6 +446,8 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
+            this.Executor.Init();
+
             this.IsPullingDown = this.UsePullDownAnimation;
             this.PullDownY = 0;
 
@@ -500,9 +516,11 @@ namespace OpenNefia.Core.UI.Layer
             var yPos = y + this.Height - this.FontReplText.GetHeight() - 5;
 
             // Caret
-            GraphicsEx.SetFont(this.FontReplText);
-            this.TextCaret.SetPosition(this.X + 5, yPos);
-            this.TextCaret.Draw();
+            if (!this.IsExecuting)
+            {
+                this.TextCaret.SetPosition(this.X + 5, yPos);
+                this.TextCaret.Draw();
+            }
 
             // Current line
             this.TextEditingLine.SetPosition(this.X + 5 + this.FontReplText.GetWidth(this.TextCaret.Text), yPos);
@@ -546,7 +564,7 @@ namespace OpenNefia.Core.UI.Layer
                 text.Draw();
             }
 
-            if (Math.Floor(this.Dt * 2) % 2 == 0)
+            if (Math.Floor(this.Dt * 2) % 2 == 0 && this.IsQuerying())
             {
                 var curX = this.CursorDisplayX;
                 var curY = this.CursorDisplayY;

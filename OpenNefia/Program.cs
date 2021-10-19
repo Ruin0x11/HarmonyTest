@@ -32,12 +32,11 @@ namespace OpenNefia
 
             Boot.Init(bootConfig);
             Timer.Step();
-            Engine.Instance.SystemStep();
 
             var iconData = Love.Image.NewImageData("Assets/Icon/icon.png");
             Love.Window.SetIcon(iconData);
 
-            Engine.Instance.MainCode(args);
+            Engine.MainCode(args);
         }
     }
 }
