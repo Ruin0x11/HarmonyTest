@@ -31,10 +31,13 @@ namespace OpenNefia.Core.UI.Layer
         public int PullDownSpeed { get; set; } = 80;
         public bool HideDuringExecute { get; set; } = true;
 
-        private FontDef FontReplText;
-        private ColorDef ColorReplBackground;
-        private ColorDef ColorReplText;
-        private ColorDef ColorReplTextError;
+        public int ScrollbackSize { get => this.ScrollbackBuffer.Size; }
+
+        public FontDef FontReplText { get; }
+        public ColorDef ColorReplBackground { get; }
+        public ColorDef ColorReplText { get; }
+        public ColorDef ColorReplTextResult { get; }
+        public ColorDef ColorReplTextError { get; }
 
         private IUiText TextCaret;
         private IUiText TextEditingLine;
@@ -46,7 +49,7 @@ namespace OpenNefia.Core.UI.Layer
         protected float Dt = 0f;
         protected bool IsPullingDown;
         protected int PullDownY = 0;
-        protected int MaxLines = 0;
+        public int MaxLines { get; private set; } = 0;
         protected int CursorX = 0;
         /// Stringwise width position of cursor. (not CJK-width)
         public int CursorCharPos { get; protected set; } = 0;
@@ -55,10 +58,11 @@ namespace OpenNefia.Core.UI.Layer
         protected int ScrollbackPos = 0;
         private bool IsExecuting = false;
 
-        public ReplLayer(int scrollbackSize = 15000)
+        public ReplLayer(int scrollbackSize = 15000, IReplExecutor? executor = null)
         {
             this.FontReplText = FontDefOf.ReplText;
             this.ColorReplBackground = ColorDefOf.ReplBackground;
+            this.ColorReplTextResult = ColorDefOf.ReplTextResult;
             this.ColorReplTextError = ColorDefOf.ReplTextError;
             this.ColorReplText = ColorDefOf.ReplText;
 
@@ -68,7 +72,8 @@ namespace OpenNefia.Core.UI.Layer
             this.TextScrollback = new IUiText[0];
             this.ScrollbackBuffer = new CircularBuffer<ReplTextLine>(scrollbackSize);
 
-            this.Executor = new CSharpReplExecutor();
+            this.Executor = executor ?? new CSharpReplExecutor(this);
+            this.Executor.Init();
 
             this.IsPullingDown = this.UsePullDownAnimation;
 
@@ -159,23 +164,27 @@ namespace OpenNefia.Core.UI.Layer
             this.CursorCharPos = 0;
             this.CursorX = 0;
 
+            this.PrintText($"{this.TextCaret.Text}{code}");
+
             var result = this.Executor.Execute(code);
 
             switch(result)
             {
                 case ReplExecutionResult.Success success:
-                    this.PrintText(success.Result);
+                    this.PrintText(success.Result, this.ColorReplTextResult);
                     break;
                 case ReplExecutionResult.Error error:
                     var text = $"Error: {error.Exception.StackTrace}\n{error.Exception.Message}";
-                    this.PrintText(text, this.ColorReplTextError);
+                    this.PrintError(text);
                     break;
                 default:
                     break;
             }
         }
 
-        private void PrintText(string text, ColorDef? color = null)
+        public void PrintError(string text) => PrintText(text, this.ColorReplTextError);
+
+        public void PrintText(string text, ColorDef? color = null)
         {
             if (color == null)
                 color = this.ColorReplText;

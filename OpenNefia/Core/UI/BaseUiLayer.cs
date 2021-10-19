@@ -91,8 +91,9 @@ namespace OpenNefia.Core.UI
             // Global REPL hotkey
             this.Keybinds[Keys.Backquote] += (_) =>
             {
-                if (!GameWrapper.Instance.State.Repl.IsInActiveLayerList())
-                    GameWrapper.Instance.State.Repl.Query();
+                var repl = GameWrapper.Instance.State.Repl.Value;
+                if (!repl.IsInActiveLayerList())
+                    repl.Query();
             };
 
             this.Result = null;

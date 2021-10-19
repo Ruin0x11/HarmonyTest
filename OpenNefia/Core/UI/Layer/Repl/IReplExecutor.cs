@@ -9,6 +9,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
 {
     public interface IReplExecutor
     {
+        void Init();
         ReplExecutionResult Execute(string code);
     }
 }

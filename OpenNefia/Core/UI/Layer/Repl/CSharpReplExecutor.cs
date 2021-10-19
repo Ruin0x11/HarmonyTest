@@ -6,8 +6,10 @@ using FluentResults;
 using PrettyPrompt.Consoles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer.Repl
 {
@@ -24,14 +26,77 @@ namespace OpenNefia.Core.UI.Layer.Repl
             public void LogPaths(string message, Func<IEnumerable<string?>> paths) {}
         }
 
-        public CSharpReplExecutor()
+        public CSharpReplExecutor(ReplLayer replLayer) : this(replLayer, BuildDefaultConfig())
         {
-            Console = new SystemConsole();
-            Config = new Configuration()
+        }
+
+        private static Configuration BuildDefaultConfig()
+        {
+            var references = new HashSet<string>();
+
+            var openNefia = Assembly.GetEntryAssembly()!;
+            references.Add(openNefia.GetName().Name!);
+
+            foreach (var reference in openNefia.GetReferencedAssemblies())
             {
-                References = new HashSet<string>() { Assembly.GetExecutingAssembly().Location },
+                references.Add(reference.Name!);
+            }
+
+            return new Configuration()
+            {
+                References = references,
+                Usings = new HashSet<string>() {
+                    "OpenNefia.Core",
+                    "OpenNefia.Core.Object",
+                    "OpenNefia.Core.Data",
+                    "OpenNefia.Core.Data.Types",
+                }
             };
+        }
+
+        public CSharpReplExecutor(ReplLayer replLayer, Configuration config)
+        {
+            Console = new ReplLayerConsoleBridge(replLayer);
+            Config = config;
             Roslyn = new RoslynServices(Console, Config, new NullLogger());
+        }
+
+        public void Init()
+        {
+            var _ = Roslyn.WarmUpAsync(Config.LoadScriptArgs);
+            var loadReferenceScript = string.Join("\r\n", Config.References.Select(reference => $@"#r ""{reference}"""));
+            var loadReferenceScriptResult = Roslyn.EvaluateAsync(loadReferenceScript).ConfigureAwait(false)
+                .GetAwaiter().GetResult();
+            PrintAsync(Roslyn, Console, loadReferenceScriptResult, displayDetails: false)
+                .ConfigureAwait(false)
+                .GetAwaiter().GetResult();
+        }
+
+        private static async Task PrintAsync(RoslynServices roslyn, IConsole console, EvaluationResult result, bool displayDetails)
+        {
+            switch (result)
+            {
+                case EvaluationResult.Success ok:
+                    var formatted = await roslyn.PrettyPrintAsync(ok?.ReturnValue, displayDetails);
+                    console.WriteLine(FormatResultObject(formatted));
+                    break;
+                case EvaluationResult.Error err:
+                    var formattedError = await roslyn.PrettyPrintAsync(err.Exception, displayDetails);
+                    console.WriteErrorLine(AnsiEscapeCodes.Red + formattedError + AnsiEscapeCodes.Reset);
+                    break;
+                case EvaluationResult.Cancelled:
+                    console.WriteErrorLine(
+                        AnsiEscapeCodes.Yellow + "Operation cancelled." + AnsiEscapeCodes.Reset
+                    );
+                    break;
+            }
+        }
+
+        private static string FormatResultObject(object? returnValue)
+        {
+            if (returnValue == null)
+                return "null";
+            return returnValue!.ToString()!;
         }
 
         public ReplExecutionResult Execute(string code)
@@ -41,7 +106,8 @@ namespace OpenNefia.Core.UI.Layer.Repl
             switch (result)
             {
                 case EvaluationResult.Success success:
-                    return new ReplExecutionResult.Success($"{success.ReturnValue}");
+                    
+                    return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue));
                 case EvaluationResult.Error err:
                     return new ReplExecutionResult.Error(err.Exception);
                 default:

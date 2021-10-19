@@ -22,7 +22,7 @@ namespace OpenNefia.Game
         internal ICoords Coords;
         internal Chara? Player;
 
-        public ReplLayer Repl { get; internal set; } = null!;
+        public Lazy<ReplLayer> Repl = new Lazy<ReplLayer>(() => new ReplLayer());
 
         public GameState()
         {

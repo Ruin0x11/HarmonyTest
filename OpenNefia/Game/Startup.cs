@@ -49,10 +49,6 @@ namespace OpenNefia.Game
             RegenerateTileAtlases();
 
             InitTileMapping();
-
-            // Only safe to instantiate UI components after Defs
-            // have been loaded (FontDef, ColorDef, AssetDef...)
-            GameWrapper.Instance.State.Repl = new ReplLayer();
         }
 
         private static void InitTileMapping()
