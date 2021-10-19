@@ -9,6 +9,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer.Repl;
 using OpenNefia.Core.Util.Collections;
+using TextCopy;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -26,10 +27,36 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        public float HeightPercentage { get; set; } = 0.3f;
+        private float _HeightPercentage = 0.3f;
+        public float HeightPercentage {
+            get
+            {
+                if (this.IsFullscreen)
+                    return 1.0f;
+                return _HeightPercentage;
+            }
+            set => _HeightPercentage = value;
+        }
+
+        private bool _IsFullscreen = false;
+        public bool IsFullscreen {
+            get => _IsFullscreen;
+            set
+            {
+                _IsFullscreen = value;
+                this.SetDefaultSize();
+            }
+        }
         public bool UsePullDownAnimation { get; set; } = true;
         public int PullDownSpeed { get; set; } = 80;
         public bool HideDuringExecute { get; set; } = true;
+        public string EditingLine {
+            get => this.TextEditingLine.Text;
+            set {
+                this.TextEditingLine.Text = value;
+                this.SetCursorPos(value.Length);
+            }
+        }
 
         public int ScrollbackSize { get => this.ScrollbackBuffer.Size; }
 
@@ -47,15 +74,17 @@ namespace OpenNefia.Core.UI.Layer
         private IReplExecutor Executor;
 
         protected float Dt = 0f;
-        protected bool IsPullingDown;
+        protected bool IsPullingDown = false;
         protected int PullDownY = 0;
         public int MaxLines { get; private set; } = 0;
         protected int CursorX = 0;
-        /// Stringwise width position of cursor. (not CJK-width)
+        /// Stringwise width position of cursor. (not CJK width)
         public int CursorCharPos { get; protected set; } = 0;
         protected bool NeedsScrollbackRedraw = true;
         protected CircularBuffer<ReplTextLine> ScrollbackBuffer;
         protected int ScrollbackPos = 0;
+        protected List<string> History = new List<string>();
+        protected int HistoryPos = -1;
         private bool IsExecuting = false;
 
         public ReplLayer(int scrollbackSize = 15000, IReplExecutor? executor = null)
@@ -75,21 +104,27 @@ namespace OpenNefia.Core.UI.Layer
             this.Executor = executor ?? new CSharpReplExecutor(this);
             this.Executor.Init();
 
-            this.IsPullingDown = this.UsePullDownAnimation;
-
             this.BindKeys();
         }
 
         protected virtual void BindKeys()
         {
             this.TextInput.Enabled = true;
-            this.TextInput.Callback += (evt) => this.InsertText(evt);
+            this.TextInput.Callback += (evt) => this.InsertText(evt.Text);
 
+            this.Keybinds[Keys.Up] += (_) => this.PreviousHistoryEntry();
+            this.Keybinds[Keys.Down] += (_) => this.NextHistoryEntry();
             this.Keybinds[Keys.Left] += (_) => this.SetCursorPos(this.CursorCharPos - 1);
             this.Keybinds[Keys.Right] += (_) => this.SetCursorPos(this.CursorCharPos + 1);
             this.Keybinds[Keys.Backspace] += (_) => this.DeleteCharAtCursor();
             this.Keybinds[Keys.PageUp] += (_) => this.SetScrollbackPos(this.ScrollbackPos + (this.MaxLines / 2));
             this.Keybinds[Keys.PageDown] += (_) => this.SetScrollbackPos(this.ScrollbackPos - (this.MaxLines / 2));
+            this.Keybinds[Keys.Ctrl | Keys.A] += (_) => this.SetCursorPos(0);
+            this.Keybinds[Keys.Ctrl | Keys.F] += (_) => this.IsFullscreen = !this.IsFullscreen;
+            this.Keybinds[Keys.Ctrl | Keys.E] += (_) => this.SetCursorPos(this.EditingLine.Length);
+            this.Keybinds[Keys.Ctrl | Keys.X] += (_) => this.CutText();
+            this.Keybinds[Keys.Ctrl | Keys.C] += (_) => this.CopyText();
+            this.Keybinds[Keys.Ctrl | Keys.V] += (_) => this.PasteText();
             this.Keybinds[Keys.Enter] += (_) => this.SubmitText();
             this.Keybinds[Keys.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keys.Escape] += (_) => this.Cancel();
@@ -105,27 +140,30 @@ namespace OpenNefia.Core.UI.Layer
             return (left, right);
         }
 
-        public void InsertText(TextInputEvent evt)
+        public void InsertText(string inserted)
         {
+            if (inserted == string.Empty)
+                return;
+
             var text = this.TextEditingLine.Text;
 
             if (this.CursorCharPos == text.Length)
             {
-                text += evt.Text;
+                text += inserted;
             }
             else if (this.CursorCharPos == 0)
             {
-                text = evt.Text + text;
+                text = inserted + text;
             }
             else
             {
                 var (left, right) = SplitStringAtPos(text, this.CursorCharPos);
-                text = left + evt.Text + right;
+                text = left + inserted + right;
             }
 
             this.TextEditingLine.Text = text;
 
-            this.SetCursorPos(this.CursorCharPos + evt.Text.Length);
+            this.SetCursorPos(this.CursorCharPos + inserted.Length);
         }
 
         public void DeleteCharAtCursor()
@@ -148,6 +186,69 @@ namespace OpenNefia.Core.UI.Layer
             this.NeedsScrollbackRedraw = true;
         }
 
+        public void NextHistoryEntry()
+        {
+            var search = false;
+
+            if (search)
+            {
+
+            }
+            else
+            {
+                if (this.HistoryPos - 1 < 0)
+                {
+                    this.EditingLine = "";
+                    this.HistoryPos = -1;
+                }
+                else if (this.HistoryPos - 1 <= this.History.Count)
+                {
+                    this.HistoryPos -= 1;
+                    this.EditingLine = this.History[this.HistoryPos];
+                }
+            }
+        }
+
+        public void PreviousHistoryEntry()
+        {
+            var search = false;
+
+            if (search)
+            {
+
+            }
+            else
+            {
+                if (this.HistoryPos + 1 > this.History.Count - 1)
+                {
+                    this.EditingLine = "";
+                    this.HistoryPos = this.History.Count;
+                }
+                else if (this.HistoryPos + 1 <= this.History.Count)
+                {
+                    this.HistoryPos += 1;
+                    this.EditingLine = this.History[this.HistoryPos];
+                }
+            }
+        }
+
+        public void CutText()
+        {
+            ClipboardService.SetText(this.EditingLine);
+            this.EditingLine = "";
+        }
+
+        public void CopyText()
+        {
+            ClipboardService.SetText(this.EditingLine);
+        }
+
+        public void PasteText()
+        {
+            var text = ClipboardService.GetText() ?? "";
+            this.InsertText(text);
+        }
+
         public void Clear()
         {
             this.ScrollbackBuffer.Clear();
@@ -161,10 +262,16 @@ namespace OpenNefia.Core.UI.Layer
 
             this.TextEditingLine.Text = string.Empty;
             this.ScrollbackPos = 0;
+            this.HistoryPos = -1;
             this.CursorCharPos = 0;
             this.CursorX = 0;
 
             this.PrintText($"{this.TextCaret.Text}{code}");
+
+            if (code != string.Empty)
+            {
+                this.History.Insert(0, code);
+            }
 
             var result = this.Executor.Execute(code);
 
@@ -189,7 +296,7 @@ namespace OpenNefia.Core.UI.Layer
             if (color == null)
                 color = this.ColorReplText;
 
-            var (remain, wrapped) = this.FontReplText.GetWrap(text, this.Width);
+            var (_, wrapped) = this.FontReplText.GetWrap(text, this.Width);
 
             foreach (var line in wrapped)
             {
@@ -211,19 +318,11 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void SetDefaultSize()
         {
-            this.IsPullingDown = false;
-            this.PullDownY = 0;
-
             var width = Love.Graphics.GetWidth();
-            var viewportWidth = Love.Graphics.GetHeight();
-            var height = (int)Math.Clamp(viewportWidth * this.HeightPercentage, viewportWidth / 3, viewportWidth - 1);
+            var viewportHeight = Love.Graphics.GetHeight();
+            var height = (int)Math.Clamp(viewportHeight * this.HeightPercentage, 0, viewportHeight - 1);
             this.SetSize(width, height);
             this.SetPosition(0, 0);
-
-            if (this.UsePullDownAnimation)
-            {
-                this.PullDownY = this.MaxLines * this.FontReplText.GetHeight();
-            }
         }
 
         public override void SetSize(int width = 0, int height = 0)
@@ -247,6 +346,13 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
+            this.IsPullingDown = this.UsePullDownAnimation;
+            this.PullDownY = 0;
+
+            if (this.UsePullDownAnimation)
+            {
+                this.PullDownY = this.MaxLines * this.FontReplText.GetHeight();
+            }
         }
 
         public override void Update(float dt)
@@ -361,6 +467,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Dispose()
         {
+            this.TextCaret.Dispose();
             this.TextEditingLine.Dispose();
             this.TextScrollbackCounter.Dispose();
             foreach (var text in this.TextScrollback)
