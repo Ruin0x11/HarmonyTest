@@ -7,12 +7,25 @@ using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Layer.Repl;
 using OpenNefia.Core.Util.Collections;
 
 namespace OpenNefia.Core.UI.Layer
 {
     public class ReplLayer : BaseUiLayer<UiNoResult>
     {
+        protected class ReplTextLine
+        {
+            public string Text;
+            public ColorDef Color;
+
+            public ReplTextLine(string line, ColorDef color)
+            {
+                Text = line;
+                Color = color;
+            }
+        }
+
         public float HeightPercentage { get; set; } = 0.3f;
         public bool UsePullDownAnimation { get; set; } = true;
         public int PullDownSpeed { get; set; } = 80;
@@ -20,11 +33,15 @@ namespace OpenNefia.Core.UI.Layer
 
         private FontDef FontReplText;
         private ColorDef ColorReplBackground;
+        private ColorDef ColorReplText;
+        private ColorDef ColorReplTextError;
 
         private IUiText TextCaret;
         private IUiText TextEditingLine;
         private IUiText TextScrollbackCounter;
         private IUiText[] TextScrollback;
+
+        private IReplExecutor Executor;
 
         protected float Dt = 0f;
         protected bool IsPullingDown;
@@ -33,21 +50,25 @@ namespace OpenNefia.Core.UI.Layer
         protected int CursorX = 0;
         /// Stringwise width position of cursor. (not CJK-width)
         public int CursorCharPos { get; protected set; } = 0;
-        protected bool NeedsRedraw = true;
-        protected CircularBuffer<string> ScrollbackBuffer;
-        protected int ScrollbackIndex = 0;
+        protected bool NeedsScrollbackRedraw = true;
+        protected CircularBuffer<ReplTextLine> ScrollbackBuffer;
+        protected int ScrollbackPos = 0;
         private bool IsExecuting = false;
 
         public ReplLayer(int scrollbackSize = 15000)
         {
             this.FontReplText = FontDefOf.ReplText;
             this.ColorReplBackground = ColorDefOf.ReplBackground;
+            this.ColorReplTextError = ColorDefOf.ReplTextError;
+            this.ColorReplText = ColorDefOf.ReplText;
 
             this.TextCaret = new UiText(this.FontReplText, "> ");
             this.TextEditingLine = new UiText(this.FontReplText, "");
             this.TextScrollbackCounter = new UiText(this.FontReplText, "0/0");
             this.TextScrollback = new IUiText[0];
-            this.ScrollbackBuffer = new CircularBuffer<string>(scrollbackSize);
+            this.ScrollbackBuffer = new CircularBuffer<ReplTextLine>(scrollbackSize);
+
+            this.Executor = new CSharpReplExecutor();
 
             this.IsPullingDown = this.UsePullDownAnimation;
 
@@ -62,6 +83,8 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keys.Left] += (_) => this.SetCursorPos(this.CursorCharPos - 1);
             this.Keybinds[Keys.Right] += (_) => this.SetCursorPos(this.CursorCharPos + 1);
             this.Keybinds[Keys.Backspace] += (_) => this.DeleteCharAtCursor();
+            this.Keybinds[Keys.PageUp] += (_) => this.SetScrollbackPos(this.ScrollbackPos + (this.MaxLines / 2));
+            this.Keybinds[Keys.PageDown] += (_) => this.SetScrollbackPos(this.ScrollbackPos - (this.MaxLines / 2));
             this.Keybinds[Keys.Enter] += (_) => this.SubmitText();
             this.Keybinds[Keys.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keys.Escape] += (_) => this.Cancel();
@@ -114,11 +137,57 @@ namespace OpenNefia.Core.UI.Layer
             this.SetCursorPos(this.CursorCharPos - 1);
         }
 
+        public void SetScrollbackPos(int pos)
+        {
+            this.ScrollbackPos = Math.Clamp(pos, 0, Math.Max(this.ScrollbackBuffer.Size - this.MaxLines, 0));
+            this.NeedsScrollbackRedraw = true;
+        }
+
+        public void Clear()
+        {
+            this.ScrollbackBuffer.Clear();
+            this.ScrollbackPos = 0;
+            this.NeedsScrollbackRedraw = true;
+        }
+
         public void SubmitText()
         {
+            var code = this.TextEditingLine.Text;
+
             this.TextEditingLine.Text = string.Empty;
+            this.ScrollbackPos = 0;
             this.CursorCharPos = 0;
             this.CursorX = 0;
+
+            var result = this.Executor.Execute(code);
+
+            switch(result)
+            {
+                case ReplExecutionResult.Success success:
+                    this.PrintText(success.Result);
+                    break;
+                case ReplExecutionResult.Error error:
+                    var text = $"Error: {error.Exception.StackTrace}\n{error.Exception.Message}";
+                    this.PrintText(text, this.ColorReplTextError);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void PrintText(string text, ColorDef? color = null)
+        {
+            if (color == null)
+                color = this.ColorReplText;
+
+            var (remain, wrapped) = this.FontReplText.GetWrap(text, this.Width);
+
+            foreach (var line in wrapped)
+            {
+                this.ScrollbackBuffer.PushFront(new ReplTextLine(line, color));
+            }
+
+            this.NeedsScrollbackRedraw = true;
         }
 
         private void SetCursorPos(int pos)
@@ -159,7 +228,12 @@ namespace OpenNefia.Core.UI.Layer
             for (int i = 0; i < this.MaxLines; i++)
                 this.TextScrollback[i] = new UiText(this.FontReplText);
 
-            this.NeedsRedraw = true;
+            this.NeedsScrollbackRedraw = true;
+        }
+
+        public override void SetPosition(int x = 0, int y = 0)
+        {
+            base.SetPosition(x, y);
         }
 
         public override void OnQuery()
@@ -169,7 +243,8 @@ namespace OpenNefia.Core.UI.Layer
         public override void Update(float dt)
         {
             this.Dt += dt;
-
+            
+            this.TextCaret.Update(dt);
             this.TextEditingLine.Update(dt);
             this.TextScrollbackCounter.Update(dt);
             foreach (var text in this.TextScrollback)
@@ -228,24 +303,41 @@ namespace OpenNefia.Core.UI.Layer
             this.TextEditingLine.SetPosition(this.X + 5 + this.FontReplText.GetWidth(this.TextCaret.Text), yPos);
             this.TextEditingLine.Draw();
 
-            // Scrollback counter
-            if (this.ScrollbackIndex > -1)
+            // Scrollback Display
+            if (this.NeedsScrollbackRedraw)
             {
-                this.TextScrollbackCounter.SetPosition(this.X + this.Width - this.TextScrollbackCounter.Width - 5, yPos);
+                if (this.ScrollbackPos > 0)
+                {
+                    this.TextScrollbackCounter.Text = $"{this.ScrollbackPos}/{this.ScrollbackBuffer.Size}";
+                    this.TextScrollbackCounter.SetPosition(this.X + this.Width - this.TextScrollbackCounter.Width - 5, yPos);
+                }
+
+                for (int i = 0; i < this.MaxLines; i++)
+                {
+                    var index = this.ScrollbackPos + i;
+                    if (index >= this.ScrollbackBuffer.Size)
+                    {
+                        break;
+                    }
+
+                    var uiText = this.TextScrollback[i];
+                    var line = this.ScrollbackBuffer[index];
+                    uiText.Text = line.Text;
+                    uiText.Color = line.Color;
+                    uiText.SetPosition(this.X + 5, this.Y + this.Height - this.FontReplText.GetHeight() * (i + 2) - 5);
+                }
+                this.NeedsScrollbackRedraw = false;
+            }
+
+            // Scrollback counter
+            if (this.ScrollbackPos > 0)
+            {
                 this.TextScrollbackCounter.Draw();
             }
 
-            // Scrollback Display
-            for (int i = 0; i < this.MaxLines; i++)
+            foreach (var text in this.TextScrollback)
             {
-                if (this.ScrollbackIndex + i >= this.ScrollbackBuffer.Size)
-                {
-                    break;
-                }
-
-                var uiText = this.TextScrollback[i];
-                uiText.Text = this.ScrollbackBuffer[i];
-                uiText.SetPosition(this.X + 5, this.Y + this.Height - this.FontReplText.GetHeight() * (i + 2) - 5);
+                text.Draw();
             }
 
             if (Math.Floor(this.Dt * 2) % 2 == 0)

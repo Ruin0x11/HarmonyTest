@@ -181,6 +181,18 @@ namespace OpenNefia.Core.Util.Collections
         }
 
         /// <summary>
+        /// Clears the buffer.
+        /// </summary>
+        public void Clear()
+        {
+            for (int i = 0; i < _buffer.Length; i++)
+                _buffer[i] = default(T)!;
+
+            _start = 0;
+            _end = _size == _buffer.Length ? 0 : _size;
+        }
+
+        /// <summary>
         /// Pushes a new element to the back of the buffer. Back()/this[Size-1]
         /// will now return this element.
         /// 

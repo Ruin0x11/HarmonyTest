@@ -1,9 +1,12 @@
 using System;
+using System.Reflection;
 
 namespace OpenNefia.Core
 {
     public static class Env
     {
-        public static readonly Version Version = new Version(0, 1, 0, 0);
+        public static Version Version { 
+            get => Assembly.GetExecutingAssembly().GetName().Version!;
+        }
     }
 }

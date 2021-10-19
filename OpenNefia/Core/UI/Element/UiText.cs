@@ -8,8 +8,6 @@ namespace OpenNefia.Core.UI.Element
     {
         private Love.Text BakedText;
 
-        public bool NeedsRebake { get; private set; } = true;
-
         private FontDef _Font;
         public FontDef Font
         {
@@ -17,7 +15,7 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Font = value;
-                this.NeedsRebake = true;
+                this.RebakeText();
             }
         }
 
@@ -28,16 +26,33 @@ namespace OpenNefia.Core.UI.Element
             set
             {
                 this._Text = value;
-                this.NeedsRebake = true;
+                this.RebakeText();
+            }
+        }
+
+        public ColorDef UsedColor { get; private set; }
+
+        private ColorDef? _Color;
+        public ColorDef? Color
+        {
+            get => UsedColor;
+            set
+            {
+                this._Color = value;
+                if (this._Color != null)
+                    this.UsedColor = this._Color;
+                else
+                    this.UsedColor = this.Font.Color;
             }
         }
 
 #pragma warning disable CS8618
         
-        public UiText(FontDef font, string text = "")
+        public UiText(FontDef font, string text = "", ColorDef? color = null)
         {
             this._Text = text;
             this._Font = font;
+            this.Color = color;
             this.RebakeText();
         }
 
@@ -47,7 +62,6 @@ namespace OpenNefia.Core.UI.Element
         {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
             this.SetSize(0, 0);
-            this.NeedsRebake = false;
         }
 
         public override void SetSize(int width = 0, int height = 0)
@@ -57,10 +71,6 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Update(float dt)
         {
-            if (this.NeedsRebake)
-            {
-                this.RebakeText();
-            }
         }
 
         public override void Draw()
@@ -68,7 +78,7 @@ namespace OpenNefia.Core.UI.Element
             switch(this.Font.Style)
             {
                 case FontStyle.Normal:
-                    GraphicsEx.SetColor(this.Font.Color);
+                    GraphicsEx.SetColor(this.UsedColor);
                     Love.Graphics.Draw(this.BakedText, this.X, this.Y);
                     break;
 
@@ -78,7 +88,7 @@ namespace OpenNefia.Core.UI.Element
                         for (int dy = -1; dy <= 1; dy++)
                             Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
 
-                    GraphicsEx.SetColor(this.Font.Color);
+                    GraphicsEx.SetColor(this.UsedColor);
                     Love.Graphics.Draw(this.BakedText, this.X, this.Y);
                     break;
 
@@ -86,7 +96,7 @@ namespace OpenNefia.Core.UI.Element
                     GraphicsEx.SetColor(this.Font.ExtraColors[FontDef.ColorKinds.Background]);
                     Love.Graphics.Draw(this.BakedText, this.X + 1, this.Y + 1);
 
-                    GraphicsEx.SetColor(this.Font.Color);
+                    GraphicsEx.SetColor(this.UsedColor);
                     Love.Graphics.Draw(this.BakedText, this.X, this.Y);
                     break;
             }

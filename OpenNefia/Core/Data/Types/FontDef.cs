@@ -74,8 +74,9 @@ namespace OpenNefia.Core.Data.Types
         }
         public static implicit operator Love.Font(FontDef c) => c.LoveFont;
 
-        internal int GetWidth(string text) => this.LoveFont.GetWidth(text);
-        internal int GetHeight() => this.LoveFont.GetHeight();
+        public int GetWidth(string text) => this.LoveFont.GetWidth(text);
+        public int GetHeight() => this.LoveFont.GetHeight();
+        public Tuple<int, string[]> GetWrap(string text, int width) => this.LoveFont.GetWrap(text, width);
 
         public override void DeserializeDefField(IDefDeserializer deserializer, XElement node, Type containingModType)
         {

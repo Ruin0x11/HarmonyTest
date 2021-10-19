@@ -14,5 +14,7 @@
   <ColorDef Id="TopicWindowStyle5" R="255" G="255" B="255" A="255" />
   <ColorDef Id="TopicWindowStyle6" R="255" G="255" B="255" A="180" />
   <ColorDef Id="PromptBackground"  R="0"   G="0"   B="0"   A="127" />
-  <ColorDef Id="ReplBackground"    R="0"   G="128"   B="0"   A="127" />
+  <ColorDef Id="ReplBackground"    R="17"  G="65"  B="17"  A="192" />
+  <ColorDef Id="ReplText"          R="255" G="255" B="255" A="255" />
+  <ColorDef Id="ReplTextError"     R="255" G="0"   B="0"   A="255" />
 </Defs>

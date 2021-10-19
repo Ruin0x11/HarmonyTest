@@ -1,0 +1,3 @@
+[submodule "Thirdparty/CSharpRepl"]
+	path = Thirdparty/CSharpRepl
+	url = https://github.com/waf/CSharpRepl

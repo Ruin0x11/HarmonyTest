@@ -42,12 +42,12 @@ namespace OpenNefia.Core.UI
         {
         }
 
-        public virtual bool IsInActiveLayerList()
+        public bool IsInActiveLayerList()
         {
             return GameWrapper.Instance.IsInActiveLayerList(this);
         }
 
-        public virtual bool IsQuerying()
+        public bool IsQuerying()
         {
             return GameWrapper.Instance.IsQuerying(this);
         }

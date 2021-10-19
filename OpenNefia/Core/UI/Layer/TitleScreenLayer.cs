@@ -17,9 +17,10 @@ namespace OpenNefia.Core.UI.Layer
             public TitleScreenAction Action;
             public IUiText UiTextSubtext;
 
-            public TitleScreenCell(TitleScreenAction data, string text, string subtext)
-                : base(data, new UiText(FontDefOf.ListTitleScreenText, text))
+            public TitleScreenCell(TitleScreenAction action, string text, string subtext)
+                : base(action, new UiText(FontDefOf.ListTitleScreenText, text))
             {
+                this.Action = action;
                 this.UiTextSubtext = new UiText(FontDefOf.ListTitleScreenSubtext, subtext);
             }
 

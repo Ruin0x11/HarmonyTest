@@ -24,5 +24,7 @@ namespace OpenNefia.Core.Data.Types
         public static ColorDef TopicWindowStyle6 = null!;
         public static ColorDef PromptBackground = null!;
         public static ColorDef ReplBackground = null!;
+        public static ColorDef ReplText = null!;
+        public static ColorDef ReplTextError = null!;
     }
 }
