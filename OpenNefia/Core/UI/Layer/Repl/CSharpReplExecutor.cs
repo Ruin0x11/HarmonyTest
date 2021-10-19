@@ -46,11 +46,14 @@ namespace OpenNefia.Core.UI.Layer.Repl
             return new Configuration()
             {
                 References = references,
-                Usings = new HashSet<string>() {
+                Usings = new HashSet<string>() 
+                {
                     "OpenNefia.Core",
-                    "OpenNefia.Core.Object",
                     "OpenNefia.Core.Data",
                     "OpenNefia.Core.Data.Types",
+                    "OpenNefia.Core.Extensions",
+                    "OpenNefia.Core.Object",
+                    "System.Linq",
                 }
             };
         }

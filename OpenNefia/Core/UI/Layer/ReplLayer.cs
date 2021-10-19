@@ -52,7 +52,7 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
         public bool UsePullDownAnimation { get; set; } = true;
-        public int PullDownSpeed { get; set; } = 80;
+        public float PullDownSpeed { get; set; } = 2.5f;
         public bool HideDuringExecute { get; set; } = true;
         public string EditingLine
         {
@@ -66,14 +66,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public int ScrollbackSize { get => this.ScrollbackBuffer.Size; }
         public int CursorDisplayX { get => this.X + 6 + this.TextCaret.Width + this.CursorX; }
-        public int CursorDisplayY
-        {
-            get
-            {
-                var top = this.Height - this.PullDownY * this.FontReplText.GetHeight();
-                return this.Y + top - this.FontReplText.GetHeight() - 5;
-            }
-        }
+        public int CursorDisplayY { get => this.Y + this.Height - this.PullDownY - this.FontReplText.GetHeight() - 4; }
 
         public FontDef FontReplText { get; }
         public ColorDef ColorReplBackground { get; }
@@ -268,6 +261,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     this.HistoryPos -= 1;
                     this.EditingLine = this.History[this.HistoryPos];
+                    this.CaretPos = this.EditingLine.Length;
                 }
             }
         }
@@ -291,6 +285,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     this.HistoryPos += 1;
                     this.EditingLine = this.History[this.HistoryPos];
+                    this.CaretPos = this.EditingLine.Length;
                 }
             }
         }
@@ -464,11 +459,11 @@ namespace OpenNefia.Core.UI.Layer
             {
                 if (this.WasFinished || this.WasCancelled)
                 {
-                    this.PullDownY = Math.Min(this.PullDownY + this.PullDownSpeed, this.MaxLines * this.FontReplText.GetHeight());
+                    this.PullDownY = (int)Math.Min(this.PullDownY + this.PullDownSpeed * dt * 1000f, this.MaxLines * this.FontReplText.GetHeight());
                 }
                 else if (this.PullDownY > 0)
                 {
-                    this.PullDownY = Math.Max(this.PullDownY - this.PullDownSpeed, 0);
+                    this.PullDownY = (int)Math.Max(this.PullDownY - this.PullDownSpeed * dt * 1000f, 0);
                 }
             }
         }
@@ -496,11 +491,13 @@ namespace OpenNefia.Core.UI.Layer
                 return;
             }
 
+            var y = this.Y - this.PullDownY;
+
             // Background
             GraphicsEx.SetColor(this.ColorReplBackground);
-            GraphicsEx.FilledRect(this.X, this.Y, this.Width, this.Height);
+            GraphicsEx.FilledRect(this.X, y, this.Width, this.Height);
 
-            var yPos = this.Y + this.Height - this.FontReplText.GetHeight() - 5;
+            var yPos = y + this.Height - this.FontReplText.GetHeight() - 5;
 
             // Caret
             GraphicsEx.SetFont(this.FontReplText);
@@ -532,7 +529,6 @@ namespace OpenNefia.Core.UI.Layer
                     var line = this.ScrollbackBuffer[index];
                     uiText.Text = line.Text;
                     uiText.Color = line.Color;
-                    uiText.SetPosition(this.X + 5, this.Y + this.Height - this.FontReplText.GetHeight() * (i + 2) - 5);
                 }
                 this.NeedsScrollbackRedraw = false;
             }
@@ -543,17 +539,19 @@ namespace OpenNefia.Core.UI.Layer
                 this.TextScrollbackCounter.Draw();
             }
 
-            foreach (var text in this.TextScrollback)
+            for (int i = 0; i < this.TextScrollback.Length; i++)
             {
+                var text = this.TextScrollback[i];
+                text.SetPosition(this.X + 5, y + this.Height - this.FontReplText.GetHeight() * (i + 2) - 5);
                 text.Draw();
             }
 
             if (Math.Floor(this.Dt * 2) % 2 == 0)
             {
-                var x = this.CursorDisplayX;
-                var y = this.CursorDisplayY;
+                var curX = this.CursorDisplayX;
+                var curY = this.CursorDisplayY;
                 GraphicsEx.SetColor(this.FontReplText.Color);
-                Love.Graphics.Line(x, y, x, y + this.FontReplText.GetHeight());
+                Love.Graphics.Line(curX, curY, curX, curY + this.FontReplText.GetHeight());
             }
 
             this.CompletionsPane.Draw();
@@ -568,6 +566,7 @@ namespace OpenNefia.Core.UI.Layer
             {
                 text.Dispose();
             }
+            this.CompletionsPane.Dispose();
         }
     }
 
