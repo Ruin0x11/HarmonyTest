@@ -13,7 +13,7 @@ using FluentResults;
 
 namespace OpenNefia.Core
 {
-    public class InstancedMap : IDataExposable, ILocation
+    public sealed class InstancedMap : IDataExposable, ILocation
     {
         int _Width;
         int _Height;
@@ -50,9 +50,9 @@ namespace OpenNefia.Core
 
             _Width = width;
             _Height = height;
-            _Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            _Uid = Current.Game.Uids.GetNextAndIncrement();
             _Def = def;
-            _TileIndexMapping = GameWrapper.Instance.State.TileIndexMapping;
+            _TileIndexMapping = Current.Game.TileIndexMapping;
             _TileInds = new int[width * height];
             _TileMemoryInds = new int[width * height];
             _InSight = new int[width * height];
@@ -120,7 +120,7 @@ namespace OpenNefia.Core
         private bool ShouldShowMemory(MapObjectMemory memory)
         {
             // TODO
-            return memory.TypeKey != "Chara";
+            return memory.ObjectType != typeof(Chara);
         }
 
         public void Redraw()

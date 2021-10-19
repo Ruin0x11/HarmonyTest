@@ -80,11 +80,11 @@ namespace OpenNefia.Core.Rendering
             while (HasActiveDrawables())
             {
                 var dt = Timer.GetDelta();
-                GameWrapper.Instance.Update(dt);
+                Engine.Instance.Update(dt);
                 this.Update(dt);
 
-                GameWrapper.Instance.Draw();
-                GameWrapper.Instance.SystemStep();
+                Engine.Instance.Draw();
+                Engine.Instance.SystemStep();
             }
         }
 

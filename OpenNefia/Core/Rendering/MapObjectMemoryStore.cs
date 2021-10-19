@@ -135,7 +135,7 @@ namespace OpenNefia.Core.Rendering
                     memory.TileX = x;
                     memory.TileY = y;
                     memory.ZOrder = i;
-                    memory.TypeKey = obj.TypeKey;
+                    memory.ObjectType = obj.GetType();
                     at.Add(memory);
                 }
 

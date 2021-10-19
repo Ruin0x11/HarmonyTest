@@ -25,8 +25,6 @@ namespace OpenNefia.Core.Object
         private Item() : base() { }
 #pragma warning restore CS8618
 
-        public override string TypeKey => "Item";
-
         public int Amount { get; set; } = 1;
 
         public override void Refresh()
@@ -162,7 +160,7 @@ namespace OpenNefia.Core.Object
             // and aspects that does the deep copying manually, but it shouldn't be too hard.
             var newObject = (Item)this.MemberwiseClone();
             newObject._CurrentLocation = null;
-            newObject._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            newObject._Uid = Current.Game.Uids.GetNextAndIncrement();
             return newObject;
         }
     }

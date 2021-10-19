@@ -215,6 +215,6 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public static ICoords Coords { get => GameWrapper.Instance.State.Coords; }
+        public static ICoords Coords { get => Current.Game.Coords; }
     }
 }

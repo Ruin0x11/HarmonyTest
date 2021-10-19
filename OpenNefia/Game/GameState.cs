@@ -16,8 +16,8 @@ namespace OpenNefia.Game
     /// </summary>
     public class GameState : IDataExposable
     {
-        public InstancedMap? CurrentMap;
-        internal UidTracker UidTracker;
+        internal InstancedMap? CurrentMap;
+        internal UidTracker Uids;
         internal TileIndexMapping TileIndexMapping;
         internal ICoords Coords;
         internal Chara? Player;
@@ -27,7 +27,7 @@ namespace OpenNefia.Game
         public GameState()
         {
             CurrentMap = null;
-            UidTracker = new UidTracker();
+            Uids = new UidTracker();
             TileIndexMapping = new TileIndexMapping();
             Coords = new OrthographicCoords();
         }
@@ -35,7 +35,7 @@ namespace OpenNefia.Game
         public void Expose(DataExposer data)
         {
             data.ExposeDeep(ref TileIndexMapping, nameof(TileIndexMapping));
-            data.ExposeDeep(ref UidTracker, nameof(UidTracker));
+            data.ExposeDeep(ref Uids, nameof(Uids));
             data.ExposeDeep(ref CurrentMap, nameof(CurrentMap));
         }
 

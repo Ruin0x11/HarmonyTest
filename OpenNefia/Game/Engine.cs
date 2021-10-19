@@ -17,22 +17,18 @@ namespace OpenNefia.Game
     /// This wraps Love.Scene with drawing methods unraveled from inside the standard game loop, so that they may be called deep into a nested call stack.
     /// This is necessary in order to directly port Elona's architecture without the use of stackful coroutines.
     /// </summary>
-    public class GameWrapper
+    public class Engine
     {
-        public static GameWrapper Instance { get; private set; } = new GameWrapper();
-        public GameState State { get; private set; }
-        public GameScene Scene { get; private set; }
+        public static Engine Instance { get; private set; } = new Engine();
+        public static ModLoader ModLoader = new ModLoader();
 
+        private GameScene Scene;
         public List<IUiLayer> Layers { get; private set; }
-
-        public ModLoader ModLoader = new ModLoader();
-
         private Love.Canvas? TargetCanvas;
 
-        public GameWrapper()
+        public Engine()
         {
             Scene = new GameScene(this);
-            State = new GameState();
             Layers = new List<IUiLayer>();
         }
 

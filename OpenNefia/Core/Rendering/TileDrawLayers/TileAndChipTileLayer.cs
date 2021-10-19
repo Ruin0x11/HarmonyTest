@@ -25,14 +25,14 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             Map = map;
             TileAtlas = Atlases.Tile;
             ChipAtlas = Atlases.Chip;
-            Coords = GameWrapper.Instance.State.Coords;
+            Coords = GraphicsEx.Coords;
             TileAndChipBatch = new TileAndChipBatch(map.Width, map.Height, Coords);
             WallShadows = new WallTileShadows(map, Coords);
         }
 
         public override void OnThemeSwitched()
         {
-            var coords = GameWrapper.Instance.State.Coords;
+            var coords = Current.Game.Coords;
             TileAtlas = Atlases.Tile;
             ChipAtlas = Atlases.Chip;
             Coords = coords;

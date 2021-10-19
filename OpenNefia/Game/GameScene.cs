@@ -7,9 +7,9 @@ namespace OpenNefia.Game
 {
     public class GameScene : Scene
     {
-        private GameWrapper Parent;
+        private Engine Parent;
 
-        public GameScene(GameWrapper parent)
+        public GameScene(Engine parent)
         {
             this.Parent = parent;
         }
@@ -21,13 +21,13 @@ namespace OpenNefia.Game
 
         public override void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveKeyPressed(key, isRepeat);
         }
 
         public override void KeyReleased(KeyConstant key, Scancode scancode)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveKeyReleased(key);
         }
 
@@ -37,25 +37,25 @@ namespace OpenNefia.Game
 
         public override void TextInput(string text)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveTextInput(text);
         }
 
         public override void MouseMoved(float x, float y, float dx, float dy, bool isTouch)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveMouseMoved(x, y, dx, dy, isTouch);
         }
 
         public override void MousePressed(float x, float y, int button, bool isTouch)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveMousePressed(x, y, button, isTouch);
         }
 
         public override void MouseReleased(float x, float y, int button, bool isTouch)
         {
-            var layer = GameWrapper.Instance.CurrentLayer;
+            var layer = Engine.Instance.CurrentLayer;
             layer?.OnLoveMouseReleased(x, y, button, isTouch);
         }
     }

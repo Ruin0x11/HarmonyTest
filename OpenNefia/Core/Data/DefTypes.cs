@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Data
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var containingMod = GameWrapper.Instance.ModLoader.GetModFromAssembly(assembly);
+                var containingMod = Engine.ModLoader.GetModFromAssembly(assembly);
 
                 if (containingMod != null)
                 {

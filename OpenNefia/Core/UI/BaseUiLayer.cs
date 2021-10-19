@@ -44,12 +44,12 @@ namespace OpenNefia.Core.UI
 
         public bool IsInActiveLayerList()
         {
-            return GameWrapper.Instance.IsInActiveLayerList(this);
+            return Engine.Instance.IsInActiveLayerList(this);
         }
 
         public bool IsQuerying()
         {
-            return GameWrapper.Instance.IsQuerying(this);
+            return Engine.Instance.IsQuerying(this);
         }
 
         public void OnLoveKeyPressed(KeyConstant key, bool isRepeat)
@@ -84,14 +84,14 @@ namespace OpenNefia.Core.UI
 
         public virtual UiResult<T> Query()
         {
-            GameWrapper.Instance.CurrentLayer?.HaltInput();
+            Engine.Instance.CurrentLayer?.HaltInput();
 
-            GameWrapper.Instance.PushLayer(this);
+            Engine.Instance.PushLayer(this);
 
             // Global REPL hotkey
             this.Keybinds[Keys.Backquote] += (_) =>
             {
-                var repl = GameWrapper.Instance.State.Repl.Value;
+                var repl = Current.Game.Repl.Value;
                 if (!repl.IsInActiveLayerList())
                     repl.Query();
             };
@@ -107,18 +107,18 @@ namespace OpenNefia.Core.UI
             {
                 var dt = Timer.GetDelta();
                 this.RunKeyActions(dt);
-                GameWrapper.Instance.Update(dt);
+                Engine.Instance.Update(dt);
                 result = this.GetResult();
                 if (result != null && result.Type != UiResult<T>.ResultType.Continuing)
                 {
                     break;
                 }
 
-                GameWrapper.Instance.Draw();
-                GameWrapper.Instance.SystemStep();
+                Engine.Instance.Draw();
+                Engine.Instance.SystemStep();
             }
 
-            GameWrapper.Instance.PopLayer(this);
+            Engine.Instance.PopLayer(this);
             this.HaltInput();
 
             return result;

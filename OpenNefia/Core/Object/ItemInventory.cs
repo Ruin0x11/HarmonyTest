@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Object
         {
             _ParentObject = parent;
             MaxWeight = new ValueStat<int>(0);
-            _Pool = new Pool(GameWrapper.Instance.State.UidTracker.GetNextAndIncrement(), this);
+            _Pool = new Pool(Current.Game.Uids.GetNextAndIncrement(), this);
         }
 
         public void Refresh()

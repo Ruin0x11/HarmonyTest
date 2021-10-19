@@ -177,7 +177,7 @@ namespace OpenNefia.Core.UI.Layer
             }
 
             var drawable = new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimSmoke);
-            drawable.SetPosition(Rand.Rnd(Love.Graphics.GetWidth()), Rand.Rnd(Love.Graphics.GetHeight()));
+            drawable.SetPosition(Random.Rnd(Love.Graphics.GetWidth()), Random.Rnd(Love.Graphics.GetHeight()));
             AsyncDrawables.Enqueue(drawable);
         }
 
@@ -265,7 +265,7 @@ namespace OpenNefia.Core.UI.Layer
         public void Load()
         {
             Console.WriteLine("Loading...");
-            Map = InstancedMap.Load("TestMap.nbt", GameWrapper.Instance.State);
+            Map = InstancedMap.Load("TestMap.nbt", Current.Game);
             MapRenderer.SetMap(Map);
         }
 

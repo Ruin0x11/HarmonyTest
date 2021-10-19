@@ -16,7 +16,7 @@ namespace OpenNefia.Test.Core.Data.Patch
         [Test]
         public void TestGetDefIdAndTypeFromNode()
         {
-            GameWrapper.Instance.ModLoader.Execute();
+            Engine.ModLoader.Execute();
             DefTypes.ScanAllTypes();
 
             var xml = @"

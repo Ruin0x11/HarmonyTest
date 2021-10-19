@@ -41,7 +41,7 @@ namespace OpenNefia.Game
 
         internal static void Run()
         {
-            GameWrapper.Instance.ModLoader.Execute();
+            Engine.ModLoader.Execute();
             DefLoader.LoadAll();
 
             InitGraphicsDefaults();
@@ -55,10 +55,10 @@ namespace OpenNefia.Game
         {
             Logger.Info($"[Startup] Initialize tile ID -> index mapping.");
 
-            GameWrapper.Instance.State.TileIndexMapping.Clear();
+            Current.Game.TileIndexMapping.Clear();
             foreach (var tile in DefStore<TileDef>.Enumerate())
             {
-                GameWrapper.Instance.State.TileIndexMapping.AddMapping(tile);
+                Current.Game.TileIndexMapping.AddMapping(tile);
             }
         }
     }

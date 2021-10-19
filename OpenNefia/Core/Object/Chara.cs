@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Object
         private ItemInventory _Inventory;
         public ItemInventory Inventory { get => _Inventory; }
 
-        public Chara(ChipDef chip) : base()
+        public Chara(ChipDef chip) : this()
         {
             Chip = new DefStat<ChipDef>(chip);
             _Inventory = new ItemInventory(this);
@@ -30,16 +30,17 @@ namespace OpenNefia.Core.Object
         }
 
 #pragma warning disable CS8618
-        private Chara() : base() { }
+        private Chara() : base() 
+        {
+            this.IsSolid = true;
+        }
 #pragma warning restore CS8618
 
         public static Chara? Player 
         { 
-            get => GameWrapper.Instance.State.Player; 
-            internal set => GameWrapper.Instance.State.Player = value; 
+            get => Current.Game.Player;
+            internal set => Current.Game.Player = value;
         }
-
-        public override string TypeKey => "Chara";
 
         public static Result<Chara> Create(ILocation location, int x, int y)
         {

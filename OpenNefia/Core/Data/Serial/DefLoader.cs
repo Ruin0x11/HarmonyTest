@@ -134,7 +134,7 @@ namespace OpenNefia.Core.Data.Serial
 
         private static void BuildMasterXMLDocument(DefDeserializer deserializer)
         {
-            foreach (var modInfo in GameWrapper.Instance.ModLoader.LoadedMods)
+            foreach (var modInfo in Engine.ModLoader.LoadedMods)
             {
                 var path = new ModLocalPath(modInfo, "Defs");
                 var resolved = path.Resolve();
@@ -288,8 +288,8 @@ namespace OpenNefia.Core.Data.Serial
             var attrib = ty.GetCustomAttribute<DefOfEntriesAttribute>()!;
             var containingModType = attrib.ContainingMod;
             if (containingModType != null)
-                return GameWrapper.Instance.ModLoader.GetModFromType(containingModType);
-            return GameWrapper.Instance.ModLoader.GetModFromAssembly(assembly);
+                return Engine.ModLoader.GetModFromType(containingModType);
+            return Engine.ModLoader.GetModFromAssembly(assembly);
         }
 
         internal static void PopulateStaticEntries()

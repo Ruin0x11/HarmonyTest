@@ -109,7 +109,13 @@ namespace OpenNefia.Serial
                             var comp = new NbtCompound(name);
                             EnterCompound(comp);
 
-                            if (ty == typeof(Love.Quad))
+                            if (ty == typeof(Type))
+                            {
+                                var type = (data as Type)!;
+                                var typeName = type.FullName;
+                                ExposeValue(ref typeName, "TypeName");
+                            }
+                            else if (ty == typeof(Love.Quad))
                             {
                                 var quad = (data as Love.Quad)!;
                                 var viewport = quad.GetViewport();
@@ -245,7 +251,18 @@ namespace OpenNefia.Serial
 
                             if (EnterCompound(comp))
                             {
-                                if (ty == typeof(Love.Quad))
+                                if (ty == typeof(Type))
+                                {
+                                    var typeName = string.Empty;
+                                    ExposeValue(ref typeName!, "TypeName");
+                                    var type = Type.GetType(typeName);
+                                    if (type == null)
+                                    {
+                                        throw new Exception($"Cannot find type named {typeName} in any assembly.");
+                                    }
+                                    data = (T)Convert.ChangeType(type, ty);
+                                }
+                                else if (ty == typeof(Love.Quad))
                                 {
                                     var viewport = new Love.RectangleF(0, 0, 0, 0);
                                     var textureDimensions = new Love.Vector2(0, 0);

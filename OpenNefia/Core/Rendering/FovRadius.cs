@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Util;
-using System;
 using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering

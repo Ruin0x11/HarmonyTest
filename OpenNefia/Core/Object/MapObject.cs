@@ -15,17 +15,17 @@ namespace OpenNefia.Core.Object
         public int X { get => _X; }
         public int Y { get => _Y; }
         public ulong Uid { get => _Uid; }
+        public bool IsSolid = false;
+        public bool IsOpaque = false;
         public Love.Color Color = Love.Color.White;
 
         public MapObject()
         {
-            this._Uid = GameWrapper.Instance.State.UidTracker.GetNextAndIncrement();
+            this._Uid = Current.Game.Uids.GetNextAndIncrement();
         }
 
         private bool _Disposed = false;
         public bool Disposed { get => _Disposed; }
-
-        public abstract string TypeKey { get; }
 
         internal ILocation? _CurrentLocation;
         public ILocation? CurrentLocation { get => _CurrentLocation; }
@@ -67,7 +67,7 @@ namespace OpenNefia.Core.Object
 
         public virtual void GetScreenPos(out int screenX, out int screenY)
         {
-            GameWrapper.Instance.State.Coords.TileToScreen(this.X, this.Y, out screenX, out screenY);
+            Current.Game.Coords.TileToScreen(this.X, this.Y, out screenX, out screenY);
         }
 
         public bool IsOwned() => _CurrentLocation != null;
@@ -107,8 +107,10 @@ namespace OpenNefia.Core.Object
             data.ExposeValue(ref _Uid, nameof(Uid));
             data.ExposeValue(ref _X!, nameof(X));
             data.ExposeValue(ref _Y!, nameof(Y));
+            data.ExposeValue(ref IsSolid, nameof(IsSolid));
+            data.ExposeValue(ref IsOpaque, nameof(IsOpaque));
             data.ExposeValue(ref Color, nameof(Color));
-            data.ExposeValue(ref _Disposed!, nameof(Disposed));
+            data.ExposeValue(ref _Disposed, nameof(Disposed));
             data.ExposeWeak(ref _CurrentLocation, nameof(_CurrentLocation));
         }
 

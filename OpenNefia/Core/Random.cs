@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core
 {
-    public static class Rand
+    public static class Random
     {
         private static System.Random Instance = new System.Random();
 

@@ -21,7 +21,7 @@ namespace OpenNefia.Core.Effect.Composite
 
         public override EffectResult Apply(EffectArguments args)
         {
-            var result = Effects[Rand.Rnd(Effects.Count)].Apply(args);
+            var result = Effects[Random.Rnd(Effects.Count)].Apply(args);
             return result;
         }
     }

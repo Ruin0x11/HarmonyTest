@@ -1,4 +1,5 @@
-﻿using OpenNefia.Serial;
+﻿using OpenNefia.Core.Object;
+using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace OpenNefia.Core.Rendering
         internal int TileY;
         internal int ZOrder;
         internal MemoryState State;
-        internal string TypeKey = string.Empty;
+        internal Type ObjectType = typeof(MapObject);
 
         public void Expose(DataExposer data)
         {
@@ -55,7 +56,7 @@ namespace OpenNefia.Core.Rendering
             data.ExposeValue(ref TileY, nameof(TileY));
             data.ExposeValue(ref ZOrder, nameof(ZOrder));
             data.ExposeValue(ref State, nameof(State));
-            data.ExposeValue(ref TypeKey!, nameof(TypeKey));
+            data.ExposeValue(ref ObjectType!, nameof(ObjectType));
         }
     }
 }

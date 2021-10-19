@@ -46,7 +46,7 @@ namespace OpenNefia.Core
         {
             Array.Clear(ShadowTiles, 0, ShadowTiles.Length);
 
-            var player = GameWrapper.Instance.State.Player!;
+            var player = Current.Game.Player!;
             var playerX = player.X;
             var playerY = player.Y;
 

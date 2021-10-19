@@ -47,7 +47,7 @@ namespace OpenNefia.Cli
 
         private static async Task RunCommand(object obj)
         {
-            GameWrapper.Instance.ModLoader.Execute();
+            Engine.ModLoader.Execute();
             DefLoader.LoadAll();
 
             switch (obj)
