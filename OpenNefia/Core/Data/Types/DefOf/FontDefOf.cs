@@ -12,6 +12,7 @@ namespace OpenNefia.Core.Data.Types
         public static FontDef WindowKeyHints = null!;
         public static FontDef PromptText = null!;
         public static FontDef ReplText = null!;
+        public static FontDef ReplCompletion = null!;
         public static FontDef FpsCounter = null!;
     }
 }

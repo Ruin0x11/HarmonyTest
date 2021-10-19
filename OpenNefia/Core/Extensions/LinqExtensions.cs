@@ -22,6 +22,8 @@ namespace OpenNefia.Core.Extensions
 			foreach (var e in ie) action(e, i++);
 		}
 
+		public static IEnumerable<(T, int)> WithIndex<T>(this IEnumerable<T> ie) => ie.Select((x, index) => (x, index));
+
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> iterator)
 		{
 			foreach (var item in iterator)

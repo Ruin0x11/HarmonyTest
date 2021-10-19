@@ -9,5 +9,6 @@
   <FontDef Id="WindowKeyHints" Size="12" SmallSize="10" />
   <FontDef Id="PromptText" Size="16" SmallSize="14" FgColor="Core.TextWhite" />
   <FontDef Id="ReplText" Size="13" SmallSize="13" FgColor="Core.ReplText" />
+  <FontDef Id="ReplCompletion" Size="13" SmallSize="13" FgColor="Core.ReplText" />
   <FontDef Id="FpsCounter" Size="14" SmallSize="14" Style="Outlined" />
 </Defs>

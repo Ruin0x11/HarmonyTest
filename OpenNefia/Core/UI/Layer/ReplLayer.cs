@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpRepl.Services.Completion;
+using Microsoft.CodeAnalysis.Completion;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
@@ -50,15 +52,26 @@ namespace OpenNefia.Core.UI.Layer
         public bool UsePullDownAnimation { get; set; } = true;
         public int PullDownSpeed { get; set; } = 80;
         public bool HideDuringExecute { get; set; } = true;
-        public string EditingLine {
+        public string EditingLine
+        {
             get => this.TextEditingLine.Text;
             set {
                 this.TextEditingLine.Text = value;
-                this.SetCursorPos(value.Length);
+                this.UpdateCompletions();
             }
         }
+        public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => this.ScrollbackBuffer.Size; }
+        public int CursorDisplayX { get => this.X + 6 + this.TextCaret.Width + this.CursorX; }
+        public int CursorDisplayY
+        {
+            get
+            {
+                var top = this.Height - this.PullDownY * this.FontReplText.GetHeight();
+                return this.Y + top - this.FontReplText.GetHeight() - 5;
+            }
+        }
 
         public FontDef FontReplText { get; }
         public ColorDef ColorReplBackground { get; }
@@ -72,18 +85,35 @@ namespace OpenNefia.Core.UI.Layer
         private IUiText[] TextScrollback;
 
         private IReplExecutor Executor;
+        private CompletionsPane CompletionsPane;
 
         protected float Dt = 0f;
         protected bool IsPullingDown = false;
         protected int PullDownY = 0;
         public int MaxLines { get; private set; } = 0;
         protected int CursorX = 0;
+        
+        private int _CursorCharPos = 0;
         /// Stringwise width position of cursor. (not CJK width)
-        public int CursorCharPos { get; protected set; } = 0;
+        public int CursorCharPos
+        {
+            get => _CursorCharPos;
+            set
+            {
+                this._CursorCharPos = Math.Clamp(value, 0, this.EditingLine.Length);
+                var prefixToCursor = this.EditingLine.Substring(0, this.CursorCharPos);
+                var prefixWidth = this.FontReplText.GetWidth(prefixToCursor);
+                this.CursorX = prefixWidth;
+                this.Dt = 0f;
+                this.UpdateCompletions();
+            }
+        }
+
         protected bool NeedsScrollbackRedraw = true;
         protected CircularBuffer<ReplTextLine> ScrollbackBuffer;
         protected int ScrollbackPos = 0;
         protected List<string> History = new List<string>();
+        protected IReadOnlyCollection<CompletionItemWithDescription>? Completions;
         protected int HistoryPos = -1;
         private bool IsExecuting = false;
 
@@ -104,6 +134,8 @@ namespace OpenNefia.Core.UI.Layer
             this.Executor = executor ?? new CSharpReplExecutor(this);
             this.Executor.Init();
 
+            this.CompletionsPane = new CompletionsPane();
+
             this.BindKeys();
         }
 
@@ -114,14 +146,14 @@ namespace OpenNefia.Core.UI.Layer
 
             this.Keybinds[Keys.Up] += (_) => this.PreviousHistoryEntry();
             this.Keybinds[Keys.Down] += (_) => this.NextHistoryEntry();
-            this.Keybinds[Keys.Left] += (_) => this.SetCursorPos(this.CursorCharPos - 1);
-            this.Keybinds[Keys.Right] += (_) => this.SetCursorPos(this.CursorCharPos + 1);
+            this.Keybinds[Keys.Left] += (_) => this.CursorCharPos -= 1;
+            this.Keybinds[Keys.Right] += (_) => this.CursorCharPos += 1;
             this.Keybinds[Keys.Backspace] += (_) => this.DeleteCharAtCursor();
             this.Keybinds[Keys.PageUp] += (_) => this.SetScrollbackPos(this.ScrollbackPos + (this.MaxLines / 2));
             this.Keybinds[Keys.PageDown] += (_) => this.SetScrollbackPos(this.ScrollbackPos - (this.MaxLines / 2));
-            this.Keybinds[Keys.Ctrl | Keys.A] += (_) => this.SetCursorPos(0);
+            this.Keybinds[Keys.Ctrl | Keys.A] += (_) => this.CursorCharPos = 0;
             this.Keybinds[Keys.Ctrl | Keys.F] += (_) => this.IsFullscreen = !this.IsFullscreen;
-            this.Keybinds[Keys.Ctrl | Keys.E] += (_) => this.SetCursorPos(this.EditingLine.Length);
+            this.Keybinds[Keys.Ctrl | Keys.E] += (_) => this.CursorCharPos = this.EditingLine.Length;
             this.Keybinds[Keys.Ctrl | Keys.X] += (_) => this.CutText();
             this.Keybinds[Keys.Ctrl | Keys.C] += (_) => this.CopyText();
             this.Keybinds[Keys.Ctrl | Keys.V] += (_) => this.PasteText();
@@ -145,7 +177,7 @@ namespace OpenNefia.Core.UI.Layer
             if (inserted == string.Empty)
                 return;
 
-            var text = this.TextEditingLine.Text;
+            var text = this.EditingLine;
 
             if (this.CursorCharPos == text.Length)
             {
@@ -161,9 +193,9 @@ namespace OpenNefia.Core.UI.Layer
                 text = left + inserted + right;
             }
 
-            this.TextEditingLine.Text = text;
+            this.EditingLine = text;
 
-            this.SetCursorPos(this.CursorCharPos + inserted.Length);
+            this.CursorCharPos += inserted.Length;
         }
 
         public void DeleteCharAtCursor()
@@ -173,11 +205,11 @@ namespace OpenNefia.Core.UI.Layer
                 return;
             }
 
-            var text = this.TextEditingLine.Text;
+            var text = this.EditingLine;
             text = text.Remove(this.CursorCharPos - 1, 1);
-            this.TextEditingLine.Text = text;
+            this.EditingLine = text;
 
-            this.SetCursorPos(this.CursorCharPos - 1);
+            this.CursorCharPos -= 1;
         }
 
         public void SetScrollbackPos(int pos)
@@ -249,10 +281,36 @@ namespace OpenNefia.Core.UI.Layer
             this.InsertText(text);
         }
 
+        private void UpdateCompletions()
+        {
+            if (!this.ShowCompletions)
+            {
+                this.CompletionsPane.Clear();
+                return;
+            }
+
+            this.CompletionsPane.SetPosition(this.CursorDisplayX, this.CursorDisplayY + this.FontReplText.GetHeight());
+
+            if (this.EditingLine != string.Empty)
+            {
+                if (this.Completions == null)
+                {
+                    this.Completions = this.Executor.Complete(this.EditingLine, this.CursorCharPos);
+                    this.CompletionsPane.SetFromCompletions(this.Completions);
+                }
+                this.CompletionsPane.FilterCompletions(this.EditingLine, this.CursorCharPos);
+            }
+            else
+            {
+                this.CompletionsPane.Clear();
+            }
+        }
+
         public void Clear()
         {
             this.ScrollbackBuffer.Clear();
             this.ScrollbackPos = 0;
+            this.UpdateCompletions();
             this.NeedsScrollbackRedraw = true;
         }
 
@@ -265,6 +323,7 @@ namespace OpenNefia.Core.UI.Layer
             this.HistoryPos = -1;
             this.CursorCharPos = 0;
             this.CursorX = 0;
+            this.UpdateCompletions();
 
             this.PrintText($"{this.TextCaret.Text}{code}");
 
@@ -304,16 +363,6 @@ namespace OpenNefia.Core.UI.Layer
             }
 
             this.NeedsScrollbackRedraw = true;
-        }
-
-        private void SetCursorPos(int pos)
-        {
-            this.CursorCharPos = Math.Clamp(pos, 0, this.TextEditingLine.Text.Length);
-
-            var prefixToCursor = this.TextEditingLine.Text.Substring(0, this.CursorCharPos);
-            var prefixWidth = this.FontReplText.GetWidth(prefixToCursor);
-            this.CursorX = prefixWidth;
-            this.Dt = 0f;
         }
 
         public override void SetDefaultSize()
@@ -366,6 +415,8 @@ namespace OpenNefia.Core.UI.Layer
             {
                 text.Update(dt);
             }
+
+            this.CompletionsPane.Update(dt);
 
             if (this.UsePullDownAnimation)
             {
@@ -457,12 +508,13 @@ namespace OpenNefia.Core.UI.Layer
 
             if (Math.Floor(this.Dt * 2) % 2 == 0)
             {
-                var top = this.Height - this.PullDownY * this.FontReplText.GetHeight();
-                var x = this.X + 6 + this.TextCaret.Width + this.CursorX;
-                var y = this.Y + top - this.FontReplText.GetHeight() - 5;
+                var x = this.CursorDisplayX;
+                var y = this.CursorDisplayY;
                 GraphicsEx.SetColor(this.FontReplText.Color);
                 Love.Graphics.Line(x, y, x, y + this.FontReplText.GetHeight());
             }
+
+            this.CompletionsPane.Draw();
         }
 
         public override void Dispose()
@@ -473,6 +525,159 @@ namespace OpenNefia.Core.UI.Layer
             foreach (var text in this.TextScrollback)
             {
                 text.Dispose();
+            }
+        }
+    }
+
+    public class CompletionsPane : BaseDrawable
+    {
+        public int Padding { get; set; } = 5;
+        public int BorderPadding { get; set; } = 4;
+        public int MaxDisplayedEntries { get; set; } = 10;
+
+        private record CompletionPaneEntry(IUiText Text, CompletionItemWithDescription Completion);
+
+        private List<CompletionPaneEntry> Entries;
+
+        private SlidingArrayWindow<CompletionPaneEntry> FilteredView;
+
+        public FontDef FontCompletion { get; }
+        public ColorDef ColorCompletionBorder { get; }
+        public ColorDef ColorCompletionBackground { get; }
+
+        public CompletionsPane()
+        {
+            Entries = new List<CompletionPaneEntry>();
+            FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+            FontCompletion = FontDefOf.ReplCompletion;
+            ColorCompletionBorder = ColorDefOf.ReplCompletionBorder;
+            ColorCompletionBackground = ColorDefOf.ReplCompletionBackground;
+        }
+
+        public void SetFromCompletions(IReadOnlyCollection<CompletionItemWithDescription> completions)
+        {
+            this.Clear();
+
+            foreach (var completion in completions.OrderBy(c => c.Item).Take(10))
+            {
+                Entries.Add(new CompletionPaneEntry(new UiText(this.FontCompletion, completion.Item.DisplayText), completion));
+            }
+
+            this.SetSize(0, 0);
+            this.SetPosition(this.X, this.Y);
+        }
+
+        public void Increment()
+        {
+            this.FilteredView.IncrementSelectedIndex();
+            this.SetSize(0, 0);
+            this.SetPosition(this.X, this.Y);
+        }
+
+        public void Decrement()
+        {
+            this.FilteredView.DecrementSelectedIndex();
+            this.SetSize(0, 0);
+            this.SetPosition(this.X, this.Y);
+        }
+
+        public void FilterCompletions(string input, int caret)
+        {
+            bool Matches(CompletionItemWithDescription completion, string input) =>
+                completion.Item.DisplayText.StartsWith(input, StringComparison.CurrentCultureIgnoreCase);
+
+            string prefix;
+            if (caret == 0)
+                prefix = string.Empty;
+            else if (caret < input.Length)
+                prefix = input.Substring(0, caret);
+            else
+                prefix = input;
+
+            var filtered = new List<CompletionPaneEntry>();
+            var previouslySelectedItem = this.FilteredView.SelectedItem;
+            var selectedIndex = -1;
+            for (var i = 0; i < Entries.Count; i++)
+            {
+                var entry = Entries[i];
+                if (!Matches(entry.Completion, prefix)) continue;
+
+                filtered.Add(entry);
+                if (entry.Completion.Item.DisplayText == previouslySelectedItem?.Completion.Item.DisplayText)
+                {
+                    selectedIndex = filtered.Count - 1;
+                }
+            }
+            if (selectedIndex == -1 || previouslySelectedItem == null || !Matches(previouslySelectedItem!.Completion, input))
+            {
+                selectedIndex = 0;
+            }
+            FilteredView = new SlidingArrayWindow<CompletionPaneEntry>(
+                filtered.ToArray(),
+                MaxDisplayedEntries,
+                selectedIndex
+            );
+
+            this.SetSize(0, 0);
+            this.SetPosition(this.X, this.Y);
+        }
+
+        public override void SetSize(int width, int height)
+        {
+            width = 0;
+            height = 0;
+            foreach (var entry in this.FilteredView)
+            {
+                entry.Text.SetSize();
+                width = Math.Max(entry.Text.Width + Padding * 2, width);
+                height += entry.Text.Height;
+            }
+
+            width += Padding * 2;
+            height += Padding * 2 + BorderPadding * 2;
+            base.SetSize(width, height);
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            foreach (var (entry, index) in this.FilteredView.WithIndex())
+            {
+                entry.Text.SetPosition(x + Padding + BorderPadding, y + Padding + BorderPadding + (index * this.FontCompletion.GetHeight()));
+            }
+        }
+
+        public void Clear()
+        {
+            foreach (var item in this.Entries)
+                item.Text.Dispose();
+            this.Entries.Clear();
+            this.FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+        }
+
+        public override void Update(float dt)
+        {
+        }
+
+        public override void Draw()
+        {
+            if (this.FilteredView.Count == 0)
+                return;
+
+            GraphicsEx.SetColor(this.ColorCompletionBackground);
+            GraphicsEx.FilledRect(this.X, this.Y, this.Width, this.Height);
+
+            GraphicsEx.SetColor(this.ColorCompletionBorder);
+            GraphicsEx.LineRect(this.X + BorderPadding, this.Y + BorderPadding, this.Width - BorderPadding * 2, this.Height - BorderPadding * 2);
+
+            foreach (var entry in this.FilteredView)
+            {
+                if (entry == this.FilteredView.SelectedItem)
+                {
+                    GraphicsEx.SetColor(255, 255, 255, 128);
+                    GraphicsEx.FilledRect(entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
+                }
+                entry.Text.Draw();
             }
         }
     }

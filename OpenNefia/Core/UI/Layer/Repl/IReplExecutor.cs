@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using CSharpRepl.Services.Completion;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace OpenNefia.Core.UI.Layer.Repl
     {
         void Init();
         ReplExecutionResult Execute(string code);
+        IReadOnlyCollection<CompletionItemWithDescription> Complete(string text, int caret);
     }
 }

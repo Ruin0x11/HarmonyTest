@@ -27,5 +27,7 @@ namespace OpenNefia.Core.Data.Types
         public static ColorDef ReplText = null!;
         public static ColorDef ReplTextResult = null!;
         public static ColorDef ReplTextError = null!;
+        public static ColorDef ReplCompletionBorder = null!;
+        public static ColorDef ReplCompletionBackground = null!;
     }
 }

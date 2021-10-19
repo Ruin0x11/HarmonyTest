@@ -1,4 +1,5 @@
 ﻿using CSharpRepl.Services;
+using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
@@ -70,6 +71,11 @@ namespace OpenNefia.Core.UI.Layer.Repl
             PrintAsync(Roslyn, Console, loadReferenceScriptResult, displayDetails: false)
                 .ConfigureAwait(false)
                 .GetAwaiter().GetResult();
+        }
+
+        public IReadOnlyCollection<CompletionItemWithDescription> Complete(string text, int caret)
+        {
+            return this.Roslyn.CompleteAsync(text, caret).GetAwaiter().GetResult();
         }
 
         private static async Task PrintAsync(RoslynServices roslyn, IConsole console, EvaluationResult result, bool displayDetails)
