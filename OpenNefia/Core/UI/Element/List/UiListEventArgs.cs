@@ -9,11 +9,11 @@ namespace OpenNefia.Core.UI.Element.List
     public class UiListEventArgs<T>
     {
         public int SelectedIndex { get; }
-        public IUiListCell<T> SelectedChoice { get; }
+        public IUiListCell<T> SelectedCell { get; }
 
         public UiListEventArgs(IUiListCell<T> choice, int index) {
 
-            this.SelectedChoice = choice;
+            this.SelectedCell = choice;
             this.SelectedIndex = index;
         }
     }

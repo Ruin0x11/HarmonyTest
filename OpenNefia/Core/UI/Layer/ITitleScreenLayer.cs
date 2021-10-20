@@ -7,15 +7,7 @@
         Quit
     }
 
-    public class TitleScreenResult 
-    {
-        public TitleScreenAction Action { get; }
-
-        public TitleScreenResult(TitleScreenAction action)
-        {
-            this.Action = action;
-        }
-    }
+    public record TitleScreenResult(TitleScreenAction Action);
 
     public interface ITitleScreenLayer : IUiLayerWithResult<TitleScreenResult>
     {

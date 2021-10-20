@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using Love;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,23 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element.List
 {
-    public class UiListCell<T> : BaseDrawable, IUiListCell<T>
+    public class UiListCell<T> : BaseUiElement, IUiListCell<T>
     {
         public T Data { get; set; }
-        public UiListChoiceKey? Key { get; }
+
+        private UiListChoiceKey? _Key;
+        public UiListChoiceKey? Key {
+            get => _Key;
+            set {
+                _Key = value;
+                var keyName = string.Empty;
+                if (this.Key != null && this.Key.Key != Keys.None)
+                {
+                    keyName = UiUtils.GetKeyName(this.Key.Key);
+                }
+                this.KeyNameText = new UiText(this.FontListKeyName, keyName);
+            }
+        }
 
         public string Text
         {
@@ -19,9 +33,7 @@ namespace OpenNefia.Core.UI.Element.List
             set => this.UiText.Text = value;
         }
         protected IUiText UiText;
-        protected IUiText KeyNameText;
-
-        public int TextWidth { get => this.UiText.Width; }
+        protected IUiText KeyNameText = null!;
 
         public int XOffset { get; set; }
 
@@ -35,7 +47,6 @@ namespace OpenNefia.Core.UI.Element.List
         {
             this.Data = data;
             this.UiText = text;
-            this.Key = key;
 
             this.AssetSelectKey = new AssetDrawable(AssetDefOf.SelectKey);
             this.AssetListBullet = new AssetDrawable(AssetDefOf.ListBullet);
@@ -43,45 +54,47 @@ namespace OpenNefia.Core.UI.Element.List
             this.ColorSelectedAdd = ColorDefOf.ListSelectedAdd;
             this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
 
-            var keyName = string.Empty;
-            if (this.Key != null)
-            {
-                keyName = UiUtils.GetKeyName(this.Key.Key);
-            }
-            this.KeyNameText = new UiText(this.FontListKeyName, keyName);
+            this.Key = key;
         }
 
         public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(FontDefOf.ListText, text), key) {}
 
+        public override void GetPreferredSize(out int width, out int height)
+        {
+            this.UiText.GetPreferredSize(out width, out height);
+            width = width + this.AssetSelectKey.Width + 2 + 4 + this.XOffset;
+        }
+
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            this.UiText.SetPosition(x + this.AssetSelectKey.Width + 2 + 4 + this.XOffset, y + 1);
+            this.UiText.SetPosition(x + this.AssetSelectKey.Width + 2 + 4 + this.XOffset, y);
 
             var keyNameX = x + (this.AssetSelectKey.Width - this.KeyNameText.Width) / 2 - 2;
-            var keyNameY = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
+            var keyNameY = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2 - 1;
             this.KeyNameText.SetPosition(keyNameX, keyNameY);
         }
 
         public override void SetSize(int width = -1, int height = -1)
         {
-            this.UiText.SetSize(width - this.AssetSelectKey.Width - 6 + this.XOffset, height);
-            this.KeyNameText.SetSize();
-            base.SetSize(Math.Max(width, this.UiText.Width + this.KeyNameText.Width + 6 + this.XOffset), height);
+            this.UiText.GetPreferredSize(out var _, out var textHeight);
+            this.UiText.SetSize(width - this.AssetSelectKey.Width - 6 + this.XOffset, textHeight);
+            this.KeyNameText.SetPreferredSize();
+            base.SetSize(width, height);
         }
 
         public virtual void DrawHighlight()
         {
-            var width = Math.Clamp(this.TextWidth + this.AssetSelectKey.Width + 8 + this.XOffset, 10, 480);
+            var width = Math.Clamp(this.UiText.TextWidth + this.AssetSelectKey.Width + 8 + this.XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(this.ColorSelectedSub);
-            GraphicsEx.FilledRect(this.UiText.X - 4, this.Y - 2, width, 19);
+            GraphicsEx.FilledRect(this.UiText.X - 4, this.UiText.Y - 2, width, 19);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(this.ColorSelectedAdd);
-            GraphicsEx.FilledRect(this.UiText.X - 3, this.Y - 1, width - 2, 17);
+            GraphicsEx.FilledRect(this.UiText.X - 3, this.UiText.Y - 1, width - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetListBullet.Draw(this.UiText.X - 5 + width - 20, this.Y + 2);
+            this.AssetListBullet.Draw(this.UiText.X - 5 + width - 20, this.UiText.Y + 2);
         }
 
         public override void Draw()

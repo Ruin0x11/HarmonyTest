@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Effect.Impl
     {
         public override EffectResult Apply(EffectArguments args)
         {
-            FieldLayer.Instance.AsyncDrawables.Enqueue(new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimCurse));
+            FieldLayer.Instance!.AsyncDrawables.Enqueue(new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimCurse));
 
             return EffectResult.Succeeded;
         }

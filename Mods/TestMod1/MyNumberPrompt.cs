@@ -59,11 +59,13 @@ namespace TestMod1
             this.Text.Text = $"{this.Value}({this.Value})";
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
             var size = UiUtils.GetCenteredParams(400, 400);
-            this.SetSize(size.Width, size.Height);
-            this.SetPosition(size.X, size.Y);
+            x = size.X;
+            y = size.Y;
+            width = size.Width;
+            height = size.Height;
         }
 
         public override void SetPosition(int x, int y)

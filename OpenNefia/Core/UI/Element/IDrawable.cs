@@ -7,7 +7,7 @@
         int X { get; }
         int Y { get; }
 
-        void SetSize(int width = 0, int height = 0);
+        void SetSize(int width, int height);
         void SetPosition(int x, int y);
         bool ContainsPoint(int x, int y);
 

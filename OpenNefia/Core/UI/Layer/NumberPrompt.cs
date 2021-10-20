@@ -131,11 +131,13 @@ namespace OpenNefia.Core.UI.Layer
         public const int DEFAULT_WIDTH = 8 * 16 + 60;
         public const int DEFAULT_HEIGHT = 36;
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
             var rect = UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            this.SetSize(rect.Width, rect.Height);
-            this.SetPosition(rect.X, rect.Y);
+            x = rect.X;
+            y = rect.Y;
+            width = rect.Width;
+            height = rect.Height;
         }
 
         public override void SetSize(int width = 0, int height = 0)
@@ -143,7 +145,7 @@ namespace OpenNefia.Core.UI.Layer
             base.SetSize(width, height);
 
             this.TopicWindow.SetSize(this.Width - 40, this.Height);
-            this.Text.SetSize();
+            this.Text.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)

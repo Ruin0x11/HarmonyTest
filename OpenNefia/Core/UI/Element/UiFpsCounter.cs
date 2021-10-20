@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using Love;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiFpsCounter : BaseDrawable
+    public class UiFpsCounter : BaseUiElement
     {
         float Ms = 0f;
         uint Frames = 0;
@@ -40,6 +41,11 @@ namespace OpenNefia.Core.UI.Element
         {
             base.SetSize(width, height);
             this.Text.SetPosition(width, height);
+        }
+
+        public override void GetPreferredSize(out int x, out int y)
+        {
+            this.Text.GetPreferredSize(out x, out y);
         }
 
         public override void Update(float dt)

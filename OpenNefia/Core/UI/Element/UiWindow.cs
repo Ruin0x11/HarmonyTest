@@ -84,10 +84,10 @@ namespace OpenNefia.Core.UI.Element
             if (this.TitleText != null)
             {
                 this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
-                this.TitleText.SetSize();
+                this.TitleText.SetPreferredSize();
             }
 
-            this.KeyHintText.SetSize();
+            this.KeyHintText.SetPreferredSize();
         }
 
         public override void Update(float dt)

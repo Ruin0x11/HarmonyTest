@@ -60,10 +60,13 @@ namespace OpenNefia.Core.UI.Layer
             };
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
             var rect = UiUtils.GetCenteredParams(400, 300);
-            this.SetSizeAndPosition(rect);
+            x = rect.X;
+            y = rect.Y;
+            width = rect.Width;
+            height = rect.Height;
         }
 
         public override void SetSize(int width, int height)

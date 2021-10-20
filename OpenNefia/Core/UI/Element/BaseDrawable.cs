@@ -20,13 +20,13 @@ namespace OpenNefia.Core.UI.Element
             this.SetPosition(rect.X, rect.Y);
         }
 
-        public virtual void SetSize(int width = 0, int height = 0)
+        public virtual void SetSize(int width, int height)
         {
             this.Width = width;
             this.Height = height;
         }
 
-        public virtual void SetPosition(int x = 0, int y = 0)
+        public virtual void SetPosition(int x, int y)
         {
             this.X = x;
             this.Y = y;

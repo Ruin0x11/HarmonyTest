@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
@@ -19,6 +20,8 @@ namespace OpenNefia.Game
     /// </summary>
     public class Engine
     {
+        public static Version Version { get => Assembly.GetExecutingAssembly().GetName().Version!; }
+
         public static Engine Instance { get; private set; } = null!;
         public static ModLoader ModLoader = null!;
 
@@ -107,7 +110,9 @@ namespace OpenNefia.Game
             this.TargetCanvas = Love.Graphics.NewCanvas(width, height);
             foreach (var layer in this.Layers)
             {
-                layer.SetDefaultSize();
+                layer.GetPreferredBounds(out var x, out var y, out var w, out var h);
+                layer.SetSize(w, h);
+                layer.SetPosition(x, y);
             }
         }
 
@@ -125,7 +130,9 @@ namespace OpenNefia.Game
 
         internal void PushLayer(IUiLayer layer)
         {
-            layer.SetDefaultSize();
+            layer.GetPreferredBounds(out var x, out var y, out var width, out var height);
+            layer.SetSize(width, height);
+            layer.SetPosition(x, y);
             Layers.Add(layer);
         }
 
@@ -154,6 +161,40 @@ namespace OpenNefia.Game
             Current.InitStaticGlobals();
         }
 
+        private static void RunTitleScreen()
+        {
+            var titleScreen = new TitleScreenLayer();
+            var action = TitleScreenAction.ReturnToTitle;
+
+            while (action != TitleScreenAction.Quit)
+            {
+                var result = titleScreen.Query();
+
+                if (result.HasValue)
+                {
+                    switch (action)
+                    {
+                        case TitleScreenAction.ReturnToTitle:
+                            break;
+                        case TitleScreenAction.StartGame:
+                            using (var field = new FieldLayer())
+                            {
+                                FieldLayer.Instance = field;
+                                var fieldResult = FieldLayer.Instance.Query();
+                                FieldLayer.Instance = null;
+                            }
+                            break;
+                        case TitleScreenAction.Quit:
+                            break;
+                    }
+                }
+                else
+                {
+                    action = TitleScreenAction.ReturnToTitle;
+                }
+            }
+        }
+
         public static void MainCode(string[] args)
         {
             InitStaticGlobals();
@@ -162,8 +203,7 @@ namespace OpenNefia.Game
 
             Startup.Run();
 
-            FieldLayer.Instance = new FieldLayer();
-            FieldLayer.Instance.Query();
+            RunTitleScreen();
         }
     }
 }

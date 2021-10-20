@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI.Layer
 
     public class FieldLayer : BaseUiLayer<string>
     {
-        public static FieldLayer Instance = null!;
+        public static FieldLayer? Instance = null;
 
         public InstancedMap Map { get; private set; }
 
@@ -100,19 +100,6 @@ namespace OpenNefia.Core.UI.Layer
             AsyncDrawables = new AsyncDrawables();
 
             this.BindKeys();
-        }
-
-        private void InitMap()
-        {
-            MapgenUtils.SprayTile(Map, TileDefOf.Brick1, 100);
-            MapgenUtils.SprayTile(Map, TileDefOf.Carpet4, 100);
-            MapgenUtils.SprayTile(Map, TileDefOf.Cobble9, 100);
-            MapgenUtils.SprayTile(Map, TileDefOf.LightGrass1, 100);
-
-            for (int i = 0; i < 10; i++)
-                Map.TakeObject(new Item(ChipDefOf.ItemComputer), 5 + i, 5);
-            for (int i = 0; i < 10; i++)
-                Map.TakeObject(new Chara(ChipDefOf.CharaCat), 5 + i, 7);
         }
 
         protected virtual void BindKeys()
@@ -205,9 +192,9 @@ namespace OpenNefia.Core.UI.Layer
         {
             var prompt = new Prompt<SpellDef>(DefStore<SpellDef>.Enumerate());
             var result = prompt.Query();
-            if (result.IsSuccess)
+            if (result.HasValue)
             {
-                Spell.CastSpell(result.Value!.Value, Chara.Player!);
+                Spell.CastSpell(result.Value.ChoiceData, Chara.Player!);
             }
         }
 
@@ -271,10 +258,12 @@ namespace OpenNefia.Core.UI.Layer
             Map.RefreshVisibility();
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
-            this.SetSize(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-            this.SetPosition(0, 0);
+            x = 0;
+            y = 0;
+            width = Love.Graphics.GetWidth();
+            height = Love.Graphics.GetHeight();
         }
 
         public override void SetSize(int width = 0, int height = 0)

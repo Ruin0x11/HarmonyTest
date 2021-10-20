@@ -6,30 +6,42 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public class UiResult<T> where T: class
+    public abstract record UiResult<T> where T: class
     {
-        public enum ResultType
+        public bool HasValue { get => this is Finished; }
+
+        public T Value
         {
-            Continuing,
-            Finished,
-            Cancelled,
-            Error
+            get
+            {
+                if (this is Finished)
+                {
+                    return (this as Finished)!.Value;
+                }
+                else
+                {
+                    throw new Exception($"Tried to unwrap Value on non-resultful UiResult: {this}");
+                }
+            }
         }
 
-        public bool IsSuccess { get => this.Type == ResultType.Finished; }
+        public sealed record Finished(T InnerValue) : UiResult<T>;
+        public sealed record Cancelled() : UiResult<T>;
+        public sealed record Error(Exception Exception) : UiResult<T>;
 
-        public T? Value;
-        public UiResult<T>.ResultType Type;
-
-        public UiResult(UiResult<T>.ResultType type, T? result)
+        public override string ToString()
         {
-            this.Value = result;
-            this.Type = type;
+            switch (this)
+            {
+                case UiResult<T>.Finished success:
+                    return $"Finished({success.Value?.ToString()})";
+                case UiResult<T>.Cancelled:
+                    return $"Cancelled()";
+                case UiResult<T>.Error error:
+                    return $"Error({error.Exception.Message})";
+                default:
+                    return $"Unknown()";
+            }
         }
-
-        public static UiResult<T> Finished(T result) => new UiResult<T>(ResultType.Finished, result);
-        public static UiResult<T> Cancelled() => new UiResult<T>(ResultType.Cancelled, null);
-
-        public override string ToString() => $"{this.Type}({this.Value?.ToString()})";    
     }
 }

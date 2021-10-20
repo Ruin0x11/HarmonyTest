@@ -11,22 +11,22 @@ namespace OpenNefia.Core.UI.Layer
 {
     public class PromptChoice<T> : IUiListItem
     {
-        public T Value;
-        public string? Text = null;
-        public uint? Index = null;
+        public T ChoiceData;
+        public string? ChoiceText = null;
+        public uint? ChoiceIndex = null;
         public Keys Key = Keys.None;
 
         public PromptChoice(T result)
         {
-            this.Value = result;
+            this.ChoiceData = result;
         }
 
         public string GetChoiceText(int index)
         {
-            if (Text != null)
-                return Text;
+            if (ChoiceText != null)
+                return ChoiceText;
 
-            return $"{Value}";
+            return $"{ChoiceData}";
         }
 
         public UiListChoiceKey? GetChoiceKey(int index)
@@ -94,7 +94,7 @@ namespace OpenNefia.Core.UI.Layer
             this.List.EventOnActivate += (o, e) =>
             {
                 Gui.PlaySound(SoundDefOf.Ok1);
-                this.Finish(e.SelectedChoice.Data);
+                this.Finish(e.SelectedCell.Data);
             };
         }
 
@@ -103,17 +103,16 @@ namespace OpenNefia.Core.UI.Layer
             Gui.PlaySound(SoundDefOf.Pop2);
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
-            this.SetSize(this.DefaultWidth, 0);
+            width = this.DefaultWidth;
+            height = 0;
 
             var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
             var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
 
-            var x = promptX - this.Width / 2;
-            var y = promptY - this.List.Height / 2;
-
-            this.SetPosition(x, y);
+            x = promptX - this.Width / 2;
+            y = promptY - this.List.Height / 2;
         }
 
         public override void SetSize(int width = 0, int height = 0)

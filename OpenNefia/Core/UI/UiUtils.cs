@@ -42,7 +42,7 @@ namespace OpenNefia.Core.UI
             GraphicsEx.LineRect(elem.X, elem.Y, elem.Width, elem.Height);
             Graphics.SetColor(Love.Color.Blue);
             Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
-            Graphics.Print($"{elem}", elem.X, elem.Y);
+            //Graphics.Print($"{elem}", elem.X, elem.Y);
         }
     }
 }

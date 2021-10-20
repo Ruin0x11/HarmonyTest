@@ -35,7 +35,7 @@ namespace OpenNefia.Core.UI.Layer
             UiListEventHandler<string> printIt = (_, evt) =>
             {
                 Gui.PlaySound(SoundDefOf.Ok1);
-                Console.WriteLine($"Get item: {evt.SelectedChoice.Data}");
+                Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
             };
             this.List1.EventOnActivate += printIt;
             this.List2.EventOnActivate += printIt;
@@ -122,11 +122,13 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += list;
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
             var rect = UiUtils.GetCenteredParams(400, 170);
-            this.SetSize(rect.Width, rect.Height);
-            this.SetPosition(rect.X, rect.Y);
+            x = rect.X;
+            y = rect.Y;
+            width = rect.Width;
+            height = rect.Height;
         }
 
         public override void SetSize(int width, int height)

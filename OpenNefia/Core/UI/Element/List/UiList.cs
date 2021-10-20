@@ -12,10 +12,11 @@ namespace OpenNefia.Core.UI.Element.List
 {
     public class UiList<T> : BaseInputUiElement, IUiList<T>
     {
+        public const int DEFAULT_ITEM_HEIGHT = 19;
+
         protected IList<IUiListCell<T>> Cells { get; }
         public int ItemHeight { get; }
         public int ItemOffsetX { get; }
-        public int ItemOffsetY { get; }
 
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }
@@ -37,14 +38,13 @@ namespace OpenNefia.Core.UI.Element.List
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
 
-        public UiList(IEnumerable<IUiListCell<T>>? cells = null, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+        public UiList(IEnumerable<IUiListCell<T>>? cells = null, int itemOffsetX = 0)
         {
             if (cells == null)
                 cells = new List<IUiListCell<T>>();
 
-            this.ItemHeight = itemHeight;
+            this.ItemHeight = DEFAULT_ITEM_HEIGHT;
             this.ItemOffsetX = 0;
-            this.ItemOffsetY = -2;
             this.HighlightSelected = true;
             this.SelectOnActivate = true;
 
@@ -54,32 +54,33 @@ namespace OpenNefia.Core.UI.Element.List
             for (var i = 0; i < this.Cells.Count; i++)
             {
                 var cell = this.Cells[i];
-                if (cell.Key != null)
+                if (cell.Key == null)
                 {
-                    this.ChoiceKeys[i] = cell.Key;
+                    cell.Key = UiListChoiceKey.MakeDefault(i);
                 }
+                this.ChoiceKeys[i] = cell.Key;
             }
 
             this.BindKeys();
         }
 
-        public UiList(IEnumerable<T> items, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
-            : this(MakeDefaultList<T>(items), itemHeight, itemOffsetX, itemOffsetY)
+        public UiList(IEnumerable<T> items, int itemOffsetX = 0)
+            : this(MakeDefaultList(items), itemOffsetX)
         {
         }
 
-        private static IEnumerable<IUiListCell<T>> MakeDefaultList<T>(IEnumerable<T> items)
+        private static IEnumerable<IUiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
         {
-            IUiListCell<T> MakeListCell(T item, int index)
+            IUiListCell<TItem> MakeListCell(TItem item, int index)
             {
                 if (item is IUiListItem)
                 {
                     var listItem = (IUiListItem)item;
-                    return new UiListCell<T>(item, listItem.GetChoiceText(index), listItem.GetChoiceKey(index));
+                    return new UiListCell<TItem>(item, listItem.GetChoiceText(index), listItem.GetChoiceKey(index));
                 }
                 else
                 {
-                    return new UiListCell<T>(item, $"{item}", UiListChoiceKey.MakeDefault(index));
+                    return new UiListCell<TItem>(item, $"{item}", UiListChoiceKey.MakeDefault(index));
                 }
             }
             return items.Select(MakeListCell);
@@ -230,28 +231,42 @@ namespace OpenNefia.Core.UI.Element.List
         {
             base.SetPosition(x, y);
 
+            var iy = this.Y;
+
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
-                var ix = this.X + this.ItemOffsetX;
-                var iy = index * this.ItemHeight + this.Y + this.ItemOffsetY;
+                cell.XOffset = this.ItemOffsetX;
+                cell.SetPosition(this.X, iy);
 
-                cell.SetPosition(ix, iy);
+                iy += cell.Height;
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void GetPreferredSize(out int width, out int height)
         {
-            var totalHeight = 0;
+            width = 0;
+            height = 0;
 
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
-                cell.SetSize(width, this.ItemHeight);
-                totalHeight += cell.Height;
+                cell.GetPreferredSize(out var cw, out var ch);
+                width = Math.Max(width, cw);
+                height += Math.Max(ch, this.ItemHeight);
+            }
+        }
+
+        public override void SetSize(int width = 0, int height = 0)
+        {
+            for (int index = 0; index < this.Count; index++)
+            {
+                var cell = this.Cells[index];
+                cell.GetPreferredSize(out var _, out var ch);
+                cell.SetSize(width, Math.Max(ch, this.ItemHeight));
             }
 
-            base.SetSize(width, Math.Max(height, totalHeight));
+            base.SetSize(width, height);
         }
         
         public override void Update(float dt)

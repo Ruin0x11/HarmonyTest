@@ -29,14 +29,19 @@ namespace OpenNefia.Core.UI
         public virtual UiResult<T>? GetResult()
         {
             if (this.Result != null)
-                return UiResult<T>.Finished(this.Result);
+                return new UiResult<T>.Finished(this.Result);
             if (this.WasCancelled)
-                return UiResult<T>.Cancelled();
+                return new UiResult<T>.Cancelled();
 
             return null;
         }
 
-        public abstract void SetDefaultSize();
+        public override sealed void GetPreferredSize(out int width, out int height)
+        {
+            GetPreferredBounds(out var _, out var _, out width, out height);
+        }
+
+        public abstract void GetPreferredBounds(out int x, out int y, out int width, out int height);
 
         public virtual void OnQuery() 
         {
@@ -88,37 +93,49 @@ namespace OpenNefia.Core.UI
 
             Engine.Instance.PushLayer(this);
 
-            // Global REPL hotkey
-            this.Keybinds[Keys.Backquote] += (_) =>
-            {
-                var repl = Current.Game.Repl.Value;
-                if (!repl.IsInActiveLayerList())
-                    repl.Query();
-            };
-
-            this.Result = null;
-            this.WasCancelled = false;
-
             UiResult<T>? result;
 
-            this.OnQuery();
-
-            while (true)
+            try
             {
-                var dt = Timer.GetDelta();
-                this.RunKeyActions(dt);
-                Engine.Instance.Update(dt);
-                result = this.GetResult();
-                if (result != null && result.Type != UiResult<T>.ResultType.Continuing)
+                // Global REPL hotkey
+                this.Keybinds[Keys.Backquote] += (_) =>
                 {
-                    break;
-                }
+                    var repl = Current.Game.Repl.Value;
+                    if (!repl.IsInActiveLayerList())
+                        repl.Query();
+                };
 
-                Engine.Instance.Draw();
-                Engine.Instance.SystemStep();
+                this.Result = null;
+                this.WasCancelled = false;
+
+
+                this.OnQuery();
+
+                while (true)
+                {
+                    var dt = Timer.GetDelta();
+                    this.RunKeyActions(dt);
+                    Engine.Instance.Update(dt);
+                    result = this.GetResult();
+                    if (result != null)
+                    {
+                        break;
+                    }
+
+                    Engine.Instance.Draw();
+                    Engine.Instance.SystemStep();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Error during {this.GetType().Name}.Query()", ex);
+                result = new UiResult<T>.Error(ex);
+            }
+            finally
+            {
+                Engine.Instance.PopLayer(this);
             }
 
-            Engine.Instance.PopLayer(this);
             this.HaltInput();
 
             return result;

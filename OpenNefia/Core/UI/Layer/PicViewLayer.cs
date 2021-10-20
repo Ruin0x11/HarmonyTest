@@ -28,11 +28,13 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
             var rect = UiUtils.GetCenteredParams(this.Image.GetWidth(), this.Image.GetHeight());
-            this.SetSize(rect.Width, rect.Height);
-            this.SetPosition(rect.X, rect.Y);
+            x = rect.X;
+            y = rect.Y;
+            width = rect.Width;
+            height = rect.Height;
         }
 
         public override void Update(float dt)

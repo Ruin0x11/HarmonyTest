@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpRepl.Services.Completion;
+using Love;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Completion;
 using Microsoft.CodeAnalysis.Tags;
@@ -49,7 +50,9 @@ namespace OpenNefia.Core.UI.Layer
             set
             {
                 _IsFullscreen = value;
-                this.SetDefaultSize();
+                this.GetPreferredBounds(out var x, out var y, out var width, out var height);
+                this.SetSize(width, height);
+                this.SetPosition(x, y);
             }
         }
         public bool UsePullDownAnimation { get; set; } = true;
@@ -416,13 +419,14 @@ namespace OpenNefia.Core.UI.Layer
             this.NeedsScrollbackRedraw = true;
         }
 
-        public override void SetDefaultSize()
+        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
-            var width = Love.Graphics.GetWidth();
             var viewportHeight = Love.Graphics.GetHeight();
-            var height = (int)Math.Clamp(viewportHeight * this.HeightPercentage, 0, viewportHeight - 1);
-            this.SetSize(width, height);
-            this.SetPosition(0, 0);
+
+            width = Love.Graphics.GetWidth();
+            height = (int)Math.Clamp(viewportHeight * this.HeightPercentage, 0, viewportHeight - 1);
+            x = 0;
+            y = 0;
         }
 
         public override void SetSize(int width = 0, int height = 0)
@@ -590,7 +594,7 @@ namespace OpenNefia.Core.UI.Layer
 
     public delegate IReadOnlyCollection<CompletionItemWithDescription> CompletionCallback(string input, int caret);
 
-    public class CompletionsPane : BaseDrawable
+    public class CompletionsPane : BaseUiElement
     {
         public int Padding { get; set; } = 5;
         public int BorderPadding { get; set; } = 4;
@@ -662,17 +666,32 @@ namespace OpenNefia.Core.UI.Layer
             this.FilterCompletions(input, caret);
         }
 
+        public override void GetPreferredSize(out int width, out int height)
+        {
+            width = 0;
+            height = 0;
+            foreach (var entry in this.FilteredView)
+            {
+                entry.Text.SetPreferredSize();
+                width = Math.Max(entry.Text.Width + Padding * 2 + entry.Text.Height + 4, width);
+                height += entry.Text.Height;
+            }
+
+            width += Padding * 2;
+            height += Padding * 2 + BorderPadding * 2;
+        }
+
         public void Increment()
         {
             this.FilteredView.IncrementSelectedIndex();
-            this.SetSize(0, 0);
+            this.SetPreferredSize();
             this.SetPosition(this.X, this.Y);
         }
 
         public void Decrement()
         {
             this.FilteredView.DecrementSelectedIndex();
-            this.SetSize(0, 0);
+            this.SetPreferredSize();
             this.SetPosition(this.X, this.Y);
         }
 
@@ -705,7 +724,7 @@ namespace OpenNefia.Core.UI.Layer
                 selectedIndex
             );
 
-            this.SetSize(0, 0);
+            this.SetPreferredSize();
             this.SetPosition(this.X, this.Y);
         }
 
@@ -768,21 +787,6 @@ namespace OpenNefia.Core.UI.Layer
             FilteredView.SelectedItem is not null
             && FilteredView.SelectedItem.Completion.Item.DisplayText.Length < (caret - CaretPosWhenOpened);
 
-        public override void SetSize(int width, int height)
-        {
-            width = 0;
-            height = 0;
-            foreach (var entry in this.FilteredView)
-            {
-                entry.Text.SetSize();
-                width = Math.Max(entry.Text.Width + Padding * 2 + entry.Text.Height + 4, width);
-                height += entry.Text.Height;
-            }
-
-            width += Padding * 2;
-            height += Padding * 2 + BorderPadding * 2;
-            base.SetSize(width, height);
-        }
 
         public override void SetPosition(int x, int y)
         {

@@ -15,9 +15,13 @@ namespace OpenNefia.Core
             Console.WriteLine(s);
         }
 
-        public static void Error(string s)
+        public static void Error(string s, Exception? ex = null)
         {
             Console.WriteLine(s);
+            if (ex != null)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

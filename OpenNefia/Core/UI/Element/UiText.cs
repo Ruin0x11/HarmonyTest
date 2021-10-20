@@ -1,12 +1,15 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using Love;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using static OpenNefia.Core.Rendering.GraphicsEx;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiText : BaseDrawable, IUiText
+    public class UiText : BaseUiElement, IUiText
     {
         private Love.Text BakedText;
+
+        public int TextWidth { get => this.Font.GetWidth(this.Text); }
 
         private FontDef _Font;
         public FontDef Font
@@ -61,12 +64,13 @@ namespace OpenNefia.Core.UI.Element
         public void RebakeText()
         {
             this.BakedText = Love.Graphics.NewText(this.Font, this.Text);
-            this.SetSize(0, 0);
+            this.SetPreferredSize();
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void GetPreferredSize(out int width, out int height)
         {
-            base.SetSize(this.Font.GetWidth(this.Text), this.Font.GetHeight());
+            width = this.Font.GetWidth(this.Text);
+            height = this.Font.GetHeight() * this.Text.Split('\n').Length;
         }
 
         public override void Update(float dt)
