@@ -74,9 +74,6 @@ namespace OpenNefia.Core.UI.Layer
             Map.TakeObject(player, 2, 2);
             Current.Player = player;
 
-            Map.ClearMemory(TileDefOf.WallForestFog);
-            Map.RefreshVisibility();
-
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
             Things = new List<Thing>();
@@ -101,6 +98,9 @@ namespace OpenNefia.Core.UI.Layer
             AsyncDrawables = new AsyncDrawables();
 
             this.BindKeys();
+
+            Map.ClearMemory(TileDefOf.WallForestFog);
+            UpdateCameraAndVisibility();
         }
 
         protected virtual void BindKeys()
@@ -132,6 +132,20 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
         }
 
+        private void UpdateCameraAndVisibility()
+        {
+            var player = Current.Player!;
+
+            Camera.CenterOn(player);
+            Map.RefreshVisibility();
+
+            var coords = GraphicsEx.Coords;
+            coords.TileToScreen(player.X, player.Y, out var listenerX, out var listenerY);
+            listenerX += coords.TileWidth / 2;
+            listenerY += coords.TileHeight / 2;
+            Love.Audio.SetPosition(listenerX, listenerY, 0f);
+        }
+
         private void MovePlayer(int dx, int dy)
         {
             var player = Current.Player;
@@ -139,8 +153,7 @@ namespace OpenNefia.Core.UI.Layer
             if (player != null)
             {
                 CharaAction.Move(player, player.X + dx, player.Y + dy);
-                Camera.CenterOn(player);
-                Map.RefreshVisibility();
+                UpdateCameraAndVisibility();
             }
         }
 
@@ -154,7 +167,7 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null && player.TakeItem(item))
                 {
-                    Gui.PlaySound(SoundDefOf.Get1);
+                    Gui.PlaySound(SoundDefOf.Get1, player.X, player.Y);
 
                     if (item.StackAll())
                     {
@@ -178,7 +191,7 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null && player.DropItem(item))
                 {
-                    Gui.PlaySound(SoundDefOf.Drop1);
+                    Gui.PlaySound(SoundDefOf.Drop1, player.X, player.Y);
 
                     if (item.StackAll())
                     {
@@ -260,8 +273,7 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", Current.Game);
             MapRenderer.SetMap(Map);
-            Camera.CenterOn(Current.Player!);
-            Map.RefreshVisibility();
+            UpdateCameraAndVisibility();
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
@@ -329,7 +341,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     if (PlacingTile.IsSolid)
                     {
-                        Gui.PlaySound(SoundDefOf.Offer1);
+                        Gui.PlaySound(SoundDefOf.Offer1, tileX, tileY);
                     }
                     Map.SetTile(tileX, tileY, PlacingTile);
                     Map.MemorizeTile(tileX, tileY);

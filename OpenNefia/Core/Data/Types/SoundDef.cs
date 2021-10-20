@@ -11,6 +11,8 @@ namespace OpenNefia.Core.Data.Types
     {
         public IResourcePath Filepath;
 
+        public float Volume = 1f;
+
         public SoundDef(string id) : base(id) 
         {
             Filepath = new ModLocalPath(typeof(CoreMod), String.Empty);
