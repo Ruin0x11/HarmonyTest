@@ -16,9 +16,11 @@ namespace OpenNefia.Core.UI.Layer
         public uint? ChoiceIndex = null;
         public Keys Key = Keys.None;
 
-        public PromptChoice(T result)
+        public PromptChoice(T result, string? text = null, Keys key = Keys.None)
         {
             this.ChoiceData = result;
+            this.ChoiceText = text;
+            this.Key = key;
         }
 
         public string GetChoiceText(int index)
@@ -38,14 +40,14 @@ namespace OpenNefia.Core.UI.Layer
         }
     }
 
+    public struct PromptOptions
+    {
+        public int Width = 160;
+        public bool IsCancellable = true;
+    }
+
     public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
     {
-        public struct PromptOptions
-        {
-            public int Width = 160;
-            public bool IsCancellable = true;
-        }
-
         private PromptOptions Options;
 
         public UiList<PromptChoice<T>> List { get; }
@@ -105,28 +107,22 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
-            width = this.DefaultWidth;
-            height = 0;
+            this.List.GetPreferredSize(out var listWidth, out var listHeight);
+            width = Math.Max(this.DefaultWidth, listWidth + 26 + 44);
+            height = listHeight;
 
             var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
             var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
 
-            x = promptX - this.Width / 2;
-            y = promptY - this.List.Height / 2;
+            x = promptX - width / 2;
+            y = promptY - height / 2;
         }
 
         public override void SetSize(int width = 0, int height = 0)
         {
-            width = Math.Max(this.DefaultWidth, width);
-
             this.List.SetSize(width, height);
 
-            foreach (var cell in this.List)
-            {
-                width = Math.Max(width, cell.Width + 26 + 33 + 44);
-            }
-
-            base.SetSize(Math.Max(width, this.List.Width), this.List.Count * this.List.ItemHeight + 42);
+            base.SetSize(width, height + 42);
 
             this.Window.SetSize(this.Width - 16, this.Height - 16);
         }

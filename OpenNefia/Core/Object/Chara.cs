@@ -36,12 +36,6 @@ namespace OpenNefia.Core.Object
         }
 #pragma warning restore CS8618
 
-        public static Chara? Player 
-        { 
-            get => Current.Game.Player;
-            internal set => Current.Game.Player = value;
-        }
-
         public static Result<Chara> Create()
         {
             var chara = new Chara(ChipDefOf.CharaRaceSlime);

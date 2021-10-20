@@ -46,7 +46,6 @@ namespace OpenNefia.Core.Rendering
             var path = imageRegion.SourceImagePath.Resolve();
             var parentImage = ImageLoader.NewImage(path);
 
-            
             var quad = Love.Graphics.NewQuad(imageRegion.X, imageRegion.Y, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
 
             var canvas = Love.Graphics.NewCanvas(imageRegion.Width, imageRegion.Height);
@@ -194,7 +193,6 @@ namespace OpenNefia.Core.Rendering
                 quad.Dispose();
             }
             this.Quads.Clear();
-            this.Image.Dispose();
         }
     }
 }

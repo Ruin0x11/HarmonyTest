@@ -326,10 +326,16 @@ namespace OpenNefia.Core.UI.Layer
 
             var completeAgain = false;
             var insertText = completion.Item.DisplayText;
-            if (completion.Item.Tags.Contains(WellKnownTags.Namespace))
+
+            var tags = completion.Item.Tags;
+            if (tags.Contains(WellKnownTags.Namespace))
             {
                 insertText += ".";
                 completeAgain = true;
+            }
+            else if (completion.Item.Properties.GetValueOrDefault("ShouldProvideParenthesisCompletion") == "True")
+            {
+                // insertText += "(";
             }
 
             text = text.Remove(completion.Item.Span.Start, this.CaretPos - completion.Item.Span.Start);

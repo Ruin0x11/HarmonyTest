@@ -20,28 +20,22 @@ namespace OpenNefia.Core.UI
                 }
                 else
                 {
-                    throw new Exception($"Tried to unwrap Value on non-resultful UiResult: {this}");
+                    throw new Exception($"Tried to unwrap value on non-resultful UiResult: {this.GetType()}");
                 }
             }
         }
 
-        public sealed record Finished(T InnerValue) : UiResult<T>;
-        public sealed record Cancelled() : UiResult<T>;
-        public sealed record Error(Exception Exception) : UiResult<T>;
-
-        public override string ToString()
+        public sealed record Finished(T InnerValue) : UiResult<T>
         {
-            switch (this)
-            {
-                case UiResult<T>.Finished success:
-                    return $"Finished({success.InnerValue})";
-                case UiResult<T>.Cancelled:
-                    return $"Cancelled()";
-                case UiResult<T>.Error error:
-                    return $"Error({error.Exception.Message})";
-                default:
-                    return $"Unknown()";
-            }
+            public override string ToString() => $"Finished({InnerValue})";
+        }
+        public sealed record Cancelled() : UiResult<T>
+        {
+            public override string ToString() => $"Cancelled()";
+        }
+        public sealed record Error(Exception Exception) : UiResult<T>
+        {
+            public override string ToString() => $"Error({Exception.Message})";
         }
     }
 }

@@ -264,6 +264,7 @@ namespace OpenNefia.Core.UI.Element.List
                 var cell = this.Cells[index];
                 cell.GetPreferredSize(out var _, out var ch);
                 cell.SetSize(width, Math.Max(ch, this.ItemHeight));
+                width = Math.Max(width, cell.Width);
             }
 
             base.SetSize(width, height);

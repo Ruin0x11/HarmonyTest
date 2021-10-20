@@ -43,7 +43,7 @@ namespace OpenNefia.Core.UI.Layer
         }
     }
 
-    public class FieldLayer : BaseUiLayer<string>
+    public class FieldLayer : BaseUiLayer<UiNoResult>
     {
         public static FieldLayer? Instance = null;
 
@@ -71,7 +71,7 @@ namespace OpenNefia.Core.UI.Layer
             
             var player = new Chara(ChipDefOf.CharaChicken);
             Map.TakeObject(player, 2, 2);
-            Chara.Player = player;
+            Current.Player = player;
 
             Map.ClearMemory(TileDefOf.WallForestFog);
             Map.RefreshVisibility();
@@ -105,8 +105,7 @@ namespace OpenNefia.Core.UI.Layer
         protected virtual void BindKeys()
         {
             this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
-            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Entries.Escape] += (_) => this.PromptToCancel();
             this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
             this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
@@ -134,7 +133,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void MovePlayer(int dx, int dy)
         {
-            var player = Chara.Player;
+            var player = Current.Player;
 
             if (player != null)
             {
@@ -146,7 +145,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void GetItem()
         {
-            var player = Chara.Player;
+            var player = Current.Player;
 
             if (player != null)
             {
@@ -170,7 +169,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void DropItem()
         {
-            var player = Chara.Player;
+            var player = Current.Player;
 
             if (player != null)
             {
@@ -194,8 +193,14 @@ namespace OpenNefia.Core.UI.Layer
             var result = prompt.Query();
             if (result.HasValue)
             {
-                Spell.CastSpell(result.Value.ChoiceData, Chara.Player!);
+                Spell.CastSpell(result.Value.ChoiceData, Current.Player!);
             }
+        }
+
+        public void PromptToCancel()
+        {
+            if (Input.YesOrNo())
+                this.Cancel();
         }
 
         bool IsBeautify = false;
@@ -254,7 +259,7 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", Current.Game);
             MapRenderer.SetMap(Map);
-            Camera.CenterOn(Chara.Player!);
+            Camera.CenterOn(Current.Player!);
             Map.RefreshVisibility();
         }
 
@@ -272,7 +277,7 @@ namespace OpenNefia.Core.UI.Layer
             MapRenderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
 
-            var player = Chara.Player;
+            var player = Current.Player;
             if (player != null)
             {
                 Camera.CenterOn(player);
@@ -288,7 +293,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            // Gui.PlayMusic(MusicDefOf.Field1);
+            Gui.PlayMusic(MusicDefOf.Field1);
         }
 
         private void QueryLayer()
@@ -297,7 +302,7 @@ namespace OpenNefia.Core.UI.Layer
             {
                 Console.WriteLine("Query layer!");
                 var result = layer.Query();
-                Console.WriteLine($"Get result: {result.Value}");
+                Console.WriteLine($"Get result: {result}");
             }
         }
 
@@ -343,7 +348,7 @@ namespace OpenNefia.Core.UI.Layer
 
             Love.Graphics.SetColor(255, 0, 0);
 
-            var player = Chara.Player!;
+            var player = Current.Player!;
             player.GetScreenPos(out var sx, out var sy);
             GraphicsEx.LineRect(X + sx, Y + sy, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 

@@ -14,6 +14,8 @@ namespace OpenNefia.Core.Effect
         public int TileRange;
         public CurseState CurseState;
         public TriggeredBy TriggeredBy;
+        
+        // TODO IEffectExtraData?
         public Dictionary<string, object> ExtraData;
 
         public EffectArguments(Chara target,

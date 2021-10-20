@@ -77,10 +77,10 @@ namespace OpenNefia.Core.UI.Element.List
 
         public override void SetSize(int width = -1, int height = -1)
         {
-            this.UiText.GetPreferredSize(out var _, out var textHeight);
+            this.UiText.GetPreferredSize(out var textWidth, out var textHeight);
             this.UiText.SetSize(width - this.AssetSelectKey.Width - 6 + this.XOffset, textHeight);
             this.KeyNameText.SetPreferredSize();
-            base.SetSize(width, height);
+            base.SetSize(Math.Max(width, textWidth + this.AssetSelectKey.Width + 2 + 4 + this.XOffset), height);
         }
 
         public virtual void DrawHighlight()

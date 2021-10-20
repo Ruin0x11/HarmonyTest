@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI
         void Finish(T result);
         UiResult<T>? GetResult();
 
-        UiResult<T>? Query();
+        UiResult<T> Query();
         void OnQuery();
         bool IsQuerying();
     }

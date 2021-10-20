@@ -163,36 +163,38 @@ namespace OpenNefia.Game
 
         private static void RunTitleScreen()
         {
-            var titleScreen = new TitleScreenLayer();
             var action = TitleScreenAction.ReturnToTitle;
 
             while (action != TitleScreenAction.Quit)
             {
-                var result = titleScreen.Query();
-                Console.WriteLine(result);
+                using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
+                {
+                    var result = titleScreen.Query();
+                    Console.WriteLine(result);
 
-                if (result.HasValue)
-                {
-                    action = result.Value.Action;
-                    switch (action)
+                    if (result.HasValue)
                     {
-                        case TitleScreenAction.ReturnToTitle:
-                            break;
-                        case TitleScreenAction.StartGame:
-                            using (var field = new FieldLayer())
-                            {
-                                FieldLayer.Instance = field;
-                                var fieldResult = FieldLayer.Instance.Query();
-                                FieldLayer.Instance = null;
-                            }
-                            break;
-                        case TitleScreenAction.Quit:
-                            break;
+                        action = result.Value.Action;
+                        switch (action)
+                        {
+                            case TitleScreenAction.ReturnToTitle:
+                                break;
+                            case TitleScreenAction.StartGame:
+                                using (var field = new FieldLayer())
+                                {
+                                    FieldLayer.Instance = field;
+                                    var fieldResult = FieldLayer.Instance.Query();
+                                    FieldLayer.Instance = null;
+                                }
+                                break;
+                            case TitleScreenAction.Quit:
+                                break;
+                        }
                     }
-                }
-                else
-                {
-                    action = TitleScreenAction.ReturnToTitle;
+                    else
+                    {
+                        action = TitleScreenAction.ReturnToTitle;
+                    }
                 }
             }
         }

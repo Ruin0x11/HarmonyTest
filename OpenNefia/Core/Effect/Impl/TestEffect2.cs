@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Effect.Impl
     {
         public override EffectResult Apply(EffectArguments args)
         {
-            var map = Chara.Player!.GetCurrentMap()!;
+            var map = Current.Player!.GetCurrentMap()!;
             for (int i = 0; i < 10; i++)
             {
                 Chara.Create(map, Random.Rnd(map.Width), Random.Rnd(map.Height));

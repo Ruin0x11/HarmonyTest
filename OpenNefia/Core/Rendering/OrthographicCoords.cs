@@ -40,11 +40,8 @@ namespace OpenNefia.Core.Rendering
             var maxX = mapScreenWidth - viewportWidth;
             var maxY = mapScreenHeight - viewportHeight;
 
-            var offsetX = Math.Max((viewportWidth - mapScreenWidth / 2), 0);
-            var offsetY = Math.Max((viewportHeight - mapScreenHeight / 2), 0);
-
-            drawX = Math.Clamp(-screenX + viewportWidth / 2, -maxX, 0) + offsetX;
-            drawY = Math.Clamp(-screenY + viewportHeight / 2, -maxY, 0) + offsetY;
+            drawX = Math.Clamp(-screenX + viewportWidth / 2, -maxX, 0) ;
+            drawY = Math.Clamp(-screenY + viewportHeight / 2, -maxY, 0) ;
         }
     }
 }
