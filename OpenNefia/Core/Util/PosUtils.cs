@@ -12,6 +12,58 @@ namespace OpenNefia.Core.Util
             return Math.Sqrt(dx * dx + dy * dy);
         }
 
+        public static Direction GetDirectionTowards(int x, int y, int newX, int newY)
+        {
+            var dx = newX - x;
+            var dy = newY - y;
+
+            if (dx > 0)
+            {
+                if (dy > 0)
+                {
+                    return Direction.SouthEast;
+                }
+                else if (dy < 0)
+                {
+                    return Direction.NorthEast;
+                }
+                else
+                {
+                    return Direction.East;
+                }
+            }
+            else if (dx < 0)
+            {
+                if (dy > 0)
+                {
+                    return Direction.SouthWest;
+                }
+                else if (dy < 0)
+                {
+                    return Direction.NorthWest;
+                }
+                else
+                {
+                    return Direction.West;
+                }
+            }
+            else
+            {
+                if (dy > 0)
+                {
+                    return Direction.South;
+                }
+                else if (dy < 0)
+                {
+                    return Direction.North;
+                }
+                else
+                {
+                    return Direction.Center;
+                }
+            }
+        }
+
         /// <summary>
         /// From http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html.
         /// </summary>

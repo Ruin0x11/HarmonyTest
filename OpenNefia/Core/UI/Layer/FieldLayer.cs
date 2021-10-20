@@ -2,6 +2,7 @@
 using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Effect;
+using OpenNefia.Core.Logic;
 using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
@@ -137,7 +138,7 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                player.SetPosition(player.X + dx, player.Y + dy);
+                CharaAction.Move(player, player.X + dx, player.Y + dy);
                 Camera.CenterOn(player);
                 Map.RefreshVisibility();
             }

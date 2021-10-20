@@ -15,8 +15,10 @@ namespace OpenNefia.Core.Object
     public sealed class Chara : MapObject
     {
         public DefStat<ChipDef> Chip;
+        public Direction Direction;
 
         private ItemInventory _Inventory;
+
         public ItemInventory Inventory { get => _Inventory; }
 
         public Chara(ChipDef chip) : this()
@@ -95,6 +97,7 @@ namespace OpenNefia.Core.Object
             base.Expose(data);
 
             data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
+            data.ExposeValue(ref Direction, nameof(Direction), Direction.Center);
             data.ExposeDeep(ref _Inventory, nameof(_Inventory), this);
         }
 

@@ -83,16 +83,14 @@ namespace OpenNefia.Core
             return def.Generator.Generate(def);
         }
 
-        public void RefreshTile(int x, int y)
-        {
-            this._DirtyTilesThisTurn.Add(x + y * Height);
-        }
-
         public void Clear(TileDef tile)
         {
-            for (int i = 0; i < _TileInds.Length; i++)
+            for (int y = 0; y < this.Height; y++)
             {
-                _TileInds[i] = _TileIndexMapping.TileDefIdToIndex[tile.Id];
+                for (int x = 0; x < this.Width; x++)
+                {
+                    this.SetTile(x, y, tile);
+                }
             }
         }
 
@@ -127,6 +125,33 @@ namespace OpenNefia.Core
                 .ForEach(index => _MapObjectMemory.ForgetObjects(index));
         }
 
+        public void RefreshTile(int x, int y)
+        {
+            if (!IsInBounds(x, y))
+                return;
+
+            int index = x + y * Width;
+            var flags = TileFlags.None;
+
+            var tile = GetTile(x, y)!;
+            var isSolid = tile.IsSolid;
+            var isOpaque = tile.IsOpaque;
+
+            foreach (var obj in this.At(x, y))
+            {
+                isSolid |= obj.IsSolid;
+                isOpaque |= obj.IsOpaque;
+            }
+
+            if (isSolid)
+                flags |= TileFlags.IsSolid;
+            if (isOpaque)
+                flags |= TileFlags.IsOpaque;
+
+            this._TileFlags[index] = flags;
+            this._DirtyTilesThisTurn.Add(index);
+        }
+
         private bool ShouldShowMemory(MapObjectMemory memory)
         {
             // TODO
@@ -157,12 +182,20 @@ namespace OpenNefia.Core
             }
         }
 
-        private bool CanSeeThrough(int x, int y)
+        public bool CanSeeThrough(int x, int y)
         {
             if (!IsInBounds(x, y))
                 return false;
 
-            return !GetTile(x, y)!.IsOpaque;
+            return (_TileFlags[x + y * Width] & TileFlags.IsOpaque) == TileFlags.None;
+        }
+
+        public bool CanPassThrough(int x, int y)
+        {
+            if (!IsInBounds(x, y))
+                return false;
+
+            return (_TileFlags[x + y * Width] & TileFlags.IsSolid) == TileFlags.None;
         }
 
         public bool HasLos(int startX, int startY, int endX, int endY)
@@ -259,6 +292,7 @@ namespace OpenNefia.Core
 
             var ind = y * _Width + x;
             _TileInds[ind] = _TileIndexMapping.TileDefIdToIndex[tile.Id]!;
+            this.RefreshTile(x, y);
         }
 
         public void SetTileMemory(int x, int y, TileDef tile)
