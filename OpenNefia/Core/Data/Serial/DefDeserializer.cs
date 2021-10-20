@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using Love;
+using OpenNefia.Core.Data.Serial.Attributes;
 using OpenNefia.Core.Util;
 using OpenNefia.Mod;
 using System;
@@ -408,7 +409,7 @@ namespace OpenNefia.Core.Data.Serial
             return color;
         }
 
-        public Result<object> DeserializeObject(XElement element, Type baseType, Type containingModType)
+        public Result<object> DeserializeObject(XElement element, Type baseType, Type containingModType, MemberInfo? member = null)
         {
             var value = element.Value!; 
             
@@ -471,7 +472,8 @@ namespace OpenNefia.Core.Data.Serial
             }
             else if (ty.IsGenericType)
             {
-                if (ty.GetGenericTypeDefinition() == typeof(List<>))
+                var genericType = ty.GetGenericTypeDefinition();
+                if (genericType == typeof(List<>) || genericType == typeof(HashSet<>))
                 {
                     var listTy = ty.GetGenericArguments()[0];
                     var list = (IList)Activator.CreateInstance(ty)!;
@@ -493,7 +495,83 @@ namespace OpenNefia.Core.Data.Serial
                         }
                     }
 
-                    return Result.Ok((object)list);
+                    if (genericType == typeof(HashSet<>))
+                    {
+                        var hashSet = Activator.CreateInstance(ty)!;
+                        var method = ty.GetMethod("Add")!;
+                        foreach (var elem in list)
+                        {
+                            method.Invoke(hashSet, new object[] { elem });
+                        }
+                        return Result.Ok(hashSet);
+                    }
+                    else
+                    {
+                        return Result.Ok((object)list);
+                    }
+                }
+                else if (genericType == typeof(Dictionary<,>))
+                {
+                    var keyTy = ty.GetGenericArguments()[0];
+                    var valueTy = ty.GetGenericArguments()[1];
+                    var keyList = (IList)Activator.CreateInstance(ty)!;
+                    var valueList = (IList)Activator.CreateInstance(ty)!;
+
+                    var entryName = "Entry";
+                    var keyName = "Key";
+                    var valueName = "Value";
+                    var useAttributes = false;
+
+                    var dictNamesAttr = member?.GetCustomAttribute<DefDictionaryFieldNamesAttribute>();
+                    
+                    if (dictNamesAttr != null)
+                    {
+                        entryName = dictNamesAttr.Entry;
+                        keyName = dictNamesAttr.Key;
+                        valueName = dictNamesAttr.Value;
+                        useAttributes = dictNamesAttr.UseAttributes;
+                    }
+
+                    foreach (var childElement in element.Elements())
+                    {
+                        if (childElement.Name != entryName)
+                        {
+                            return Result.Fail($"Expected dictionary to have entries like <{entryName} ... /> (type {ty}");
+                        }
+                        else
+                        {
+                            if (useAttributes)
+                            {
+                                var keyAttr = childElement.Attribute(keyName);
+                                var valueAttr = childElement.Attribute(valueName);
+
+                                if (keyAttr == null || valueAttr == null)
+                                {
+                                    return Result.Fail($"Expected dictionary to have entries like <{entryName} {keyName}=\"...\" {valueName}=\"...\" /> (type {ty}");
+                                }
+
+                                var keyResult = DeserializeObject(childElement, keyTy, containingModType);
+                                if (keyResult.IsFailed)
+                                {
+                                    return keyResult;
+                                }
+                                keyList.Add(keyResult.Value);
+
+                                var valueResult = DeserializeObject(childElement, valueTy, containingModType);
+                                if (valueResult.IsFailed)
+                                {
+                                    return valueResult;
+                                }
+                                valueList.Add(valueResult.Value);
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+
+                    return Result.Fail($"TODO dictionary '{ty}'");
                 }
                 else
                 {

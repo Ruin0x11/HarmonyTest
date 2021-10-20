@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace OpenNefia.Core.Map.Generator
+namespace OpenNefia.Core.Map.Generator.Area
 {
-    public abstract class BaseMapGenerator : IMapGenerator
+    public abstract class BaseAreaFloorGenerator : IAreaFloorGenerator
     {
-        public abstract Result<InstancedMap> Generate(MapDef mapDef, InstancedArea area, int floor);
+        public abstract Result<InstancedMap> GenerateFloor(InstancedArea area, int floor);
 
         public virtual void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType)
         {

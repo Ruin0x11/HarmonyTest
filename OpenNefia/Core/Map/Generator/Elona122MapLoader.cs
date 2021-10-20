@@ -36,7 +36,7 @@ namespace OpenNefia.Core.Map.Generator
             return mapping;
         }
 
-        public override Result<InstancedMap> Generate(MapDef mapDef)
+        public override Result<InstancedMap> Generate(MapDef mapDef, InstancedArea area, int floor)
         {
             var fileBaseName = PathUtils.GetFullPathWithoutExtension(IdxFilePath);
             var mapFilePath = $"{fileBaseName}.map";

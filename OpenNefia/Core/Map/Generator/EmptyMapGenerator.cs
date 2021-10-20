@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Map.Generator
 
         public TileDef? Tile = null;
 
-        public override Result<InstancedMap> Generate(MapDef mapDef)
+        public override Result<InstancedMap> Generate(MapDef mapDef, InstancedArea area, int floor)
         {
             return Result.Ok(new InstancedMap(MapSize, MapSize, mapDef, Tile ?? TileDefOf.Grass));
         }

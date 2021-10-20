@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ChipDef Id="Default">
+    <Image>Assets/Core/Chip/Default.png</Image>
+  </ChipDef>
+</Defs>

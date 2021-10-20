@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <AreaDef Id="Default">
+    <Chip>Core.Default</Chip>
+    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.EmptyAreaFloorGenerator"/>
+  </AreaDef>
+  <AreaDef ElonaId="4" Id="NorthTyris">
+    <Chip>Core.FeatAreaCity</Chip>
+    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.PerFloorAreaFloorGenerator">
+      <Floors>
+        <Floor Num="1" MapDef="Core.NorthTyris" />
+      </Floors>
+    </FloorGenerator>
+  </AreaDef>
+  <AreaDef ElonaId="5" Id="Vernis">
+    <Chip>Core.FeatAreaCity</Chip>
+    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.PerFloorAreaFloorGenerator">
+      <Floors>
+        <Floor Num="1" MapDef="Core.Vernis" />
+        <Floor Num="3" MapDef="Core.Vernis_TheMine" />
+        <Floor Num="4" MapDef="Core.Vernis_RobbersHideout" />
+        <Floor Num="5" MapDef="Core.Vernis_TestSite" />
+      </Floors>
+    </FloorGenerator>
+    <Entrance>
+      <ParentArea>Core.NorthTyris</ParentArea>
+      <ParentFloor>1</ParentFloor>
+      <X>26</X>
+      <Y>23</Y>
+      <StartingFloor>1</StartingFloor>
+    </Entrance>
+  </AreaDef>
+</Defs>

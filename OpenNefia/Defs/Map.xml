@@ -9,8 +9,23 @@
     </Generator>
   </MapDef>
   <MapDef ElonaId="5" Id="Vernis">
-    <Generator Class="OpenNefia.Core.Map.Generator.Elona122MapLoader">
+    <Generator Class="OpenNefia.Core.Map.Elona122MapLoader">
       <IdxFilePath>Assets/Map/vernis.idx</IdxFilePath>
+    </Generator>
+  </MapDef>
+  <MapDef Id="Vernis_TheMine">
+    <Generator Class="OpenNefia.Core.Map.Elona122MapLoader">
+      <IdxFilePath>Assets/Map/puti.idx</IdxFilePath>
+    </Generator>
+  </MapDef>
+  <MapDef Id="Vernis_RobbersHideout">
+    <Generator Class="OpenNefia.Core.Map.Elona122MapLoader">
+      <IdxFilePath>Assets/Map/sqRogue.idx</IdxFilePath>
+    </Generator>
+  </MapDef>
+  <MapDef Id="Vernis_TestSite">
+    <Generator Class="OpenNefia.Core.Map.Elona122MapLoader">
+      <IdxFilePath>Assets/Map/sqNightmare.idx</IdxFilePath>
     </Generator>
   </MapDef>
 </Defs>

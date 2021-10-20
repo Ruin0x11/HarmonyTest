@@ -9,6 +9,8 @@ namespace OpenNefia.Core.Data.Types
     [DefOfEntries]
     public static class ChipDefOf
     {
+        public static ChipDef Default = null!;
+
         public static ChipDef CharaBlank = null!;
         public static ChipDef CharaHumanMale = null!;
         public static ChipDef CharaHumanFemale = null!;

@@ -78,11 +78,6 @@ namespace OpenNefia.Core
             ClearMemory(defaultTile);
         }
 
-        public static Result<InstancedMap> Generate(MapDef def)
-        {
-            return def.Generator.Generate(def);
-        }
-
         public void Clear(TileDef tile)
         {
             for (int y = 0; y < this.Height; y++)

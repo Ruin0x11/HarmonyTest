@@ -66,7 +66,7 @@ namespace OpenNefia.Core.UI.Layer
 
         internal FieldLayer()
         {
-            Map = InstancedMap.Generate(MapDefOf.Vernis).Value;
+            Map = MapDefOf.Vernis_TestSite.GenerateMap(new InstancedArea(AreaDefOf.Vernis), 5).Value;
             //Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
             //this.InitMap();
             

@@ -13,5 +13,8 @@ namespace OpenNefia.Core.Data.Types
 
         public static MapDef NorthTyris = null!;
         public static MapDef Vernis = null!;
+        public static MapDef Vernis_TheMine = null!;
+        public static MapDef Vernis_RobbersHideout = null!;
+        public static MapDef Vernis_TestSite = null!;
     }
 }

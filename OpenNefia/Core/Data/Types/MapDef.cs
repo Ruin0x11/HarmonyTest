@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Serial;
+﻿using FluentResults;
+using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Map.Generator;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,8 @@ namespace OpenNefia.Core.Data.Types
 
         [DefRequired]
         public IMapGenerator Generator;
+
+        public Result<InstancedMap> GenerateMap(InstancedArea area, int floor) 
+            => this.Generator.Generate(this, area, floor);
     }
 }
