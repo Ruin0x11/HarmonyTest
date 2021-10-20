@@ -169,9 +169,11 @@ namespace OpenNefia.Game
             while (action != TitleScreenAction.Quit)
             {
                 var result = titleScreen.Query();
+                Console.WriteLine(result);
 
                 if (result.HasValue)
                 {
+                    action = result.Value.Action;
                     switch (action)
                     {
                         case TitleScreenAction.ReturnToTitle:
@@ -204,6 +206,8 @@ namespace OpenNefia.Game
             Startup.Run();
 
             RunTitleScreen();
+
+            Instance.OnQuit();
         }
     }
 }

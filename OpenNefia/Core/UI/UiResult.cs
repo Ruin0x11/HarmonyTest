@@ -16,7 +16,7 @@ namespace OpenNefia.Core.UI
             {
                 if (this is Finished)
                 {
-                    return (this as Finished)!.Value;
+                    return (this as Finished)!.InnerValue;
                 }
                 else
                 {
@@ -34,7 +34,7 @@ namespace OpenNefia.Core.UI
             switch (this)
             {
                 case UiResult<T>.Finished success:
-                    return $"Finished({success.Value?.ToString()})";
+                    return $"Finished({success.InnerValue})";
                 case UiResult<T>.Cancelled:
                     return $"Cancelled()";
                 case UiResult<T>.Error error:
