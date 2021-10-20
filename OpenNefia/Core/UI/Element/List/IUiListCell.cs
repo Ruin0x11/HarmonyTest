@@ -6,6 +6,9 @@ namespace OpenNefia.Core.UI.Element.List
     {
         public int TextWidth { get; }
         public T Data { get; set; }
+        public UiListChoiceKey? Key { get; }
         public int XOffset { get; set; }
+
+        public void DrawHighlight();
     }
 }

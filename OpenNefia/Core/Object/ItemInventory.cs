@@ -16,11 +16,13 @@ namespace OpenNefia.Core.Object
 
         public ILocation? ParentLocation { get => ParentObject.CurrentLocation; }
 
+        public ulong Uid => this._Pool.Uid;
+
         public ItemInventory(MapObject parent)
         {
             _ParentObject = parent;
             MaxWeight = new ValueStat<int>(0);
-            _Pool = new Pool(Current.Game.Uids.GetNextAndIncrement(), this);
+            _Pool = new Pool(this);
         }
 
         public void Refresh()

@@ -27,8 +27,38 @@ namespace OpenNefia.Core.Object
         private bool _Disposed = false;
         public bool Disposed { get => _Disposed; }
 
-        internal ILocation? _CurrentLocation;
-        public ILocation? CurrentLocation { get => _CurrentLocation; }
+        /// <summary>
+        /// Internal root location of this object, typically a <see cref="Pool"/>
+        /// that's encapsulated by a different class that implements <see cref="ILocation"/>.
+        /// 
+        /// Do *NOT* run ILocation methods on this object unless you know what you're doing!
+        /// </summary>
+        internal ILocation? _InternalLocation;
+        
+        /// <inheritdoc/>
+        public ILocation? CurrentLocation { 
+            get
+            {
+                if (_InternalLocation == null)
+                    return null;
+
+                var location = _InternalLocation;
+                foreach (var parent in this.EnumerateParents())
+                {
+                    if (location.Uid != parent.Uid)
+                    {
+                        // Internal storage location differs.
+                        // `location` is an ILocation that uses _InternalLocation
+                        // at some lower level.
+                        return location;
+                    }
+
+                    location = parent;
+                }
+
+                return location;
+            }
+        }
 
         public void SetPosition(int x, int y)
         {
@@ -45,7 +75,7 @@ namespace OpenNefia.Core.Object
             this._X = x;
             this._Y = y;
             
-            this._CurrentLocation?.SetPosition(this, x, y);
+            this._InternalLocation?.SetPosition(this, x, y);
 
             if (map != null)
             {
@@ -70,7 +100,7 @@ namespace OpenNefia.Core.Object
             Current.Game.Coords.TileToScreen(this.X, this.Y, out screenX, out screenY);
         }
 
-        public bool IsOwned() => _CurrentLocation != null;
+        public bool IsOwned => _InternalLocation != null;
 
         public abstract void ProduceMemory(MapObjectMemory memory);
 
@@ -83,7 +113,7 @@ namespace OpenNefia.Core.Object
 
         public IEnumerable<ILocation> EnumerateParents()
         {
-            var location = this.CurrentLocation;
+            var location = this._InternalLocation;
             while (location != null)
             {
                 yield return location;
@@ -111,7 +141,7 @@ namespace OpenNefia.Core.Object
             data.ExposeValue(ref IsOpaque, nameof(IsOpaque));
             data.ExposeValue(ref Color, nameof(Color));
             data.ExposeValue(ref _Disposed, nameof(Disposed));
-            data.ExposeWeak(ref _CurrentLocation, nameof(_CurrentLocation));
+            data.ExposeWeak(ref _InternalLocation, nameof(_InternalLocation));
         }
 
         public string GetUniqueIndex() => $"MapObject_{Uid}";

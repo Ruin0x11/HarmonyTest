@@ -422,6 +422,7 @@ namespace OpenNefia.Serial
             return Type.GetType(typeName, throwOnError: false, ignoreCase: true);
         }
 
+        // TODO needs ExposeWeakNullable for T?, instead of calling like ExposeWeak(ref Object!, nameof(Object));
         public void ExposeWeak<T>(ref T? data, string tagName, T? defaultValue = default(T))
         {
             var ty = typeof(T);

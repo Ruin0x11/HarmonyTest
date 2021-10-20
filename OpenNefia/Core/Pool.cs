@@ -22,7 +22,7 @@ namespace OpenNefia.Core
         internal List<MapObject> DeepObjects;
         internal HashSet<ulong> ContainedObjectUids;
 
-        public Pool(ulong uid, int width, int height, ILocation parent)
+        public Pool(ILocation parent, int width, int height, ulong uid)
         {
             _Uid = uid;
             _ParentLocation = parent;
@@ -32,7 +32,11 @@ namespace OpenNefia.Core
             ContainedObjectUids = new HashSet<ulong>();
         }
 
-        public Pool(ulong uid, ILocation parent) : this(uid, 1, 1, parent)
+        public Pool(ILocation parent, int width, int height) : this(parent, width, height, Current.Game.Uids.GetNextAndIncrement())
+        {
+        }
+
+        public Pool(ILocation parent) : this(parent, 1, 1)
         {
         }
 
@@ -48,14 +52,14 @@ namespace OpenNefia.Core
                 return false;
             }
 
-            if (obj._CurrentLocation != null)
+            if (obj._InternalLocation != null)
             {
-                obj._CurrentLocation.ReleaseObject(obj);
+                obj._InternalLocation.ReleaseObject(obj);
             }
 
             obj._X = x;
             obj._Y = y;
-            obj._CurrentLocation = this;
+            obj._InternalLocation = this;
             DeepObjects.Add(obj);
             ContainedObjectUids.Add(obj.Uid);
 
@@ -70,7 +74,7 @@ namespace OpenNefia.Core
             obj.RefreshTileOnMap();
             DeepObjects.Remove(obj);
             ContainedObjectUids.Remove(obj.Uid);
-            obj._CurrentLocation = null;
+            obj._InternalLocation = null;
         }
 
         public bool HasObject(MapObject obj)

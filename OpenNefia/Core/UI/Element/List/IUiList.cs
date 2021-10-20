@@ -10,10 +10,6 @@ namespace OpenNefia.Core.UI.Element.List
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }
 
-        string GetChoiceText(T choice, int index);
-        UiListChoiceKey GetChoiceKey(T choice, int index);
-        IUiListCell<T> MakeChoiceCell(T choice, int index);
-
         event UiListEventHandler<T>? EventOnSelect;
         event UiListEventHandler<T>? EventOnActivate;
 

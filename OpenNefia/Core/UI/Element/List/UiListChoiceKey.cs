@@ -16,5 +16,13 @@ namespace OpenNefia.Core.UI.Element.List
             this.Key = key;
             this.UseKeybind = useKeybind;
         }
+
+        public static UiListChoiceKey? MakeDefault(int index)
+        {
+            var key = Keys.A + index;
+            if (key >= Keys.A && key <= Keys.R)
+                return new UiListChoiceKey(key, true);
+            return null;
+        }
     }
 }

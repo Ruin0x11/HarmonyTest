@@ -15,6 +15,14 @@ namespace OpenNefia.Core
 {
     public sealed class InstancedMap : IDataExposable, ILocation
     {
+        internal enum TileFlags : int
+        {
+            None     = 0b00000000,
+
+            IsSolid  = 0b00000001,
+            IsOpaque = 0b00000010,
+        }
+
         int _Width;
         int _Height;
         ulong _Uid;
@@ -27,6 +35,7 @@ namespace OpenNefia.Core
 
         internal int[] _TileInds;
         internal int[] _TileMemoryInds;
+        internal TileFlags[] _TileFlags;
         internal int[] _InSight;
         internal int _LastSightId;
         internal ShadowMap _ShadowMap;
@@ -55,11 +64,12 @@ namespace OpenNefia.Core
             _TileIndexMapping = Current.Game.TileIndexMapping;
             _TileInds = new int[width * height];
             _TileMemoryInds = new int[width * height];
+            _TileFlags = new TileFlags[width * height];
             _InSight = new int[width * height];
             _LastSightId = 0;
             _ShadowMap = new ShadowMap(this);
             _MapObjectMemory = new MapObjectMemoryStore(this);
-            _Pool = new Pool(_Uid, _Width, _Height, this);
+            _Pool = new Pool(this, _Width, _Height);
 
             _DirtyTilesThisTurn = new HashSet<int>();
             _RedrawAllThisTurn = true;

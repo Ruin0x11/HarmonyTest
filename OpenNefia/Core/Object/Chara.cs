@@ -42,9 +42,22 @@ namespace OpenNefia.Core.Object
             internal set => Current.Game.Player = value;
         }
 
-        public static Result<Chara> Create(ILocation location, int x, int y)
+        public static Result<Chara> Create()
         {
             var chara = new Chara(ChipDefOf.CharaRaceSlime);
+
+            return Result.Ok(chara);
+        }
+
+        public static Result<Chara> Create(ILocation location, int x, int y)
+        {
+            var charaResult = Chara.Create();
+            if (charaResult.IsFailed)
+            {
+                return charaResult;
+            }
+
+            var chara = charaResult.Value;
 
             if (!location.CanReceiveObject(chara, x, y))
             {

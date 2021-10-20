@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class PromptChoice<T>
+    public class PromptChoice<T> : IUiListItem
     {
         public T Value;
         public string? Text = null;
@@ -20,33 +20,26 @@ namespace OpenNefia.Core.UI.Layer
         {
             this.Value = result;
         }
+
+        public string GetChoiceText(int index)
+        {
+            if (Text != null)
+                return Text;
+
+            return $"{Value}";
+        }
+
+        public UiListChoiceKey? GetChoiceKey(int index)
+        {
+            if (Key != Keys.None)
+                return new UiListChoiceKey(Key, useKeybind: false);
+
+            return UiListChoiceKey.MakeDefault(index);
+        }
     }
 
     public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
     {
-        public class UiPromptList : UiList<PromptChoice<T>>
-        {
-            public UiPromptList(IEnumerable<PromptChoice<T>> choices) : base(choices, itemHeight: 20)
-            {
-            }
-
-            public override string GetChoiceText(PromptChoice<T> choice, int index)
-            {
-                if (choice.Text != null)
-                    return choice.Text;
-
-                return $"{choice.Value}";
-            }
-
-            public override UiListChoiceKey GetChoiceKey(PromptChoice<T> choice, int index)
-            {
-                if (choice.Key != Keys.None)
-                    return new UiListChoiceKey(choice.Key, useKeybind: false);
-
-                return new UiListChoiceKey(Keys.A + index, useKeybind: true);
-            }
-        }
-
         public struct PromptOptions
         {
             public int Width = 160;
@@ -55,14 +48,14 @@ namespace OpenNefia.Core.UI.Layer
 
         private PromptOptions Options;
 
-        public UiPromptList List { get; }
+        public UiList<PromptChoice<T>> List { get; }
         public UiTopicWindow Window { get; }
 
         private int DefaultWidth;
 
         public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
         {
-            this.List = new UiPromptList(choices);
+            this.List = new UiList<PromptChoice<T>>(choices);
             this.Window = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Zero);
             this.Options = options;
 

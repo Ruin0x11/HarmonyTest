@@ -159,7 +159,7 @@ namespace OpenNefia.Core.Object
             // There will have to be an ICloneable interface implemented on map objects
             // and aspects that does the deep copying manually, but it shouldn't be too hard.
             var newObject = (Item)this.MemberwiseClone();
-            newObject._CurrentLocation = null;
+            newObject._InternalLocation = null;
             newObject._Uid = Current.Game.Uids.GetNextAndIncrement();
             return newObject;
         }

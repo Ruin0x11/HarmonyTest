@@ -32,55 +32,57 @@ namespace OpenNefia.Core.UI.Element.List
         }
         public IUiListCell<T> SelectedCell { get => this.Cells[this.SelectedIndex]!; }
 
-        protected List<UiListChoiceKey> ChoiceKeys;
-        protected List<IUiText> KeyNameTexts;
-
-        protected AssetDrawable AssetSelectKey;
-        protected AssetDrawable AssetListBullet;
-        public ColorDef ColorSelectedAdd;
-        public ColorDef ColorSelectedSub;
-        public FontDef FontListKeyName;
+        protected Dictionary<int, UiListChoiceKey> ChoiceKeys;
 
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
 
-        public UiList(IEnumerable<IUiListCell<T>> cells, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+        public UiList(IEnumerable<IUiListCell<T>>? cells = null, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
         {
+            if (cells == null)
+                cells = new List<IUiListCell<T>>();
+
             this.ItemHeight = itemHeight;
             this.ItemOffsetX = 0;
             this.ItemOffsetY = -2;
             this.HighlightSelected = true;
             this.SelectOnActivate = true;
 
-            this.AssetSelectKey = new AssetDrawable(AssetDefOf.SelectKey);
-            this.AssetListBullet = new AssetDrawable(AssetDefOf.ListBullet);
-            this.ColorSelectedAdd = ColorDefOf.ListSelectedAdd;
-            this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
-            this.FontListKeyName = FontDefOf.ListKeyName;
-
             this.Cells = cells.ToList();
 
-            this.ChoiceKeys = new List<UiListChoiceKey>();
-            this.KeyNameTexts = new List<IUiText>();
-            for (int i = 0; i < this.Count; i++)
+            this.ChoiceKeys = new Dictionary<int, UiListChoiceKey>();
+            for (var i = 0; i < this.Cells.Count; i++)
             {
-                var choiceKey = this.GetChoiceKey(this[i].Data, i);
-                var keyName = UiUtils.GetKeyName(choiceKey.Key);
-                this.ChoiceKeys.Add(choiceKey);
-                this.KeyNameTexts.Add(new UiText(this.FontListKeyName, keyName));
+                var cell = this.Cells[i];
+                if (cell.Key != null)
+                {
+                    this.ChoiceKeys[i] = cell.Key;
+                }
             }
 
             this.BindKeys();
         }
 
-        public UiList(IEnumerable<T> choices, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
-            : this(choices.Select((c, i) => DefaultMakeChoiceCell(c, i)), itemHeight, itemOffsetX, itemOffsetY)
+        public UiList(IEnumerable<T> items, int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
+            : this(MakeDefaultList<T>(items), itemHeight, itemOffsetX, itemOffsetY)
         {
         }
 
-        public UiList(int itemHeight = 19, int itemOffsetX = 0, int itemOffsetY = -2)
-            : this(new List<T>(), itemHeight, itemOffsetX, itemOffsetY)
+        private static IEnumerable<IUiListCell<T>> MakeDefaultList<T>(IEnumerable<T> items)
         {
+            IUiListCell<T> MakeListCell(T item, int index)
+            {
+                if (item is IUiListItem)
+                {
+                    var listItem = (IUiListItem)item;
+                    return new UiListCell<T>(item, listItem.GetChoiceText(index), listItem.GetChoiceKey(index));
+                }
+                else
+                {
+                    return new UiListCell<T>(item, $"{item}", UiListChoiceKey.MakeDefault(index));
+                }
+            }
+            return items.Select(MakeListCell);
         }
 
         protected virtual void BindKeys()
@@ -153,19 +155,6 @@ namespace OpenNefia.Core.UI.Element.List
         {
             return new List<UiKeyHint>();
         }
-
-        private static IUiListCell<T> DefaultMakeChoiceCell(T choice, int index)
-        {
-            return new UiListCell<T>(choice, $"{choice}");
-        }
-
-        public virtual IUiListCell<T> MakeChoiceCell(T choice, int index)
-        {
-            return new UiListCell<T>(choice, this.GetChoiceText(choice, index));
-        }
-
-        public virtual string GetChoiceText(T choice, int index) => $"{choice}";
-        public virtual UiListChoiceKey GetChoiceKey(T choice, int index) => new UiListChoiceKey(Keys.A + index);
 
         #endregion
 
@@ -247,12 +236,7 @@ namespace OpenNefia.Core.UI.Element.List
                 var ix = this.X + this.ItemOffsetX;
                 var iy = index * this.ItemHeight + this.Y + this.ItemOffsetY;
 
-                cell.SetPosition(ix + this.AssetSelectKey.Width + 2, iy + 1);
-
-                var text = this.KeyNameTexts[index];
-                var textX = ix + (this.AssetSelectKey.Width - GraphicsEx.GetTextWidth(text.Text)) / 2 - 2;
-                var textY = iy + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2;
-                text.SetPosition(textX, textY);
+                cell.SetPosition(ix, iy);
             }
         }
 
@@ -263,37 +247,13 @@ namespace OpenNefia.Core.UI.Element.List
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
-                cell.SetSize(width - (this.AssetSelectKey.Width + 2), this.ItemHeight);
+                cell.SetSize(width, this.ItemHeight);
                 totalHeight += cell.Height;
             }
 
             base.SetSize(width, Math.Max(height, totalHeight));
         }
-
-        protected virtual void DrawSelectKey(int index)
-        {
-            var cell = this.Cells[index];
-            GraphicsEx.SetColor(Color.White);
-            this.AssetSelectKey.Draw(cell.X - (this.AssetSelectKey.Width + 2), cell.Y - 1);
-            this.KeyNameTexts[index].Draw();
-        }
         
-        protected virtual void DrawHighlight(int index)
-        {
-            var cell = this.Cells[index];
-
-            var width = Math.Clamp(cell.TextWidth + this.AssetSelectKey.Width + 8 + cell.XOffset, 10, 480);
-            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-            GraphicsEx.SetColor(this.ColorSelectedSub);
-            GraphicsEx.FilledRect(cell.X, cell.Y - 2, width, 19);
-            Love.Graphics.SetBlendMode(Love.BlendMode.Add);
-            GraphicsEx.SetColor(this.ColorSelectedAdd);
-            GraphicsEx.FilledRect(cell.X + 1, cell.Y - 1, width - 2, 17);
-            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-            GraphicsEx.SetColor(Love.Color.White);
-            this.AssetListBullet.Draw(cell.X + width - 20, cell.Y + 2);
-        }
-
         public override void Update(float dt)
         {
             foreach (var cell in this.Cells)
@@ -304,14 +264,12 @@ namespace OpenNefia.Core.UI.Element.List
         {
             for (int index = 0; index < this.Count; index++)
             {
-                this.DrawSelectKey(index);
-
                 var cell = this.Cells[index];
                 cell.Draw();
 
                 if (this.HighlightSelected && index == this.SelectedIndex)
                 {
-                    this.DrawHighlight(index);
+                    cell.DrawHighlight();
                 }
             }
         }

@@ -76,9 +76,6 @@ namespace OpenNefia.Core.UI.Layer.Repl
             var loadReferenceScript = string.Join("\r\n", Config.References.Select(reference => $@"#r ""{reference}"""));
             var loadReferenceScriptResult = Roslyn.EvaluateAsync(loadReferenceScript).ConfigureAwait(false)
                 .GetAwaiter().GetResult();
-            PrintAsync(Roslyn, Console, loadReferenceScriptResult, displayDetails: false)
-                .ConfigureAwait(false)
-                .GetAwaiter().GetResult();
 
             this.IsInitialized = true;
         }
