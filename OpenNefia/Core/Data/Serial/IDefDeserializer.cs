@@ -1,5 +1,7 @@
 ﻿using FluentResults;
+using OpenNefia.Core.Data.Serial.CrossRefs;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -13,7 +15,9 @@ namespace OpenNefia.Core.Data.Serial
         void PopulateFieldByName(string name, XElement element, object target, Type containingModType);
         void PopulateFieldByElement(string name, XElement element, object target, Type containingModType);
         void PopulateFieldByAttribute(string name, XAttribute attribute, object target, Type containingModType);
-        void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T: Def;
-        Result<object> DeserializeObject(XElement element, Type ty, Type containingModType);
+        void AddCrossRef(IDefCrossRef crossRef);
+
+        // TODO remove in order to support save-local serialized defs
+        Result<object> DeserializeObject(XElement element, Type ty, Type containingModType, FieldInfo? info = null);
     }
 }

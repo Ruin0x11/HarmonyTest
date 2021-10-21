@@ -2,11 +2,11 @@
 <Defs>
   <AreaDef Id="Default">
     <Chip>Core.Default</Chip>
-    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.EmptyAreaFloorGenerator"/>
+    <FloorGenerator Class="Core.EmptyAreaFloorGenerator"/>
   </AreaDef>
   <AreaDef ElonaId="4" Id="NorthTyris">
     <Chip>Core.FeatAreaCity</Chip>
-    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.PerFloorAreaFloorGenerator">
+    <FloorGenerator Class="Core.PerFloorAreaFloorGenerator">
       <Floors>
         <Floor Num="1" MapDef="Core.NorthTyris" />
       </Floors>
@@ -14,7 +14,7 @@
   </AreaDef>
   <AreaDef ElonaId="5" Id="Vernis">
     <Chip>Core.FeatAreaCity</Chip>
-    <FloorGenerator Class="OpenNefia.Core.Map.Generator.Area.PerFloorAreaFloorGenerator">
+    <FloorGenerator Class="Core.PerFloorAreaFloorGenerator">
       <Floors>
         <Floor Num="1" MapDef="Core.Vernis" />
         <Floor Num="3" MapDef="Core.Vernis_TheMine" />

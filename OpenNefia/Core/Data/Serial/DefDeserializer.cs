@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using Love;
 using OpenNefia.Core.Data.Serial.Attributes;
+using OpenNefia.Core.Data.Serial.CrossRefs;
 using OpenNefia.Core.Util;
 using OpenNefia.Mod;
 using System;
@@ -36,12 +37,12 @@ namespace OpenNefia.Core.Data.Serial
         // The ID will be modified in-place to add them during the deserialize process.
         // Id="Window" => Id="Core.Window"
         FromDisk,
-        
+
         // The def was already loaded from disk, so the Id attribute will have already been modified.
         AlreadyLoaded
     }
 
-    public class DefDeserializer : IDefDeserializer
+    public sealed class DefDeserializer : IDefDeserializer
     {
         internal List<string> Errors;
         internal List<IDefCrossRef> CrossRefs { get; }
@@ -85,20 +86,7 @@ namespace OpenNefia.Core.Data.Serial
                 return Result.Ok(baseType);
             }
 
-            var classType = Type.GetType(className);
-
-            if (classType == null)
-            {
-                return Result.Fail($"Could not find class with name '{className}' (parent: '{baseType.FullName}')");
-            }
-            else if (!baseType.IsAssignableFrom(classType))
-            {
-                return Result.Fail($"Class '{classType}' is not convertable to parent type '{baseType.FullName}'");
-            }
-            else
-            {
-                return Result.Ok(classType);
-            }
+            return DefTypes.FindDefDeserializableTypeFromName(className, baseType);
         }
 
         public static bool IsNamespacedDefId(string defId)
@@ -263,7 +251,15 @@ namespace OpenNefia.Core.Data.Serial
 
             if (ty.IsValueType)
             {
-                PopulateValueTypeField(value, target, field, containingModType);
+                var result = DeserializeValueType(value, field.FieldType, containingModType, field);
+                if (result.IsSuccess)
+                {
+                    field.SetValue(target, result.Value);
+                }
+                else
+                {
+                    this.Errors.Add(String.Join("\n", result.Errors));
+                }
             }
             else if (ty == typeof(IResourcePath))
             {
@@ -273,47 +269,64 @@ namespace OpenNefia.Core.Data.Serial
             else if (ty.IsSubclassOf(typeof(Def)))
             {
                 // Defer setting until all defs have been loaded.
-                var crossRef = new DefFieldCrossRef(ty, value, target, field);
+                var crossRef = new DefFieldCrossRef(new DefIdentifier(ty, value), target, field);
                 this.CrossRefs.Add(crossRef);
             }
             else
             {
-                throw new Exception($"Cannot populate object type {field.FieldType} with attributes.");
+                this.Errors.Add($"Cannot populate object type {field.FieldType} with attributes.");
             }
         }
 
-        public void PopulateField(XElement childElement, object target, FieldInfo field, Type containingModType)
+        public void PopulateField(XElement element, object target, FieldInfo field, Type containingModType)
         {
             if (field.GetCustomAttribute<DefIgnoredAttribute>() != null)
                 return;
 
-            if (field.FieldType.IsValueType)
+            if (field.FieldType.IsSubclassOf(typeof(Def)))
             {
-                PopulateValueTypeField(childElement.Value, target, field, containingModType);
+                // Defer setting until all defs have been loaded.
+                var crossRef = new DefFieldCrossRef(new DefIdentifier(field.FieldType, element.Value), target, field);
+                this.CrossRefs.Add(crossRef);
+                return;
+            }
+
+            var result = this.DeserializeValueOrObject(element, field.FieldType, containingModType, field);
+
+            if (result.IsSuccess)
+            {
+                field.SetValue(target, result.Value);
             }
             else
             {
-                PopulateObjectField(childElement, target, field, containingModType);
+                this.Errors.Add(string.Join("\n", result.Errors.Select(x => x.Message)) + $" (Field: {field.Name}, type: {field.FieldType})");
             }
         }
 
-        private void PopulateValueTypeField(string value, object target, FieldInfo field, Type containingModType)
+        private Result<object> DeserializeValueOrObject(XElement elem, Type type, Type containingModType, FieldInfo? field = null) 
         {
-            DoPopulateValue(value, target, field, field.FieldType);
+            if (type.IsValueType)
+            {
+                return DeserializeValueType(elem.Value, type, containingModType, field);
+            }
+            else
+            {
+                return DeserializeObject(elem, type, containingModType, field);
+            }
         }
 
-        private void DoPopulateValue(string value, object target, FieldInfo field, Type type)
+        private static Result<object> DeserializeValueType(string value, Type type, Type containingModType, FieldInfo? field = null)
         {
             if (type.IsEnum)
             {
                 if (Enum.IsDefined(type, value))
                 {
                     var parsed = Enum.Parse(type, value);
-                    field.SetValue(target, parsed);
+                    return Result.Ok(parsed);
                 }
                 else
                 {
-                    this.Errors.Add($"Enum '{type}' does not have variant '{value}' (on field '{field.Name}')");
+                    return Result.Fail($"Enum '{type}' does not have variant '{value}')");
                 }
             }
             else
@@ -323,66 +336,58 @@ namespace OpenNefia.Core.Data.Serial
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
-                        field.SetValue(target, bool.Parse(value));
-                        break;
+                        return Result.Ok((object)bool.Parse(value));
                     case TypeCode.Char:
-                        field.SetValue(target, char.Parse(value));
-                        break;
+                        return Result.Ok((object)char.Parse(value));
                     case TypeCode.SByte:
-                        field.SetValue(target, sbyte.Parse(value));
-                        break;
+                        return Result.Ok((object)sbyte.Parse(value));
                     case TypeCode.Byte:
-                        field.SetValue(target, byte.Parse(value));
-                        break;
+                        return Result.Ok((object)byte.Parse(value));
                     case TypeCode.Int16:
-                        field.SetValue(target, short.Parse(value));
-                        break;
+                        return Result.Ok((object)short.Parse(value));
                     case TypeCode.UInt16:
-                        field.SetValue(target, ushort.Parse(value));
-                        break;
+                        return Result.Ok((object)ushort.Parse(value));
                     case TypeCode.Int32:
-                        field.SetValue(target, int.Parse(value));
-                        break;
+                        return Result.Ok((object)int.Parse(value));
                     case TypeCode.UInt32:
-                        field.SetValue(target, uint.Parse(value));
-                        break;
+                        return Result.Ok((object)uint.Parse(value));
                     case TypeCode.Int64:
-                        field.SetValue(target, long.Parse(value));
-                        break;
+                        return Result.Ok((object)long.Parse(value));
                     case TypeCode.UInt64:
-                        field.SetValue(target, ulong.Parse(value));
-                        break;
+                        return Result.Ok((object)ulong.Parse(value));
                     case TypeCode.Single:
-                        field.SetValue(target, float.Parse(value));
-                        break;
+                        return Result.Ok((object)float.Parse(value));
                     case TypeCode.Double:
-                        field.SetValue(target, double.Parse(value));
-                        break;
+                        return Result.Ok((object)double.Parse(value));
                     case TypeCode.Decimal:
-                        field.SetValue(target, decimal.Parse(value));
-                        break;
+                        return Result.Ok((object)decimal.Parse(value));
                     case TypeCode.DateTime:
-                        field.SetValue(target, DateTime.Parse(value));
-                        break;
+                        return Result.Ok((object)DateTime.Parse(value));
                     case TypeCode.String:
-                        field.SetValue(target, value);
-                        break;
+                        return Result.Ok((object)value);
 
                     case TypeCode.Object:
                         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                         {
-                            DoPopulateValue(value, target, field, Nullable.GetUnderlyingType(type)!);
+                            var result = DeserializeValueType(value, Nullable.GetUnderlyingType(type)!, containingModType, field);
+                            if (result.IsSuccess)
+                            {
+                                return Result.Ok((object)Activator.CreateInstance(type, result.Value)!);
+                            }
+                            else
+                            {
+                                return result;
+                            }
                         }
                         else
                         {
-                            this.Errors.Add($"Unsupported object type '{target.GetType()}', field '{field.Name}' ({field.FieldType})");
+                            return Result.Fail($"Unsupported object type '{type}'");
                         }
-                        break;
 
                     case TypeCode.Empty:
                     case TypeCode.DBNull:
-                        this.Errors.Add($"Unsupported typecode '{typeCode}' for type '{target.GetType()}', field '{field.Name}' ({field.FieldType})");
-                        break;
+                    default:
+                        return Result.Fail($"Unsupported typecode '{typeCode}' for type '{type}'");
                 }
             }
         }
@@ -409,7 +414,7 @@ namespace OpenNefia.Core.Data.Serial
             return color;
         }
 
-        public Result<object> DeserializeObject(XElement element, Type baseType, Type containingModType, MemberInfo? member = null)
+        public Result<object> DeserializeObject(XElement element, Type baseType, Type containingModType, FieldInfo? member = null)
         {
             var value = element.Value!; 
             
@@ -472,145 +477,226 @@ namespace OpenNefia.Core.Data.Serial
             }
             else if (ty.IsGenericType)
             {
-                var genericType = ty.GetGenericTypeDefinition();
-                if (genericType == typeof(List<>) || genericType == typeof(HashSet<>))
-                {
-                    var listTy = ty.GetGenericArguments()[0];
-                    var list = (IList)Activator.CreateInstance(ty)!;
-
-                    foreach (var childElement in element.Elements())
-                    {
-                        if (childElement.Name != "li")
-                        {
-                            return Result.Fail($"Generic list entries must have nodes named 'li' (type {ty}");
-                        }
-                        else
-                        {
-                            var result = DeserializeObject(childElement, listTy, containingModType);
-                            if (result.IsFailed)
-                            {
-                                return result;
-                            }
-                            list.Add(result.Value);
-                        }
-                    }
-
-                    if (genericType == typeof(HashSet<>))
-                    {
-                        var hashSet = Activator.CreateInstance(ty)!;
-                        var method = ty.GetMethod("Add")!;
-                        foreach (var elem in list)
-                        {
-                            method.Invoke(hashSet, new object[] { elem });
-                        }
-                        return Result.Ok(hashSet);
-                    }
-                    else
-                    {
-                        return Result.Ok((object)list);
-                    }
-                }
-                else if (genericType == typeof(Dictionary<,>))
-                {
-                    var keyTy = ty.GetGenericArguments()[0];
-                    var valueTy = ty.GetGenericArguments()[1];
-                    var keyList = (IList)Activator.CreateInstance(ty)!;
-                    var valueList = (IList)Activator.CreateInstance(ty)!;
-
-                    var entryName = "Entry";
-                    var keyName = "Key";
-                    var valueName = "Value";
-                    var useAttributes = false;
-
-                    var dictNamesAttr = member?.GetCustomAttribute<DefDictionaryFieldNamesAttribute>();
-                    
-                    if (dictNamesAttr != null)
-                    {
-                        entryName = dictNamesAttr.Entry;
-                        keyName = dictNamesAttr.Key;
-                        valueName = dictNamesAttr.Value;
-                        useAttributes = dictNamesAttr.UseAttributes;
-                    }
-
-                    foreach (var childElement in element.Elements())
-                    {
-                        if (childElement.Name != entryName)
-                        {
-                            return Result.Fail($"Expected dictionary to have entries like <{entryName} ... /> (type {ty}");
-                        }
-                        else
-                        {
-                            if (useAttributes)
-                            {
-                                var keyAttr = childElement.Attribute(keyName);
-                                var valueAttr = childElement.Attribute(valueName);
-
-                                if (keyAttr == null || valueAttr == null)
-                                {
-                                    return Result.Fail($"Expected dictionary to have entries like <{entryName} {keyName}=\"...\" {valueName}=\"...\" /> (type {ty}");
-                                }
-
-                                var keyResult = DeserializeObject(childElement, keyTy, containingModType);
-                                if (keyResult.IsFailed)
-                                {
-                                    return keyResult;
-                                }
-                                keyList.Add(keyResult.Value);
-
-                                var valueResult = DeserializeObject(childElement, valueTy, containingModType);
-                                if (valueResult.IsFailed)
-                                {
-                                    return valueResult;
-                                }
-                                valueList.Add(valueResult.Value);
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                    }
-
-                    return Result.Fail($"TODO dictionary '{ty}'");
-                }
-                else
-                {
-                    return Result.Fail($"Cannot set generic field of type '{ty}'");
-                }
+                return DeserializeGenericType(element, containingModType, member, ty);
             }
 
             return Result.Fail($"Cannot set field of type '{ty}'");
         }
 
-        private void PopulateObjectField(XElement node, object target, FieldInfo field, Type containingModType)
+        private Result<object> DeserializeGenericType(XElement element, Type containingModType, FieldInfo? member, Type ty)
         {
-            var ty = field.FieldType;
-
-            var value = node.Value!;
-
-            if (ty.IsSubclassOf(typeof(Def)))
+            var genericType = ty.GetGenericTypeDefinition();
+            if (genericType == typeof(List<>) || genericType == typeof(HashSet<>))
             {
-                // Defer setting until all defs have been loaded.
-                var crossRef = new DefFieldCrossRef(ty, value, target, field);
-                this.CrossRefs.Add(crossRef);
+                return DeserializeList(element, containingModType, ty);
+            }
+            else if (genericType == typeof(Dictionary<,>))
+            {
+                return DeserializeDictionary(element, containingModType, member, ty);
             }
             else
             {
-                var result = DeserializeObject(node, ty, containingModType);
-                if (result.IsSuccess)
+                return Result.Fail($"Cannot set generic field of type '{ty}'");
+            }
+        }
+
+        private Result<object> DeserializeList(XElement element, Type containingModType, Type targetCollectionType)
+        {
+            var listTy = targetCollectionType.GetGenericArguments()[0];
+
+            var listDefTy = listTy;
+            var needsCrossRef = false;
+            if (typeof(Def).IsAssignableFrom(listTy))
+            {
+                needsCrossRef = true;
+                listTy = typeof(string);
+            }
+
+            var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(listDefTy))!;
+
+            foreach (var childElement in element.Elements())
+            {
+                if (childElement.Name != "li")
                 {
-                    field.SetValue(target, result.Value);
+                    return Result.Fail($"Generic list entries must have nodes named 'li' (type {targetCollectionType}");
                 }
                 else
                 {
-                    this.Errors.Add($"Error setting field {field.Name} ({ty}): {result}");
+                    var result = DeserializeValueOrObject(childElement, listTy, containingModType);
+                    if (result.IsFailed)
+                    {
+                        return result;
+                    }
+                    list.Add(result.Value);
+                }
+            }
+
+            if (needsCrossRef)
+            {
+                var defIdentList = list.Cast<string>().Select(x => new DefIdentifier(listDefTy, x)).ToList();
+
+                if (targetCollectionType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var crossRefType = (typeof(DefListCrossRef<>)).MakeGenericType(listDefTy);
+                    var targetList = Activator.CreateInstance(targetCollectionType)!;
+                    this.CrossRefs.Add((IDefCrossRef)Activator.CreateInstance(crossRefType, targetList, defIdentList)!);
+                    return Result.Ok(targetList);
+                }
+                else
+                {
+                    return Result.Fail($"Cannot deserialize generic type {targetCollectionType}");
+                }
+            }
+            else
+            {
+                if (targetCollectionType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    return Result.Ok((object)list);
+                }
+                else if (targetCollectionType.GetGenericTypeDefinition() == typeof(HashSet<>))
+                {
+                    var hashSet = Activator.CreateInstance(targetCollectionType)!;
+                    var method = targetCollectionType.GetMethod("Add")!;
+                    foreach (var elem in list)
+                    {
+                        method.Invoke(hashSet, new object[] { elem });
+                    }
+                    return Result.Ok(hashSet);
+                }
+                else
+                {
+                    return Result.Fail($"Cannot deserialize generic type {targetCollectionType}");
                 }
             }
         }
 
-        public void AddCrossRef<TRecv, T>(TRecv receiver, string defId, Action<TRecv, T> onResolveCrossRef) where T : Def
+        private Result<object> DeserializeDictionary(XElement element, Type containingModType, FieldInfo? member, Type ty)
         {
-            this.CrossRefs.Add(new DefCustomCrossRef<TRecv, T>(typeof(T), defId, receiver, onResolveCrossRef));
+            var keyTy = ty.GetGenericArguments()[0];
+            var valueTy = ty.GetGenericArguments()[1];
+
+            Type keyDefType = keyTy;
+            Type valueDefType = valueTy;
+            var keyNeedsCrossRef = false;
+            var valueNeedsCrossRef = false;
+            if (typeof(Def).IsAssignableFrom(keyTy))
+            {
+                keyNeedsCrossRef = true;
+                keyTy = typeof(string);
+            }
+            if (typeof(Def).IsAssignableFrom(valueTy))
+            {
+                valueNeedsCrossRef = true;
+                valueTy = typeof(string);
+            }
+
+            var dict = Activator.CreateInstance(ty)!;
+            var keyList = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(keyTy))!;
+            var valueList = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(valueTy))!;
+
+            var entryName = DefDictionaryFieldNamesAttribute.DEFAULT_ENTRY_NAME;
+            var keyName = DefDictionaryFieldNamesAttribute.DEFAULT_KEY_NAME;
+            var valueName = DefDictionaryFieldNamesAttribute.DEFAULT_VALUE_NAME;
+            var useAttributes = false;
+
+            var dictNamesAttr = member?.GetCustomAttribute<DefDictionaryFieldNamesAttribute>();
+
+            if (dictNamesAttr != null)
+            {
+                entryName = dictNamesAttr.Entry;
+                keyName = dictNamesAttr.Key;
+                valueName = dictNamesAttr.Value;
+                useAttributes = dictNamesAttr.UseAttributes;
+            }
+
+            foreach (var childElement in element.Elements())
+            {
+                if (childElement.Name != entryName)
+                {
+                    return Result.Fail($"Expected dictionary to have entries like <{entryName} ... /> (type {ty}");
+                }
+                else
+                {
+                    if (useAttributes)
+                    {
+                        var keyAttr = childElement.Attribute(keyName);
+                        var valueAttr = childElement.Attribute(valueName);
+
+                        if (keyAttr == null || valueAttr == null)
+                        {
+                            return Result.Fail($"Expected dictionary to have entries like <{entryName} {keyName}=\"...\" {valueName}=\"...\" /> (type {ty})");
+                        }
+
+                        var keyResult = DeserializeValueType(keyAttr.Value, keyTy, containingModType);
+                        if (keyResult.IsFailed)
+                        {
+                            return keyResult;
+                        }
+                        keyList.Add(keyResult.Value);
+
+                        var valueResult = DeserializeValueType(keyAttr.Value, valueTy, containingModType);
+                        if (valueResult.IsFailed)
+                        {
+                            return valueResult;
+                        }
+                        valueList.Add(valueResult.Value);
+                    }
+                    else
+                    {
+                        var keyElem = childElement.Attribute(keyName);
+                        var valueElem = childElement.Attribute(valueName);
+
+                        if (keyElem == null || valueElem == null)
+                        {
+                            return Result.Fail($"Expected dictionary to have entries like <{entryName}><{keyName}/><{valueName}/></{entryName}> (type {ty})");
+                        }
+
+                        var keyResult = DeserializeValueOrObject(childElement, keyTy, containingModType);
+                        if (keyResult.IsFailed)
+                        {
+                            return keyResult;
+                        }
+                        keyList.Add(keyResult.Value);
+
+                        var valueResult = DeserializeValueOrObject(childElement, valueTy, containingModType);
+                        if (valueResult.IsFailed)
+                        {
+                            return valueResult;
+                        }
+                        valueList.Add(valueResult.Value);
+                    }
+                }
+            }
+
+            if (keyNeedsCrossRef)
+            {
+                keyList = keyList.Cast<string>().Select(id => new DefIdentifier(keyDefType, id)).ToList();
+            }
+            if (valueNeedsCrossRef)
+            {
+                valueList = valueList.Cast<string>().Select(id => new DefIdentifier(valueDefType, id)).ToList();
+            }
+
+            if (keyNeedsCrossRef || valueNeedsCrossRef)
+            {
+                var crossRefType = (typeof(DefDictionaryCrossRef<,>)).MakeGenericType(keyDefType, valueDefType);
+                this.CrossRefs.Add((IDefCrossRef)Activator.CreateInstance(crossRefType, dict, keyList, valueList)!);
+            }
+            else
+            {
+                var methodAdd = dict.GetType().GetMethod("Add")!;
+                for (int i = 0; i < keyList.Count; i++)
+                {
+                    methodAdd.Invoke(dict, new object?[] { keyList[i], valueList[i] });
+                }
+            }
+
+            return Result.Ok(dict);
+        }
+
+        public void AddCrossRef(IDefCrossRef crossRef)
+        {
+            this.CrossRefs.Add(crossRef);
         }
     }
 }

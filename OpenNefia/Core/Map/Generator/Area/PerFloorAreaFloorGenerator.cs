@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Map.Generator.Area
     internal class PerFloorAreaFloorGenerator : BaseAreaFloorGenerator
     {
         [DefRequired]
-        [DefDictionaryFieldNames(Entry="Floor", Key="Num", Value="MapDef", UseAttributes=true)]
+        [DefDictionaryFieldNames(Entry: "Floor", Key: "Num", Value: "MapDef", UseAttributes: true)]
         public Dictionary<int, MapDef> Floors = new Dictionary<int, MapDef>();
 
         public override Result<InstancedMap> GenerateFloor(InstancedArea area, int floor)

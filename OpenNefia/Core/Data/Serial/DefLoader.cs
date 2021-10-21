@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Data.Patch;
+﻿using FluentResults;
+using OpenNefia.Core.Data.Patch;
+using OpenNefia.Core.Data.Serial.CrossRefs;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Game;
@@ -264,7 +266,15 @@ namespace OpenNefia.Core.Data.Serial
 
             foreach (var crossRef in defDeserializer.CrossRefs)
             {
-                crossRef.Resolve(errors);
+                var defsResult = GetDefsFromCrossRef(crossRef);
+                if (defsResult.IsSuccess)
+                {
+                    crossRef.Resolve(defsResult.Value);
+                }
+                else
+                {
+                    errors.Add(defsResult.Errors.First().Message);
+                }
             }
 
             foreach (var loadedDef in AllDefs.Values)
@@ -276,6 +286,26 @@ namespace OpenNefia.Core.Data.Serial
             CheckErrors(errors, $"Errors resolving crossreferences between defs");
 
             defDeserializer.CrossRefs.Clear();
+        }
+
+        private static Result<List<Def>> GetDefsFromCrossRef(IDefCrossRef crossRef)
+        {
+            var defs = new List<Def>();
+
+            foreach (var defIdent in crossRef.GetWantedCrossRefs())
+            {
+                var def = DefLoader.GetDef(defIdent);
+                if (def == null)
+                {
+                    return Result.Fail($"Could not find def crossreference '{defIdent}'");
+                }
+                else
+                {
+                    defs.Add(def);
+                }
+            }
+
+            return Result.Ok(defs);
         }
 
         private static bool IsEntriesType(Type arg)

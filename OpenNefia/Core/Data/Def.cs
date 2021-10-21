@@ -29,18 +29,12 @@ namespace OpenNefia.Core.Data
         public Type GetDirectDefType()
         {
             var type = this.GetType();
+            var directType = DefLoader.GetDirectDefType(type);
 
-            while (type.BaseType != null && type.BaseType != typeof(object))
-            {
-                if (type.BaseType == typeof(Def))
-                {
-                    return type;
-                }
+            if (directType == null)
+                throw new Exception($"Def type {type} is not a subclass of Def!");
 
-                type = type.BaseType;
-            }
-
-            throw new Exception($"Def type {type} is not a subclass of Def!");
+            return directType;
         }
 
         public virtual void OnResolveReferences()

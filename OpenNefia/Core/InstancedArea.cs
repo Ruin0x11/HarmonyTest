@@ -5,10 +5,16 @@ namespace OpenNefia.Core.Data.Types
 {
     public sealed class InstancedArea : IDataExposable
     {
-        private class AreaFloor
+        private struct AreaFloor
         {
-            public int Floor;
-            public ulong MapUid;
+            public int Floor { get; }
+            public ulong MapUid { get; }
+
+            public AreaFloor(int floor, ulong mapUid)
+            {
+                Floor = floor;
+                MapUid = mapUid;
+            }
         }
 
         public bool IsTrackedBySave { get => false; }

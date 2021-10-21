@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Data.Serial;
+﻿using FluentResults;
+using OpenNefia.Core.Data.Serial;
 using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,54 @@ namespace OpenNefia.Core.Data
     public static class DefTypes
     {
         private static Dictionary<string, Type> Storage = new Dictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase);
+        private static Dictionary<string, Type> ShortNameToDefDeserializableType = new Dictionary<string, Type>();
+        private static Dictionary<string, List<Type>> AmbiguousShortNameDefDeserTypes = new Dictionary<string, List<Type>>();
 
         public static IEnumerable<Type> AllDefTypes { get => Storage.Values; }
 
         public static Type? GetDefTypeFromName(string name)
         {
             return Storage.TryGetValue(name, out var type) ? type : null;
+        }
+
+        /// <summary>
+        /// Core.Elona122MapLoader -> OpenNefia.Core.Map.Generator.Elona122MapLoader
+        /// </summary>
+        /// <returns></returns>
+        public static Result<Type> FindDefDeserializableTypeFromName(string name, Type baseType)
+        {
+            Type? type = null;
+            if (AmbiguousShortNameDefDeserTypes.TryGetValue(name, out var types))
+            {
+                var ambiguous = types.Where(x => baseType.IsAssignableFrom(x)).ToList();
+
+                if (ambiguous.Count == 0)
+                {
+                    type = null;
+                }
+                else if (ambiguous.Count == 1)
+                {
+                    type = ambiguous[0];
+                }
+                else
+                {
+                    var typeNames = String.Join(", ", ambiguous.Select(ty => ty.FullName));
+                    throw new Exception($"Short class name '{name}' is ambiguous between the following types: {typeNames}");
+                }
+            }
+
+            type = type ?? ShortNameToDefDeserializableType.GetValueOrDefault(name) ?? Type.GetType(name);
+
+            if (type == null)
+            {
+                return Result.Fail($"Could not find fully qualified or shortened type with name '{name}'");
+            }
+            else if (!baseType.IsAssignableFrom(type))
+            {
+                return Result.Fail($"Type '{type}' is not convertable to base type '{baseType}");
+            }
+
+            return Result.Ok(type);
         }
 
         internal static void ScanAllTypes()
@@ -32,20 +75,42 @@ namespace OpenNefia.Core.Data
 
                 if (containingMod != null)
                 {
-                    var defTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Def)));
-
-                    foreach (var ty in defTypes)
+                    foreach (var ty in assembly.GetTypes())
                     {
-                        var fullTypeName = $"{containingMod.Metadata.Name}.{ty.Name}";
-                        
-                        Storage[fullTypeName] = ty;
-
-                        // Allow omitting the namespace if this Def comes from the Core mod
-                        // (<Core.AssetDef/> -> <AssetDef/>)
-                        // TODO: Maybe allow this for external mods, too.
-                        if (containingMod.Instance?.GetType() == typeof(CoreMod))
+                        if (ty.IsSubclassOf(typeof(Def)))
                         {
-                            Storage[ty.Name] = ty;
+                            var fullTypeName = $"{containingMod.Metadata.Name}.{ty.Name}";
+
+                            Storage[fullTypeName] = ty;
+
+                            // Allow omitting the namespace if this Def comes from the Core mod
+                            // (<Core.AssetDef/> -> <AssetDef/>)
+                            // TODO: Maybe allow this for external mods, too.
+                            if (containingMod.Instance?.GetType() == typeof(CoreMod))
+                            {
+                                Storage[ty.Name] = ty;
+                            }
+                        }
+
+                        if (typeof(IDefDeserializable).IsAssignableFrom(ty))
+                        {
+                            var shortName = $"{containingMod.Metadata.Name}.{ty.Name}";
+
+                            if (ShortNameToDefDeserializableType.ContainsKey(shortName))
+                            {
+                                if (AmbiguousShortNameDefDeserTypes.TryGetValue(shortName, out var types))
+                                {
+                                    types.Add(ty);
+                                }
+                                else
+                                {
+                                    AmbiguousShortNameDefDeserTypes[shortName] = new List<Type>() { ty };
+                                }
+                            }
+                            else
+                            {
+                                ShortNameToDefDeserializableType.Add(shortName, ty);
+                            }
                         }
                     }
                 }

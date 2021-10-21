@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Data.Serial.CrossRefs;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Mod;
 using System;
@@ -85,7 +86,11 @@ namespace OpenNefia.Core.Data.Types
             var bgColor = node.Attribute("BgColor");
             if (bgColor != null)
             {
-                deserializer.AddCrossRef<FontDef, ColorDef>(this, bgColor.Value, (o, colorDef) => o.ExtraColors.Add(ColorKinds.Background, colorDef));
+                var crossRef = new DefCustomCrossRef<FontDef, ColorDef>(
+                    new List<string>() { bgColor.Value }, 
+                    this, 
+                    (o, colorDefs) => o.ExtraColors.Add(ColorKinds.Background, colorDefs.First()));
+                deserializer.AddCrossRef(crossRef);
             }
         }
 
