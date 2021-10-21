@@ -1,360 +1,360 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
     <SoundDef ElonaId="21" Id="Alert1">
-        <Filepath>Assets/Sound/alert1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/alert1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="90" Id="Ammo">
-        <Filepath>Assets/Sound/ammo.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ammo.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="36" Id="Arrow1">
-        <Filepath>Assets/Sound/arrow1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/arrow1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="2" Id="Atk1">
-        <Filepath>Assets/Sound/atk1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="3" Id="Atk2">
-        <Filepath>Assets/Sound/atk2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="114" Id="AtkChaos">
-        <Filepath>Assets/Sound/atk_chaos.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_chaos.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="115" Id="AtkDark">
-        <Filepath>Assets/Sound/atk_dark.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_dark.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="107" Id="AtkElec">
-        <Filepath>Assets/Sound/atk_elec.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_elec.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="108" Id="AtkFire">
-        <Filepath>Assets/Sound/atk_fire.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_fire.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="109" Id="AtkHell">
-        <Filepath>Assets/Sound/atk_hell.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_hell.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="106" Id="AtkIce">
-        <Filepath>Assets/Sound/atk_ice.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_ice.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="113" Id="AtkMind">
-        <Filepath>Assets/Sound/atk_mind.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_mind.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="111" Id="AtkNerve">
-        <Filepath>Assets/Sound/atk_nerve.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_nerve.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="110" Id="AtkPoison">
-        <Filepath>Assets/Sound/atk_poison.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_poison.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="112" Id="AtkSound">
-        <Filepath>Assets/Sound/atk_sound.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atk_sound.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="105" Id="Atksword">
-        <Filepath>Assets/Sound/atksword.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/atksword.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="34" Id="Ball1">
-        <Filepath>Assets/Sound/ball1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ball1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="73" Id="Bash1">
-        <Filepath>Assets/Sound/bash1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bash1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="80" Id="BgFire">
-        <Filepath>Assets/Sound/bg_fire.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_fire.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="75" Id="BgRain">
-        <Filepath>Assets/Sound/bg_rain.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_rain.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="78" Id="BgSea">
-        <Filepath>Assets/Sound/bg_sea.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_sea.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="76" Id="BgThunder">
-        <Filepath>Assets/Sound/bg_thunder.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_thunder.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="79" Id="BgTown">
-        <Filepath>Assets/Sound/bg_town.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_town.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="77" Id="BgWind">
-        <Filepath>Assets/Sound/bg_wind.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bg_wind.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="37" Id="Bolt1">
-        <Filepath>Assets/Sound/bolt1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bolt1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="59" Id="Book1">
-        <Filepath>Assets/Sound/book1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/book1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="29" Id="Bow1">
-        <Filepath>Assets/Sound/bow1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bow1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="35" Id="Breath1">
-        <Filepath>Assets/Sound/breath1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/breath1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="58" Id="Build1">
-        <Filepath>Assets/Sound/build1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/build1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="55" Id="Bush1">
-        <Filepath>Assets/Sound/bush1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/bush1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="71" Id="Card1">
-        <Filepath>Assets/Sound/card1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/card1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="94" Id="Chara">
-        <Filepath>Assets/Sound/chara.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/chara.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="99" Id="Chat">
-        <Filepath>Assets/Sound/chat.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/chat.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="69" Id="Cheer">
-        <Filepath>Assets/Sound/cheer.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/cheer.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="23" Id="Chest1">
-        <Filepath>Assets/Sound/chest1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/chest1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="53" Id="Chime">
-        <Filepath>Assets/Sound/chime.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/chime.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="40" Id="Click1">
-        <Filepath>Assets/Sound/click1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/click1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="51" Id="Complete1">
-        <Filepath>Assets/Sound/complete1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/complete1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="25" Id="Cook1">
-        <Filepath>Assets/Sound/cook1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/cook1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="45" Id="Crush1">
-        <Filepath>Assets/Sound/crush1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/crush1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="47" Id="Crush2">
-        <Filepath>Assets/Sound/crush2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/crush2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="38" Id="Curse1">
-        <Filepath>Assets/Sound/curse1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/curse1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="116" Id="Curse2">
-        <Filepath>Assets/Sound/curse2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/curse2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="117" Id="Curse3">
-        <Filepath>Assets/Sound/curse3.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/curse3.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="5" Id="Cursor1">
-        <Filepath>Assets/Sound/cursor1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/cursor1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="50" Id="Dead1">
-        <Filepath>Assets/Sound/dead1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/dead1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="103" Id="Dice">
-        <Filepath>Assets/Sound/dice.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/dice.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="52" Id="Dig1">
-        <Filepath>Assets/Sound/dig1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/dig1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="54" Id="Dig2">
-        <Filepath>Assets/Sound/dig2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/dig2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="60" Id="Ding1">
-        <Filepath>Assets/Sound/ding1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ding1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="24" Id="Ding2">
-        <Filepath>Assets/Sound/ding2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ding2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="61" Id="Ding3">
-        <Filepath>Assets/Sound/ding3.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ding3.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="48" Id="Door1">
-        <Filepath>Assets/Sound/door1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/door1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="67" Id="Door2">
-        <Filepath>Assets/Sound/door2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/door2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="17" Id="Drink1">
-        <Filepath>Assets/Sound/drink1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/drink1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="16" Id="Drop1">
-        <Filepath>Assets/Sound/drop1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/drop1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="18" Id="Eat1">
-        <Filepath>Assets/Sound/eat1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/eat1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="119" Id="Enc2">
-        <Filepath>Assets/Sound/enc2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/enc2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="118" Id="Enc">
-        <Filepath>Assets/Sound/enc.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/enc.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="13" Id="Equip1">
-        <Filepath>Assets/Sound/equip1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/equip1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="49" Id="Exitmap1">
-        <Filepath>Assets/Sound/exitmap1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/exitmap1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="27" Id="Fail1">
-        <Filepath>Assets/Sound/fail1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fail1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="96" Id="Feat">
-        <Filepath>Assets/Sound/feat.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/feat.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="6" Id="Fire1">
-        <Filepath>Assets/Sound/fire1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fire1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="87" Id="FishCast">
-        <Filepath>Assets/Sound/fish_cast.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fish_cast.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="89" Id="FishFight">
-        <Filepath>Assets/Sound/fish_fight.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fish_fight.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="88" Id="FishGet">
-        <Filepath>Assets/Sound/fish_get.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fish_get.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="66" Id="Fizzle">
-        <Filepath>Assets/Sound/fizzle.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/fizzle.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="81" Id="Foot1a">
-        <Filepath>Assets/Sound/foot1a.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot1a.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="82" Id="Foot1b">
-        <Filepath>Assets/Sound/foot1b.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot1b.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="83" Id="Foot2a">
-        <Filepath>Assets/Sound/foot2a.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot2a.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="84" Id="Foot2b">
-        <Filepath>Assets/Sound/foot2b.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot2b.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="85" Id="Foot2c">
-        <Filepath>Assets/Sound/foot2c.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot2c.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="43" Id="Foot">
-        <Filepath>Assets/Sound/foot.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/foot.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="56" Id="Gasha">
-        <Filepath>Assets/Sound/gasha.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/gasha.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="14" Id="Get1">
-        <Filepath>Assets/Sound/get1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/get1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="15" Id="Get2">
-        <Filepath>Assets/Sound/get2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/get2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="41" Id="Get3">
-        <Filepath>Assets/Sound/get3.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/get3.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="11" Id="Getgold1">
-        <Filepath>Assets/Sound/getgold1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/getgold1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="30" Id="Gun1">
-        <Filepath>Assets/Sound/gun1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/gun1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="33" Id="Heal1">
-        <Filepath>Assets/Sound/heal1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/heal1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="33" Id="Heart1">
-        <Filepath>Assets/Sound/Heart1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/Heart1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="100" Id="Inv">
-        <Filepath>Assets/Sound/inv.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/inv.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="8" Id="Kill1">
-        <Filepath>Assets/Sound/kill1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/kill1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="9" Id="Kill2">
-        <Filepath>Assets/Sound/kill2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/kill2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="42" Id="Laser1">
-        <Filepath>Assets/Sound/laser1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/laser1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="22" Id="Locked1">
-        <Filepath>Assets/Sound/locked1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/locked1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="93" Id="Log">
-        <Filepath>Assets/Sound/log.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/log.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="4" Id="Miss">
-        <Filepath>Assets/Sound/miss.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/miss.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="10" Id="More1">
-        <Filepath>Assets/Sound/more1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/more1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="74" Id="Night">
-        <Filepath>Assets/Sound/night.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/night.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="65" Id="Offer1">
-        <Filepath>Assets/Sound/offer1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/offer1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="121" Id="Offer2">
-        <Filepath>Assets/Sound/offer2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/offer2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="20" Id="Ok1">
-        <Filepath>Assets/Sound/ok1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/ok1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="12" Id="Paygold1">
-        <Filepath>Assets/Sound/paygold1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/paygold1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="1" Id="Pop1">
-        <Filepath>Assets/Sound/pop1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pop1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="26" Id="Pop2">
-        <Filepath>Assets/Sound/pop2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pop2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="39" Id="Pop3">
-        <Filepath>Assets/Sound/pop3.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pop3.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="62" Id="Pop4">
-        <Filepath>Assets/Sound/pop4.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pop4.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="97" Id="Port">
-        <Filepath>Assets/Sound/port.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/port.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="64" Id="Pray1">
-        <Filepath>Assets/Sound/pray1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pray1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="120" Id="Pray2">
-        <Filepath>Assets/Sound/pray2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/pray2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="63" Id="Punish1">
-        <Filepath>Assets/Sound/punish1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/punish1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="92" Id="Scroll">
-        <Filepath>Assets/Sound/scroll.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/scroll.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="101" Id="Skill">
-        <Filepath>Assets/Sound/skill.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/skill.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="86" Id="Snow">
-        <Filepath>Assets/Sound/snow.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/snow.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="102" Id="Spell">
-        <Filepath>Assets/Sound/spell.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/spell.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="19" Id="Spend1">
-        <Filepath>Assets/Sound/spend1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/spend1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="72" Id="Teleport1">
-        <Filepath>Assets/Sound/teleport1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/teleport1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="31" Id="Throw1">
-        <Filepath>Assets/Sound/throw1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/throw1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="91" Id="Throw2">
-        <Filepath>Assets/Sound/throw2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/throw2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="70" Id="Trap1">
-        <Filepath>Assets/Sound/trap1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/trap1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="98" Id="Unpop1">
-        <Filepath>Assets/Sound/unpop1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/unpop1.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="104" Id="Vomit">
-        <Filepath>Assets/Sound/vomit.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/vomit.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="46" Id="Water2">
-        <Filepath>Assets/Sound/water2.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/water2.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="57" Id="Water">
-        <Filepath>Assets/Sound/water.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/water.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="95" Id="Wear">
-        <Filepath>Assets/Sound/wear.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/wear.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="68" Id="Web">
-        <Filepath>Assets/Sound/web.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/web.wav</Filepath>
     </SoundDef>
     <SoundDef ElonaId="44" Id="Write1">
-        <Filepath>Assets/Sound/write1.wav</Filepath>
+        <Filepath>Assets/Elona/Sound/write1.wav</Filepath>
     </SoundDef>
 </Defs>

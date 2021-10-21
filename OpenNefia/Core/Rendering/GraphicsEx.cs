@@ -131,7 +131,7 @@ namespace OpenNefia.Core.Rendering
         }
 
         private static Dictionary<int, Love.Font> FontCache = new Dictionary<int, Love.Font>();
-        private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/Font/MS-Gothic.ttf");
+        private static IResourcePath FONT_PATH = new ModLocalPath(typeof(CoreMod), "Assets/Core/Font/kochi-gothic-subst.ttf");
 
         public static void SetFont(int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
         {

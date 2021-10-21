@@ -5,27 +5,27 @@
   </MapDef>
   <MapDef ElonaId="4" Id="NorthTyris">
     <Generator Class="Core.Elona122MapLoader">
-      <IdxFilePath>Assets/Map/ntyris.idx</IdxFilePath>
+      <IdxFilePath>Assets/Elona/Map/ntyris.idx</IdxFilePath>
     </Generator>
   </MapDef>
   <MapDef ElonaId="5" Id="Vernis">
     <Generator Class="Core.Elona122MapLoader">
-      <IdxFilePath>Assets/Map/vernis.idx</IdxFilePath>
+      <IdxFilePath>Assets/Elona/Map/vernis.idx</IdxFilePath>
     </Generator>
   </MapDef>
   <MapDef Id="Vernis_TheMine">
     <Generator Class="Core.Elona122MapLoader">
-      <IdxFilePath>Assets/Map/puti.idx</IdxFilePath>
+      <IdxFilePath>Assets/Elona/Map/puti.idx</IdxFilePath>
     </Generator>
   </MapDef>
   <MapDef Id="Vernis_RobbersHideout">
     <Generator Class="Core.Elona122MapLoader">
-      <IdxFilePath>Assets/Map/sqRogue.idx</IdxFilePath>
+      <IdxFilePath>Assets/Elona/Map/sqRogue.idx</IdxFilePath>
     </Generator>
   </MapDef>
   <MapDef Id="Vernis_TestSite">
     <Generator Class="Core.Elona122MapLoader">
-      <IdxFilePath>Assets/Map/sqNightmare.idx</IdxFilePath>
+      <IdxFilePath>Assets/Elona/Map/sqNightmare.idx</IdxFilePath>
     </Generator>
   </MapDef>
 </Defs>

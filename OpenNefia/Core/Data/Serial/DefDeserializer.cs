@@ -634,7 +634,7 @@ namespace OpenNefia.Core.Data.Serial
                         }
                         keyList.Add(keyResult.Value);
 
-                        var valueResult = DeserializeValueType(keyAttr.Value, valueTy, containingModType);
+                        var valueResult = DeserializeValueType(valueAttr.Value, valueTy, containingModType);
                         if (valueResult.IsFailed)
                         {
                             return valueResult;
@@ -643,22 +643,22 @@ namespace OpenNefia.Core.Data.Serial
                     }
                     else
                     {
-                        var keyElem = childElement.Attribute(keyName);
-                        var valueElem = childElement.Attribute(valueName);
+                        var keyElem = childElement.Element(keyName);
+                        var valueElem = childElement.Element(valueName);
 
                         if (keyElem == null || valueElem == null)
                         {
                             return Result.Fail($"Expected dictionary to have entries like <{entryName}><{keyName}/><{valueName}/></{entryName}> (type {ty})");
                         }
 
-                        var keyResult = DeserializeValueOrObject(childElement, keyTy, containingModType);
+                        var keyResult = DeserializeValueOrObject(keyElem, keyTy, containingModType);
                         if (keyResult.IsFailed)
                         {
                             return keyResult;
                         }
                         keyList.Add(keyResult.Value);
 
-                        var valueResult = DeserializeValueOrObject(childElement, valueTy, containingModType);
+                        var valueResult = DeserializeValueOrObject(valueElem, valueTy, containingModType);
                         if (valueResult.IsFailed)
                         {
                             return valueResult;

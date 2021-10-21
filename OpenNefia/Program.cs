@@ -33,7 +33,7 @@ namespace OpenNefia
             Boot.Init(bootConfig);
             Timer.Step();
 
-            var iconData = Love.Image.NewImageData("Assets/Icon/icon.png");
+            var iconData = Love.Image.NewImageData("Assets/Core/Icon/icon.png");
             Love.Window.SetIcon(iconData);
 
             Engine.MainCode(args);

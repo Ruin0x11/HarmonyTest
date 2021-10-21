@@ -12,6 +12,7 @@ namespace OpenNefia.Mod
     {
         public ModInfo ModInfo { get; }
         public string Subpath { get; }
+        private string _path;
 
         public Type ModType { get => this.ModInfo.Instance!.GetType(); }
 
@@ -25,6 +26,7 @@ namespace OpenNefia.Mod
             }
             ModInfo = modInfo;
             Subpath = subpath;
+            _path = Path.Combine(ModInfo.WorkingDirectory, Subpath).Replace("/", "\\");
         }
 
         public ModLocalPath(BaseMod mod, string subpath) : this(mod.GetType(), subpath) { }
@@ -32,7 +34,7 @@ namespace OpenNefia.Mod
 
         public string Resolve()
         {
-            return Path.Combine(ModInfo.WorkingDirectory, Subpath).Replace("/", "\\");
+            return _path;
         }
 
         public ModLocalPath Join(string other)

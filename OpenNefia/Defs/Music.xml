@@ -1,147 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<MusicDef ElonaId="50" Id="Reset">
-		<Filepath>Assets/Sound/gm_on.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/gm_on.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="51" Id="Town1">
-		<Filepath>Assets/Sound/pop01.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/pop01.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="52" Id="Town2">
-		<Filepath>Assets/Sound/morning_breeze.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/morning_breeze.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="53" Id="Town3">
-		<Filepath>Assets/Sound/happymarch.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/happymarch.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="54" Id="Town4">
-		<Filepath>Assets/Sound/xp_field7.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/xp_field7.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="55" Id="Dungeon1">
-		<Filepath>Assets/Sound/pop03.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/pop03.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="56" Id="Dungeon2">
-		<Filepath>Assets/Sound/PSML522.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML522.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="57" Id="Dungeon3">
-		<Filepath>Assets/Sound/PSML514.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML514.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="58" Id="Dungeon4">
-		<Filepath>Assets/Sound/PSML507.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML507.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="59" Id="Dungeon5">
-		<Filepath>Assets/Sound/fantasy04.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/fantasy04.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="60" Id="Dungeon6">
-		<Filepath>Assets/Sound/fantasy03.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/fantasy03.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="61" Id="Puti">
-		<Filepath>Assets/Sound/dwarf.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/dwarf.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="62" Id="Boss">
-		<Filepath>Assets/Sound/battle1.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/battle1.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="63" Id="Boss2">
-		<Filepath>Assets/Sound/climax.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/climax.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="64" Id="Victory">
-		<Filepath>Assets/Sound/orc05.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc05.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="65" Id="Opening">
-		<Filepath>Assets/Sound/orc01.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc01.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="66" Id="LastBoss">
-		<Filepath>Assets/Sound/orc03.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc03.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="67" Id="Home">
-		<Filepath>Assets/Sound/PSML516.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML516.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="68" Id="Lonely">
-		<Filepath>Assets/Sound/PSML060.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML060.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="69" Id="Chaos">
-		<Filepath>Assets/Sound/fantasy01.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/fantasy01.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="70" Id="March1">
-		<Filepath>Assets/Sound/orc06.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc06.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="71" Id="March2">
-		<Filepath>Assets/Sound/orc02.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc02.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="72" Id="March3">
-		<Filepath>Assets/Sound/orc04.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc04.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="73" Id="Arena">
-		<Filepath>Assets/Sound/victory.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/victory.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="74" Id="Fanfare">
-		<Filepath>Assets/Sound/fanfare.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/fanfare.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="75" Id="Village1">
-		<Filepath>Assets/Sound/cobalt.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/cobalt.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="76" Id="Battle1">
-		<Filepath>Assets/Sound/battle3.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/battle3.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="77" Id="Casino">
-		<Filepath>Assets/Sound/town2l.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/town2l.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="78" Id="Coda">
-		<Filepath>Assets/Sound/epi1coda.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/epi1coda.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="79" Id="Ruin">
-		<Filepath>Assets/Sound/ruins1.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/ruins1.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="80" Id="Wedding">
-		<Filepath>Assets/Sound/PSML052.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML052.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="81" Id="PetArena">
-		<Filepath>Assets/Sound/main2.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/main2.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="82" Id="Unrest">
-		<Filepath>Assets/Sound/PSML514.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML514.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="83" Id="Town5">
-		<Filepath>Assets/Sound/PSML047.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML047.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="84" Id="Unrest2">
-		<Filepath>Assets/Sound/xp_shrine2.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/xp_shrine2.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="85" Id="Town6">
-		<Filepath>Assets/Sound/morning_breeze.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/morning_breeze.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="86" Id="Field1">
-		<Filepath>Assets/Sound/orc04.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/orc04.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="87" Id="Field2">
-		<Filepath>Assets/Sound/xp_field2.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/xp_field2.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="88" Id="Field3">
-		<Filepath>Assets/Sound/xp_field4.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/xp_field4.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="89" Id="Memory">
-		<Filepath>Assets/Sound/memory.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/memory.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="90" Id="Intro">
-		<Filepath>Assets/Sound/field1_d.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/field1_d.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="91" Id="Soraochi">
-		<Filepath>Assets/Sound/soraochi.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/soraochi.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="92" Id="Psml515">
-		<Filepath>Assets/Sound/PSML515.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML515.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="93" Id="Psml035">
-		<Filepath>Assets/Sound/PSML035.MID</Filepath>
+		<Filepath>Assets/Elona/Sound/PSML035.MID</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="94" Id="Pinch2">
-		<Filepath>Assets/Sound/pinch2.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/pinch2.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="95" Id="Memory2">
-		<Filepath>Assets/Sound/memory2.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/memory2.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="96" Id="AnoSora">
-		<Filepath>Assets/Sound/AnoSora.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/AnoSora.mid</Filepath>
 	</MusicDef>
 	<MusicDef ElonaId="97" Id="Epilogue">
-		<Filepath>Assets/Sound/xp_epilogue1.mid</Filepath>
+		<Filepath>Assets/Elona/Sound/xp_epilogue1.mid</Filepath>
 	</MusicDef>
 </Defs>
