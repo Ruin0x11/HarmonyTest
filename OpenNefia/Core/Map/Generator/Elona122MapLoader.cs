@@ -6,6 +6,7 @@ using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,11 @@ namespace OpenNefia.Core.Map.Generator
             return mapping;
         }
 
+        private BinaryReader OpenFileStreamGzip(string path)
+        {
+            return new BinaryReader(new GZipStream(File.Open(path, FileMode.Open), CompressionMode.Decompress));
+        }
+
         public override Result<InstancedMap> Generate(MapDef mapDef, InstancedArea area, int floor)
         {
             var fileBaseName = PathUtils.GetFullPathWithoutExtension(IdxFilePath);
@@ -58,7 +64,7 @@ namespace OpenNefia.Core.Map.Generator
             InstancedMap map;
             int width, height, atlasNum, regen, stairUpPos;
 
-            using (var reader = new BinaryReader(File.Open(IdxFilePath, FileMode.Open)))
+            using (var reader = OpenFileStreamGzip(IdxFilePath))
             {
                 width = reader.ReadInt32();
                 height = reader.ReadInt32();
@@ -71,7 +77,7 @@ namespace OpenNefia.Core.Map.Generator
 
             var tileMapping = BuildTileMapping(atlasNum);
 
-            using (var reader = new BinaryReader(File.Open(mapFilePath, FileMode.Open)))
+            using (var reader = OpenFileStreamGzip(mapFilePath))
             {
                 for (int y = 0; y < map.Height; y++)
                 {

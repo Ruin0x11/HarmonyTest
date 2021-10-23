@@ -37,8 +37,8 @@ namespace OpenNefia.Core.Rendering
             var mapScreenWidth = tiledWidth * TileWidth;
             var mapScreenHeight = tiledHeight * TileHeight;
 
-            var maxX = mapScreenWidth - viewportWidth;
-            var maxY = mapScreenHeight - viewportHeight;
+            var maxX = Math.Max(mapScreenWidth - viewportWidth, 0);
+            var maxY = Math.Max(mapScreenHeight - viewportHeight, 0);
 
             drawX = Math.Clamp(-screenX + viewportWidth / 2, -maxX, 0) ;
             drawY = Math.Clamp(-screenY + viewportHeight / 2, -maxY, 0) ;

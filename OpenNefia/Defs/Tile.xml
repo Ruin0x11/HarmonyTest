@@ -3300,27 +3300,27 @@
     <IsOpaque>false</IsOpaque>
   </TileDef>
   <TileDef Id="MapgenDefault">
-    <Image>Assets/Elona/Graphic/default/floor.png</Image>
+    <Image>Assets/Core/Graphic/Tile/Default.png</Image>
     <IsSolid>true</IsSolid>
     <IsOpaque>false</IsOpaque>
   </TileDef>
   <TileDef Id="MapgenTunnel">
-    <Image>Assets/Elona/Graphic/default/floor.png</Image>
+    <Image>Assets/Core/Graphic/Tile/Default.png</Image>
     <IsSolid>false</IsSolid>
     <IsOpaque>false</IsOpaque>
   </TileDef>
   <TileDef Id="MapgenWall">
-    <Image>Assets/Elona/Graphic/default/floor.png</Image>
+    <Image>Assets/Core/Graphic/Tile/Default.png</Image>
     <IsSolid>true</IsSolid>
     <IsOpaque>false</IsOpaque>
   </TileDef>
   <TileDef Id="MapgenRoom">
-    <Image>Assets/Elona/Graphic/default/floor.png</Image>
+    <Image>Assets/Core/Graphic/Tile/Default.png</Image>
     <IsSolid>false</IsSolid>
     <IsOpaque>false</IsOpaque>
   </TileDef>
   <TileDef Id="MapgenFog">
-    <Image>Assets/Elona/Graphic/default/floor.png</Image>
+    <Image>Assets/Core/Graphic/Tile/Default.png</Image>
     <IsSolid>true</IsSolid>
     <IsOpaque>false</IsOpaque>
   </TileDef>
