@@ -118,7 +118,7 @@ namespace OpenNefia.Game
 
         internal void OnQuit()
         {
-            Gui.StopMusic();
+            Core.Sound.StopMusic();
             Console.WriteLine("Quitting game.");
             Environment.Exit(0);
         }

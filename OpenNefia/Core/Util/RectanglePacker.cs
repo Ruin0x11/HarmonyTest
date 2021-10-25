@@ -113,7 +113,7 @@ namespace OpenNefia.Core.Util
         ///   packing area (their 'rank') so the packer favors positions that are closer to
         ///   the upper left for new rectangles.
         /// </remarks>
-        private class AnchorRankComparer : IComparer<Point>
+        private class AnchorRankComparer : IComparer<Point2i>
         {
 
             /// <summary>Provides a default instance for the anchor rank comparer</summary>
@@ -123,10 +123,10 @@ namespace OpenNefia.Core.Util
             /// <param name="left">Left anchor point that will be compared</param>
             /// <param name="right">Right anchor point that will be compared</param>
             /// <returns>The relation of the two anchor point's ranks to each other</returns>
-            public int Compare(Point left, Point right)
+            public int Compare(Point2i left, Point2i right)
             {
                 //return Math.Min(left.x, left.y) - Math.Min(right.x, right.y);
-                return (left.x + left.y) - (right.x + right.y);
+                return (left.X + left.Y) - (right.X + right.Y);
             }
 
         }
@@ -147,8 +147,8 @@ namespace OpenNefia.Core.Util
             this.packingAreaHeight = packingAreaHeight;
 
             this.packedRectangles = new List<PackingRectangle>();
-            this.anchors = new List<Point>();
-            this.anchors.Add(new Point(0, 0));
+            this.anchors = new List<Point2i>();
+            this.anchors.Add(new Point2i(0, 0));
 
             this.actualPackingAreaWidth = 1;
             this.actualPackingAreaHeight = 1;
@@ -164,7 +164,7 @@ namespace OpenNefia.Core.Util
             outX = 0;
             outY = 0;
 
-            Point placement = Point.Zero;
+            Point2i placement = Point2i.Zero;
             // Try to find an anchor where the rectangle fits in, enlarging the packing
             // area and repeating the search recursively until it fits or the
             // maximum allowed size is exceeded.
@@ -191,23 +191,23 @@ namespace OpenNefia.Core.Util
                 // The anchor is only removed if the placement optimization didn't
                 // move the rectangle so far that the anchor isn't blocked anymore
                 bool blocksAnchor =
-                  ((placement.x + rectangleWidth) > this.anchors[anchorIndex].x) &&
-                  ((placement.y + rectangleHeight) > this.anchors[anchorIndex].y);
+                  ((placement.X + rectangleWidth) > this.anchors[anchorIndex].X) &&
+                  ((placement.Y + rectangleHeight) > this.anchors[anchorIndex].Y);
 
                 if (blocksAnchor)
                     this.anchors.RemoveAt(anchorIndex);
 
                 // Add new anchors at the upper right and lower left coordinates of the rectangle
-                insertAnchor(new Point(placement.x + rectangleWidth, placement.y));
-                insertAnchor(new Point(placement.x, placement.y + rectangleHeight));
+                insertAnchor(new Point2i(placement.X + rectangleWidth, placement.Y));
+                insertAnchor(new Point2i(placement.X, placement.Y + rectangleHeight));
             }
 
             // Finally, we can add the rectangle to our packed rectangles list
-            this.packedRectangles.Add(new PackingRectangle(placement.x, placement.y, rectangleWidth, rectangleHeight)
+            this.packedRectangles.Add(new PackingRectangle(placement.X, placement.Y, rectangleWidth, rectangleHeight)
             );
 
-            outX = placement.x;
-            outY = placement.y;
+            outX = placement.X;
+            outY = placement.Y;
 
             return true;
         }
@@ -221,15 +221,15 @@ namespace OpenNefia.Core.Util
         /// <param name="rectangleWidth">Width of the rectangle to be optimized</param>
         /// <param name="rectangleHeight">Height of the rectangle to be optimized</param>
         private void optimizePlacement(
-          ref Point placement, int rectangleWidth, int rectangleHeight
+          ref Point2i placement, int rectangleWidth, int rectangleHeight
         )
         {
             PackingRectangle rectangle = new PackingRectangle(
-            placement.x, placement.y, rectangleWidth, rectangleHeight
+            placement.X, placement.Y, rectangleWidth, rectangleHeight
           );
 
             // Try to move the rectangle to the left as far as possible
-            int leftMost = placement.x;
+            int leftMost = placement.X;
             while (isFree(ref rectangle, packingAreaWidth, packingAreaHeight))
             {
                 leftMost = rectangle.x;
@@ -237,10 +237,10 @@ namespace OpenNefia.Core.Util
             }
 
             // Reset rectangle to original position
-            rectangle.x = placement.x;
+            rectangle.x = placement.X;
 
             // Try to move the rectangle upwards as far as possible
-            int topMost = placement.y;
+            int topMost = placement.Y;
             while (isFree(ref rectangle, packingAreaWidth, packingAreaHeight))
             {
                 topMost = rectangle.y;
@@ -248,10 +248,10 @@ namespace OpenNefia.Core.Util
             }
 
             // Use the dimension in which the rectangle could be moved farther
-            if ((placement.x - leftMost) > (placement.y - topMost))
-                placement.x = leftMost;
+            if ((placement.X - leftMost) > (placement.Y - topMost))
+                placement.X = leftMost;
             else
-                placement.y = topMost;
+                placement.Y = topMost;
         }
 
         /// <summary>
@@ -355,8 +355,8 @@ namespace OpenNefia.Core.Util
             // can house the new rectangle.
             for (int index = 0; index < this.anchors.Count; ++index)
             {
-                potentialLocation.x = this.anchors[index].x;
-                potentialLocation.y = this.anchors[index].y;
+                potentialLocation.x = this.anchors[index].X;
+                potentialLocation.y = this.anchors[index].Y;
 
                 // See if the rectangle would fit in at this anchor point
                 if (isFree(ref potentialLocation, testedPackingAreaWidth, testedPackingAreaHeight))
@@ -413,7 +413,7 @@ namespace OpenNefia.Core.Util
         ///   This method tries to keep the anchor list ordered by ranking the anchors
         ///   depending on the distance from the top left corner in the packing area.
         /// </remarks>
-        private void insertAnchor(Point anchor)
+        private void insertAnchor(Point2i anchor)
         {
 
             // Find out where to insert the new anchor based on its rank (which is
@@ -441,7 +441,7 @@ namespace OpenNefia.Core.Util
         /// <summary>Rectangles contained in the packing area</summary>
         private List<PackingRectangle> packedRectangles;
         /// <summary>Anchoring points where new rectangles can potentially be placed</summary>
-        private List<Point> anchors;
+        private List<Point2i> anchors;
 
     }
 

@@ -71,7 +71,7 @@ namespace OpenNefia.Core.UI.Layer
             //this.InitMap();
             
             var player = new Chara(ChipDefOf.CharaChicken);
-            Map.TakeObject(player, 2, 2);
+            Map.TakeOrTransferObject(player, 2, 2);
             Current.Player = player;
 
             Scroller = new UiScroller();
@@ -167,11 +167,11 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null && player.TakeItem(item))
                 {
-                    Gui.PlaySound(SoundDefOf.Get1, player.X, player.Y);
+                    Sound.PlayOneShot(SoundDefOf.Get1, player.X, player.Y);
 
                     if (item.StackAll())
                     {
-                        Gui.PlaySound(SoundDefOf.Heal1);
+                        Sound.PlayOneShot(SoundDefOf.Heal1);
                     }
                 }
             }
@@ -191,11 +191,11 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null && player.DropItem(item))
                 {
-                    Gui.PlaySound(SoundDefOf.Drop1, player.X, player.Y);
+                    Sound.PlayOneShot(SoundDefOf.Drop1, player.X, player.Y);
 
                     if (item.StackAll())
                     {
-                        Gui.PlaySound(SoundDefOf.AtkChaos);
+                        Sound.PlayOneShot(SoundDefOf.AtkChaos);
                     }
                 }
             }
@@ -306,7 +306,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Gui.PlayMusic(MusicDefOf.Field1);
+            Sound.PlayMusic(MusicDefOf.Field1);
         }
 
         private void QueryLayer()
@@ -341,7 +341,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     if (PlacingTile.IsSolid)
                     {
-                        Gui.PlaySound(SoundDefOf.Offer1, tileX, tileY);
+                        Sound.PlayOneShot(SoundDefOf.Offer1, tileX, tileY);
                     }
                     Map.SetTile(tileX, tileY, PlacingTile);
                     Map.MemorizeTile(tileX, tileY);

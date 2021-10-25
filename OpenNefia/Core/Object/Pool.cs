@@ -11,11 +11,11 @@ namespace OpenNefia.Core
 {
     public class Pool<T> : Pool, IEnumerable<T> where T : MapObject
     {
-        internal List<T> DeepObjects = new List<T>();
+        internal List<T> _DeepObjects = new List<T>();
 
-        public int Count { get => DeepObjects.Count; }
+        public override int Count { get => _DeepObjects.Count; }
 
-        public Pool(IPoolOwner owner) : base(owner)
+        public Pool(IMapObjectHolder owner) : base(owner)
         {
         }
 
@@ -32,7 +32,7 @@ namespace OpenNefia.Core
         {
             for (int i = this.Count; i >= 0; i--)
             {
-                var obj = this.DeepObjects[i];
+                var obj = this._DeepObjects[i];
                 this.DoRemove(obj);
             }
         }
@@ -41,21 +41,23 @@ namespace OpenNefia.Core
         {
             for (int i = this.Count; i >= 0; i--)
             {
-                var obj = this.DeepObjects[i];
+                var obj = this._DeepObjects[i];
                 this.DoRemove(obj);
                 obj.Destroy();
             }
         }
 
+        protected override MapObject? GetAt(int index) => this._DeepObjects[index];
+
         protected override void DoAdd(MapObject obj)
         {
-            this.DeepObjects.Add((T)obj);
+            this._DeepObjects.Add((T)obj);
             obj._PoolContainingMe = this;
         }
 
         protected override void DoRemove(MapObject obj)
         {
-            this.DeepObjects.Remove((T)obj);
+            this._DeepObjects.Remove((T)obj);
             obj._PoolContainingMe = null;
         }
 
@@ -68,34 +70,48 @@ namespace OpenNefia.Core
             return base.CanReceiveObject(obj);
         }
 
-        public override bool Contains(MapObject obj) => this.DeepObjects.Contains(obj);
+        public override bool Contains(MapObject obj) => this._DeepObjects.Contains(obj);
 
         public override void Expose(DataExposer data)
         {
             data.ExposeWeak(ref _Owner!, nameof(_Owner));
             data.ExposeValue(ref this.ExposeMode, nameof(ExposeMode));
-            data.ExposeCollection(ref DeepObjects, nameof(DeepObjects), this.ExposeMode);
+            data.ExposeCollection(ref _DeepObjects, nameof(_DeepObjects), this.ExposeMode);
             if (data.Stage == SerialStage.ResolvingRefs)
             {
-                this.DeepObjects.RemoveAll(x => x == null);
-                foreach (var obj in this.DeepObjects)
+                this._DeepObjects.RemoveAll(x => x == null);
+                foreach (var obj in this._DeepObjects)
                 {
                     obj._PoolContainingMe = this;
                 }
             }
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() => this.DeepObjects.GetEnumerator();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                yield return this._DeepObjects[i];
+            }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                yield return this.GetAt(i);
+            }
+        }
     }
 
-    public abstract class Pool : IEnumerable, IDataExposable
+    public abstract class Pool : IEnumerable<MapObject>, IDataExposable
     {
-        protected IPoolOwner? _Owner;
+        protected IMapObjectHolder? _Owner;
         protected ExposeMode ExposeMode = ExposeMode.Deep;
 
-        public IPoolOwner? Owner { get => _Owner; }
+        public IMapObjectHolder? Owner { get => _Owner; }
 
-        internal Pool(IPoolOwner owner)
+        internal Pool(IMapObjectHolder owner)
         {
             _Owner = owner;
         }
@@ -114,8 +130,10 @@ namespace OpenNefia.Core
             return this.TakeObject(obj);
         }
 
+        public abstract int Count { get; }
         protected abstract void DoAdd(MapObject obj);
         protected abstract void DoRemove(MapObject obj);
+        protected abstract MapObject? GetAt(int index);
         public abstract bool Contains(MapObject obj);
 
         public bool TakeObject(MapObject obj)
@@ -176,5 +194,21 @@ namespace OpenNefia.Core
         }
 
         public abstract void Expose(DataExposer data);
+
+        public IEnumerator<MapObject> GetEnumerator()
+        {
+            for (var i = 0; i < this.Count; i++)
+            {
+                yield return this.GetAt(i)!;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            for (var i = 0; i < this.Count; i++)
+            {
+                yield return this.GetAt(i);
+            }
+        }
     }
 }

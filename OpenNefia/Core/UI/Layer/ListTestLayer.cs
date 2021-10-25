@@ -34,7 +34,7 @@ namespace OpenNefia.Core.UI.Layer
 
             UiListEventHandler<string> printIt = (_, evt) =>
             {
-                Gui.PlaySound(SoundDefOf.Ok1);
+                Sound.PlayOneShot(SoundDefOf.Ok1);
                 Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
             };
             this.List1.EventOnActivate += printIt;
@@ -57,19 +57,19 @@ namespace OpenNefia.Core.UI.Layer
             {
                 if (this.List1.ContainsPoint(evt.X, evt.Y) && this.Index != 1)
                 {
-                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    Sound.PlayOneShot(SoundDefOf.Cursor1);
                     this.Index = 1;
                     this.SelectList(this.List1);
                 }
                 else if (this.List2.ContainsPoint(evt.X, evt.Y) && this.Index != 2)
                 {
-                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    Sound.PlayOneShot(SoundDefOf.Cursor1);
                     this.Index = 2;
                     this.SelectList(this.List2);
                 }
                 else if (this.List3.ContainsPoint(evt.X, evt.Y) && this.Index != 3)
                 {
-                    Gui.PlaySound(SoundDefOf.Cursor1);
+                    Sound.PlayOneShot(SoundDefOf.Cursor1);
                     this.Index = 3;
                     this.SelectList(this.List3);
                 }
@@ -83,12 +83,12 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Gui.PlaySound(SoundDefOf.Pop2);
+            Sound.PlayOneShot(SoundDefOf.Pop2);
         }
 
         private void NextList(int delta)
         {
-            Gui.PlaySound(SoundDefOf.Cursor1);
+            Sound.PlayOneShot(SoundDefOf.Cursor1);
 
             this.Index += delta;
             if (this.Index > 3)

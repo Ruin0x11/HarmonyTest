@@ -7,8 +7,8 @@
         Scroll,
         Spellcasting,
         Action,
-        Potion,
-        PotionThrown,
+        Drinking,
+        ThrownItem,
         PotionSpilt,
         Trap
     }

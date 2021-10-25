@@ -17,6 +17,6 @@ namespace OpenNefia.Core.Object
         /// This property is meant to be retrieved by using <see cref="ILocation.ParentLocation"/> combined with
         /// checking the <see cref="ILocation.Uid"/> of each parent, until a differing or null root storage is found.
         /// </summary>
-        public IPoolOwner? CurrentOwner { get; }
+        public IMapObjectHolder? CurrentOwner { get; }
     }
 }

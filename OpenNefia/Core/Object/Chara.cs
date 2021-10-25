@@ -17,59 +17,22 @@ namespace OpenNefia.Core.Object
         public DefStat<ChipDef> Chip;
         public Direction Direction;
 
-        private ItemInventory _Inventory;
-
-        public ItemInventory Inventory { get => _Inventory; }
+        public ItemInventory Inventory;
 
         public override bool IsInLiveState => true;
 
-        public Chara(ChipDef chip) : this()
-        {
-            Chip = new DefStat<ChipDef>(chip);
-            _Inventory = new ItemInventory(this);
-
-            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
-            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
-            Inventory.TakeObject(new Item(ChipDefOf.ItemPutitoro));
-        }
-
 #pragma warning disable CS8618
-        private Chara() : base() 
+        internal Chara(CharaDef def) : base(def) 
         {
             this.IsSolid = true;
+            this.Chip = new DefStat<ChipDef>(def.Chip);
+            this.Inventory = new ItemInventory(this);
         }
 #pragma warning restore CS8618
-
-        public static Result<Chara> Create()
-        {
-            var chara = new Chara(ChipDefOf.CharaRaceSlime);
-
-            return Result.Ok(chara);
-        }
 
         public override void Refresh()
         {
             Chip.Refresh();
-        }
-
-        public bool TakeItem(Item item)
-        {
-            if (!this.Inventory.CanReceiveObject(item))
-                return false;
-
-            return this.Inventory.TakeObject(item);
-        }
-
-        public bool DropItem(Item item)
-        {
-            var map = this.GetCurrentMap();
-            if (map == null)
-                return false;
-
-            if (!this.Inventory.HasObject(item))
-                return false;
-
-            return map.TakeObject(item, this.X, this.Y);
         }
 
         public override void Expose(DataExposer data)
@@ -78,7 +41,6 @@ namespace OpenNefia.Core.Object
 
             data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
             data.ExposeValue(ref Direction, nameof(Direction), Direction.Center);
-            data.ExposeDeep(ref _Inventory, nameof(_Inventory), this);
         }
 
         public override void ProduceMemory(MapObjectMemory memory)
@@ -88,6 +50,12 @@ namespace OpenNefia.Core.Object
             memory.IsVisible = true;
             memory.ScreenXOffset = 0;
             memory.ScreenYOffset = 0;
+        }
+
+        public override void GetChildPoolOwners(List<IMapObjectHolder> outOwners)
+        {
+            outOwners.Add(this.Inventory);
+            base.GetChildPoolOwners(outOwners);
         }
     }
 }

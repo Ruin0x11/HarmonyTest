@@ -115,12 +115,12 @@ namespace OpenNefia.Core.UI.Element.List
 
             this.Keybinds[Keybind.Entries.UIUp] += (_) =>
             {
-                Gui.PlaySound(SoundDefOf.Cursor1);
+                Sound.PlayOneShot(SoundDefOf.Cursor1);
                 this.IncrementIndex(-1);
             };
             this.Keybinds[Keybind.Entries.UIDown] += (_) =>
             {
-                Gui.PlaySound(SoundDefOf.Cursor1);
+                Sound.PlayOneShot(SoundDefOf.Cursor1);
                 this.IncrementIndex(1);
             };
             this.Keybinds[Keybind.Entries.Enter] += (_) => this.Activate(this.SelectedIndex);
@@ -133,7 +133,7 @@ namespace OpenNefia.Core.UI.Element.List
                     {
                         if (this.SelectedIndex != index)
                         {
-                            Gui.PlaySound(SoundDefOf.Cursor1);
+                            Sound.PlayOneShot(SoundDefOf.Cursor1);
                             this.Select(index);
                         }
                         break;

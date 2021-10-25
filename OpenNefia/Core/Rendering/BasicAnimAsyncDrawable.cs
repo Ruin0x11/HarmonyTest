@@ -54,7 +54,7 @@ namespace OpenNefia.Core.Rendering
             if (this.BasicAnim.Sound != null)
             {
                 // TODO positional audio
-                Gui.PlaySound(this.BasicAnim.Sound);
+                Sound.PlayOneShot(this.BasicAnim.Sound);
             }
         }
 

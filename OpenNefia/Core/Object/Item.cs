@@ -16,14 +16,10 @@ namespace OpenNefia.Core.Object
     {
         public DefStat<ChipDef> Chip;
 
-        public Item(ChipDef chip) : base()
+        internal Item(ItemDef def) : base(def)
         {
-            Chip = new DefStat<ChipDef>(chip);
+            Chip = new DefStat<ChipDef>(def.Chip);
         }
-
-#pragma warning disable CS8618
-        private Item() : base() { }
-#pragma warning restore CS8618
 
         public override bool IsInLiveState => Amount > 0;
 

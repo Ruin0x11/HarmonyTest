@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Object;
+using OpenNefia.Core.Object.Aspect;
 using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace OpenNefia.Core.Logic
     {
         public static TurnResult Move(Chara chara, int newX, int newY)
         {
+            if (!chara.IsAlive)
+            {
+                return TurnResult.TurnEnd;
+            }
+
             chara.Direction = PosUtils.GetDirectionTowards(chara.X, chara.Y, newX, newY);
 
             var map = chara.GetCurrentMap();
@@ -25,5 +31,58 @@ namespace OpenNefia.Core.Logic
 
             return TurnResult.TurnEnd;
         }
+
+        public static TurnResult Drink(Chara chara, Item item)
+        {
+            if (!chara.IsAlive || item.IsAlive)
+            {
+                return TurnResult.TurnEnd;
+            }
+
+            var result = TurnResult.RestartPlayerTurn;
+            var shouldConsume = false;
+
+            foreach (var aspect in item.GetAspects<ICanDrinkAspect>().Where(a => a.CanDrink(chara)))
+            {
+                var drinkResult = aspect.OnDrink(chara);
+                switch (drinkResult)
+                {
+                    case TurnResult.TurnEnd:
+                        result = TurnResult.TurnEnd;
+                        shouldConsume |= aspect.ShouldConsumeOnDrink;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (shouldConsume)
+            {
+                item.Amount -= 1;
+            }
+
+            return result;
+        }
+
+        public static bool TakeItem(Chara chara, Item item)
+        {
+            if (!chara.Inventory.CanReceiveObject(item))
+                return false;
+
+            return chara.Inventory.TakeObject(item);
+        }
+
+        public static bool DropItem(Chara chara, Item item)
+        {
+            var map = chara.GetCurrentMap();
+            if (map == null)
+                return false;
+
+            if (!chara.Inventory.HasObject(item))
+                return false;
+
+            return map.TakeOrTransferObject(item, chara.X, chara.Y);
+        }
+
     }
 }

@@ -36,29 +36,29 @@ namespace OpenNefia.Core.Util
     /// Struct Point
     /// </summary>
     [TypeConverter(typeof(PointTypeConverter))]
-    public struct Point
+    public struct Point2i
     {
-        public static readonly Point Zero;
+        public static readonly Point2i Zero;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point"/> struct.
+        /// Initializes a new instance of the <see cref="Point2i"/> struct.
         /// </summary>
         /// <param name="pt">The pt.</param>
-        public Point(Point pt)
+        public Point2i(Point2i pt)
         {
-            this.x = pt.x;
-            this.y = pt.y;
+            this.X = pt.X;
+            this.Y = pt.Y;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point"/> struct.
+        /// Initializes a new instance of the <see cref="Point2i"/> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        public Point(int x, int y)
+        public Point2i(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace OpenNefia.Core.Util
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator +(Point p1, Point p2)
+        public static Point2i operator +(Point2i p1, Point2i p2)
         {
-            return new Point(p1.x + p2.x, p1.y + p2.y);
+            return new Point2i(p1.X + p2.X, p1.Y + p2.Y);
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace OpenNefia.Core.Util
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator -(Point p1, Point p2)
+        public static Point2i operator -(Point2i p1, Point2i p2)
         {
-            return new Point(p1.x - p2.x, p1.y - p2.y);
+            return new Point2i(p1.X - p2.X, p1.Y - p2.Y);
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace OpenNefia.Core.Util
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(Point p1, Point p2)
+        public static bool operator ==(Point2i p1, Point2i p2)
         {
-            return ((p1.x == p2.x) && (p1.y == p2.y));
+            return ((p1.X == p2.X) && (p1.Y == p2.Y));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace OpenNefia.Core.Util
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(Point p1, Point p2)
+        public static bool operator !=(Point2i p1, Point2i p2)
         {
             return !(p1 == p2);
         }
@@ -111,9 +111,9 @@ namespace OpenNefia.Core.Util
         /// <param name="a">A.</param>
         /// <param name="b">The b.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator *(Point a, int b)
+        public static Point2i operator *(Point2i a, int b)
         {
-            return new Point(a.x * b, a.y * b);
+            return new Point2i(a.X * b, a.Y * b);
         }
 
         /// <summary>
@@ -122,9 +122,9 @@ namespace OpenNefia.Core.Util
         /// <param name="a">A.</param>
         /// <param name="b">The b.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator /(Point a, int b)
+        public static Point2i operator /(Point2i a, int b)
         {
-            return new Point(a.x / b, a.y / b);
+            return new Point2i(a.X / b, a.Y / b);
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace OpenNefia.Core.Util
         /// <param name="a">A.</param>
         /// <param name="b">The b.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator *(Point a, float b)
+        public static Point2i operator *(Point2i a, float b)
         {
-            return new Point((int)((float)a.x * b), (int)((float)a.y * b));
+            return new Point2i((int)((float)a.X * b), (int)((float)a.Y * b));
         }
 
         /// <summary>
@@ -144,9 +144,9 @@ namespace OpenNefia.Core.Util
         /// <param name="a">A.</param>
         /// <param name="b">The b.</param>
         /// <returns>The result of the operator.</returns>
-        public static Point operator /(Point a, float b)
+        public static Point2i operator /(Point2i a, float b)
         {
-            return new Point((int)((float)a.x / b), (int)((float)a.y / b));
+            return new Point2i((int)((float)a.X / b), (int)((float)a.Y / b));
         }
 
         /// <summary>
@@ -156,20 +156,20 @@ namespace OpenNefia.Core.Util
         [Browsable(false)]
         public bool IsEmpty
         {
-            get { return ((x == 0) && (y == 0)); }
+            get { return ((X == 0) && (Y == 0)); }
         }
 
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
         /// <value>The x.</value>
-        public int x;
+        public int X;
 
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
         /// <value>The y.</value>
-        public int y;
+        public int Y;
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -178,11 +178,11 @@ namespace OpenNefia.Core.Util
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is Point))
+            if (!(obj is Point2i))
                 return false;
 
-            Point size = (Point)obj;
-            return ((size.x == this.x) && (size.y == this.y));
+            Point2i size = (Point2i)obj;
+            return ((size.X == this.X) && (size.Y == this.Y));
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace OpenNefia.Core.Util
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
-            return (this.x ^ this.y);
+            return (this.X ^ this.Y);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace OpenNefia.Core.Util
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return string.Format("{0}; {1}", x, y);
+            return string.Format("{0}; {1}", X, Y);
         }
 
         /// <summary>
@@ -210,23 +210,23 @@ namespace OpenNefia.Core.Util
         /// <param name="end">The end.</param>
         /// <param name="divisor">The divisor.</param>
         /// <returns>Point.</returns>
-        public static Point EaseTo(Point start, Point end, float divisor)
+        public static Point2i EaseTo(Point2i start, Point2i end, float divisor)
         {
-            float x = ((float)end.x - (float)start.x) / divisor;
-            float y = ((float)end.y - (float)start.y) / divisor;
+            float x = ((float)end.X - (float)start.X) / divisor;
+            float y = ((float)end.Y - (float)start.Y) / divisor;
 
-            return start + new Point((int)x, (int)y);
+            return start + new Point2i((int)x, (int)y);
         }
 
         public void Deconstruct(out int x, out int y)
         {
-            x = this.x;
-            y = this.y;
+            x = this.X;
+            y = this.Y;
         }
 
-        static Point()
+        static Point2i()
         {
-            Zero = new Point();
+            Zero = new Point2i();
         }
     }
 
@@ -286,7 +286,7 @@ namespace OpenNefia.Core.Util
             if (numArray.Length != 2)
                 throw new ArgumentException();
 
-            return new Point(numArray[0], numArray[1]);
+            return new Point2i(numArray[0], numArray[1]);
         }
 
         /// <summary>
@@ -303,9 +303,9 @@ namespace OpenNefia.Core.Util
             if (destinationType == null)
                 throw new ArgumentNullException("destinationType");
 
-            if ((destinationType == typeof(string)) && (value is Point))
+            if ((destinationType == typeof(string)) && (value is Point2i))
             {
-                Point size = (Point)value;
+                Point2i size = (Point2i)value;
                 if (culture == null)
                     culture = CultureInfo.CurrentCulture;
 
@@ -313,8 +313,8 @@ namespace OpenNefia.Core.Util
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(int));
                 string?[] strArray = new string[2];
                 int num = 0;
-                strArray[num++] = converter.ConvertToString(context, culture, size.x);
-                strArray[num++] = converter.ConvertToString(context, culture, size.y);
+                strArray[num++] = converter.ConvertToString(context, culture, size.X);
+                strArray[num++] = converter.ConvertToString(context, culture, size.Y);
                 return string.Join(separator, strArray);
             }
 

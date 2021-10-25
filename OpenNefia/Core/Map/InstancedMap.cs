@@ -13,7 +13,7 @@ using FluentResults;
 
 namespace OpenNefia.Core
 {
-    public sealed class InstancedMap : IDataExposable, IPoolOwner
+    public sealed class InstancedMap : IDataExposable, IMapObjectHolder
     {
         internal enum TileFlags : int
         {
@@ -44,7 +44,7 @@ namespace OpenNefia.Core
 
         internal Pool<MapObject> _Pool;
         public Pool InnerPool { get => _Pool; }
-        public IPoolOwner? ParentPoolOwner => null;
+        public IMapObjectHolder? ParentHolder => null;
 
         internal HashSet<int> _DirtyTilesThisTurn;
         internal bool _RedrawAllThisTurn;
@@ -76,6 +76,19 @@ namespace OpenNefia.Core
 
             Clear(defaultTile);
             ClearMemory(defaultTile);
+        }
+
+        public IEnumerable<MapObject> MapObjectsAt(int x, int y)
+        {
+            return this._Pool.Where(obj => obj.X == x && obj.Y == y);
+        }
+
+        public IEnumerable<T> MapObjectsAt<T>(int x, int y) where T: MapObject
+        {
+            return this._Pool
+                .Select(obj => obj as T)
+                .WhereNotNull()
+                .Where(obj => obj.X == x && obj.Y == y);
         }
 
         public void Clear(TileDef tile)
@@ -132,7 +145,7 @@ namespace OpenNefia.Core
             var isSolid = tile.IsSolid;
             var isOpaque = tile.IsOpaque;
 
-            foreach (var obj in this.At(x, y))
+            foreach (var obj in this.MapObjectsAt(x, y))
             {
                 isSolid |= obj.IsSolid;
                 isOpaque |= obj.IsOpaque;
@@ -254,7 +267,7 @@ namespace OpenNefia.Core
             if (data.Stage == SerialStage.ResolvingRefs)
             {
                 this._ShadowMap = new ShadowMap(this);
-                foreach (var obj in this._Pool)
+                foreach (MapObject obj in this._Pool)
                 {
                     if (obj.Uid == Current.Player?.Uid)
                     {
@@ -339,11 +352,39 @@ namespace OpenNefia.Core
 
         public string GetUniqueIndex() => $"{nameof(InstancedMap)}_{_Uid}";
 
-        public void GetChildPoolOwners(List<IPoolOwner> outOwners)
+        public bool TakeOrTransferObject(MapObject obj, int x, int y)
         {
-            foreach (var obj in this._Pool)
+            var point = MapUtils.FindPositionToSpawnObject(this, obj, x, y);
+            
+            if (point == null)
             {
-                obj.GetChildPoolOwners(outOwners);
+                return false;
+            }
+
+            if (obj._PoolContainingMe != null)
+            {
+                obj._PoolContainingMe.ReleaseObject(obj);
+            }
+
+            if (!this.InnerPool.TakeObject(obj))
+            {
+                return false;
+            }
+
+            obj.X = point.Value.X;
+            obj.Y = point.Value.Y;
+
+            return true;
+        }
+
+        public void GetChildPoolOwners(List<IMapObjectHolder> outOwners)
+        {
+            foreach (MapObject obj in this._Pool)
+            {
+                foreach (var aspect in obj.GetAspects<IMapObjectHolder>())
+                {
+                    aspect.GetChildPoolOwners(outOwners);
+                }
             }
         }
     }

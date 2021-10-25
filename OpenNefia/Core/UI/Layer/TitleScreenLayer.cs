@@ -138,7 +138,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (selectedChoice != TitleScreenChoice.Generate)
             {
-                Gui.PlaySound(SoundDefOf.Ok1);
+                Sound.PlayOneShot(SoundDefOf.Ok1);
             }
 
             switch (selectedChoice)
@@ -181,7 +181,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Gui.PlayMusic(MusicDefOf.Opening);
+            Sound.PlayMusic(MusicDefOf.Opening);
         }
 
         public override void Update(float dt)

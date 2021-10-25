@@ -1,4 +1,7 @@
-﻿using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Extensions;
+using OpenNefia.Core.Object.Aspect;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
 using OpenNefia.Serial;
 using System;
@@ -7,22 +10,27 @@ using System.Linq;
 
 namespace OpenNefia.Core.Object
 {
-    public abstract class MapObject : IDataExposable, IDataReferenceable, IRefreshable
+    public abstract class MapObject : IDataExposable, IDataReferenceable, IRefreshable, IMapObjectHolder
     {
+        internal MapObjectDef _Def;
         internal int _X;
         internal int _Y;
         internal ulong _Uid;
 
-        public int X { get => _X; }
-        public int Y { get => _Y; }
+        public MapObjectDef Def { get => _Def; }
+        public int X { get => _X; internal set => _X = value; }
+        public int Y { get => _Y; internal set => _Y = value; }
         public ulong Uid { get => _Uid; }
         public bool IsSolid = false;
         public bool IsOpaque = false;
         public Love.Color Color = Love.Color.White;
         public int Amount { get; set; } = 1;
 
-        public MapObject()
+        internal List<MapObjectAspect> _Aspects = new List<MapObjectAspect>();
+
+        public MapObject(MapObjectDef def)
         {
+            this._Def = def;
             this._Uid = Current.Game.Uids.GetNextAndIncrement();
         }
 
@@ -32,17 +40,11 @@ namespace OpenNefia.Core.Object
         public abstract bool IsInLiveState { get; }
         public bool IsAlive { get => !_Destroyed && IsInLiveState; }
 
-        /// <summary>
-        /// Internal root location of this object, typically a <see cref="Pool"/>
-        /// that's encapsulated by a different class that implements <see cref="ILocation"/>.
-        /// 
-        /// Do *NOT* run ILocation methods on this object unless you know what you're doing!
-        /// </summary>
         internal Pool? _PoolContainingMe;
 
-        public Pool? InnerPool { get => _PoolContainingMe; }
+        public Pool? InnerPool { get => null; }
 
-        public IPoolOwner? ParentPoolOwner { get => _PoolContainingMe?.Owner; }
+        public IMapObjectHolder? ParentHolder { get => _PoolContainingMe?.Owner; }
 
         public void SetPosition(int x, int y)
         {
@@ -64,6 +66,11 @@ namespace OpenNefia.Core.Object
                 map.RefreshTile(oldX, oldY);
                 map.RefreshTile(x, y);
             }
+        }
+
+        public virtual void AfterCreate()
+        {
+
         }
 
         public void Destroy()
@@ -91,24 +98,31 @@ namespace OpenNefia.Core.Object
             this.GetCurrentMap()?.RefreshTile(this.X, this.Y);
         }
 
-        public IEnumerable<IPoolOwner> EnumerateParents()
+        public IEnumerable<IMapObjectHolder> EnumerateParents()
         {
-            var owner = this.ParentPoolOwner;
+            var owner = this.ParentHolder;
             while (owner != null)
             {
                 yield return owner;
 
-                owner = owner.ParentPoolOwner;
+                owner = owner.ParentHolder;
             }
         }
 
-        public T? GetFirstParent<T>() where T: class, IPoolOwner
+        public T? GetFirstParent<T>() where T: class, IMapObjectHolder
         {
             return EnumerateParents()
                 .Where(x => x is T)
                 .Select(x => x as T)
                 .FirstOrDefault();
         }
+
+        public IEnumerable<T> GetAspects<T>() where T: class
+        {
+            return this._Aspects.Select(x => x as T).WhereNotNull();
+        }
+
+        public IEnumerable<MapObjectAspect> GetAspects() => this._Aspects;
 
         public virtual bool CanStackWith(MapObject other)
         {
@@ -192,6 +206,7 @@ namespace OpenNefia.Core.Object
 
         public virtual void Expose(DataExposer data)
         {
+            data.ExposeDef(ref _Def, nameof(Def));
             data.ExposeValue(ref _Uid, nameof(Uid));
             data.ExposeValue(ref _X!, nameof(X));
             data.ExposeValue(ref _Y!, nameof(Y));
@@ -203,6 +218,14 @@ namespace OpenNefia.Core.Object
         }
 
         public string GetUniqueIndex() => $"MapObject_{Uid}";
+
+        public virtual void GetChildPoolOwners(List<IMapObjectHolder> outOwners)
+        {
+            foreach (var aspect in this.GetAspects<IMapObjectHolder>())
+            {
+                aspect.GetChildPoolOwners(outOwners);
+            }
+        }
 
         public virtual MapObject Clone()
         {

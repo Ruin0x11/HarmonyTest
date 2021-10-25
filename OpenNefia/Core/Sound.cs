@@ -16,32 +16,22 @@ namespace OpenNefia.Core
         Screen
     }
 
-    public static class Gui
+    public static class Sound
     {
         private static Playback? MidiPlayback = null;
         private static OutputDevice? MidiDevice = null;
         private static Dictionary<object, Love.Source> OneShotSources = new Dictionary<object, Love.Source>();
 
-        public static void PlaySound(SoundDef soundDef, int? x = null, int? y = null, SoundPosType posType = SoundPosType.Tile, float? volume = null, object? channel = null)
+        public static void PlayOneShot(SoundDef soundDef, int? screenX = null, int? screenY = null, float? volume = null, object? channel = null)
         {
             var source = Love.Audio.NewSource(soundDef.Filepath.Resolve(), Love.SourceType.Static);
             
             if (source.GetChannelCount() == 1)
             {
-                if (x.HasValue && y.HasValue)
+                if (screenX != null && screenY != null)
                 {
-                    var screenX = x.Value;
-                    var screenY = y.Value;
-                    if (posType == SoundPosType.Tile)
-                    {
-                        var coords = GraphicsEx.Coords;
-                        coords.TileToScreen(x.Value, y.Value, out screenX, out screenY);
-                        screenX += coords.TileWidth / 2;
-                        screenY += coords.TileHeight / 2;
-                    }
-
                     source.SetRelative(false);
-                    source.SetPosition(screenX, screenY, 0f);
+                    source.SetPosition(screenX.Value, screenY.Value, 0f);
                     source.SetAttenuationDistances(100, 500);
                 }
                 else
@@ -62,6 +52,22 @@ namespace OpenNefia.Core
                     Love.Audio.Stop(existingSource);
                 }
                 OneShotSources[channel] = source;
+            }
+        }
+
+        public static void PlayOneShot(SoundDef soundDef, TilePos? pos = null, float? volume = null, object? channel = null)
+        {
+            if (pos != null)
+            {
+                var coords = GraphicsEx.Coords;
+                coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
+                screenX += coords.TileWidth / 2;
+                screenY += coords.TileHeight / 2;
+                PlayOneShot(soundDef, screenX, screenY, volume, channel);
+            }
+            else
+            {
+                PlayOneShot(soundDef, null, null, volume, channel);
             }
         }
 
