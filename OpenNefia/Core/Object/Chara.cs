@@ -21,6 +21,8 @@ namespace OpenNefia.Core.Object
 
         public ItemInventory Inventory { get => _Inventory; }
 
+        public override bool IsInLiveState => true;
+
         public Chara(ChipDef chip) : this()
         {
             Chip = new DefStat<ChipDef>(chip);
@@ -41,28 +43,6 @@ namespace OpenNefia.Core.Object
         public static Result<Chara> Create()
         {
             var chara = new Chara(ChipDefOf.CharaRaceSlime);
-
-            return Result.Ok(chara);
-        }
-
-        public static Result<Chara> Create(ILocation location, int x, int y)
-        {
-            var charaResult = Chara.Create();
-            if (charaResult.IsFailed)
-            {
-                return charaResult;
-            }
-
-            var chara = charaResult.Value;
-
-            if (!location.CanReceiveObject(chara, x, y))
-            {
-                return Result.Fail("Location could not receive object.");
-            }
-            if (!location.TakeObject(chara, x, y))
-            {
-                return Result.Fail("Location failed to receive object.");
-            }
 
             return Result.Ok(chara);
         }

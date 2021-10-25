@@ -123,7 +123,7 @@ namespace OpenNefia.Test.Core.Object
 
             Assert.IsTrue(item1.StackWith(item2));
 
-            Assert.IsTrue(item2.Disposed);
+            Assert.IsTrue(item2.Destroyed);
             Assert.AreEqual(13, item1.Amount);
             Assert.AreEqual(0, item2.Amount);
 
@@ -150,7 +150,7 @@ namespace OpenNefia.Test.Core.Object
 
             Assert.IsTrue(item1.StackAll());
 
-            Assert.IsTrue(item2.Disposed);
+            Assert.IsTrue(item2.Destroyed);
             Assert.AreEqual(13, item1.Amount);
             Assert.AreEqual(0, item2.Amount);
             Assert.AreEqual(2, item3.Amount);

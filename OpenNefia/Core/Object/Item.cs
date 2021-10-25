@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
-    public sealed class Item : MapObject, IStackableObject<Item>
+    public sealed class Item : MapObject
     {
         public DefStat<ChipDef> Chip;
 
@@ -25,11 +25,22 @@ namespace OpenNefia.Core.Object
         private Item() : base() { }
 #pragma warning restore CS8618
 
-        public int Amount { get; set; } = 1;
+        public override bool IsInLiveState => Amount > 0;
 
         public override void Refresh()
         {
             this.Chip.Refresh();
+        }
+
+        public override bool CanStackWith(MapObject other)
+        {
+            var otherItem = other as Item;
+            if (otherItem == null)
+            {
+                return false;
+            }
+
+            return this.Chip == otherItem.Chip;
         }
 
         public override void Expose(DataExposer data)
@@ -54,114 +65,6 @@ namespace OpenNefia.Core.Object
                 .Select(x => (x as ItemInventory)?.ParentObject as Chara)
                 .WhereNotNull()
                 .FirstOrDefault();
-        }
-
-        public bool CanStackWith(Item other)
-        {
-            if (this.Disposed || other.Disposed)
-                return false;
-
-            if (this == other)
-                return false;
-
-            return this.Chip.Equals(other.Chip);
-        }
-
-        public bool Separate(int amount, out Item? separated)
-        {
-            if (amount < 0 || amount > this.Amount)
-            {
-                throw new ArgumentOutOfRangeException(nameof(amount), amount, $"Amount must be > 0 and <= {this.Amount}");
-            }
-
-            if (amount == 0)
-            {
-                separated = null;
-                return false;
-            }
-
-            separated = this.Clone();
-
-            separated.Amount = amount;
-            this.Amount -= amount;
-
-            return true;
-        }
-
-        public bool StackWith(Item other)
-        {
-            if (!this.CanStackWith(other))
-                return false;
-
-            this.Amount += other.Amount;
-            other.Amount = 0;
-            other.Dispose();
-
-            return true;
-        }
-
-        public bool StackAll(bool showMessage = false)
-        {
-            if (this.CurrentLocation == null)
-                return false;
-
-            var didStack = false;
-
-            List<Item> toStack = new List<Item>();
-
-            foreach (var obj in this.CurrentLocation!)
-            {
-                var item = obj as Item;
-                if (item != null && item.X == this.X && item.Y == this.Y && this.CanStackWith(item))
-                {
-                    toStack.Add(item);
-                }
-            }
-
-            foreach (var item in toStack)
-            {
-                item.ReleaseOwnership();
-                this.StackWith(item);
-                didStack = true;
-            }
-            
-            if (didStack && showMessage)
-            {
-                // TODO
-                Console.WriteLine("Stacked.");
-            }
-
-            return didStack;
-        }
-
-        public bool MoveSome(int amount, ILocation where, int x, int y)
-        {
-            if (!this.Separate(amount, out var separated))
-                return false;
-
-            if (!where.CanReceiveObject(separated!))
-            {
-                this.StackWith(separated!);
-                return false;
-            }
-
-            if (!where.TakeObject(separated!))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public Item Clone()
-        {
-            // TODO: This doesn't even work. It won't handle Dictionaries or other complex data structures.
-            // There will have to be an ICloneable interface implemented on map objects
-            // and aspects that does the deep copying manually, but it shouldn't be too hard.
-            var newObject = (Item)this.MemberwiseClone();
-            newObject._InternalLocation = null;
-            newObject._Uid = Current.Game.Uids.GetNextAndIncrement();
-            return newObject;
         }
     }
 }

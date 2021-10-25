@@ -93,7 +93,7 @@ namespace OpenNefia.Test.Core.Object
             var chara = Chara.Create(storage, 0, 0).Value;
 
             Assert.IsInstanceOf<MyCustomLocation>(chara.CurrentLocation);
-            Assert.IsInstanceOf<Pool>(chara._InternalLocation);
+            Assert.IsInstanceOf<Pool>(chara._PoolContainingMe);
         }
     }
 }

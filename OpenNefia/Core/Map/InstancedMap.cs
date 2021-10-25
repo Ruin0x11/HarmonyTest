@@ -13,7 +13,7 @@ using FluentResults;
 
 namespace OpenNefia.Core
 {
-    public sealed class InstancedMap : IDataExposable, ILocation
+    public sealed class InstancedMap : IDataExposable, IPoolOwner
     {
         internal enum TileFlags : int
         {
@@ -42,13 +42,13 @@ namespace OpenNefia.Core
         internal MapObjectMemoryStore _MapObjectMemory;
         internal TileIndexMapping _TileIndexMapping;
 
-        internal Pool _Pool;
+        internal Pool<MapObject> _Pool;
+        public Pool InnerPool { get => _Pool; }
+        public IPoolOwner? ParentPoolOwner => null;
 
         internal HashSet<int> _DirtyTilesThisTurn;
         internal bool _RedrawAllThisTurn;
         internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
-
-        public ILocation? ParentLocation => null;
 
         internal InstancedMap() : this (1, 1, MapDefOf.Default, TileDefOf.Grass) { }
 
@@ -69,7 +69,7 @@ namespace OpenNefia.Core
             _LastSightId = 0;
             _ShadowMap = new ShadowMap(this);
             _MapObjectMemory = new MapObjectMemoryStore(this);
-            _Pool = new Pool(this, _Width, _Height);
+            _Pool = new Pool<MapObject>(this);
 
             _DirtyTilesThisTurn = new HashSet<int>();
             _RedrawAllThisTurn = true;
@@ -337,17 +337,14 @@ namespace OpenNefia.Core
             return GetTile(x, y)! == GetTileMemory(x, y)!;
         }
 
-        public bool TakeObject(MapObject obj, int x, int y) => _Pool.TakeObject(obj, x, y);
-        public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
-        public void ReleaseObject(MapObject obj) => _Pool.ReleaseObject(obj);
-        public bool CanReceiveObject(MapObject obj, int x, int y) => _Pool.CanReceiveObject(obj, x, y);
-        public void SetPosition(MapObject mapObject, int x, int y) => _Pool.SetPosition(mapObject, x, y);
-        public IEnumerable<MapObject> At(int x, int y) => _Pool.At(x, y);
-        public IEnumerable<T> At<T>(int x, int y) where T : MapObject => _Pool.At<T>(x, y);
-        public IEnumerable<T> EnumerateType<T>() where T : MapObject => _Pool.EnumerateType<T>();
-        public IEnumerator<MapObject> GetEnumerator() => _Pool.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => _Pool.GetEnumerator();
-
         public string GetUniqueIndex() => $"{nameof(InstancedMap)}_{_Uid}";
+
+        public void GetChildPoolOwners(List<IPoolOwner> outOwners)
+        {
+            foreach (var obj in this._Pool)
+            {
+                obj.GetChildPoolOwners(outOwners);
+            }
+        }
     }
 }
