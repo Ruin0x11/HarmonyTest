@@ -354,9 +354,9 @@ namespace OpenNefia.Core
 
         public bool TakeOrTransferObject(MapObject obj, int x, int y)
         {
-            var point = MapUtils.FindPositionToSpawnObject(this, obj, x, y);
+            var found = MapUtils.FindPositionToSpawnObject(this, obj, x, y, out var pointX, out var pointY);
             
-            if (point == null)
+            if (!found)
             {
                 return false;
             }
@@ -371,8 +371,8 @@ namespace OpenNefia.Core
                 return false;
             }
 
-            obj.X = point.Value.X;
-            obj.Y = point.Value.Y;
+            obj.X = pointX;
+            obj.Y = pointY;
 
             return true;
         }

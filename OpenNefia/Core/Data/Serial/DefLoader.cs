@@ -46,15 +46,21 @@ namespace OpenNefia.Core.Data.Serial
 
         internal static Type? GetDirectDefType(Type type)
         {
-            if (type.BaseType == typeof(Def))
-            {
-                return type;
-            }
-            else if (type.BaseType == null || type.BaseType == typeof(object))
+            if (!typeof(Def).IsAssignableFrom(type))
             {
                 return null;
             }
-            return GetDirectDefType(type.BaseType!);
+
+            while (type.BaseType != null && type.BaseType != typeof(object))
+            {
+                if (type.BaseType == typeof(Def) || type.BaseType.IsAbstract)
+                {
+                    return type;
+                }
+                type = type.BaseType!;
+            }
+
+            return null;
         }
 
         private static bool HasNamespacedDefTypeName(XElement ownedNode)

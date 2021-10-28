@@ -16,19 +16,16 @@ namespace OpenNefia.Core.Object
     {
         public DefStat<ChipDef> Chip;
         public Direction Direction;
-
         public ItemInventory Inventory;
 
         public override bool IsInLiveState => true;
 
-#pragma warning disable CS8618
-        internal Chara(CharaDef def) : base(def) 
+        public Chara(CharaDef def) : base(def) 
         {
             this.IsSolid = true;
             this.Chip = new DefStat<ChipDef>(def.Chip);
             this.Inventory = new ItemInventory(this);
         }
-#pragma warning restore CS8618
 
         public override void Refresh()
         {

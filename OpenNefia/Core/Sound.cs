@@ -55,20 +55,13 @@ namespace OpenNefia.Core
             }
         }
 
-        public static void PlayOneShot(SoundDef soundDef, TilePos? pos = null, float? volume = null, object? channel = null)
+        public static void PlayOneShot(SoundDef soundDef, TilePos pos, float? volume = null, object? channel = null)
         {
-            if (pos != null)
-            {
-                var coords = GraphicsEx.Coords;
-                coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
-                screenX += coords.TileWidth / 2;
-                screenY += coords.TileHeight / 2;
-                PlayOneShot(soundDef, screenX, screenY, volume, channel);
-            }
-            else
-            {
-                PlayOneShot(soundDef, null, null, volume, channel);
-            }
+            var coords = GraphicsEx.Coords;
+            coords.TileToScreen(pos.X, pos.Y, out var screenX, out var screenY);
+            screenX += coords.TileWidth / 2;
+            screenY += coords.TileHeight / 2;
+            PlayOneShot(soundDef, screenX, screenY, volume, channel);
         }
 
         public static bool IsChannelPlayingSound(object channel) => OneShotSources.ContainsKey(channel);

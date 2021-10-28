@@ -32,6 +32,9 @@ namespace OpenNefia.Core.Stat
             return false;
         }
 
+        public override bool Equals(object? obj) => Equals(obj as ValueStat<T>);
+        public override int GetHashCode() => HashCode.Combine(this.FinalValue, this.BaseValue);
+
         public void Expose(DataExposer data)
         {
             data.ExposeValue(ref FinalValue, nameof(FinalValue));

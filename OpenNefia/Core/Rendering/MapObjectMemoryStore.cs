@@ -115,7 +115,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in Map._Pool.At(x, y))
+            foreach (var obj in Map.MapObjectsAt(x, y))
             {
                 if (at == null)
                 {

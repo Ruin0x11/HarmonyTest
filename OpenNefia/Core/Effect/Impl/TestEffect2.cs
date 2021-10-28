@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Effect.Impl
             var map = Current.Player!.GetCurrentMap()!;
             for (int i = 0; i < 10; i++)
             {
-                Chara.Create(map, Random.Rnd(map.Width), Random.Rnd(map.Height));
+                CharaGen.Create(CharaDefOf.Putit, map, Random.Rnd(map.Width), Random.Rnd(map.Height));
             }
 
             return EffectResult.Succeeded;

@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Object
         internal int _Y;
         internal ulong _Uid;
 
-        public MapObjectDef Def { get => _Def; }
+        public MapObjectDef BaseDef { get => _Def; }
         public int X { get => _X; internal set => _X = value; }
         public int Y { get => _Y; internal set => _Y = value; }
         public ulong Uid { get => _Uid; }
@@ -206,7 +206,7 @@ namespace OpenNefia.Core.Object
 
         public virtual void Expose(DataExposer data)
         {
-            data.ExposeDef(ref _Def, nameof(Def));
+            data.ExposeDef(ref _Def, nameof(BaseDef));
             data.ExposeValue(ref _Uid, nameof(Uid));
             data.ExposeValue(ref _X!, nameof(X));
             data.ExposeValue(ref _Y!, nameof(Y));

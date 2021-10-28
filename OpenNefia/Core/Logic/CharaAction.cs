@@ -66,10 +66,7 @@ namespace OpenNefia.Core.Logic
 
         public static bool TakeItem(Chara chara, Item item)
         {
-            if (!chara.Inventory.CanReceiveObject(item))
-                return false;
-
-            return chara.Inventory.TakeObject(item);
+            return chara.Inventory.TakeOrTransferItem(item);
         }
 
         public static bool DropItem(Chara chara, Item item)
@@ -78,11 +75,7 @@ namespace OpenNefia.Core.Logic
             if (map == null)
                 return false;
 
-            if (!chara.Inventory.HasObject(item))
-                return false;
-
             return map.TakeOrTransferObject(item, chara.X, chara.Y);
         }
-
     }
 }

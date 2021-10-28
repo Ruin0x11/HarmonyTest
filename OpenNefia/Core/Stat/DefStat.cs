@@ -26,12 +26,11 @@ namespace OpenNefia.Core.Stat
 
         public bool Equals(DefStat<T>? other)
         {
-            if (this.BaseValue.Equals(other?.BaseValue))
-            {
-                return this.FinalValue.Equals(other?.FinalValue);
-            }
-            return this.BaseValue.Equals(other?.BaseValue);
+            return this.BaseValue == other?.BaseValue && this.FinalValue == other?.FinalValue;
         }
+
+        public override bool Equals(object? obj) => Equals(obj as DefStat<T>);
+        public override int GetHashCode() => HashCode.Combine(this.FinalValue, this.BaseValue);
 
         public void Expose(DataExposer data)
         {
@@ -40,5 +39,15 @@ namespace OpenNefia.Core.Stat
         }
 
         public static implicit operator T(DefStat<T> s) => s.BaseValue;
+
+        public static bool operator ==(DefStat<T> left, DefStat<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DefStat<T> left, DefStat<T> right)
+        {
+            return !(left == right);
+        }
     }
 }

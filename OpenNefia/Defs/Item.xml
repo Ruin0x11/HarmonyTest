@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ItemDef ElonaId="487" Id="Computer">
+    <Chip>Core.ItemComputer</Chip>
+  </ItemDef>
+</Defs>

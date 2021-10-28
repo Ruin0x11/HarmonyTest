@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <CharaDef ElonaId="3" Id="Putit">
+    <Chip>Core.CharaRaceSlime</Chip>
+  </CharaDef>
+  <CharaDef ElonaId="195" Id="Chicken">
+    <Chip>Core.CharaChicken</Chip>
+  </CharaDef>
+</Defs>

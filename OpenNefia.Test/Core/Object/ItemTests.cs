@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Logic;
 using OpenNefia.Core.Object;
 
 namespace OpenNefia.Test.Core.Object
@@ -9,7 +10,7 @@ namespace OpenNefia.Test.Core.Object
         [Test]
         public void TestGetOwningCharaNone()
         {
-            var item = new Item(new ChipDef("Test"));
+            var item = new Item(new ItemDef("Test"));
 
             Assert.IsNull(item.GetOwningChara());
         }
@@ -17,10 +18,9 @@ namespace OpenNefia.Test.Core.Object
         [Test]
         public void TestGetOwningCharaSome()
         {
-            var chip = new ChipDef("Test");
-            var item = new Item(chip);
-            var chara = new Chara(chip);
-            chara.Inventory.TakeObject(item);
+            var item = new Item(new ItemDef("Test"));
+            var chara = new Chara(new CharaDef("Test"));
+            chara.Inventory.TakeItem(item);
 
             Assert.AreEqual(chara, item.GetOwningChara());
         }
@@ -28,15 +28,15 @@ namespace OpenNefia.Test.Core.Object
         [Test]
         public void TestGetOwningCharaNested()
         {
-            var chip = new ChipDef("Test");
-            var item = new Item(chip);
-            var container = new Item(chip);
-            var chara = new Chara(chip);
+            var itemDef = new ItemDef("Test");
+            var item = new Item(itemDef);
+            var container = new Item(itemDef);
+            var chara = new Chara(new CharaDef("Test"));
 
             var inv = new ItemInventory(container);
 
-            inv.TakeObject(item);
-            chara.TakeItem(container);
+            inv.TakeItem(item);
+            CharaAction.TakeItem(chara, container);
 
             Assert.AreEqual(chara, container.GetOwningChara());
             Assert.AreEqual(chara, item.GetOwningChara());

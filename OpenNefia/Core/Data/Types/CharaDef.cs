@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace OpenNefia.Core.Data.Types
         public CharaDef(string id) : base(id)
         {
         }
-        
+
+        public override Type MapObjectType => typeof(Chara);
+
         [DefRequired]
         public ChipDef Chip = null!;
     }

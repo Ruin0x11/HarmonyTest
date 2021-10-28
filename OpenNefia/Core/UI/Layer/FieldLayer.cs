@@ -70,7 +70,7 @@ namespace OpenNefia.Core.UI.Layer
             //Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
             //this.InitMap();
             
-            var player = new Chara(ChipDefOf.CharaChicken);
+            var player = new Chara(CharaDefOf.Chicken);
             Map.TakeOrTransferObject(player, 2, 2);
             Current.Player = player;
 
@@ -163,11 +163,11 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                var item = Map.At<Item>(player.X, player.Y).FirstOrDefault();
+                var item = Map.MapObjectsAt<Item>(player.X, player.Y).FirstOrDefault();
 
-                if (item != null && player.TakeItem(item))
+                if (item != null && CharaAction.TakeItem(player, item))
                 {
-                    Sound.PlayOneShot(SoundDefOf.Get1, player.X, player.Y);
+                    Sound.PlayOneShot(SoundDefOf.Get1, new TilePos(player.X, player.Y, Map));
 
                     if (item.StackAll())
                     {
@@ -187,9 +187,9 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                var item = player.Inventory.EnumerateType<Item>().FirstOrDefault();
+                var item = player.Inventory.FirstOrDefault();
 
-                if (item != null && player.DropItem(item))
+                if (item != null && CharaAction.DropItem(player, item))
                 {
                     Sound.PlayOneShot(SoundDefOf.Drop1, player.X, player.Y);
 

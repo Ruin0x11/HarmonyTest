@@ -14,9 +14,11 @@ namespace OpenNefia.Core.Object
 {
     public sealed class Item : MapObject
     {
+        public ItemDef Def => (ItemDef)BaseDef;
+
         public DefStat<ChipDef> Chip;
 
-        internal Item(ItemDef def) : base(def)
+        public Item(ItemDef def) : base(def)
         {
             Chip = new DefStat<ChipDef>(def.Chip);
         }
@@ -30,14 +32,20 @@ namespace OpenNefia.Core.Object
 
         public override bool CanStackWith(MapObject other)
         {
+            if (!this.IsAlive || !other.IsAlive || this == other)
+                return false;
+
             var otherItem = other as Item;
             if (otherItem == null)
             {
                 return false;
             }
 
-            return this.Chip == otherItem.Chip;
+            return this.BaseDef == otherItem.BaseDef
+                && this.Chip == otherItem.Chip;
         }
+
+        public new Item? SplitOff(int amount) => (Item?)base.SplitOff(amount);
 
         public override void Expose(DataExposer data)
         {
@@ -58,7 +66,7 @@ namespace OpenNefia.Core.Object
         public Chara? GetOwningChara()
         {
             return EnumerateParents()
-                .Select(x => (x as ItemInventory)?.ParentObject as Chara)
+                .Select(x => (x as ItemInventory)?.ParentHolder as Chara)
                 .WhereNotNull()
                 .FirstOrDefault();
         }

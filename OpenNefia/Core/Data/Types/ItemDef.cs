@@ -1,9 +1,6 @@
 ﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Object;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
@@ -12,7 +9,9 @@ namespace OpenNefia.Core.Data.Types
         public ItemDef(string id) : base(id)
         {
         }
-        
+
+        public override Type MapObjectType => typeof(Item);
+
         [DefRequired]
         public ChipDef Chip = null!;
     }

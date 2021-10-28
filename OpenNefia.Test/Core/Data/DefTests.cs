@@ -15,7 +15,11 @@ namespace OpenNefia.Test.Core.Data
         {
             var def = new AssetDef("Test");
             Assert.AreEqual(typeof(AssetDef), def.GetDirectDefType());
+        }
 
+        [Test]
+        public void TestGetDirectDefType_Abstract()
+        {
             var def2 = new CharaDef("Test");
             Assert.AreEqual(typeof(CharaDef), def2.GetDirectDefType());
         }

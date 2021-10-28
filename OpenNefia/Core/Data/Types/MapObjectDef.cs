@@ -12,6 +12,8 @@ namespace OpenNefia.Core.Data.Types
         {
         }
 
+        public abstract Type MapObjectType { get; }
+
         public AspectDefinitions Aspects = new AspectDefinitions();
     }
 }

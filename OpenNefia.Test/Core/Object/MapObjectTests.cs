@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Core;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Object;
 using OpenNefia.Serial;
 using System;
@@ -13,86 +14,67 @@ namespace OpenNefia.Test.Core.Object
 {
     public class MapObjectTests
     {
-        private class MyCustomLocation : ILocation
+        private class MyCustomLocation : IMapObjectHolder
         {
-            Pool _Pool;
+            private Pool _Pool;
+            public Pool InnerPool { get => _Pool; }
 
-            public ILocation? _ParentLocation;
-            public ILocation? ParentLocation { get => _ParentLocation; }
+            private IMapObjectHolder? _ParentHolder;
+            public IMapObjectHolder? ParentHolder => this._ParentHolder;
 
-            public ulong Uid => _Pool.Uid;
-
-            public MyCustomLocation(ILocation? parentLocation = null)
+            public MyCustomLocation(IMapObjectHolder? parent = null)
             {
-                this._Pool = new Pool(this);
-                this._ParentLocation = parentLocation;
+                this._ParentHolder = parent;
+                this._Pool = new Pool<MapObject>(this);
             }
-
-            public bool TakeObject(MapObject obj, int x = 0, int y = 0)
-            {
-                if (!CanReceiveObject(obj, 0, 0))
-                    return false;
-
-                return _Pool.TakeObject(obj, 0, 0);
-            }
-
-            public bool CanReceiveObject(MapObject obj, int x = 0, int y = 0) => obj is Chara;
-
-            public bool HasObject(MapObject obj) => _Pool.HasObject(obj);
-            public void ReleaseObject(MapObject obj) => _Pool.ReleaseObject(obj);
-            public void SetPosition(MapObject mapObject, int x, int y) => _Pool.SetPosition(mapObject, x, y);
-            public IEnumerable<MapObject> At(int x, int y) => _Pool.At(x, y);
-            public IEnumerable<T> At<T>(int x, int y) where T : MapObject => _Pool.At<T>(x, y);
-            public IEnumerable<T> EnumerateType<T>() where T : MapObject => _Pool.EnumerateType<T>();
-            public IEnumerator<MapObject> GetEnumerator() => _Pool.GetEnumerator();
-            IEnumerator IEnumerable.GetEnumerator() => _Pool.GetEnumerator();
 
             public void Expose(DataExposer data)
             {
-                data.ExposeWeak(ref _ParentLocation, nameof(_ParentLocation));
                 data.ExposeDeep(ref _Pool, nameof(Pool));
             }
 
-            public string GetUniqueIndex() => $"{nameof(MyCustomLocation)}_{Uid}";
+            public void GetChildPoolOwners(List<IMapObjectHolder> outOwners)
+            {
+            }
         }
 
         [Test]
-        public void TestMapObject_CurrentLocation_None()
+        public void TestMapObject_ParentHolder_None()
         {
-            var chara = Chara.Create().Value;
+            var chara = CharaGen.Create(new CharaDef("Test")).Value;
 
-            Assert.IsNull(chara.CurrentLocation);
+            Assert.IsNull(chara._PoolContainingMe);
             Assert.IsFalse(chara.IsOwned);
         }
 
         [Test]
-        public void TestMapObject_CurrentLocation_Nested()
+        public void TestMapObject_ParentHolder_Nested()
         {
             var storage = new MyCustomLocation();
             var storage2 = new MyCustomLocation(storage);
-            var chara = Chara.Create(storage, 0, 0).Value;
+            var chara = CharaGen.Create(new CharaDef("Test"), storage).Value;
 
             Assert.IsTrue(chara.IsOwned);
-            Assert.AreEqual(storage, chara.CurrentLocation);
+            Assert.AreEqual(storage, chara.ParentHolder);
         }
 
         [Test]
-        public void TestMapObject_CurrentLocation_TopLevel()
+        public void TestMapObject_ParentHolder_TopLevel()
         {
             var storage = new MyCustomLocation();
             var storage2 = new MyCustomLocation(storage);
-            var chara = Chara.Create(storage2, 0, 0).Value;
+            var chara = CharaGen.Create(new CharaDef("Test"), storage2).Value;
 
-            Assert.AreEqual(storage2, chara.CurrentLocation);
+            Assert.AreEqual(storage2, chara.ParentHolder);
         }
 
         [Test]
-        public void TestMapObject_CurrentLocation_Type()
+        public void TestMapObject_ParentHolder_Type()
         {
             var storage = new MyCustomLocation();
-            var chara = Chara.Create(storage, 0, 0).Value;
+            var chara = CharaGen.Create(new CharaDef("Test"), storage).Value;
 
-            Assert.IsInstanceOf<MyCustomLocation>(chara.CurrentLocation);
+            Assert.IsInstanceOf<MyCustomLocation>(chara.ParentHolder);
             Assert.IsInstanceOf<Pool>(chara._PoolContainingMe);
         }
     }
