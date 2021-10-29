@@ -95,7 +95,7 @@ namespace OpenNefia.Core
             }
         }
 
-        public IEnumerator GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             for (int i = 0; i < this.Count; i++)
             {

@@ -63,7 +63,7 @@ namespace OpenNefia.Core.Object.Aspect.Types
 
         public virtual void OnThrownImpact(InstancedMap map, int x, int y)
         {
-            var chara = map.AtPos(x, y).GetMapObjects<Chara>().FirstOrDefault();
+            var chara = map.AtPos(x, y).GetPrimaryChara();
             if (chara != null)
             {
                 PotionProps.Effect.Apply(chara, GetEffectArgs(chara, TriggeredBy.ThrownItem));

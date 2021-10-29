@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
 using OpenNefia.Game;
@@ -15,6 +16,8 @@ namespace OpenNefia.Core.Object
     public sealed class Chara : MapObject
     {
         public CharaDef Def => (CharaDef)BaseDef;
+
+        public bool IsPlayer => this == Current.Player;
 
         public DefStat<ChipDef> Chip;
         public Direction Direction;
@@ -32,6 +35,28 @@ namespace OpenNefia.Core.Object
         public override void Refresh()
         {
             Chip.Refresh();
+        }
+
+        public bool CanSee(Chara chara)
+        {
+            if (!chara.IsAlive || !chara.IsVisible || !this.HasLos(chara))
+                return false;
+
+            if (this.IsPlayer && !chara.IsInWindowFov())
+                return false;
+
+            return true;
+        }
+
+        public bool CanSee(TilePos pos)
+        {
+            if (!this.GetTilePos()!.Value.HasLos(pos))
+                return false;
+
+            if (this.IsPlayer && !pos.IsInWindowFov())
+                return false;
+
+            return true;
         }
 
         public override void Expose(DataExposer data)

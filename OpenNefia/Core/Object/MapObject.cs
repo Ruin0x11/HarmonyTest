@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.Object.Aspect;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Game;
@@ -107,12 +108,9 @@ namespace OpenNefia.Core.Object
             return this.GetTilePos()?.HasLos(pos) ?? false;
         }
 
-        public bool CanBeSeenBy(Chara chara)
+        public bool HasLos(MapObject obj)
         {
-            if (!this.IsAlive || !this.IsVisible || !this.IsInWindowFov())
-                return false;
-
-            return true;
+            return this.HasLos(obj.GetTilePos()!.Value);
         }
 
         public bool IsOwned => _PoolContainingMe != null;

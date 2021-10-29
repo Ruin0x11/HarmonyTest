@@ -12,5 +12,6 @@ namespace OpenNefia.Core.UI
         void GetPreferredBounds(out int x, out int y, out int width, out int height);
         void OnQuery();
         void OnQueryFinish();
+        bool IsQuerying();
     }
 }

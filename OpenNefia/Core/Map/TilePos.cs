@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Util;
 
-namespace OpenNefia.Core
+namespace OpenNefia.Core.Map
 {
     public struct TilePos
     {
@@ -19,23 +20,28 @@ namespace OpenNefia.Core
 
         public void GetScreenPos(out int sx, out int sy)
         {
-            GraphicsEx.Coords.TileToScreen(this.X, this.Y, out sx, out sy);
+            GraphicsEx.Coords.TileToScreen(X, Y, out sx, out sy);
         }
 
         public bool IsInWindowFov()
         {
-            if (this.Map != Current.Map)
+            if (Map != Current.Map)
                 return false;
 
-            return this.Map.IsInWindowFov(this.X, this.Y);
+            return Map.IsInWindowFov(X, Y);
         }
 
         public bool HasLos(TilePos pos)
         {
-            if (this.Map != Current.Map || this.Map != pos.Map)
+            if (Map != Current.Map || Map != pos.Map)
                 return false;
 
-            return this.Map.HasLos(this.X, this.Y, pos.X, pos.Y);
+            return Map.HasLos(X, Y, pos.X, pos.Y);
+        }
+
+        public int DistanceTo(TilePos other)
+        {
+            return (int)PosUtils.Dist(this.X, this.Y, other.X, other.Y);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;

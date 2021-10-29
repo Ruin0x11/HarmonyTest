@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.Object.Aspect;
 using System;
 using System.Collections.Generic;

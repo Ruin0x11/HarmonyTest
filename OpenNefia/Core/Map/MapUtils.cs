@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Util;
 using System;

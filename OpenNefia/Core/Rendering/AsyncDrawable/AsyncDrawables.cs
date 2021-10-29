@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Map;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
 using System;

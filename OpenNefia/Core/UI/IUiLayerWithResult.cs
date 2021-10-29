@@ -13,7 +13,5 @@ namespace OpenNefia.Core.UI
         UiResult<T>? GetResult();
 
         UiResult<T> Query();
-        void OnQuery();
-        bool IsQuerying();
     }
 }
