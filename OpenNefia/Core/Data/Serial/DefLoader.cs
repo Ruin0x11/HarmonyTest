@@ -137,6 +137,8 @@ namespace OpenNefia.Core.Data.Serial
             // Resolve dependencies between defs.
             ResolveCrossRefs(deserializer);
 
+            LocalizeDefs();
+
             Logger.Info($"[DefLoader] Finished loading.");
         }
 
@@ -292,6 +294,14 @@ namespace OpenNefia.Core.Data.Serial
             CheckErrors(errors, $"Errors resolving crossreferences between defs");
 
             defDeserializer.CrossRefs.Clear();
+        }
+
+        private static void LocalizeDefs()
+        {
+            foreach (var loadedDef in AllDefs.Values)
+            {
+                loadedDef.Def!.Localize(loadedDef.Def!.Identifier.DefId);
+            }
         }
 
         private static Result<List<Def>> GetDefsFromCrossRef(IDefCrossRef crossRef)

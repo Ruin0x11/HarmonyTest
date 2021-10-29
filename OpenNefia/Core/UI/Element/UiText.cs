@@ -73,6 +73,11 @@ namespace OpenNefia.Core.UI.Element
             height = this.Font.GetHeight() * this.Text.Split('\n').Length;
         }
 
+        public override void Localize(LocaleKey key)
+        {
+            this.Text = I18N.Get(key);
+        }
+
         public override void Update(float dt)
         {
         }

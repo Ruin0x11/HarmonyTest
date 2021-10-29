@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Data
 {
-    public abstract class Def : IComparable<Def>, IEquatable<Def>, IDefDeserializable
+    public abstract class Def : IComparable<Def>, IEquatable<Def>, IDefDeserializable, ILocalizable
     {
         public string Id { get; }
 
@@ -44,6 +44,11 @@ namespace OpenNefia.Core.Data
         public virtual void OnMerge()
         {
 
+        }
+
+        public virtual void Localize(LocaleKey key)
+        {
+            I18N.DoLocalize(this, key);
         }
 
         public virtual void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType)

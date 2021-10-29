@@ -40,8 +40,7 @@ namespace OpenNefia.Core.Logic
 
         private static void TriggerSteppedOn(Chara chara)
         {
-            var mef = chara.GetTilePos()!.Value.GetMapObjects<Mef>().FirstOrDefault();
-            if (mef != null)
+            foreach (var mef in chara.GetTilePos()!.Value.GetMapObjects<Mef>())
             {
                 mef.OnSteppedOn(chara);
             }

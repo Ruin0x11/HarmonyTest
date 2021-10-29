@@ -224,7 +224,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public void PromptToCancel()
         {
-            if (Input.YesOrNo())
+            if (Input.YesOrNo("Quit to title screen?"))
                 this.Cancel();
         }
 

@@ -44,6 +44,7 @@ namespace OpenNefia.Core.UI.Layer
     {
         public int Width = 160;
         public bool IsCancellable = true;
+        public string? QueryText = null;
     }
 
     public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
@@ -102,6 +103,10 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
+            if (this.Options.QueryText != null)
+            {
+                Messages.Print(this.Options.QueryText);
+            }
             Sounds.PlayOneShot(SoundDefOf.Pop2);
         }
 

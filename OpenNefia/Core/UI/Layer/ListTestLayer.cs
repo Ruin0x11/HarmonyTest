@@ -11,7 +11,9 @@ namespace OpenNefia.Core.UI.Layer
 {
     internal class ListTestLayer : BaseUiLayer<string>
     {
+        [Localize]
         public UiWindow Window { get; }
+
         public UiList<string> List1 { get; }
         public UiList<string> List2 { get; }
         public UiList<string> List3 { get; }
@@ -20,7 +22,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public ListTestLayer()
         {
-            this.Window = new UiWindow("Test UiList Switching");
+            this.Window = new UiWindow();
             this.List1 = new UiList<string>(new List<string>() { "abc", "def", "ghi" });
             this.List2 = new UiList<string>(new List<string>() { "hoge", "piyo", "fuga" });
             this.List3 = new UiList<string>(new List<string>() { "あいうえお", "アイウエオ", "ってコト？！" });

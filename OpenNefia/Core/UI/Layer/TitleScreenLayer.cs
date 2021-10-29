@@ -29,13 +29,17 @@ namespace OpenNefia.Core.UI.Layer
             private const int ITEM_HEIGHT = 35;
             
             public TitleScreenChoice Submenu;
+
+            [Localize(Key="Subtext")]
             public IUiText UiTextSubtext;
 
-            public TitleScreenCell(TitleScreenChoice submenu, string text, string subtext)
-                : base(submenu, new UiText(FontDefOf.ListTitleScreenText, text))
+            public override string? LocalizeKey => Enum.GetName(Submenu);
+
+            public TitleScreenCell(TitleScreenChoice submenu)
+                : base(submenu, new UiText(FontDefOf.ListTitleScreenText))
             {
                 this.Submenu = submenu;
-                this.UiTextSubtext = new UiText(FontDefOf.ListTitleScreenSubtext, subtext);
+                this.UiTextSubtext = new UiText(FontDefOf.ListTitleScreenSubtext);
             }
 
             public override void SetPosition(int x, int y)
@@ -92,10 +96,12 @@ namespace OpenNefia.Core.UI.Layer
         private AssetDrawable AssetG4;
 
         private IUiText[] TextInfo;
+        
+        [Localize]
         private UiWindow Window;
-        private UiList<TitleScreenChoice> List;
 
-        private string WindowTitle = "冒険の道標";
+        [Localize]
+        private UiList<TitleScreenChoice> List;
 
         public TitleScreenLayer()
         {
@@ -107,26 +113,26 @@ namespace OpenNefia.Core.UI.Layer
             TextInfo = new IUiText[3];
 
             TextInfo[0] = new UiText(FontTitleText, $"Elona version {version}  Developed by Noa");
-            if (I18N.Language == "ja")
+            if (I18N.Language == "ja_JP")
             {
                 TextInfo[1] = new UiText(FontTitleText, "Contributor MSL / View the credits for more");
             }
-            else
+            else if (I18N.Language == "en_US")
             {
                 TextInfo[1] = new UiText(FontTitleText, "Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
             }
-            TextInfo[2] = new UiText(FontTitleText, "OpenNefia.NET version " + Engine.Version + "  Developed by Ruin0x11");
+            TextInfo[2] = new UiText(FontTitleText, $"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
 
-            Window = new UiWindow(WindowTitle);
+            Window = new UiWindow();
 
             var items = new List<TitleScreenCell>() {
-                new TitleScreenCell(TitleScreenChoice.Restore, "冒険を再開する", "Restore an Adventurer"),
-                new TitleScreenCell(TitleScreenChoice.Generate, "新しい冒険者を作成する", "Generate an Adventurer"),
-                new TitleScreenCell(TitleScreenChoice.Incarnate, "冒険者の引継ぎ", "Incarnate an Adventurer"),
-                new TitleScreenCell(TitleScreenChoice.About, "このゲームについて", "About"),
-                new TitleScreenCell(TitleScreenChoice.Options, "設定の変更", "Options"),
-                new TitleScreenCell(TitleScreenChoice.Mods, "MOD", "Mods"),
-                new TitleScreenCell(TitleScreenChoice.Exit, "終了", "Exit"),
+                new TitleScreenCell(TitleScreenChoice.Restore),
+                new TitleScreenCell(TitleScreenChoice.Generate),
+                new TitleScreenCell(TitleScreenChoice.Incarnate),
+                new TitleScreenCell(TitleScreenChoice.About),
+                new TitleScreenCell(TitleScreenChoice.Options),
+                new TitleScreenCell(TitleScreenChoice.Mods),
+                new TitleScreenCell(TitleScreenChoice.Exit),
             };
             List = new UiList<TitleScreenChoice>(items);
             List.EventOnActivate += (_, evt) => this.RunTitleScreenAction(evt.SelectedCell.Data);

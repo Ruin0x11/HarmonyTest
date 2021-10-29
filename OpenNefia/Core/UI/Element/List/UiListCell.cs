@@ -32,8 +32,13 @@ namespace OpenNefia.Core.UI.Element.List
             get => this.UiText.Text;
             set => this.UiText.Text = value;
         }
+
+        [Localize(Key="Text")]
         protected IUiText UiText;
+
         protected IUiText KeyNameText = null!;
+
+        public virtual string? LocalizeKey => null;
 
         public int XOffset { get; set; }
 

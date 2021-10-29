@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
+using OpenNefia.Core.Extensions;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
 
@@ -15,6 +16,7 @@ namespace OpenNefia.Core.UI
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
+        private bool IsLocalized = false;
 
         public virtual void Cancel()
         {
@@ -95,6 +97,12 @@ namespace OpenNefia.Core.UI
         public virtual UiResult<T> Query()
         {
             Engine.Instance.CurrentLayer?.HaltInput();
+
+            if (!IsLocalized)
+            {
+                this.Localize(this.GetType()!.FullName!);
+                IsLocalized = true;
+            }
 
             Engine.Instance.PushLayer(this);
 

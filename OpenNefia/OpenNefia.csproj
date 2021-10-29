@@ -46,6 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Core\Locale\en-US\MainTitle.lua" />
     <None Remove="Assets\Icon\icon.ico" />
     <None Remove="Assets\Icon\icon.png" />
     <None Remove="Assets\Icon\icon128.png" />
@@ -66,6 +67,10 @@
     
   <ItemGroup>
     <ProjectReference Include="..\Thirdparty\CSharpRepl\CSharpRepl.Services\CSharpRepl.Services.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <Folder Include="Assets\Core\Locale\ja-JP\" />
   </ItemGroup>
     
 	<!-- Uncommment after .NET 6 is released. -->

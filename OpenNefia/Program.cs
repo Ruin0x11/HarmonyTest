@@ -21,7 +21,7 @@ namespace OpenNefia
 
             var bootConfig = new BootConfig()
             {
-                WindowTitle = "OpenNefia.NET",
+                WindowTitle = Engine.NameBase,
                 WindowDisplay = 0,
                 WindowMinWidth = 800,
                 WindowMinHeight = 600,

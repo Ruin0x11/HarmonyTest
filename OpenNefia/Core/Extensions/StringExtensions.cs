@@ -5,6 +5,8 @@ namespace OpenNefia.Core.Extensions
 {
     public static class StringExtensions
     {
+        public static LocaleKey ToLocaleKey(this string str) => new LocaleKey(str);
+
         public static int GetWideLength(this string str) => UnicodeWidth.GetWidthCJK(str);
         public static int GetWideWidth(this char c) => UnicodeWidth.GetWidth(c);
 

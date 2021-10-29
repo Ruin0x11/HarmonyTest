@@ -35,7 +35,8 @@ namespace OpenNefia.Core.Rendering
 
             if (color != null)
             {
-                this.Batch.SetColor(color.Value.r, color.Value.g, color.Value.b, color.Value.a);
+                var c = color.Value;
+                this.Batch.SetColor(c.Rf, c.Gf, c.Bf, c.Af);
             }
             else
             {

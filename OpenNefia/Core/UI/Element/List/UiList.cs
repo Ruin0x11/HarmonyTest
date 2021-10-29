@@ -69,6 +69,15 @@ namespace OpenNefia.Core.UI.Element.List
         {
         }
 
+        public override void Localize(LocaleKey key)
+        {
+            for (int i = 0; i < this.Cells.Count; i++)
+            {
+                var cell = this.Cells[i];
+                cell.Localize(key.With(cell.LocalizeKey ?? i.ToString()));
+            }
+        }
+
         private static IEnumerable<IUiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
         {
             IUiListCell<TItem> MakeListCell(TItem item, int index)

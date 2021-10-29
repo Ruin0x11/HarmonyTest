@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IUiLayer : IUiInputElement, ILoveEventReceiever
+    public interface IUiLayer : IUiInputElement, ILoveEventReceiever, ILocalizable
     {
         void GetPreferredBounds(out int x, out int y, out int width, out int height);
         void OnQuery();

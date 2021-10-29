@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public class UiWindow : BaseDrawable
+    public class UiWindow : BaseUiElement
     {
         public string? Title { get; }
         public bool HasShadow { get; }
@@ -23,18 +23,19 @@ namespace OpenNefia.Core.UI.Element
         protected FontDef FontWindowTitle;
         protected FontDef FontWindowKeyHints;
 
-        protected IUiText? TitleText;
+        [Localize(Key="Title")]
+        protected IUiText TitleText;
+
         protected IUiText KeyHintText;
         protected UiWindowBacking Window;
         protected UiWindowBacking WindowShadow;
         protected UiTopicWindow TopicWindow;
 
-        public UiWindow(string? title = null, bool hasShadow = true, List<UiKeyHint>? keyHints = null, int xOffset = 0, int yOffset = 0)
+        public UiWindow(bool hasShadow = true, List<UiKeyHint>? keyHints = null, int xOffset = 0, int yOffset = 0)
         {
             if (keyHints == null)
                 keyHints = new List<UiKeyHint>();
 
-            this.Title = title;
             this.HasShadow = hasShadow;
             this.KeyHints = keyHints;
             this.XOffset = xOffset;
@@ -46,8 +47,7 @@ namespace OpenNefia.Core.UI.Element
             this.FontWindowTitle = FontDefOf.WindowTitle;
             this.FontWindowKeyHints = FontDefOf.WindowKeyHints;
 
-            if (this.Title != null)
-                this.TitleText = new UiText(this.FontWindowTitle, this.Title!);
+            this.TitleText = new UiText(this.FontWindowTitle);
             this.KeyHintText = new UiText(this.FontWindowKeyHints, "hogepiyo");
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);

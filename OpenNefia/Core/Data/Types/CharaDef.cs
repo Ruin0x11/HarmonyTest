@@ -16,6 +16,9 @@ namespace OpenNefia.Core.Data.Types
 
         public override Type MapObjectType => typeof(Chara);
 
+        [Localize]
+        public string Name = string.Empty;
+
         [DefRequired]
         public ChipDef Chip = null!;
     }

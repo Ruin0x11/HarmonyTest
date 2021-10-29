@@ -12,7 +12,7 @@ namespace OpenNefia.Core
             No
         }
 
-        public static bool YesOrNo(bool canCancel = true, bool invert = false)
+        public static bool YesOrNo(string queryText, bool canCancel = true, bool invert = false)
         {
             var items = new List<PromptChoice<YesNo>>()
             {
@@ -24,7 +24,7 @@ namespace OpenNefia.Core
                 items.Reverse();
             }
 
-            var result = new Prompt<YesNo>(items, new PromptOptions() { IsCancellable = canCancel }).Query();
+            var result = new Prompt<YesNo>(items, new PromptOptions() { QueryText = queryText, IsCancellable = canCancel }).Query();
 
             if (result.HasValue)
             {
