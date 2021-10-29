@@ -9,20 +9,20 @@ using System.Text;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class AsyncDrawables : BaseDrawable
+    public class MapDrawables : BaseDrawable
     {
-        private class AsyncDrawableEntry : IComparable<AsyncDrawableEntry>
+        private class MapDrawableEntry : IComparable<MapDrawableEntry>
         {
-            public IAsyncDrawable Drawable;
+            public IMapDrawable Drawable;
             public int ZOrder;
 
-            public AsyncDrawableEntry(IAsyncDrawable drawable, int zOrder = 0)
+            public MapDrawableEntry(IMapDrawable drawable, int zOrder = 0)
             {
                 Drawable = drawable;
                 ZOrder = zOrder;
             }
 
-            public int CompareTo(AsyncDrawableEntry? other)
+            public int CompareTo(MapDrawableEntry? other)
             {
                 if (ZOrder == other?.ZOrder)
                 {
@@ -32,9 +32,9 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        private SortedSet<AsyncDrawableEntry> Active = new SortedSet<AsyncDrawableEntry>();
+        private SortedSet<MapDrawableEntry> Active = new SortedSet<MapDrawableEntry>();
 
-        public void Enqueue(IAsyncDrawable drawable, TilePos? pos, int zOrder = 0)
+        public void Enqueue(IMapDrawable drawable, TilePos? pos, int zOrder = 0)
         {
             if (pos == null || pos.Value.Map != Current.Map)
                 return;
@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Rendering
             drawable.ScreenLocalX = screenX;
             drawable.ScreenLocalY = screenY;
             drawable.OnEnqueue();
-            Active.Add(new AsyncDrawableEntry(drawable, zOrder));
+            Active.Add(new MapDrawableEntry(drawable, zOrder));
         }
 
         public void Clear()
@@ -76,11 +76,6 @@ namespace OpenNefia.Core.Rendering
                 var drawable = entry.Drawable;
                 drawable.Update(dt);
                 drawable.SetPosition(this.X + drawable.ScreenLocalX, this.Y + drawable.ScreenLocalY);
-
-                if (drawable.IsFinished)
-                {
-                    drawable.Dispose();
-                }
             }
 
             Active.RemoveWhere(entry => entry.Drawable.IsFinished);

@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
         private List<Love.SpriteBatch> SpriteBatches = new List<Love.SpriteBatch>();
         internal bool NeedsRedraw = false;
 
-        private TileAtlas Atlas;
+        public TileAtlas Atlas { get; }
         private ICoords Coords;
 
         public ChipBatch(TileAtlas atlas, ICoords coords)
@@ -21,6 +21,8 @@ namespace OpenNefia.Core.Rendering
             this.Atlas = atlas;
             this.Coords = coords;
         }
+
+        public ChipBatch(TileAtlas atlas) : this(atlas, GraphicsEx.Coords) { }
 
         public void Clear()
         {

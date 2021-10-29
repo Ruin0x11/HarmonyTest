@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Love;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Util;
 
@@ -42,6 +43,11 @@ namespace OpenNefia.Core.Map
         public int DistanceTo(TilePos other)
         {
             return (int)PosUtils.Dist(this.X, this.Y, other.X, other.Y);
+        }
+
+        public float AngleBetween(TilePos other)
+        {
+            return MathUtil.RadiansToDegrees(MathF.Atan2(other.X - this.X, this.Y - other.Y));
         }
     }
 }

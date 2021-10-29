@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Rendering
 {
-    public abstract class BaseAsyncDrawable : BaseDrawable, IAsyncDrawable
+    public abstract class BaseMapDrawable : BaseDrawable, IMapDrawable
     {
         public bool IsFinished { get; protected set; }
         public int ScreenLocalX { get; set; }
@@ -10,6 +10,11 @@ namespace OpenNefia.Core.Rendering
 
         public virtual void OnEnqueue()
         {
+        }
+
+        public virtual bool CanEnqueue()
+        {
+            return true;
         }
 
         public virtual void OnThemeSwitched()

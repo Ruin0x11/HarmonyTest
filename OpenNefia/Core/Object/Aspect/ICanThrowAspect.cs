@@ -1,10 +1,10 @@
-﻿namespace OpenNefia.Core.Object.Aspect
-{
-    internal interface ICanThrowAspect
-    {
-        bool ShouldDestroyOnThrow { get; }
+﻿using OpenNefia.Core.Map;
 
+namespace OpenNefia.Core.Object.Aspect
+{
+    public interface ICanThrowAspect
+    {
         bool CanThrow(Chara chara);
-        void OnThrownImpact(InstancedMap map, int x, int y);
+        bool OnThrownImpact(TilePos pos);
     }
 }

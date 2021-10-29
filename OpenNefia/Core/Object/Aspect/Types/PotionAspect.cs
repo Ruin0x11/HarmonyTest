@@ -53,17 +53,15 @@ namespace OpenNefia.Core.Object.Aspect.Types
 
         #region ICanBeThrownAspect
 
-        // NOTE: How many should be destroyed? Is it always 1?
-        public bool ShouldDestroyOnThrow => true;
-
         public virtual bool CanThrow(Chara chara)
         {
             return true;
         }
 
-        public virtual void OnThrownImpact(InstancedMap map, int x, int y)
+        public virtual bool OnThrownImpact(TilePos pos)
         {
-            var chara = map.AtPos(x, y).GetPrimaryChara();
+            var chara = pos.GetPrimaryChara();
+
             if (chara != null)
             {
                 PotionProps.Effect.Apply(chara, GetEffectArgs(chara, TriggeredBy.ThrownItem));
@@ -81,6 +79,8 @@ namespace OpenNefia.Core.Object.Aspect.Types
 
                 //puddle.AddAspect(aspect);
             }
+
+            return true;
         }
 
         #endregion

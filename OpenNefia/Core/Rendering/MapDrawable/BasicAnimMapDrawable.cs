@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class BasicAnimAsyncDrawable : BaseAsyncDrawable
+    public class BasicAnimMapDrawable : BaseMapDrawable
     {
         public BasicAnimDef BasicAnim { get; }
 
         private FrameCounter Counter;
         private AssetDrawable AssetDrawable;
 
-        public BasicAnimAsyncDrawable(BasicAnimDef basicAnim)
+        public BasicAnimMapDrawable(BasicAnimDef basicAnim)
         {
             this.BasicAnim = basicAnim;
 

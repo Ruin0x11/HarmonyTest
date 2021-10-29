@@ -23,7 +23,7 @@ namespace OpenNefia.Core.UI.Layer
         private UiScroller Scroller;
         public Camera Camera { get; }
         private MapRenderer MapRenderer;
-        public AsyncDrawables AsyncDrawables { get; }
+        public MapDrawables MapDrawables { get; }
         private UiFpsCounter FpsCounter;
 
         private FontDef FontText;
@@ -59,7 +59,7 @@ namespace OpenNefia.Core.UI.Layer
 
             FpsCounter = new UiFpsCounter();
             MapRenderer = new MapRenderer(this.Map);
-            AsyncDrawables = new AsyncDrawables();
+            MapDrawables = new MapDrawables();
 
             this.BindKeys();
 
@@ -141,9 +141,9 @@ namespace OpenNefia.Core.UI.Layer
                     }
                 }
 
-                var drawable = new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimSmoke);
+                var drawable = new BasicAnimMapDrawable(BasicAnimDefOf.AnimSmoke);
                 drawable.SetPosition(Rand.NextInt(Love.Graphics.GetWidth()), Rand.NextInt(Love.Graphics.GetHeight()));
-                AsyncDrawables.Enqueue(drawable, player.GetTilePos());
+                MapDrawables.Enqueue(drawable, player.GetTilePos());
                 
                 RefreshScreen();
             }
@@ -199,7 +199,12 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null)
                 {
-                    Console.WriteLine(new PositionPrompt(player.GetTilePos()!.Value).Query());
+                    var posResult = new PositionPrompt(player).Query();
+                    if (!posResult.HasValue)
+                        return;
+
+                    var targetPos = posResult.Value.Pos;
+                    CharaAction.Throw(player, item, targetPos);
                 }
 
                 RefreshScreen();
@@ -307,7 +312,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
             MapRenderer.SetPosition(x, y);
-            AsyncDrawables.SetPosition(x, y);
+            MapDrawables.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
         }
 
@@ -356,7 +361,7 @@ namespace OpenNefia.Core.UI.Layer
             }
 
             this.MapRenderer.Update(dt);
-            this.AsyncDrawables.Update(dt);
+            this.MapDrawables.Update(dt);
             this.FpsCounter.Update(dt);
         }
 
@@ -377,7 +382,7 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.Print(MouseText, 5, 20);
             Love.Graphics.Print($"Player: ({player.X}, {player.Y})", 5, 35);
 
-            this.AsyncDrawables.Draw();
+            this.MapDrawables.Draw();
 
             this.FpsCounter.Draw();
         }

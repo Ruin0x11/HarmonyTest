@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Rendering.AsyncDrawable
+namespace OpenNefia.Core.Rendering
 {
-    public class ParticleAsyncDrawable : BaseAsyncDrawable
+    public class ParticleMapDrawable : BaseMapDrawable
     {
         private struct Particle
         {
@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Rendering.AsyncDrawable
         private Particle[] Particles;
         private FrameCounter Counter;
 
-        public ParticleAsyncDrawable(AssetDef asset, SoundDef? sound, float rotationVariance = -1f, float? wait = null)
+        public ParticleMapDrawable(AssetDef asset, SoundDef? sound, float rotationVariance = -1f, float? wait = null)
         {
             if (wait == null)
                 wait = Config.AnimeWait;

@@ -213,7 +213,8 @@ namespace OpenNefia.Game
             
             for (int i = 0; i< 10; i++)
             {
-                ItemGen.Create(ItemDefOf.PotionCureMinorWound, map.AtPos(3 + i, 3));
+                var item = ItemGen.Create(ItemDefOf.PotionCureMinorWound, map.AtPos(3 + i, 3)).Value;
+                item.Amount = 100;
             }
 
             return map;

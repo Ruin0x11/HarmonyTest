@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class TileAtlasBatch
+    public class TileAtlasBatch : IDisposable
     {
         private TileAtlas Atlas { get; }
         private SpriteBatch Batch { get; }
@@ -85,6 +85,11 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawSpriteBatch(this.Batch, x, y, width, height);
+        }
+
+        public void Dispose()
+        {
+            this.Batch.Dispose();
         }
     }
 }

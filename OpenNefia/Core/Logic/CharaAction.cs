@@ -1,5 +1,9 @@
-﻿using OpenNefia.Core.Object;
+﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Map;
+using OpenNefia.Core.Object;
 using OpenNefia.Core.Object.Aspect;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Util;
 using System;
 using System.Collections.Generic;
@@ -62,6 +66,40 @@ namespace OpenNefia.Core.Logic
             }
 
             return result;
+        }
+
+        public static TurnResult Throw(Chara chara, Item item, TilePos targetPos)
+        {
+            if (!chara.IsAlive || !item.IsAlive || !item.GetAspects<ICanThrowAspect>().Any(i => i.CanThrow(chara)))
+            {
+                return TurnResult.TurnEnd;
+            }
+
+            Current.Field!.MapDrawables.Enqueue(new RangedAttackMapDrawable(chara.GetTilePos()!.Value, targetPos, item.Chip, item.Color), chara.GetTilePos()!.Value);
+
+            var shouldConsume = false;
+
+            foreach (var aspect in item.GetAspects<ICanThrowAspect>())
+            {
+                shouldConsume |= aspect.OnThrownImpact(targetPos);
+            }
+
+            if (shouldConsume)
+            {
+                Sounds.PlayOneShot(SoundDefOf.Crush2, targetPos);
+                item.Consume(1);
+            }
+            else
+            {
+                var split = item.SplitOff(1);
+
+                if (split != null)
+                {
+                    MapUtils.TrySpawn(split, targetPos);
+                }
+            }
+
+            return TurnResult.TurnEnd;
         }
 
         public static bool TakeItem(Chara chara, Item item)

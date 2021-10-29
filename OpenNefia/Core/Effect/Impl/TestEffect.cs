@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Effect.Impl
     {
         public override EffectResult Apply(Chara chara, EffectArguments args)
         {
-            FieldLayer.Instance!.AsyncDrawables.Enqueue(new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimCurse), chara.GetTilePos());
+            FieldLayer.Instance!.MapDrawables.Enqueue(new BasicAnimMapDrawable(BasicAnimDefOf.AnimCurse), chara.GetTilePos());
 
             return EffectResult.Succeeded;
         }

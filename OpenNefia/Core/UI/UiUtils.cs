@@ -17,6 +17,11 @@ namespace OpenNefia.Core.UI
             return Enum.GetName(typeof(Keys), keyAndModifiers)!.ToLowerInvariant();
         }
 
+        public static bool IsPointInVisibleScreen(int screenX, int screenY)
+        {
+            return screenX >= 0 && screenY >= 0 && screenX < Love.Graphics.GetWidth() && screenY < Love.Graphics.GetHeight() - Constants.INF_MSGH;
+        }
+
         public static Rectangle GetCenteredParams(int width, int height)
         {
             var ingame = false;

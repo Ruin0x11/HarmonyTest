@@ -18,8 +18,8 @@ namespace OpenNefia.Core.UI.Layer
     {
         public new class Result
         {
-            TilePos Pos;
-            bool CanSee;
+            public TilePos Pos;
+            public bool CanSee;
 
             public Result(TilePos pos, bool canSee)
             {
@@ -50,6 +50,8 @@ namespace OpenNefia.Core.UI.Layer
 
             this.BindKeys();
         }
+
+        public PositionPrompt(Chara onlooker) : this(onlooker.GetTilePos()!.Value, onlooker: onlooker) { }
 
         protected virtual void BindKeys()
         {
@@ -123,7 +125,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            this.TextTarget.SetPosition(100, this.Height - Constants.INF_VERH - 45);
+            this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45);
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
