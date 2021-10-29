@@ -1,4 +1,5 @@
-﻿using OpenNefia.Serial;
+﻿using OpenNefia.Core.Map;
+using OpenNefia.Serial;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -115,7 +116,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in Map.MapObjectsAt(x, y))
+            foreach (var obj in Map.AtPos(x, y).GetMapObjects())
             {
                 if (at == null)
                 {

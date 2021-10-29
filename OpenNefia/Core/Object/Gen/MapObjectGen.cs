@@ -1,6 +1,8 @@
 ﻿using FluentResults;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Object.Aspect;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace OpenNefia.Core.Object
@@ -9,7 +11,7 @@ namespace OpenNefia.Core.Object
     {
         private static ConstructorInfo? FindCtor(Type mapObjectType, Type concreteDefType)
         {
-            // Look for 1-argument constructor with derived MapObjectDef type.
+            // Look for a 1-argument constructor with derived MapObjectDef type.
             var ctorParamTypes = new Type[] { concreteDefType };
 
             try
@@ -23,6 +25,38 @@ namespace OpenNefia.Core.Object
             }
         }
 
+        private static MapObjectAspect CreateAspectFromProps(MapObject mapObject, AspectProperties props)
+        {
+            var aspectClassAttrib = props.GetType().GetCustomAttribute<AspectClassAttribute>();
+            if (aspectClassAttrib == null)
+            {
+                throw new Exception($"AspectProperties class {props.GetType()} must have an AspectClass attribute");
+            }
+            if (!typeof(MapObjectAspect).IsAssignableFrom(aspectClassAttrib.AspectType))
+            {
+                throw new Exception($"{aspectClassAttrib.AspectType} is not convertable to a MapObjectAspect");
+            }
+
+            var aspect = (MapObjectAspect)Activator.CreateInstance(aspectClassAttrib.AspectType, mapObject)!;
+
+            return aspect;
+        }
+
+        private static void InitializeAspects(MapObject mapObject)
+        {
+            var aspectProps = mapObject.BaseDef.Aspects;
+            var aspects = new List<MapObjectAspect>();
+
+            foreach (var props in aspectProps)
+            {
+                var aspect = CreateAspectFromProps(mapObject, props);
+                aspect.Initialize(props);
+                aspects.Add(aspect);
+            }
+
+            mapObject._Aspects.AddRange(aspects);
+        }
+
         public static Result<MapObject> Create(MapObjectDef def)
         {
             var realType = def.MapObjectType;
@@ -33,6 +67,8 @@ namespace OpenNefia.Core.Object
                 return Result.Fail($"No constructor found for {realType} with def type {def.GetType()}");
 
             var mapObject = (MapObject)ctor.Invoke(new object[] { def });
+
+            InitializeAspects(mapObject);
 
             return Result.Ok(mapObject);
         }
@@ -54,14 +90,14 @@ namespace OpenNefia.Core.Object
             return obj;
         }
 
-        public static Result<MapObject> Create(MapObjectDef def, InstancedMap map, int x, int y)
+        public static Result<MapObject> Create(MapObjectDef def, TilePos pos)
         {
             var obj = Create(def);
 
             if (obj.IsFailed)
                 return obj;
 
-            var spawned = MapUtils.TrySpawn(obj.Value, map, x, y);
+            var spawned = MapUtils.TrySpawn(obj.Value, pos);
             if (!spawned)
             {
                 obj.Value.Destroy();

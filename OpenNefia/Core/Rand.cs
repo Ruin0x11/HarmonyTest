@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core
 {
-    public static class Random
+    public static class Rand
     {
         private static System.Random Instance = new System.Random();
 
-        public static int Rnd(int n)
+        public static int NextInt(int n)
         {
             return Instance.Next(n);
         }

@@ -38,11 +38,11 @@ namespace TestMod1
         {
             this.Keybinds[Keybind.Entries.UILeft] += (_) => {
                 this.Value--;
-                Sound.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
             this.Keybinds[Keybind.Entries.UIRight] += (_) => {
                 this.Value++;
-                Sound.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
             this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
             this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
@@ -51,7 +51,7 @@ namespace TestMod1
 
         public override void OnQuery()
         {
-            Sound.PlayOneShot(SoundDefOf.AtkDark);
+            Sounds.PlayOneShot(SoundDefOf.AtkDark);
         }
 
         protected virtual void UpdateText()

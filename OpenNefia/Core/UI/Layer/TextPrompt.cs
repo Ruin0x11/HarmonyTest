@@ -97,7 +97,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Sound.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.PlayOneShot(SoundDefOf.Pop2);
         }
 
         protected virtual void UpdateText()

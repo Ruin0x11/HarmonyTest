@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using OpenNefia.Core.Extensions;
 using OpenNefia.Serial;
 using FluentResults;
+using OpenNefia.Core.Map;
 
 namespace OpenNefia.Core
 {
@@ -78,19 +79,6 @@ namespace OpenNefia.Core
             ClearMemory(defaultTile);
         }
 
-        public IEnumerable<MapObject> MapObjectsAt(int x, int y)
-        {
-            return this._Pool.Where(obj => obj.X == x && obj.Y == y);
-        }
-
-        public IEnumerable<T> MapObjectsAt<T>(int x, int y) where T: MapObject
-        {
-            return this._Pool
-                .Select(obj => obj as T)
-                .WhereNotNull()
-                .Where(obj => obj.X == x && obj.Y == y);
-        }
-
         public void Clear(TileDef tile)
         {
             for (int y = 0; y < this.Height; y++)
@@ -145,7 +133,7 @@ namespace OpenNefia.Core
             var isSolid = tile.IsSolid;
             var isOpaque = tile.IsOpaque;
 
-            foreach (var obj in this.MapObjectsAt(x, y))
+            foreach (var obj in this.AtPos(x, y).GetMapObjects())
             {
                 isSolid |= obj.IsSolid;
                 isOpaque |= obj.IsOpaque;
@@ -218,6 +206,11 @@ namespace OpenNefia.Core
             }
 
             return true;
+        }
+
+        internal TilePos AtPos(int x, int y)
+        {
+            return new TilePos(x, y, this);
         }
 
         public bool IsInWindowFov(int tileX, int tileY)
@@ -354,16 +347,27 @@ namespace OpenNefia.Core
 
         public bool TakeOrTransferObject(MapObject obj, int x, int y)
         {
-            var found = MapUtils.FindPositionToSpawnObject(this, obj, x, y, out var pointX, out var pointY);
-            
-            if (!found)
-            {
-                return false;
-            }
-
             if (obj._PoolContainingMe != null)
             {
                 obj._PoolContainingMe.ReleaseObject(obj);
+            }
+            return TakeObject(obj, x, y);
+        }
+
+        public bool TakeObject(MapObject obj, int x, int y)
+        {
+            var found = MapUtils.FindPositionToSpawnObject(obj, this.AtPos(x, y), out var pointX, out var pointY);
+            
+            if (!found)
+            {
+                Logger.Error($"Could not find a suitable position to spawn object {obj} near ({x}, {y})");
+                return false;
+            }
+
+            if (obj.IsOwned)
+            {
+                Logger.Error($"Could not spawn object {obj} since it is already contained in something.");
+                return false;
             }
 
             if (!this.InnerPool.TakeObject(obj))

@@ -5,7 +5,7 @@
         public AspectProperties Props = null!;
         public MapObject Owner;
 
-        protected MapObjectAspect(MapObject owner)
+        public MapObjectAspect(MapObject owner)
         {
             Owner = owner;
         }

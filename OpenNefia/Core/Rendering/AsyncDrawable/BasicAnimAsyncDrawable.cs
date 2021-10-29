@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Data.Types;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,28 +6,6 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal class FrameCounter
-    {
-        public float FrameDelayMillis;
-        public uint MaxFrames;
-
-        private float Dt = 0f;
-        public uint Frame { get; private set; } = 0;
-        public bool IsFinished { get => Frame >= MaxFrames; }
-
-        public FrameCounter(float delayMillis, uint maxFrames)
-        {
-            FrameDelayMillis = delayMillis;
-            MaxFrames = maxFrames;
-        }
-        
-        public void Update(float dt)
-        {
-            Dt += dt * 1000f;
-            Frame = Math.Clamp((uint)(Dt / FrameDelayMillis), 0, MaxFrames);
-        }
-    }
-
     public class BasicAnimAsyncDrawable : BaseAsyncDrawable
     {
         public BasicAnimDef BasicAnim { get; }
@@ -54,7 +31,7 @@ namespace OpenNefia.Core.Rendering
             if (this.BasicAnim.Sound != null)
             {
                 // TODO positional audio
-                Sound.PlayOneShot(this.BasicAnim.Sound);
+                Sounds.PlayOneShot(this.BasicAnim.Sound);
             }
         }
 
@@ -70,7 +47,11 @@ namespace OpenNefia.Core.Rendering
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.White);
-            this.AssetDrawable.DrawRegion(Counter.Frame.ToString(), this.X + 24, this.Y + 8);
+            this.AssetDrawable.DrawRegion(Counter.FrameInt.ToString(), 
+                this.X + GraphicsEx.Coords.TileWidth / 2, 
+                this.Y + GraphicsEx.Coords.TileHeight / 6,
+                centered: true,
+                rotation: this.BasicAnim.Rotation * this.Counter.Frame);
         }
     }
 }

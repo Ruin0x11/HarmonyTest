@@ -7,21 +7,26 @@ namespace OpenNefia.Core
 {
     public static class MapUtils
     {
-        public static bool FindPositionToSpawnObject(InstancedMap instancedMap, MapObject obj, int x, int y, out int foundX, out int foundY)
+        public static bool FindPositionToSpawnObject(MapObject obj, TilePos pos, out int foundX, out int foundY)
         {
-            foundX = x;
-            foundY = y;
+            foundX = pos.X;
+            foundY = pos.Y;
             return true;
         }
 
-        internal static bool TrySpawn(MapObject obj, InstancedMap map, int x, int y)
+        internal static bool TrySpawn(MapObject obj, TilePos pos)
         {
             if (!obj.IsAlive)
             {
                 return false;
             }
 
-            return true;
+            if (obj.IsOwned)
+            {
+                return false;
+            }
+
+            return pos.Map.TakeObject(obj, pos.X, pos.Y);
         }
     }
 }

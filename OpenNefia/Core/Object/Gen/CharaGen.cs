@@ -20,9 +20,9 @@ namespace OpenNefia.Core.Object
             return MapObjectGen.Create(def, holder).ToResult(v => (Chara)v);
         }
 
-        public static Result<Chara> Create(CharaDef def, InstancedMap map, int x, int y)
+        public static Result<Chara> Create(CharaDef def, TilePos pos)
         {
-            return MapObjectGen.Create(def, map, x, y).ToResult(v => (Chara)v);
+            return MapObjectGen.Create(def, pos).ToResult(v => (Chara)v);
         }
     }
 }

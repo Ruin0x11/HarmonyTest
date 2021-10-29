@@ -1,13 +1,7 @@
 ﻿using OpenNefia.Core.Rendering;
-using OpenNefia.Core.Rendering.TileDrawLayers;
-using OpenNefia.Game;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OpenNefia.Core
+namespace OpenNefia.Core.Map
 {
     internal class ShadowMap
     {
@@ -17,9 +11,9 @@ namespace OpenNefia.Core
 
         public ShadowMap(InstancedMap map)
         {
-            this.Map = map;
-            this.Coords = GraphicsEx.Coords;
-            this.ShadowTiles = new ShadowTile[map.Width * map.Height];
+            Map = map;
+            Coords = GraphicsEx.Coords;
+            ShadowTiles = new ShadowTile[map.Width * map.Height];
         }
 
         private void SetShadowBorder(int tx, int ty, ShadowTile shadow)
@@ -55,17 +49,17 @@ namespace OpenNefia.Core
             windowTiledW = Math.Min(windowTiledW, Map.Width);
             windowTiledH = Math.Min(windowTiledH, Map.Height);
 
-            var startX = Math.Clamp(playerX - (windowTiledW / 2), 0, Map.Width - windowTiledW);
-            var startY = Math.Clamp(playerY - (windowTiledH / 2), 0, Map.Height - windowTiledH);
-            var endX = startX + windowTiledW;
-            var endY = startY + windowTiledH;
+            var startX = Math.Clamp(playerX - windowTiledW / 2 - 1, 0, Map.Width - windowTiledW);
+            var startY = Math.Clamp(playerY - windowTiledH / 2 - 1, 0, Map.Height - windowTiledH);
+            var endX = startX + windowTiledW + 2;
+            var endY = startY + windowTiledH + 2;
 
             var fovSize = 15;
             var fovRadius = FovRadius.Get(fovSize);
             var radius = fovSize / 2 + 1;
 
-            var fovYStart = playerY - (fovSize / 2);
-            var fovYEnd = playerY + (fovSize / 2);
+            var fovYStart = playerY - fovSize / 2;
+            var fovYEnd = playerY + fovSize / 2;
 
             var cx = playerX - radius;
             var cy = radius - playerY;

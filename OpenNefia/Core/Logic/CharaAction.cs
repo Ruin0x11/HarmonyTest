@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Logic
 
             chara.Direction = PosUtils.GetDirectionTowards(chara.X, chara.Y, newX, newY);
 
-            var map = chara.GetCurrentMap();
+            var map = chara.GetContainingMap();
 
             if (map == null || !map.CanPassThrough(newX, newY))
             {
@@ -34,7 +34,7 @@ namespace OpenNefia.Core.Logic
 
         public static TurnResult Drink(Chara chara, Item item)
         {
-            if (!chara.IsAlive || item.IsAlive)
+            if (!chara.IsAlive || !item.IsAlive)
             {
                 return TurnResult.TurnEnd;
             }
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Logic
 
             if (shouldConsume)
             {
-                item.Amount -= 1;
+                item.Consume(1);
             }
 
             return result;
@@ -71,7 +71,7 @@ namespace OpenNefia.Core.Logic
 
         public static bool DropItem(Chara chara, Item item)
         {
-            var map = chara.GetCurrentMap();
+            var map = chara.GetContainingMap();
             if (map == null)
                 return false;
 

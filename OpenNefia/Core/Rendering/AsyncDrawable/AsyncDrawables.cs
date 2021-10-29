@@ -8,32 +8,6 @@ using System.Text;
 
 namespace OpenNefia.Core.Rendering
 {
-    public interface IAsyncDrawable : IDrawable
-    {
-        public bool IsFinished { get; }
-
-        public void OnEnqueue();
-        public void OnThemeSwitched();
-    }
-
-    public abstract class BaseAsyncDrawable : BaseDrawable, IAsyncDrawable
-    {
-        public bool IsFinished { get; protected set; }
-
-        public virtual void OnEnqueue()
-        {
-        }
-
-        public virtual void OnThemeSwitched()
-        {
-        }
-
-        public virtual void Finish()
-        {
-            this.IsFinished = true;
-        }
-    }
-
     public class AsyncDrawables : BaseDrawable
     {
         private class AsyncDrawableEntry : IComparable<AsyncDrawableEntry>
@@ -59,8 +33,14 @@ namespace OpenNefia.Core.Rendering
 
         private SortedSet<AsyncDrawableEntry> Active = new SortedSet<AsyncDrawableEntry>();
 
-        public void Enqueue(IAsyncDrawable drawable, int zOrder = 0)
+        public void Enqueue(IAsyncDrawable drawable, TilePos? pos, int zOrder = 0)
         {
+            if (pos == null || pos.Value.Map != Current.Map)
+                return;
+
+            GraphicsEx.Coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
+            drawable.ScreenLocalX = screenX;
+            drawable.ScreenLocalY = screenY;
             drawable.OnEnqueue();
             Active.Add(new AsyncDrawableEntry(drawable, zOrder));
         }
@@ -92,8 +72,16 @@ namespace OpenNefia.Core.Rendering
         {
             foreach (var entry in Active)
             {
-                entry.Drawable.Update(dt);
+                var drawable = entry.Drawable;
+                drawable.Update(dt);
+                drawable.SetPosition(this.X + drawable.ScreenLocalX, this.Y + drawable.ScreenLocalY);
+
+                if (drawable.IsFinished)
+                {
+                    drawable.Dispose();
+                }
             }
+
             Active.RemoveWhere(entry => entry.Drawable.IsFinished);
         }
 

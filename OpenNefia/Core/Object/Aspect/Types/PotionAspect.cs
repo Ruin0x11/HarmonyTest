@@ -1,17 +1,18 @@
 ﻿using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Effect;
 using OpenNefia.Core.Logic;
+using OpenNefia.Core.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Object.Aspect
+namespace OpenNefia.Core.Object.Aspect.Types
 {
     public class PotionAspect : MapObjectAspect, IEffectArgsProvider, ICanDrinkAspect, ICanThrowAspect
     {
-        public PotionAspectProps PotionProps => (PotionAspectProps)this.Props;
+        public PotionAspectProps PotionProps => (PotionAspectProps)Props;
 
         public PotionAspect(MapObject owner) : base(owner)
         {
@@ -24,10 +25,10 @@ namespace OpenNefia.Core.Object.Aspect
 
         #region IEffectArgsGenerator implementation.
 
-        public virtual EffectArguments GetEffectArgs(MapObject obj, TriggeredBy triggeredBy)
+        public virtual EffectArguments GetEffectArgs(Chara chara, TriggeredBy triggeredBy)
         {
-            MapObject potionItem = this.Owner;
-            return PotionProps.EffectArgs.ToArgs(obj, source: potionItem, triggeredBy: triggeredBy);
+            MapObject potionItem = Owner;
+            return PotionProps.EffectArgs.ToArgs(source: potionItem, triggeredBy: triggeredBy);
         }
 
         #endregion
@@ -44,7 +45,7 @@ namespace OpenNefia.Core.Object.Aspect
 
         public virtual TurnResult OnDrink(Chara chara)
         {
-            this.PotionProps.Effect.Apply(this.GetEffectArgs(chara, TriggeredBy.Drinking));
+            PotionProps.Effect.Apply(chara, GetEffectArgs(chara, TriggeredBy.Drinking));
             return TurnResult.TurnEnd;
         }
 
@@ -62,10 +63,10 @@ namespace OpenNefia.Core.Object.Aspect
 
         public virtual void OnThrownImpact(InstancedMap map, int x, int y)
         {
-            var chara = map.MapObjectsAt<Chara>(x, y).FirstOrDefault();
+            var chara = map.AtPos(x, y).GetMapObjects<Chara>().FirstOrDefault();
             if (chara != null)
             {
-                this.PotionProps.Effect.Apply(this.GetEffectArgs(chara, TriggeredBy.ThrownItem));
+                PotionProps.Effect.Apply(chara, GetEffectArgs(chara, TriggeredBy.ThrownItem));
             }
             else
             {

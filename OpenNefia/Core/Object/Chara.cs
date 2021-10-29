@@ -14,6 +14,8 @@ namespace OpenNefia.Core.Object
 {
     public sealed class Chara : MapObject
     {
+        public CharaDef Def => (CharaDef)BaseDef;
+
         public DefStat<ChipDef> Chip;
         public Direction Direction;
         public ItemInventory Inventory;

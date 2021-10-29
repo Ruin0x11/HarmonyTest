@@ -47,6 +47,6 @@ namespace OpenNefia.Core.Object
 
         public IEnumerator<Item> GetEnumerator() => ((IEnumerable<Item>)_Pool).GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => _Pool.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

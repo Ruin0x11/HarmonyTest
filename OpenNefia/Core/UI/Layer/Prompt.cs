@@ -95,14 +95,14 @@ namespace OpenNefia.Core.UI.Layer
 
             this.List.EventOnActivate += (o, e) =>
             {
-                Sound.PlayOneShot(SoundDefOf.Ok1);
+                Sounds.PlayOneShot(SoundDefOf.Ok1);
                 this.Finish(e.SelectedCell.Data);
             };
         }
 
         public override void OnQuery()
         {
-            Sound.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.PlayOneShot(SoundDefOf.Pop2);
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)

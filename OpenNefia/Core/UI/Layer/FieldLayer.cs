@@ -64,15 +64,9 @@ namespace OpenNefia.Core.UI.Layer
 
         public List<Thing> Things;
 
-        internal FieldLayer()
+        internal FieldLayer(InstancedMap map)
         {
-            Map = MapDefOf.Vernis_TestSite.GenerateMap(new InstancedArea(AreaDefOf.Vernis), 5).Value;
-            //Map = new InstancedMap(50, 50, TileDefOf.Carpet5);
-            //this.InitMap();
-            
-            var player = new Chara(CharaDefOf.Chicken);
-            Map.TakeOrTransferObject(player, 2, 2);
-            Current.Player = player;
+            Map = map;
 
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
@@ -99,8 +93,7 @@ namespace OpenNefia.Core.UI.Layer
 
             this.BindKeys();
 
-            Map.ClearMemory(TileDefOf.WallForestFog);
-            UpdateCameraAndVisibility();
+            RefreshScreen();
         }
 
         protected virtual void BindKeys()
@@ -117,6 +110,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keys.G] += (_) => this.GetItem();
             this.Keybinds[Keys.D] += (_) => this.DropItem();
             this.Keybinds[Keys.C] += (_) => this.CastSpell();
+            this.Keybinds[Keys.Q] += (_) => this.DrinkItem();
             this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
             this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
@@ -132,7 +126,7 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
         }
 
-        private void UpdateCameraAndVisibility()
+        public void RefreshScreen()
         {
             var player = Current.Player!;
 
@@ -153,7 +147,7 @@ namespace OpenNefia.Core.UI.Layer
             if (player != null)
             {
                 CharaAction.Move(player, player.X + dx, player.Y + dy);
-                UpdateCameraAndVisibility();
+                RefreshScreen();
             }
         }
 
@@ -163,22 +157,25 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                var item = Map.MapObjectsAt<Item>(player.X, player.Y).FirstOrDefault();
+                var pos = player.GetTilePos()!.Value;
+                var item = pos.GetMapObjects<Item>().FirstOrDefault();
 
                 if (item != null && CharaAction.TakeItem(player, item))
                 {
-                    Sound.PlayOneShot(SoundDefOf.Get1, new TilePos(player.X, player.Y, Map));
+                    Sounds.PlayOneShot(SoundDefOf.Get1, pos);
 
                     if (item.StackAll())
                     {
-                        Sound.PlayOneShot(SoundDefOf.Heal1);
+                        Sounds.PlayOneShot(SoundDefOf.Heal1);
                     }
                 }
-            }
 
-            var drawable = new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimSmoke);
-            drawable.SetPosition(Random.Rnd(Love.Graphics.GetWidth()), Random.Rnd(Love.Graphics.GetHeight()));
-            AsyncDrawables.Enqueue(drawable);
+                var drawable = new BasicAnimAsyncDrawable(BasicAnimDefOf.AnimSmoke);
+                drawable.SetPosition(Rand.NextInt(Love.Graphics.GetWidth()), Rand.NextInt(Love.Graphics.GetHeight()));
+                AsyncDrawables.Enqueue(drawable, player.GetTilePos());
+                
+                RefreshScreen();
+            }
         }
 
         private void DropItem()
@@ -191,13 +188,33 @@ namespace OpenNefia.Core.UI.Layer
 
                 if (item != null && CharaAction.DropItem(player, item))
                 {
-                    Sound.PlayOneShot(SoundDefOf.Drop1, player.X, player.Y);
+                    Sounds.PlayOneShot(SoundDefOf.Drop1, player.X, player.Y);
 
                     if (item.StackAll())
                     {
-                        Sound.PlayOneShot(SoundDefOf.AtkChaos);
+                        Sounds.PlayOneShot(SoundDefOf.AtkChaos);
                     }
                 }
+
+                RefreshScreen();
+            }
+        }
+
+        private void DrinkItem()
+        {
+            var player = Current.Player;
+
+            if (player != null)
+            {
+                var item = player.Inventory.Where(i => i.CanDrink(player)).FirstOrDefault();
+
+                if (item != null)
+                {
+                    CharaAction.Drink(player, item);
+                    Sounds.PlayOneShot(SoundDefOf.Drink1, player.X, player.Y);
+                }
+
+                RefreshScreen();
             }
         }
 
@@ -208,6 +225,7 @@ namespace OpenNefia.Core.UI.Layer
             if (result.HasValue)
             {
                 Spell.CastSpell(result.Value.ChoiceData, Current.Player!);
+                RefreshScreen();
             }
         }
 
@@ -273,7 +291,7 @@ namespace OpenNefia.Core.UI.Layer
             Console.WriteLine("Loading...");
             Map = InstancedMap.Load("TestMap.nbt", Current.Game);
             MapRenderer.SetMap(Map);
-            UpdateCameraAndVisibility();
+            RefreshScreen();
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
@@ -301,12 +319,13 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
             MapRenderer.SetPosition(x, y);
+            AsyncDrawables.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
         }
 
         public override void OnQuery()
         {
-            Sound.PlayMusic(MusicDefOf.Field1);
+            Music.PlayMusic(MusicDefOf.Field1);
         }
 
         private void QueryLayer()
@@ -341,7 +360,7 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     if (PlacingTile.IsSolid)
                     {
-                        Sound.PlayOneShot(SoundDefOf.Offer1, tileX, tileY);
+                        Sounds.PlayOneShot(SoundDefOf.Offer1, tileX, tileY);
                     }
                     Map.SetTile(tileX, tileY, PlacingTile);
                     Map.MemorizeTile(tileX, tileY);

@@ -1,6 +1,4 @@
-﻿using Melanchall.DryWetMidi.Core;
-using Melanchall.DryWetMidi.Devices;
-using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -16,14 +14,15 @@ namespace OpenNefia.Core
         Screen
     }
 
-    public static class Sound
+    public static class Sounds
     {
-        private static Playback? MidiPlayback = null;
-        private static OutputDevice? MidiDevice = null;
         private static Dictionary<object, Love.Source> OneShotSources = new Dictionary<object, Love.Source>();
 
         public static void PlayOneShot(SoundDef soundDef, int? screenX = null, int? screenY = null, float? volume = null, object? channel = null)
         {
+            if (!Config.EnableSound)
+                return;
+
             var source = Love.Audio.NewSource(soundDef.Filepath.Resolve(), Love.SourceType.Static);
             
             if (source.GetChannelCount() == 1)
@@ -65,39 +64,5 @@ namespace OpenNefia.Core
         }
 
         public static bool IsChannelPlayingSound(object channel) => OneShotSources.ContainsKey(channel);
-
-        private static OutputDevice GetMidiOutputDevice() => OutputDevice.GetByIndex(0);
-
-        public static void PlayMusic(MusicDef musicDef)
-        {
-            var path = musicDef.Filepath.Resolve();
-
-            if (path.EndsWith(".mid"))
-            {
-                var midiFile = MidiFile.Read(path);
-
-                if (MidiPlayback != null)
-                    StopMusic();
-
-                MidiDevice = GetMidiOutputDevice();
-                MidiPlayback = midiFile.GetPlayback(MidiDevice);
-                MidiPlayback.Loop = true;
-                MidiPlayback.Start();
-            }
-        }
-
-        public static void StopMusic()
-        {
-            if (MidiPlayback != null)
-            {
-                MidiPlayback.Dispose();
-                MidiPlayback = null;
-            }
-            if (MidiDevice != null)
-            {
-                MidiDevice.Dispose();
-                MidiDevice = null;
-            }
-        }
     }
 }

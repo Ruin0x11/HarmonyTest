@@ -1,4 +1,4 @@
-﻿namespace OpenNefia.Core.UI.Layer
+﻿namespace OpenNefia.Core.UI
 {
     /// <summary>
     /// Used to indicate a <see cref="IUiLayerWithResult{T}"/> does not return a result.

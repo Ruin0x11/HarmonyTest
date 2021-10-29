@@ -48,7 +48,7 @@ namespace OpenNefia.Core.Object
 
         public void SetPosition(int x, int y)
         {
-            var map = this.GetCurrentMap();
+            var map = this.GetContainingMap();
 
             if (map != null && !map.IsInBounds(x, y))
             {
@@ -66,6 +66,15 @@ namespace OpenNefia.Core.Object
                 map.RefreshTile(oldX, oldY);
                 map.RefreshTile(x, y);
             }
+        }
+
+        public TilePos? GetTilePos()
+        {
+            var map = this.GetContainingMap();
+            if (map == null)
+                return null;
+
+            return new TilePos(this.X, this.Y, map);
         }
 
         public virtual void AfterCreate()
@@ -95,7 +104,7 @@ namespace OpenNefia.Core.Object
 
         public virtual void RefreshTileOnMap()
         {
-            this.GetCurrentMap()?.RefreshTile(this.X, this.Y);
+            this.GetContainingMap()?.RefreshTile(this.X, this.Y);
         }
 
         public IEnumerable<IMapObjectHolder> EnumerateParents()
@@ -160,10 +169,12 @@ namespace OpenNefia.Core.Object
 
             List<Item> toStack = new List<Item>();
 
+            var map = this.GetCurrentMap();
+
             foreach (var obj in this._PoolContainingMe)
             {
                 var item = obj as Item;
-                if (item != null && item.X == this.X && item.Y == this.Y && this.CanStackWith(item))
+                if (item != null && this.CanStackWith(item) && (map == null || (this.X == item.X && this.Y == item.Y)))
                 {
                     toStack.Add(item);
                 }
@@ -202,7 +213,8 @@ namespace OpenNefia.Core.Object
             return separated;
         }
 
-        public InstancedMap? GetCurrentMap() => GetFirstParent<InstancedMap>();
+        public InstancedMap? GetCurrentMap() => this.ParentHolder as InstancedMap;
+        public InstancedMap? GetContainingMap() => GetFirstParent<InstancedMap>();
 
         public virtual void Expose(DataExposer data)
         {

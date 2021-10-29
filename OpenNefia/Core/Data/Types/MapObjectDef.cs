@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Object.Aspect;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace OpenNefia.Core.Data.Types
 
         public abstract Type MapObjectType { get; }
 
-        public AspectDefinitions Aspects = new AspectDefinitions();
+        public List<AspectProperties> Aspects = new List<AspectProperties>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace OpenNefia.Core.Effect.Composite
             Effects = effects;
         }
 
-        public override EffectResult Apply(EffectArguments args)
+        public override EffectResult Apply(Chara chara, EffectArguments args)
         {
-            var result = Effects[Random.Rnd(Effects.Count)].Apply(args);
+            var result = Effects[Rand.NextInt(Effects.Count)].Apply(chara, args);
             return result;
         }
     }

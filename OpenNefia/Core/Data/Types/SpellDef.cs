@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Effect;
+using OpenNefia.Core.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,6 @@ namespace OpenNefia.Core.Data.Types
 
         public TargetType TargetType;
 
-        public EffectResult Apply(EffectArguments args) => this.EffectOnCast.Apply(args);
+        public EffectResult Apply(Chara chara, EffectArguments args) => this.EffectOnCast.Apply(chara, args);
     }
 }

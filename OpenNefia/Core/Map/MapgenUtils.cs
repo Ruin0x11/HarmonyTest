@@ -15,8 +15,8 @@ namespace OpenNefia.Core.Map
 
             for (int i = 0; i < n; i++)
             {
-                var x = Random.Rnd(map.Width);
-                var y = Random.Rnd(map.Height);
+                var x = Rand.NextInt(map.Width);
+                var y = Rand.NextInt(map.Height);
                 map.SetTile(x, y, tile);
             }
         }

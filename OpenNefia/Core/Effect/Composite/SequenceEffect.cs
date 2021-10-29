@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace OpenNefia.Core.Effect.Composite
             Effects = effects;
         }
 
-        public override EffectResult Apply(EffectArguments args)
+        public override EffectResult Apply(Chara chara, EffectArguments args)
         {
             var result = EffectResult.Succeeded;
 
             foreach (var effect in Effects)
             {
-                var childResult = effect.Apply(args);
+                var childResult = effect.Apply(chara, args);
                 if (childResult != EffectResult.Succeeded)
                     result = childResult;
             }

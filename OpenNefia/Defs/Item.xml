@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+  <ItemDef ElonaId="68" Id="PotionCureMinorWound">
+    <Chip>Core.ItemPotion</Chip>
+    <Aspects>
+      <li Class="Core.PotionAspectProps">
+        <EffectArgs Power="100"/>
+        <Effect Class="Core.EffectHealing"/>
+      </li>
+    </Aspects>
+  </ItemDef>
   <ItemDef ElonaId="487" Id="Computer">
     <Chip>Core.ItemComputer</Chip>
   </ItemDef>

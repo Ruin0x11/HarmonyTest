@@ -1,4 +1,7 @@
-﻿namespace OpenNefia.Core
+﻿using System;
+using System.Collections.Generic;
+
+namespace OpenNefia.Core
 {
     public struct TilePos
     {

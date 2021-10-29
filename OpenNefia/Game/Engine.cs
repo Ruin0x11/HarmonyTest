@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Love;
 using OpenNefia.Core;
 using OpenNefia.Core.Data;
+using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Object;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
@@ -118,7 +120,7 @@ namespace OpenNefia.Game
 
         internal void OnQuit()
         {
-            Core.Sound.StopMusic();
+            Music.StopMusic();
             Console.WriteLine("Quitting game.");
             Environment.Exit(0);
         }
@@ -180,7 +182,9 @@ namespace OpenNefia.Game
                             case TitleScreenAction.ReturnToTitle:
                                 break;
                             case TitleScreenAction.StartGame:
-                                using (var field = new FieldLayer())
+                                var map = InitMap();
+                                Current.Game.ActiveMap = map;
+                                using (var field = new FieldLayer(map))
                                 {
                                     FieldLayer.Instance = field;
                                     var fieldResult = FieldLayer.Instance.Query();
@@ -197,6 +201,22 @@ namespace OpenNefia.Game
                     }
                 }
             }
+        }
+
+        private static InstancedMap InitMap()
+        {
+            var map = MapDefOf.Vernis_TestSite.GenerateMap(new InstancedArea(AreaDefOf.Vernis), 5).Value;
+
+            var player = CharaGen.Create(CharaDefOf.Chicken, map.AtPos(2, 2)).Value;
+            Current.Player = player;
+            map.ClearMemory(TileDefOf.WallForestFog);
+            
+            for (int i = 0; i< 10; i++)
+            {
+                ItemGen.Create(ItemDefOf.PotionCureMinorWound, map.AtPos(3 + i, 3));
+            }
+
+            return map;
         }
 
         public static void MainCode(string[] args)

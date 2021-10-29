@@ -4,6 +4,7 @@ using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
 using FluentResults;
+using OpenNefia.Core.Util;
 using PrettyPrompt.Consoles;
 using System;
 using System.Collections.Generic;
@@ -72,10 +73,9 @@ namespace OpenNefia.Core.UI.Layer.Repl
             if (this.IsInitialized)
                 return;
 
-            var _ = Roslyn.WarmUpAsync(Config.LoadScriptArgs);
+            TaskRunner.Run(Roslyn.WarmUpAsync(Config.LoadScriptArgs));
             var loadReferenceScript = string.Join("\r\n", Config.References.Select(reference => $@"#r ""{reference}"""));
-            var loadReferenceScriptResult = Roslyn.EvaluateAsync(loadReferenceScript).ConfigureAwait(false)
-                .GetAwaiter().GetResult();
+            var loadReferenceScriptResult = TaskRunner.Run(Roslyn.EvaluateAsync(loadReferenceScript));
 
             this.IsInitialized = true;
         }

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Extensions;
+using OpenNefia.Core.Object.Aspect;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Stat;
 using OpenNefia.Game;
@@ -47,6 +48,11 @@ namespace OpenNefia.Core.Object
 
         public new Item? SplitOff(int amount) => (Item?)base.SplitOff(amount);
 
+        public bool CanDrink(Chara chara)
+        {
+            return this.GetAspects<ICanDrinkAspect>().Any(a => a.CanDrink(chara));
+        }
+
         public override void Expose(DataExposer data)
         {
             base.Expose(data);
@@ -61,6 +67,18 @@ namespace OpenNefia.Core.Object
             memory.IsVisible = true;
             memory.ScreenXOffset = 0;
             memory.ScreenYOffset = 0;
+        }
+
+        internal void Consume(int amount)
+        {
+            if (amount <= 0)
+                return;
+
+            this.Amount = Math.Max(this.Amount - amount, 0);
+            if (this.Amount == 0)
+            {
+                this.Destroy();
+            }
         }
 
         public Chara? GetOwningChara()
