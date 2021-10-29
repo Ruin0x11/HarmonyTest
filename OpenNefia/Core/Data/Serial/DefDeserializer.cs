@@ -305,7 +305,7 @@ namespace OpenNefia.Core.Data.Serial
 
         private Result<object> DeserializeValueOrObject(XElement elem, Type type, Type containingModType, FieldInfo? field = null) 
         {
-            if (type.IsValueType)
+            if (type.IsValueType && type != typeof(Love.Color))
             {
                 return DeserializeValueType(elem.Value, type, containingModType, field);
             }
@@ -440,6 +440,18 @@ namespace OpenNefia.Core.Data.Serial
                 else
                 {
                     return Result.Ok((object)element.Elements().First());
+                }
+            }
+            else if (ty == typeof(Type))
+            {
+                var type = Type.GetType(element.Value);
+                if (type == null)
+                {
+                    return Result.Fail($"Cannot find type with name {element.Value}");
+                }
+                else
+                {
+                    return Result.Ok((object)type);
                 }
             }
             else if (ty == typeof(Love.Color))

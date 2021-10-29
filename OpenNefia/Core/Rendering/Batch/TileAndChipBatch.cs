@@ -207,7 +207,7 @@ namespace OpenNefia.Core.Rendering
         internal ChipBatch ChipBatch;
         internal SpriteBatch TileOverhangBatch;
         private int TileWidth;
-        private int TiledYOffset;
+        private int RowYIndex;
         private int ScreenWidth;
         private bool HasOverhang = false;
         private ICoords Coords;
@@ -215,7 +215,7 @@ namespace OpenNefia.Core.Rendering
         private TileAtlas TileAtlas;
         private TileAtlas ChipAtlas;
 
-        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int tiledYOffset)
+        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int rowYIndex)
         {
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
@@ -226,7 +226,7 @@ namespace OpenNefia.Core.Rendering
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             
             TileWidth = Coords.TileWidth;
-            TiledYOffset = tiledYOffset;
+            RowYIndex = rowYIndex;
             ScreenWidth = widthInTiles * TileWidth;
         }
 
@@ -259,7 +259,7 @@ namespace OpenNefia.Core.Rendering
                 }
                 else
                 {
-                    Coords.TileToScreen(x, TiledYOffset, out var screenX, out var screenY);
+                    Coords.TileToScreen(x, RowYIndex, out var screenX, out var screenY);
                     TileBatch.Add(tile.Quad, screenX, screenY);
 
                     if (tile.HasOverhang)
@@ -298,10 +298,10 @@ namespace OpenNefia.Core.Rendering
 
             if (HasOverhang)
             {
-                // BUG: We need a proper C API at this point.
-                //Love.Graphics.SetScissor(screenX, screenY + YOffset - OVERHANG_HEIGHT, ScreenWidth, OVERHANG_HEIGHT);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - Coords.TileHeight / 4);
-                //Love.Graphics.SetScissor();
+                var overhangHeight = Coords.TileHeight / 4;
+                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileHeight - overhangHeight, ScreenWidth, overhangHeight);
+                GraphicsEx.DrawSpriteBatch(TileOverhangBatch, screenX, screenY - overhangHeight);
+                Love.Graphics.SetScissor();
             }
         }
     }

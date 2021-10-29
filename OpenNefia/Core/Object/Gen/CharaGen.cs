@@ -9,21 +9,25 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
+    public class CharaGenOpts : MapObjectGenOpts
+    {
+    }
+
     public static class CharaGen
     {
-        public static Result<Chara> Create(CharaDef def)
+        public static Result<Chara> Create(CharaDef def, CharaGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def).ToResult(v => (Chara)v);
+            return MapObjectGen.Create(def, opts).ToResult(v => (Chara)v);
         }
 
-        public static Result<Chara> Create(CharaDef def, IMapObjectHolder holder)
+        public static Result<Chara> Create(CharaDef def, IMapObjectHolder holder, CharaGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def, holder).ToResult(v => (Chara)v);
+            return MapObjectGen.Create(def, holder, opts).ToResult(v => (Chara)v);
         }
 
-        public static Result<Chara> Create(CharaDef def, TilePos pos)
+        public static Result<Chara> Create(CharaDef def, TilePos pos, CharaGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def, pos).ToResult(v => (Chara)v);
+            return MapObjectGen.Create(def, pos, opts).ToResult(v => (Chara)v);
         }
     }
 }

@@ -124,6 +124,10 @@ namespace OpenNefia.Core.Object
             this.GetContainingMap()?.RefreshTile(this.X, this.Y);
         }
 
+        public virtual void OnTurnStart()
+        {
+        }
+
         public IEnumerable<IMapObjectHolder> EnumerateParents()
         {
             var owner = this.ParentHolder;

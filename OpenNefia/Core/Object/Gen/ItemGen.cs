@@ -9,21 +9,25 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
+    public class ItemGenOpts : MapObjectGenOpts
+    {
+    }
+
     public static class ItemGen
     {
-        public static Result<Item> Create(ItemDef def)
+        public static Result<Item> Create(ItemDef def, ItemGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def).ToResult(v => (Item)v);
+            return MapObjectGen.Create(def, opts).ToResult(v => (Item)v);
         }
 
-        public static Result<Item> Create(ItemDef def, IMapObjectHolder holder)
+        public static Result<Item> Create(ItemDef def, IMapObjectHolder holder, ItemGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def, holder).ToResult(v => (Item)v);
+            return MapObjectGen.Create(def, holder, opts).ToResult(v => (Item)v);
         }
 
-        public static Result<Item> Create(ItemDef def, TilePos pos)
+        public static Result<Item> Create(ItemDef def, TilePos pos, ItemGenOpts? opts = null)
         {
-            return MapObjectGen.Create(def, pos).ToResult(v => (Item)v);
+            return MapObjectGen.Create(def, pos, opts).ToResult(v => (Item)v);
         }
     }
 }

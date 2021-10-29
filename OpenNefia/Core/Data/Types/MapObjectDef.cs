@@ -15,6 +15,8 @@ namespace OpenNefia.Core.Data.Types
 
         public abstract Type MapObjectType { get; }
 
+        public Love.Color Color = Love.Color.White;
+
         public List<AspectProperties> Aspects = new List<AspectProperties>();
     }
 }

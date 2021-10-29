@@ -33,7 +33,18 @@ namespace OpenNefia.Core.Logic
 
             chara.SetPosition(newX, newY);
 
+            TriggerSteppedOn(chara);
+
             return TurnResult.TurnEnd;
+        }
+
+        private static void TriggerSteppedOn(Chara chara)
+        {
+            var mef = chara.GetTilePos()!.Value.GetMapObjects<Mef>().FirstOrDefault();
+            if (mef != null)
+            {
+                mef.OnSteppedOn(chara);
+            }
         }
 
         public static TurnResult Drink(Chara chara, Item item)

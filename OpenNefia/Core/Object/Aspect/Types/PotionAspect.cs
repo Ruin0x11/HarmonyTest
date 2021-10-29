@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Effect;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Map;
@@ -68,16 +69,11 @@ namespace OpenNefia.Core.Object.Aspect.Types
             }
             else
             {
-                //Feat puddle = Feat.Create(FeatDefOf.DrinkablePuddle, map, x, y);
-
-                //var props = new Feat_DrinkablePuddleProps()
-                //{
-                //    Power = this.PotionProps.Power,
-                //    EffectParams = this.PotionProps.EffectParams,
-                //};
-                //IAspect aspect = Aspect.CreateFromProps<Feat_DrinkablePuddle>(props);
-
-                //puddle.AddAspect(aspect);
+                var puddle = MefGen.Create(MefDefOf.Potion, pos, new MefGenOpts() { ExtraAspects = new List<AspectProperties>() { this.Props }});
+                if (puddle.IsSuccess)
+                {
+                    puddle.Value.Color = this.Owner.Color;
+                }
             }
 
             return true;

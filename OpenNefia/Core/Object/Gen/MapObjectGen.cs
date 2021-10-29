@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Object
             return aspect;
         }
 
-        private static void InitializeAspects(MapObject mapObject)
+        private static void InitializeAspects(MapObject mapObject, MapObjectGenOpts? opts)
         {
             var aspectProps = mapObject.BaseDef.Aspects;
             var aspects = new List<MapObjectAspect>();
@@ -55,10 +55,20 @@ namespace OpenNefia.Core.Object
                 aspects.Add(aspect);
             }
 
+            if (opts != null)
+            {
+                foreach (var props in opts.ExtraAspects)
+                {
+                    var aspect = CreateAspectFromProps(mapObject, props);
+                    aspect.Initialize(props);
+                    aspects.Add(aspect);
+                }
+            }
+
             mapObject._Aspects.AddRange(aspects);
         }
 
-        public static Result<MapObject> Create(MapObjectDef def)
+        public static Result<MapObject> Create(MapObjectDef def, MapObjectGenOpts? opts = null)
         {
             var realType = def.MapObjectType;
 
@@ -69,14 +79,16 @@ namespace OpenNefia.Core.Object
 
             var mapObject = (MapObject)ctor.Invoke(new object[] { def });
 
-            InitializeAspects(mapObject);
+            mapObject.Color = def.Color;
+
+            InitializeAspects(mapObject, opts);
 
             return Result.Ok(mapObject);
         }
 
-        public static Result<MapObject> Create(MapObjectDef def, IMapObjectHolder holder)
+        public static Result<MapObject> Create(MapObjectDef def, IMapObjectHolder holder, MapObjectGenOpts? opts = null)
         {
-            var obj = Create(def);
+            var obj = Create(def, opts);
 
             if (obj.IsFailed)
                 return obj;
@@ -91,9 +103,9 @@ namespace OpenNefia.Core.Object
             return obj;
         }
 
-        public static Result<MapObject> Create(MapObjectDef def, TilePos pos)
+        public static Result<MapObject> Create(MapObjectDef def, TilePos pos, MapObjectGenOpts? opts = null)
         {
-            var obj = Create(def);
+            var obj = Create(def, opts);
 
             if (obj.IsFailed)
                 return obj;

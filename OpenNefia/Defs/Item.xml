@@ -2,6 +2,7 @@
 <Defs>
   <ItemDef ElonaId="68" Id="PotionCureMinorWound">
     <Chip>Core.ItemPotion</Chip>
+    <Color R="192" G="64" B="64" A="255"/>
     <Aspects>
       <li Class="Core.PotionAspectProps">
         <EffectArgs Power="100"/>

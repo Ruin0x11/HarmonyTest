@@ -74,7 +74,7 @@ namespace OpenNefia.Core.UI.Layer
                 if (this.IsPanning)
                     this.PanWithMouse(evt);
                 else
-                    this.MouseToTargetPos(evt);
+                    this.MouseToTargetPos(evt.X, evt.Y);
             };
             this.MouseButtons[UI.MouseButtons.Mouse1] += (evt) => this.Finish(new Result(this.TargetPos, this.CanSee));
             this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => this.IsPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
@@ -85,9 +85,9 @@ namespace OpenNefia.Core.UI.Layer
             Current.Field!.Camera.Pan(evt.Dx, evt.Dy);
         }
 
-        private void MouseToTargetPos(MouseMovedEvent evt)
+        private void MouseToTargetPos(int x, int y)
         {
-            Current.Field!.Camera.VisibleScreenToTile(evt.X, evt.Y, out var tx, out var ty);
+            Current.Field!.Camera.VisibleScreenToTile(x, y, out var tx, out var ty);
             this.TargetPos.X = tx;
             this.TargetPos.Y = ty;
             this.UpdateTargetText();
