@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.I18N
+namespace OpenNefia.Core
 {
     public delegate string LocaleFunc();
 }

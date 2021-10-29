@@ -42,10 +42,16 @@ namespace OpenNefia.Core.UI.Layer
                 this.UiTextSubtext = new UiText(FontDefOf.ListTitleScreenSubtext);
             }
 
+            public override void Localize(LocaleKey key)
+            {
+                base.Localize(key);
+                this.SetPosition(X, Y);
+            }
+
             public override void SetPosition(int x, int y)
             {
                 base.SetPosition(x, y);
-                if (I18N.IsFullwidth())
+                if (this.UiTextSubtext.Text != "")
                 {
                     this.UiTextSubtext.SetPosition(x + 40, y - 4);
                     this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 8);
