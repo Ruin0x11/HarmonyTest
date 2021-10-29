@@ -23,6 +23,7 @@ namespace OpenNefia.Core.Object
         public ulong Uid { get => _Uid; }
         public bool IsSolid = false;
         public bool IsOpaque = false;
+        public bool IsVisible = true;
         public Love.Color Color = Love.Color.White;
         public int Amount { get; set; } = 1;
 
@@ -94,6 +95,24 @@ namespace OpenNefia.Core.Object
         public virtual void GetScreenPos(out int screenX, out int screenY)
         {
             Current.Game.Coords.TileToScreen(this.X, this.Y, out screenX, out screenY);
+        }
+
+        public bool IsInWindowFov()
+        {
+            return this.GetTilePos()?.IsInWindowFov() ?? false;
+        }
+
+        public bool HasLos(TilePos pos)
+        {
+            return this.GetTilePos()?.HasLos(pos) ?? false;
+        }
+
+        public bool CanBeSeenBy(Chara chara)
+        {
+            if (!this.IsAlive || !this.IsVisible || !this.IsInWindowFov())
+                return false;
+
+            return true;
         }
 
         public bool IsOwned => _PoolContainingMe != null;

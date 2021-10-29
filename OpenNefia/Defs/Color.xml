@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <ColorDef Id="TextWhite"         R="255" G="255" B="255" A="255" />
-  <ColorDef Id="TextBlack"         R="0"   G="0"   B="0"   A="255" />
-  <ColorDef Id="ListSelectedAdd"   R="50"  G="50"  B="50"  A="255" />
-  <ColorDef Id="ListSelectedSub"   R="30"  G="10"  B="0"   A="255" />
-  <ColorDef Id="WindowBottomLine1" R="194" G="170" B="146" A="255" />
-  <ColorDef Id="WindowBottomLine2" R="234" G="220" B="188" A="255" />
-  <ColorDef Id="TopicWindowStyle0" R="255" G="255" B="255" A="255" />
-  <ColorDef Id="TopicWindowStyle1" R="60"  G="50"  B="60"  A="255" />
-  <ColorDef Id="TopicWindowStyle2" R="45"  G="40"  B="50"  A="255" />
-  <ColorDef Id="TopicWindowStyle3" R="245" G="242" B="239" A="255" />
-  <ColorDef Id="TopicWindowStyle4" R="60"  G="50"  B="60"  A="255" />
-  <ColorDef Id="TopicWindowStyle5" R="255" G="255" B="255" A="255" />
-  <ColorDef Id="TopicWindowStyle6" R="255" G="255" B="255" A="180" />
-  <ColorDef Id="PromptBackground"  R="0"   G="0"   B="0"   A="127" />
-  <ColorDef Id="ReplBackground"    R="17"  G="65"  B="17"  A="192" />
-  <ColorDef Id="ReplText"          R="255" G="255" B="255" A="255" />
-  <ColorDef Id="ReplTextResult"    R="150" G="200" B="200" A="255" />
-  <ColorDef Id="ReplTextError"     R="255" G="0"   B="0"   A="255" />
+  <ColorDef Id="TextWhite"           R="255" G="255" B="255" A="255" />
+  <ColorDef Id="TextBlack"           R="0"   G="0"   B="0"   A="255" />
+  <ColorDef Id="ListSelectedAdd"     R="50"  G="50"  B="50"  A="255" />
+  <ColorDef Id="ListSelectedSub"     R="30"  G="10"  B="0"   A="255" />
+  <ColorDef Id="WindowBottomLine1"   R="194" G="170" B="146" A="255" />
+  <ColorDef Id="WindowBottomLine2"   R="234" G="220" B="188" A="255" />
+  <ColorDef Id="TopicWindowStyle0"   R="255" G="255" B="255" A="255" />
+  <ColorDef Id="TopicWindowStyle1"   R="60"  G="50"  B="60"  A="255" />
+  <ColorDef Id="TopicWindowStyle2"   R="45"  G="40"  B="50"  A="255" />
+  <ColorDef Id="TopicWindowStyle3"   R="245" G="242" B="239" A="255" />
+  <ColorDef Id="TopicWindowStyle4"   R="60"  G="50"  B="60"  A="255" />
+  <ColorDef Id="TopicWindowStyle5"   R="255" G="255" B="255" A="255" />
+  <ColorDef Id="TopicWindowStyle6"   R="255" G="255" B="255" A="180" />
+  <ColorDef Id="PromptBackground"    R="0"   G="0"   B="0"   A="127" />
+  <ColorDef Id="PromptTargetedTile"  R="127" G="127" B="255" A="50"  />
+  <ColorDef Id="ReplBackground"      R="17"  G="65"  B="17"  A="192" />
+  <ColorDef Id="ReplText"            R="255" G="255" B="255" A="255" />
+  <ColorDef Id="ReplTextResult"      R="150" G="200" B="200" A="255" />
+  <ColorDef Id="ReplTextError"       R="255" G="0"   B="0"   A="255" />
   <ColorDef Id="ReplCompletionBorder" R="240" G="240"   B="240"   A="255" />
   <ColorDef Id="ReplCompletionBackground" R="40" G="40"   B="40"   A="255" />
 </Defs>

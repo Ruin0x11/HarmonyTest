@@ -1,0 +1,49 @@
+﻿using OpenNefia.Core.Object;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Element;
+
+namespace OpenNefia.Core.UI.Layer
+{
+    public class Camera
+    {
+        private InstancedMap Map;
+        private IDrawable Parent;
+        private int _ScreenX;
+        private int _ScreenY;
+        public int ScreenX { get => _ScreenX; }
+        public int ScreenY { get => _ScreenY; }
+
+        public Camera(InstancedMap map, IDrawable parent)
+        {
+            Map = map;
+            Parent = parent;
+            _ScreenX = 0;
+            _ScreenY = 0;
+        }
+
+        public void CenterOn(int sx, int sy)
+        {
+            var coords = GraphicsEx.Coords;
+            coords.BoundDrawPosition(sx, sy, this.Map.Width, this.Map.Height, this.Parent.Width, this.Parent.Height, out _ScreenX, out _ScreenY);
+        }
+
+        public void CenterOn(MapObject obj)
+        {
+            obj.GetScreenPos(out var sx, out var sy);
+            CenterOn(sx, sy);
+        }
+
+        public void CenterOn(TilePos pos)
+        {
+            pos.GetScreenPos(out var sx, out var sy);
+            CenterOn(sx, sy);
+        }
+
+        public void TileToVisibleScreen(TilePos pos, out int sx, out int sy)
+        {
+            pos.GetScreenPos(out sx, out sy);
+            sx += ScreenX;
+            sy += ScreenY;
+        }
+    }
+}

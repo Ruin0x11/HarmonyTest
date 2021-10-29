@@ -45,6 +45,8 @@ namespace OpenNefia.Core.Data.Types
             public static Keybind Identify = new Keybind($"Base.{nameof(Identify)}");
             public static Keybind Mode = new Keybind($"Base.{nameof(Mode)}");
             public static Keybind Mode2 = new Keybind($"Base.{nameof(Mode2)}");
+            public static Keybind NextPage = new Keybind($"Base.{nameof(NextPage)}");
+            public static Keybind PreviousPage = new Keybind($"Base.{nameof(PreviousPage)}");
 
             public static Keybind Repl = new Keybind($"Base.{nameof(Repl)}");
 

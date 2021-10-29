@@ -14,36 +14,6 @@ using System.Linq;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    internal class Camera
-    {
-        private InstancedMap Map;
-        private IDrawable Parent;
-        private int _ScreenX;
-        private int _ScreenY;
-        public int ScreenX { get => _ScreenX; }
-        public int ScreenY { get => _ScreenY; }
-
-        public Camera(InstancedMap map, IDrawable parent)
-        {
-            Map = map;
-            Parent = parent;
-            _ScreenX = 0;
-            _ScreenY = 0;
-        }
-
-        public void CenterOn(int sx, int sy)
-        {
-            var coords = GraphicsEx.Coords;
-            coords.BoundDrawPosition(sx, sy, this.Map.Width, this.Map.Height, this.Parent.Width, this.Parent.Height, out _ScreenX, out _ScreenY);
-        }
-
-        public void CenterOn(MapObject obj)
-        {
-            obj.GetScreenPos(out var sx, out var sy);
-            CenterOn(sx, sy);
-        }
-    }
-
     public class FieldLayer : BaseUiLayer<UiNoResult>
     {
         public static FieldLayer? Instance = null;
@@ -51,7 +21,7 @@ namespace OpenNefia.Core.UI.Layer
         public InstancedMap Map { get; private set; }
 
         private UiScroller Scroller;
-        private Camera Camera;
+        public Camera Camera { get; }
         private MapRenderer MapRenderer;
         public AsyncDrawables AsyncDrawables { get; }
         private UiFpsCounter FpsCounter;
@@ -111,6 +81,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keys.D] += (_) => this.DropItem();
             this.Keybinds[Keys.C] += (_) => this.CastSpell();
             this.Keybinds[Keys.Q] += (_) => this.DrinkItem();
+            this.Keybinds[Keys.T] += (_) => this.ThrowItem();
             this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
             this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
@@ -212,6 +183,23 @@ namespace OpenNefia.Core.UI.Layer
                 {
                     CharaAction.Drink(player, item);
                     Sounds.PlayOneShot(SoundDefOf.Drink1, player.X, player.Y);
+                }
+
+                RefreshScreen();
+            }
+        }
+
+        private void ThrowItem()
+        {
+            var player = Current.Player;
+
+            if (player != null)
+            {
+                var item = player.Inventory.Where(i => i.CanThrow(player)).FirstOrDefault();
+
+                if (item != null)
+                {
+                    Console.WriteLine(new PositionPrompt(player.GetTilePos()!.Value).Query());
                 }
 
                 RefreshScreen();

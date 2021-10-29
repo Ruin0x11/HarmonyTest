@@ -47,6 +47,11 @@ namespace OpenNefia.Core.UI
         {
         }
 
+        public virtual void OnQueryFinish()
+        {
+
+        }
+
         public bool IsInActiveLayerList()
         {
             return Engine.Instance.IsInActiveLayerList(this);
@@ -137,6 +142,7 @@ namespace OpenNefia.Core.UI
             }
 
             this.HaltInput();
+            this.OnQueryFinish();
 
             return result;
         }

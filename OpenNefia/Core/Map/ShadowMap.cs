@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Rendering;
+﻿using Love;
+using OpenNefia.Core.Rendering;
 using System;
 
 namespace OpenNefia.Core.Map
@@ -8,12 +9,14 @@ namespace OpenNefia.Core.Map
         private InstancedMap Map;
         private ICoords Coords;
         internal ShadowTile[] ShadowTiles;
+        internal Rectangle ShadowBounds;
 
         public ShadowMap(InstancedMap map)
         {
             Map = map;
             Coords = GraphicsEx.Coords;
             ShadowTiles = new ShadowTile[map.Width * map.Height];
+            ShadowBounds = new Rectangle();
         }
 
         private void SetShadowBorder(int tx, int ty, ShadowTile shadow)
@@ -49,10 +52,17 @@ namespace OpenNefia.Core.Map
             windowTiledW = Math.Min(windowTiledW, Map.Width);
             windowTiledH = Math.Min(windowTiledH, Map.Height);
 
-            var startX = Math.Clamp(playerX - windowTiledW / 2 - 1, 0, Map.Width - windowTiledW);
-            var startY = Math.Clamp(playerY - windowTiledH / 2 - 1, 0, Map.Height - windowTiledH);
-            var endX = startX + windowTiledW + 2;
-            var endY = startY + windowTiledH + 2;
+            var startX = Math.Clamp(playerX - windowTiledW / 2 - 2, 0, Map.Width - windowTiledW);
+            var startY = Math.Clamp(playerY - windowTiledH / 2 - 2, 0, Map.Height - windowTiledH);
+            var endX = startX + windowTiledW + 4;
+            var endY = startY + windowTiledH + 4;
+
+            Coords.TileToScreen(startX, startY, out var scsx, out var scsy);
+            Coords.TileToScreen(endX - 1, endY - 1, out var scex, out var scey);
+            ShadowBounds.X = scsx;
+            ShadowBounds.Y = scsy;
+            ShadowBounds.Width = scex - scsx;
+            ShadowBounds.Height = scey - scsy;
 
             var fovSize = 15;
             var fovRadius = FovRadius.Get(fovSize);
@@ -63,6 +73,35 @@ namespace OpenNefia.Core.Map
 
             var cx = playerX - radius;
             var cy = radius - playerY;
+
+            if (startX > 0)
+            {
+                for (int y = startY; y < endY; y++)
+                {
+                    SetShadowBorder(startX, y, ShadowTile.West);
+                }
+            }
+            if (endX - 4 < Map.Width - windowTiledW)
+            {
+                for (int y = startY; y < endY; y++)
+                {
+                    SetShadowBorder(endX - 2, y, ShadowTile.East);
+                }
+            }
+            if (startY > 0)
+            {
+                for (int x = startX; x < endX; x++)
+                {
+                    SetShadowBorder(x, startY, ShadowTile.South);
+                }
+            }
+            if (endY - 4 < Map.Height)
+            {
+                for (int x = startX; x < endX; x++)
+                {
+                    SetShadowBorder(x, endY - 2, ShadowTile.North);
+                }
+            }
 
             for (int j = startY; j < endY; j++)
             {

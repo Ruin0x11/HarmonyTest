@@ -53,6 +53,11 @@ namespace OpenNefia.Core.Object
             return this.GetAspects<ICanDrinkAspect>().Any(a => a.CanDrink(chara));
         }
 
+        public bool CanThrow(Chara chara)
+        {
+            return this.GetAspects<ICanThrowAspect>().Any(a => a.CanThrow(chara));
+        }
+
         public override void Expose(DataExposer data)
         {
             base.Expose(data);

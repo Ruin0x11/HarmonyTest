@@ -38,13 +38,13 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
         public override void RedrawAll()
         {
-            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles);
+            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles, Map._ShadowMap.ShadowBounds);
             this.Batch.UpdateBatches();
         }
 
         public override void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn)
         {
-            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles);
+            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles, Map._ShadowMap.ShadowBounds);
             this.Batch.UpdateBatches();
         }
 

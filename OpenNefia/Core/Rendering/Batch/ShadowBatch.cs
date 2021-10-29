@@ -54,6 +54,9 @@ namespace OpenNefia.Core.Rendering
         private int HeightInTiles;
         private ICoords Coords;
 
+        public int WidthInScreen { get => WidthInTiles * Coords.TileWidth; }
+        public int HeightInScreen { get => HeightInTiles * Coords.TileHeight; }
+
         private AssetDrawable AssetShadow;
         private AssetDrawable AssetShadowEdges;
 
@@ -67,6 +70,7 @@ namespace OpenNefia.Core.Rendering
         public int ShadowStrength { get; set; }
 
         private ShadowTile[] Tiles;
+        private Rectangle ShadowBounds;
 
         public ShadowBatch(int width, int height, ICoords coords)
         {
@@ -120,12 +124,13 @@ namespace OpenNefia.Core.Rendering
             this.Tiles[y * WidthInTiles + x] = shadow;
         }
 
-        public void SetAllTileShadows(ShadowTile[] tiles)
+        public void SetAllTileShadows(ShadowTile[] tiles, Rectangle shadowBounds)
         {
             if (tiles.Length != this.Tiles.Length)
                 throw new Exception($"Invalid tile array size ({tiles.Length} != {this.Tiles.Length})");
 
             this.Tiles = tiles;
+            this.ShadowBounds = shadowBounds;
         }
 
         public void UpdateBatches()
@@ -346,8 +351,21 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, this.ShadowStrength);
 
+            GraphicsEx.SetScissor(X + ShadowBounds.X, Y + ShadowBounds.Y, ShadowBounds.Width, ShadowBounds.Height);
             Love.Graphics.Draw(this.BatchShadow, X, Y);
             Love.Graphics.Draw(this.BatchShadowEdges, X, Y);
+            GraphicsEx.SetScissor();
+
+            GraphicsEx.SetColor(255, 255, 255, (int)(this.ShadowStrength * ((256f - 9f) / 256f)));
+
+            // Left
+            GraphicsEx.FilledRect(X, Y, ShadowBounds.X, this.HeightInScreen);
+            // Right
+            GraphicsEx.FilledRect(X + ShadowBounds.X + ShadowBounds.Width, Y, ShadowBounds.Width, this.HeightInScreen);
+            // Up
+            GraphicsEx.FilledRect(X + ShadowBounds.X, Y, ShadowBounds.Width, ShadowBounds.Y);
+            // Down
+            GraphicsEx.FilledRect(X + ShadowBounds.X, Y + ShadowBounds.Y + ShadowBounds.Height, ShadowBounds.Width, ShadowBounds.Height);
 
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
         }
