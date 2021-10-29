@@ -29,7 +29,7 @@ namespace OpenNefia.Game
         public static ModLoader ModLoader = null!;
 
         private GameScene Scene;
-        public List<IUiLayer> Layers { get; private set; }
+        internal List<IUiLayer> Layers { get; private set; }
         private Love.Canvas? TargetCanvas;
 
         public Engine()
@@ -162,6 +162,7 @@ namespace OpenNefia.Game
             ModLoader = new ModLoader();
 
             Current.InitStaticGlobals();
+            I18N.InitStaticGlobals();
         }
 
         private static void RunTitleScreen()

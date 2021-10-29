@@ -8,8 +8,8 @@ namespace OpenNefia.Core
 {
     public static class Config
     {
-        public const bool EnableSound = true;
-        public const bool EnableMusic = false;
-        public const float AnimeWait = 20f;
+        public static bool EnableSound = true;
+        public static bool EnableMusic = false;
+        public static float AnimeWait = 20f;
     }
 }

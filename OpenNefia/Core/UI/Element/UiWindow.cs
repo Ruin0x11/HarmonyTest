@@ -66,7 +66,7 @@ namespace OpenNefia.Core.UI.Element
             if (this.TitleText != null)
             {
                 this.TopicWindow.SetPosition(x + 34, y - 4);
-                this.TitleText.SetPosition(x + 45 * this.Width / 200 + 34 - this.TitleText.Width / 2, this.Y + 4);
+                this.TitleText.SetPosition(x + 45 * this.Width / 200 + 34 - this.TitleText.Width / 2 + Math.Clamp(this.TitleText.Width - 120, 0, 200), this.Y + 4);
             }
 
             this.KeyHintText.SetPosition(x + 58 + this.XOffset, y + this.Height - 43 - this.Height % 8);

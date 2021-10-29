@@ -42,6 +42,7 @@ namespace OpenNefia.Game
         internal static void Run()
         {
             Engine.ModLoader.Execute();
+            I18N.Env.LoadAll(I18N.Language);
             DefLoader.LoadAll();
 
             InitGraphicsDefaults();

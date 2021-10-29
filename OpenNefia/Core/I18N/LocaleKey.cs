@@ -19,6 +19,8 @@
             return new LocaleKey(Key + "." + other);
         }
 
+        public override string ToString() => this.Key;
+
         public static implicit operator string(LocaleKey key) => key.Key;
         public static implicit operator LocaleKey(string key) => new LocaleKey(key);
     }

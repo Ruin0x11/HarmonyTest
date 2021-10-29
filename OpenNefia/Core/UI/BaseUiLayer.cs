@@ -16,7 +16,7 @@ namespace OpenNefia.Core.UI
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
-        private bool IsLocalized = false;
+        internal bool IsLocalized = false;
 
         public virtual void Cancel()
         {
@@ -94,6 +94,12 @@ namespace OpenNefia.Core.UI
             this.ReceiveMouseReleased(x, y, button, isTouch);
         }
 
+        public override void Localize(LocaleKey key)
+        {
+            base.Localize(key);
+            IsLocalized = true;
+        }
+
         public virtual UiResult<T> Query()
         {
             Engine.Instance.CurrentLayer?.HaltInput();
@@ -101,7 +107,6 @@ namespace OpenNefia.Core.UI
             if (!IsLocalized)
             {
                 this.Localize(this.GetType()!.FullName!);
-                IsLocalized = true;
             }
 
             Engine.Instance.PushLayer(this);

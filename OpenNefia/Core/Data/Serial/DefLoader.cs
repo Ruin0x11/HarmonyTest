@@ -296,11 +296,13 @@ namespace OpenNefia.Core.Data.Serial
             defDeserializer.CrossRefs.Clear();
         }
 
-        private static void LocalizeDefs()
+        internal static void LocalizeDefs()
         {
             foreach (var loadedDef in AllDefs.Values)
             {
-                loadedDef.Def!.Localize(loadedDef.Def!.Identifier.DefId);
+                var ident = loadedDef.Def!.Identifier;
+                var key = $"{ident.DefType.FullName}.{ident.DefId}";
+                loadedDef.Def!.Localize(key);
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Extensions;
+﻿using OpenNefia.Core.Data.Serial;
+using OpenNefia.Core.Extensions;
+using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,38 @@ namespace OpenNefia.Core
 {
     public static class I18N
     {
-        // TODO needs to be LanguageDef
-        public static string Language { get => "ja_JP"; }
+        internal static LocalizationEnv Env = null!;
 
-        public static string Get(LocaleKey key)
+        internal static void InitStaticGlobals()
         {
-            return key;
+            Env = new LocalizationEnv();
+        }
+
+        // TODO needs to be LanguageDef
+        public static string Language { get; private set; } = "en_US";
+        
+        public static void SwitchLanguage(string language)
+        {
+            Language = language;
+            Env.Clear();
+            Env.LoadAll(language);
+
+            foreach (var layer in Engine.Instance.Layers)
+            {
+                layer.Localize(layer.GetType()!.FullName!);
+            }
+
+            DefLoader.LocalizeDefs();
+        }
+
+        public static string GetString(LocaleKey key)
+        {
+            var result = Env.Store.GetValueOrDefault(key);
+            if (result != null)
+            {
+                return result;
+            }
+            return $"<Missing key: {key}>";
         }        
 
         public static bool IsFullwidth()
@@ -23,7 +51,7 @@ namespace OpenNefia.Core
             return Language == "ja_JP";
         }
 
-        public static void DoLocalize(ILocalizable o, LocaleKey key)
+        public static void DoLocalize(object o, LocaleKey key)
         {
             foreach (var field in o.GetLocalizableFields())
             {
@@ -31,7 +59,10 @@ namespace OpenNefia.Core
 
                 if (field.FieldType == typeof(string))
                 {
-                    field.SetValue(o, Get(key));
+                    field.SetValue(o, GetString(key.With(field.Name)));
+                }
+                else if (typeof(Delegate).IsAssignableFrom(field.FieldType))
+                {
                 }
                 else if (typeof(ILocalizable).IsAssignableFrom(field.FieldType))
                 {
@@ -54,7 +85,7 @@ namespace OpenNefia.Core
                 .FirstOrDefault();
         }
 
-        public static IEnumerable<FieldInfo> GetLocalizableFields(this ILocalizable o)
+        public static IEnumerable<FieldInfo> GetLocalizableFields(this object o)
         {
             return o.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(field => field.GetLocalizeAttribute() != null);

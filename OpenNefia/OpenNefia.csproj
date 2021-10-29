@@ -24,6 +24,7 @@
     <PackageReference Include="NetVips" Version="2.0.1" />
     <PackageReference Include="NetVips.Extensions" Version="2.0.0" />
     <PackageReference Include="NetVips.Native" Version="8.11.4" />
+    <PackageReference Include="NLua" Version="1.5.11" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
@@ -46,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Core\Locale\en-US\MainTitle.lua" />
+    <None Remove="Assets\Core\Locale\en_US\MainTitle.lua" />
     <None Remove="Assets\Icon\icon.ico" />
     <None Remove="Assets\Icon\icon.png" />
     <None Remove="Assets\Icon\icon128.png" />
@@ -70,7 +71,7 @@
   </ItemGroup>
     
   <ItemGroup>
-    <Folder Include="Assets\Core\Locale\ja-JP\" />
+    <Folder Include="Assets\Core\Locale\ja_JP\" />
   </ItemGroup>
     
 	<!-- Uncommment after .NET 6 is released. -->

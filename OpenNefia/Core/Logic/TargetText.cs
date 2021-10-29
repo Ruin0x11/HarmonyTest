@@ -10,11 +10,17 @@ namespace OpenNefia.Core.Logic
 {
     public static class TargetText
     {
+        [Localize]
+        private static string TextOutOfSight = string.Empty;
+
+        [Localize]
+        private static Dictionary<int, Func<Chara, string>> TextTargetLevel = new Dictionary<int, Func<Chara, string>>();
+
         public static bool GetTargetText(Chara onlooker, TilePos pos, out string text, bool visibleOnly = false)
         {
             if (visibleOnly && !onlooker.CanSee(pos))
             {
-                text = "﻿視界範囲外";
+                text = TextOutOfSight;
                 return false;
             }
 
@@ -49,7 +55,7 @@ namespace OpenNefia.Core.Logic
 
         public static string GetTargetDangerText(Chara onlooker, Chara target)
         {
-            return "danger level";
+            return TextTargetLevel[0](onlooker);
         }
 
         private static string GetTargetItemText(Item item)
