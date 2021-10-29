@@ -97,5 +97,6 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-/OpenNefia/Assets
+/OpenNefia/Assets/Elona/Graphic
+/OpenNefia/Assets/Elona/Sound
 /OpenNefia/Assets_Beautify
