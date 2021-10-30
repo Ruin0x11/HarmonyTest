@@ -84,6 +84,11 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
         }
 
+        internal static void SetColor(object colorTextBlack)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static void SetDefaultFilter(ImageFilter filter)
         {
             Love.Graphics.SetDefaultFilter(filter.Min, filter.Mag, filter.Anisotropy);

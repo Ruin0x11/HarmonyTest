@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <SpellDef Id="TestSpell">
+  <CastableDef Id="TestSpell">
     <EffectOnCast Class="OpenNefia.Core.Effect.Impl.TestEffect"/>
-  </SpellDef>
-  <SpellDef Id="TestSpellSequence">
+  </CastableDef>
+  <CastableDef Id="TestSpellSequence">
     <EffectOnCast Class="OpenNefia.Core.Effect.Composite.SequenceEffect">
       <Effects>
         <li Class="OpenNefia.Core.Effect.Impl.TestEffect"/>
         <li Class="OpenNefia.Core.Effect.Impl.TestEffect2"/>
       </Effects>
     </EffectOnCast>
-  </SpellDef>
-  <SpellDef Id="TestSpellRandom">
+  </CastableDef>
+  <CastableDef Id="TestSpellRandom">
     <EffectOnCast Class="OpenNefia.Core.Effect.Composite.PickRandomlyEffect">
       <Effects>
         <li Class="OpenNefia.Core.Effect.Impl.TestEffect"/>
         <li Class="OpenNefia.Core.Effect.Impl.TestEffect2"/>
       </Effects>
     </EffectOnCast>
-  </SpellDef>
+  </CastableDef>
 </Defs>

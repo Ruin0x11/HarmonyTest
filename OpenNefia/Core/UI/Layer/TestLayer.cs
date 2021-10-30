@@ -2,6 +2,7 @@
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.UI.Element;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,6 +59,29 @@ namespace OpenNefia.Core.UI.Layer
                 var text = new TextPrompt().Query();
                 Console.WriteLine($"Get: {text}");
             };
+
+            this.Keybinds[Keys.Ctrl | Keys.E] += (_) =>
+            {
+                new ProgressBarLayer(new TestProgressJob()).Query();
+            };
+        }
+
+        private class TestProgressJob : IProgressableJob
+        {
+            public uint NumberOfSteps => 7;
+
+            public IEnumerator<ProgressStep> GetEnumerator()
+            {
+                yield return new ProgressStep("Test 1!", Task.Delay(500));
+                yield return new ProgressStep("Test 2!", Task.Delay(500));
+                yield return new ProgressStep("Test 3!", Task.Delay(500));
+                yield return new ProgressStep("Test 4!", Task.Delay(500));
+                yield return new ProgressStep("Test 5!", Task.Delay(500));
+                yield return new ProgressStep("Test 6!", Task.Delay(500));
+                yield return new ProgressStep("Test 7!", Task.Delay(500));
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)

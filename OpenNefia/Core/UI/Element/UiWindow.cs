@@ -16,6 +16,7 @@ namespace OpenNefia.Core.UI.Element
         public List<UiKeyHint> KeyHints { get; }
         public int XOffset { get; }
         public int YOffset { get; }
+        public bool HasTitle => TitleText.Text != string.Empty;
 
         protected AssetDrawable AssetTipIcons;
         protected ColorDef ColorWindowBottomLine1;
@@ -63,7 +64,7 @@ namespace OpenNefia.Core.UI.Element
 
             this.Window.SetPosition(x, y);
 
-            if (this.TitleText != null)
+            if (this.HasTitle)
             {
                 this.TopicWindow.SetPosition(x + 34, y - 4);
                 this.TitleText.SetPosition(x + 45 * this.Width / 200 + 34 - this.TitleText.Width / 2 + Math.Clamp(this.TitleText.Width - 120, 0, 200), this.Y + 4);
@@ -81,7 +82,7 @@ namespace OpenNefia.Core.UI.Element
 
             this.Window.SetSize(this.Width, this.Height);
 
-            if (this.TitleText != null)
+            if (this.HasTitle)
             {
                 this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
                 this.TitleText.SetPreferredSize();
@@ -114,7 +115,7 @@ namespace OpenNefia.Core.UI.Element
 
             this.AssetTipIcons.DrawRegion("1", this.X + 30 + this.XOffset, this.Y + this.Height - 47 - this.Height % 8);
 
-            if (this.TitleText != null)
+            if (this.HasTitle)
             {
                 this.TopicWindow.Draw();
                 this.TitleText.Draw();

@@ -43,6 +43,12 @@ namespace OpenNefia.Game
         internal static void Run()
         {
             Engine.ModLoader.Execute();
+
+            if (VanillaAssetsDownloader.NeedsDownload())
+            {
+                new MinimalProgressBarLayer(new VanillaAssetsDownloader()).Query();
+            }
+
             I18N.Env.LoadAll(I18N.Language);
             I18N.LocalizeStaticFields();
             DefLoader.LoadAll();
