@@ -23,7 +23,13 @@ namespace OpenNefia.Core.UI
             GetPreferredBounds(out var _, out var _, out width, out height);
         }
 
-        public abstract void GetPreferredBounds(out int x, out int y, out int width, out int height);
+        public virtual void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        {
+            x = 0;
+            y = 0;
+            width = Love.Graphics.GetWidth();
+            height = Love.Graphics.GetHeight();
+        }
 
         public bool IsInActiveLayerList()
         {

@@ -138,14 +138,6 @@ namespace OpenNefia.Core.UI.Layer
             this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45 - this.TextTarget.Height);
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
-        {
-            x = 0;
-            y = 0;
-            width = Love.Graphics.GetWidth();
-            height = Love.Graphics.GetHeight();
-        }
-
         public override void OnQuery()
         {
             this.UpdateCamera();
