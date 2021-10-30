@@ -51,7 +51,7 @@ namespace OpenNefia.Core.UI.Layer
             public override void SetPosition(int x, int y)
             {
                 base.SetPosition(x, y);
-                if (this.UiTextSubtext.Text != "")
+                if (this.UiTextSubtext.Text != string.Empty)
                 {
                     this.UiTextSubtext.SetPosition(x + 40, y - 4);
                     this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 8);

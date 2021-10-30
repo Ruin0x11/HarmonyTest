@@ -11,10 +11,13 @@ namespace OpenNefia.Core.Logic
     public static class TargetText
     {
         [Localize]
-        private static string TextOutOfSight = string.Empty;
+        public static string TextOutOfSight = string.Empty;
 
         [Localize]
-        private static Dictionary<int, Func<Chara, string>> TextTargetLevel = new Dictionary<int, Func<Chara, string>>();
+        public static LocaleFunc<Chara, int> TextYouAreTargeting = null!;
+
+        [Localize]
+        public static Dictionary<int, LocaleFunc<Chara>> TextTargetLevel = new Dictionary<int, LocaleFunc<Chara>>();
 
         public static bool GetTargetText(Chara onlooker, TilePos pos, out string text, bool visibleOnly = false)
         {
@@ -32,8 +35,8 @@ namespace OpenNefia.Core.Logic
             {
                 var dist = onlooker.GetTilePos()!.Value.DistanceTo(target.GetTilePos()!.Value);
                 var targetLevelText = GetTargetDangerText(onlooker, target);
+                builder.AppendLine(TextYouAreTargeting(target, dist));
                 builder.AppendLine(targetLevelText);
-                builder.AppendLine($"Targeting (dist: {dist})");
             }
 
             var item = pos.GetMapObjects<Item>().FirstOrDefault();
@@ -55,7 +58,13 @@ namespace OpenNefia.Core.Logic
 
         public static string GetTargetDangerText(Chara onlooker, Chara target)
         {
-            return TextTargetLevel[0](onlooker);
+            var level = 0;
+            var fn = TextTargetLevel.GetValueOrDefault(level);
+            if (fn == null)
+            {
+                return string.Empty;
+            }
+            return fn(onlooker);
         }
 
         private static string GetTargetItemText(Item item)

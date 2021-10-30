@@ -17,6 +17,23 @@ namespace OpenNefia.Core.UI
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
         internal bool IsLocalized = false;
+        
+        public override sealed void GetPreferredSize(out int width, out int height)
+        {
+            GetPreferredBounds(out var _, out var _, out width, out height);
+        }
+
+        public abstract void GetPreferredBounds(out int x, out int y, out int width, out int height);
+
+        public bool IsInActiveLayerList()
+        {
+            return Engine.Instance.IsInActiveLayerList(this);
+        }
+
+        public bool IsQuerying()
+        {
+            return Engine.Instance.IsQuerying(this);
+        }
 
         public virtual void Cancel()
         {
@@ -38,30 +55,13 @@ namespace OpenNefia.Core.UI
             return null;
         }
 
-        public override sealed void GetPreferredSize(out int width, out int height)
-        {
-            GetPreferredBounds(out var _, out var _, out width, out height);
-        }
-
-        public abstract void GetPreferredBounds(out int x, out int y, out int width, out int height);
-
-        public virtual void OnQuery() 
+        public virtual void OnQuery()
         {
         }
 
         public virtual void OnQueryFinish()
         {
 
-        }
-
-        public bool IsInActiveLayerList()
-        {
-            return Engine.Instance.IsInActiveLayerList(this);
-        }
-
-        public bool IsQuerying()
-        {
-            return Engine.Instance.IsQuerying(this);
         }
 
         public void OnLoveKeyPressed(KeyConstant key, bool isRepeat)
@@ -106,7 +106,7 @@ namespace OpenNefia.Core.UI
 
             if (!IsLocalized)
             {
-                this.Localize(this.GetType()!.FullName!);
+                this.Localize(this.GetType().GetBaseLocaleKey());
             }
 
             Engine.Instance.PushLayer(this);

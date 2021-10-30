@@ -378,6 +378,8 @@ namespace OpenNefia.Core
             obj.X = pointX;
             obj.Y = pointY;
 
+            this.RefreshTile(pointX, pointY);
+
             return true;
         }
 

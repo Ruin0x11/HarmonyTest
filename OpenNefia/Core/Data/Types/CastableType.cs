@@ -1,6 +1,6 @@
 ﻿namespace OpenNefia.Core.Data.Types
 {
-    public enum SpellType
+    public enum CastableType
     {
         Spell,
         Action

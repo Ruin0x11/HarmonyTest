@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Data.Types
 {
-    public class SpellDef : Def, IEffect
+    public class CastableDef : Def, IEffect
     {
-        internal SpellDef(string id) : this(id, null!)
+        internal CastableDef(string id) : this(id, null!)
         {
         }
 
-        public SpellDef(string id, IEffect onCastEffect) : base(id)
+        public CastableDef(string id, IEffect onCastEffect) : base(id)
         {
             this.EffectOnCast = onCastEffect;
         }
@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Data.Types
         [DefRequired]
         public IEffect EffectOnCast;
 
-        public SpellType SpellType;
+        public CastableType CastableType = CastableType.Spell;
         
         public SpellAlignment Alignment;
 

@@ -293,9 +293,6 @@ namespace OpenNefia.Core.Rendering
 
         public void Draw(int screenX, int screenY)
         {
-            Love.Graphics.Draw(TileBatch, screenX, screenY);
-            ChipBatch.Draw(screenX, screenY);
-
             if (HasOverhang)
             {
                 var overhangHeight = Coords.TileHeight / 4;
@@ -303,6 +300,9 @@ namespace OpenNefia.Core.Rendering
                 GraphicsEx.DrawSpriteBatch(TileOverhangBatch, screenX, screenY - overhangHeight);
                 Love.Graphics.SetScissor();
             }
+
+            Love.Graphics.Draw(TileBatch, screenX, screenY);
+            ChipBatch.Draw(screenX, screenY);
         }
     }
 }

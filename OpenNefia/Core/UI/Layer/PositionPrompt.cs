@@ -88,16 +88,26 @@ namespace OpenNefia.Core.UI.Layer
         private void MouseToTargetPos(int x, int y)
         {
             Current.Field!.Camera.VisibleScreenToTile(x, y, out var tx, out var ty);
-            this.TargetPos.X = tx;
-            this.TargetPos.Y = ty;
-            this.UpdateTargetText();
+            this.SetTargetPos(tx, ty);
         }
 
-        private void MoveTargetPos(int dx, int dy)
+        protected void MoveTargetPos(int dx, int dy)
         {
-            this.TargetPos.X = Math.Clamp(this.TargetPos.X + dx, 0, this.TargetPos.Map.Width - 1);
-            this.TargetPos.Y = Math.Clamp(this.TargetPos.Y + dy, 0, this.TargetPos.Map.Height - 1);
+            var tx = Math.Clamp(this.TargetPos.X + dx, 0, this.TargetPos.Map.Width - 1);
+            var ty = Math.Clamp(this.TargetPos.Y + dy, 0, this.TargetPos.Map.Height - 1);
+            this.SetTargetPos(tx, ty);
             this.UpdateCamera();
+        }
+
+        protected void SetTargetPos(int tx, int ty)
+        {
+            if (this.TargetPos.X == tx && this.TargetPos.Y == ty)
+            {
+                return;
+            }
+
+            this.TargetPos.X = tx;
+            this.TargetPos.Y = ty;
             this.UpdateTargetText();
         }
 
@@ -125,7 +135,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45);
+            this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45 - this.TextTarget.Height);
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)

@@ -213,7 +213,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void CastSpell()
         {
-            var prompt = new Prompt<SpellDef>(DefStore<SpellDef>.Enumerate());
+            var prompt = new Prompt<CastableDef>(DefStore<CastableDef>.Enumerate());
             var result = prompt.Query();
             if (result.HasValue)
             {

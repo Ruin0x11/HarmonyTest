@@ -62,7 +62,7 @@ namespace OpenNefia.Core.UI.Element
                 var ram = (float)GC.GetTotalMemory(false) / 1024f / 1024f;
                 var ramDiff = ram - PrevRam;
 
-                var buff = $"FPS: {fps.ToString("n2")}\nRAM: {ram.ToString("n2")}MB\nRMD: {ramDiff.ToString("n4")}MB";
+                var buff = $"FPS: {fps:n2}\nRAM: {ram:n2}MB\nRMD: {ramDiff:n4}MB";
                 Frames = 0;
                 Ms = 0;
 
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.UI.Element
                         out var fonts,
                         out var textureMemory);
 
-                    buff += $"\nDRW: {drawCalls}\nCNV: {canvasSwitches}\nTXTR: {(float)textureMemory / 1024f / 1024f}MB\nIMG: {images}\nCNVS: {canvases}\nFNTS: {fonts}";
+                    buff += $"\nDRW: {drawCalls}\nCNV: {canvasSwitches}\nTXTR: {(textureMemory / 1024f / 1024f):n2}MB\nIMG: {images}\nCNVS: {canvases}\nFNTS: {fonts}";
                 }
 
                 Text.Text = buff;

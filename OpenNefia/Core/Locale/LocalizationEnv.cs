@@ -11,8 +11,9 @@ namespace OpenNefia.Core
 {
     internal class LocalizationEnv : IDisposable
     {
-        private Lua Lua;
-        internal Dictionary<string, string> Store = new Dictionary<string, string>();
+        internal Lua Lua;
+        internal Dictionary<string, string> StringStore = new Dictionary<string, string>();
+        internal Dictionary<string, LuaFunction> FunctionStore = new Dictionary<string, LuaFunction>();
 
         private LuaTable _FinalizedKeys => (LuaTable)Lua["_FinalizedKeys"];
 
@@ -25,20 +26,21 @@ namespace OpenNefia.Core
         {
             Lua.Dispose();
             Lua = SetupLua();
-            Store.Clear();
+            StringStore.Clear();
         }
 
         private static Lua SetupLua()
         {
             var lua = new Lua();
             lua.State.Encoding = Encoding.UTF8;
-            lua.DoFile("Assets/Core/Lua/LocaleEnv.lua");
             return lua;
         }
 
         public void LoadAll(string language)
         {
             var opts = new EnumerationOptions() { RecurseSubdirectories = true };
+            Lua["_LANGUAGE_CODE"] = language;
+            Lua.DoFile("Assets/Core/Lua/LocaleEnv.lua");
             foreach (var file in Directory.EnumerateFiles($"Assets/Elona/Locale/{language}", "*.lua", opts))
             {
                 Lua.DoFile(file);
@@ -48,7 +50,15 @@ namespace OpenNefia.Core
             {
                 var key = pair.Key;
                 var value = pair.Value;
-                Store[key.ToString()!] = value!.ToString()!;
+
+                if (value.GetType() == typeof(LuaFunction))
+                {
+                    FunctionStore[key.ToString()!] = (LuaFunction)value;
+                }
+                else
+                {
+                    StringStore[key.ToString()!] = value!.ToString()!;
+                }
             }
         }
 

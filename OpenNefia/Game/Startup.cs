@@ -5,6 +5,7 @@ using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Util;
 using System;
 using System.Linq;
 
@@ -43,6 +44,7 @@ namespace OpenNefia.Game
         {
             Engine.ModLoader.Execute();
             I18N.Env.LoadAll(I18N.Language);
+            I18N.LocalizeStaticFields();
             DefLoader.LoadAll();
 
             InitGraphicsDefaults();

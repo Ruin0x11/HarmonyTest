@@ -12,7 +12,7 @@ namespace OpenNefia.Core
 {
     public static class Spell
     {
-        public static Result<EffectResult> CastSpell(SpellDef spellDef, 
+        public static Result<EffectResult> CastSpell(CastableDef spellDef, 
             Chara target,
             MapObject? source = null,
             int power = 0,
@@ -29,7 +29,7 @@ namespace OpenNefia.Core
             return CastSpell(spellDef, target, args);
         }
 
-        public static Result<EffectResult> CastSpell(SpellDef spellDef, Chara target, EffectArguments args)
+        public static Result<EffectResult> CastSpell(CastableDef spellDef, Chara target, EffectArguments args)
         {
             var spellResult = spellDef.Apply(target, args);
             return Result.Ok(spellResult);
