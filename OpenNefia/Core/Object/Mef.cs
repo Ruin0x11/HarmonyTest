@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Object.Aspect.Types;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Serial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Object
 {
-    public class Mef : MapObject
+    public sealed class Mef : MapObject
     {
-        public MefDef Def => (MefDef)BaseDef;
+        public new MefDef Def => (MefDef)base.Def;
 
         public int Turns;
 
-        public Mef(MefDef def) : base(def)
+        internal Mef(MefDef def) : base(def)
         {
             Turns = 10;
         }
+
+        internal Mef() : this(null!) {}
 
         public override bool IsInLiveState => this.Turns > 0;
 
@@ -30,8 +34,23 @@ namespace OpenNefia.Core.Object
             }
         }
 
-        public virtual void OnSteppedOn(Chara chara)
+        public override void Expose(DataExposer data)
         {
+            base.Expose(data);
+
+            data.ExposeValue(ref this.Turns, nameof(Turns));
+        }
+
+        public void Event_OnSteppedOn(Chara chara)
+        {
+            foreach (var aspect in this.GetAspects<ICanStepOnAspect>())
+            {
+                aspect.Event_OnSteppedOn(chara);
+                if (!this.IsAlive)
+                {
+                    return;
+                }
+            }
         }
 
         public override void ProduceMemory(MapObjectMemory memory)

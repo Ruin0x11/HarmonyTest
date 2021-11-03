@@ -12,9 +12,6 @@ namespace OpenNefia.Core.Data.Types
 
         public override Type MapObjectType => typeof(Item);
 
-        [Localize]
-        public string Name = string.Empty;
-
         [LocalizeOptional]
         public string? UnidentifiedName;
 

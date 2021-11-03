@@ -10,9 +10,11 @@ namespace OpenNefia.Core.Object
 {
     public class Feat : MapObject
     {
-        public Feat(FeatDef def) : base(def)
+        internal Feat(FeatDef def) : base(def)
         {
         }
+
+        internal Feat() : this(null!) { }
 
         public override bool IsInLiveState => true;
 

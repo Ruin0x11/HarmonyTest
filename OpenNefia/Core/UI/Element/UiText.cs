@@ -33,17 +33,17 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        public ColorDef UsedColor { get; private set; }
+        public Love.Color UsedColor { get; private set; }
 
-        private ColorDef? _Color;
-        public ColorDef? Color
+        private Love.Color? _Color;
+        public Love.Color? Color
         {
             get => UsedColor;
             set
             {
                 this._Color = value;
                 if (this._Color != null)
-                    this.UsedColor = this._Color;
+                    this.UsedColor = this._Color.Value;
                 else
                     this.UsedColor = this.Font.Color;
             }
@@ -51,7 +51,7 @@ namespace OpenNefia.Core.UI.Element
 
 #pragma warning disable CS8618
         
-        public UiText(FontDef font, string text = "", ColorDef? color = null)
+        public UiText(FontDef font, string text = "", Love.Color? color = null)
         {
             this._Text = text;
             this._Font = font;

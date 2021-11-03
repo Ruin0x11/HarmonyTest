@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.Object
 {
-    public class ItemInventory : IRefreshable, IMapObjectHolder, IEnumerable<Item>
+    public class ItemInventory : IRefreshable, IMapObjectHolder, IEnumerable<Item>, IDataExposable
     {
         public ValueStat<int> MaxWeight;
         
@@ -29,9 +29,8 @@ namespace OpenNefia.Core.Object
 
         public void Expose(DataExposer data)
         {
-            data.ExposeWeak(ref this._Parent!, nameof(_Parent));
             data.ExposeDeep(ref MaxWeight, nameof(MaxWeight));
-            data.ExposeDeep(ref _Pool!, nameof(_Pool));
+            data.ExposeDeep(ref _Pool!, nameof(_Pool), this);
         }
 
         public void GetChildPoolOwners(List<IMapObjectHolder> outOwners)

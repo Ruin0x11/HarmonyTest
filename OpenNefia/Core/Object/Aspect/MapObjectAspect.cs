@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.Object.Aspect
+﻿using OpenNefia.Serial;
+
+namespace OpenNefia.Core.Object.Aspect
 {
     public abstract class MapObjectAspect
     {
@@ -16,6 +18,11 @@
         }
 
         public virtual void AfterStacked()
+        {
+
+        }
+
+        public virtual void AfterExposeData(DataExposer data)
         {
 
         }

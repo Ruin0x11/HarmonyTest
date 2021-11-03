@@ -30,5 +30,24 @@ namespace OpenNefia.Core.Data.Types
         public static ColorDef ReplTextError = null!;
         public static ColorDef ReplCompletionBorder = null!;
         public static ColorDef ReplCompletionBackground = null!;
+        public static ColorDef MesWhite = null!;
+        public static ColorDef MesGreen = null!;
+        public static ColorDef MesRed = null!;
+        public static ColorDef MesBlue = null!;
+        public static ColorDef MesYellow = null!;
+        public static ColorDef MesBrown = null!;
+        public static ColorDef MesBlack = null!;
+        public static ColorDef MesPurple = null!;
+        public static ColorDef MesSkyBlue = null!;
+        public static ColorDef MesPink = null!;
+        public static ColorDef MesOrange = null!;
+        public static ColorDef MesFresh = null!;
+        public static ColorDef MesDarkGreen = null!;
+        public static ColorDef MesGray = null!;
+        public static ColorDef MesLightRed = null!;
+        public static ColorDef MesLightBlue = null!;
+        public static ColorDef MesLightPurple = null!;
+        public static ColorDef MesLightGreen = null!;
+        public static ColorDef MesTalk = null!;
     }
 }

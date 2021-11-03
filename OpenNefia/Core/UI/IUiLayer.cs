@@ -9,6 +9,8 @@ namespace OpenNefia.Core.UI
 {
     public interface IUiLayer : IUiInputElement, ILoveEventReceiever, ILocalizable
     {
+        public int ZOrder { get; set; }
+
         void GetPreferredBounds(out int x, out int y, out int width, out int height);
         void OnQuery();
         void OnQueryFinish();

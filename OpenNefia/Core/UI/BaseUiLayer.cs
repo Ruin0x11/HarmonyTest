@@ -13,6 +13,9 @@ namespace OpenNefia.Core.UI
 {
     public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T: class
     {
+        public virtual int? DefaultZOrder => null;
+        public int ZOrder { get; set; }
+
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
@@ -108,6 +111,15 @@ namespace OpenNefia.Core.UI
 
         public virtual UiResult<T> Query()
         {
+            if (DefaultZOrder != null)
+            {
+                ZOrder = DefaultZOrder.Value;
+            }
+            else
+            {
+                ZOrder = (Engine.Instance.CurrentLayer?.ZOrder ?? 0) + 1000;
+            }
+
             Engine.Instance.CurrentLayer?.HaltInput();
 
             if (!IsLocalized)

@@ -247,12 +247,14 @@ namespace OpenNefia.Core
             {
                 _TileInds = new int[Width * Height];
                 _TileMemoryInds = new int[Width * Height];
+                _TileFlags = new TileFlags[Width * Height];
             }
 
             data.ExposeDeep(ref _Pool, nameof(_Pool));
 
             data.ExposeCollection(ref _TileInds, nameof(_TileInds));
             data.ExposeCollection(ref _TileMemoryInds, nameof(_TileMemoryInds));
+            data.ExposeCollection(ref _TileFlags, nameof(_TileFlags));
             data.ExposeCollection(ref _InSight, nameof(_InSight));
             data.ExposeValue(ref _LastSightId, nameof(_LastSightId));
             data.ExposeDeep(ref _MapObjectMemory, nameof(_MapObjectMemory), this);
@@ -260,13 +262,6 @@ namespace OpenNefia.Core
             if (data.Stage == SerialStage.ResolvingRefs)
             {
                 this._ShadowMap = new ShadowMap(this);
-                foreach (MapObject obj in this._Pool)
-                {
-                    if (obj.Uid == Current.Player?.Uid)
-                    {
-                        Current.Player = (Chara)obj;
-                    }
-                }
                 this.Redraw();
             }
         }

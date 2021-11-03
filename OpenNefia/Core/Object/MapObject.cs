@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Object
         internal int _Y;
         internal ulong _Uid;
 
-        public MapObjectDef BaseDef { get => _Def; }
+        public MapObjectDef Def { get => _Def; }
         public int X { get => _X; internal set => _X = value; }
         public int Y { get => _Y; internal set => _Y = value; }
         public ulong Uid { get => _Uid; }
@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Object
         public bool IsOpaque = false;
         public bool IsVisible = true;
         public Love.Color Color = Love.Color.White;
-        public int Amount { get; set; } = 1;
+        public int Amount = 1;
 
         internal List<MapObjectAspect> _Aspects = new List<MapObjectAspect>();
 
@@ -154,6 +154,18 @@ namespace OpenNefia.Core.Object
 
         public IEnumerable<MapObjectAspect> GetAspects() => this._Aspects;
 
+        public T? GetAspectOrNull<T>() where T : class => this.GetAspects<T>().FirstOrDefault();
+
+        public T GetAspect<T>() where T : class
+        {
+            var aspect = this.GetAspectOrNull<T>();
+            if (aspect == null)
+            {
+                throw new Exception($"Expected aspect of type {typeof(T)} on object {this}, but it was not found.");
+            }
+            return aspect!;
+        }
+
         public virtual bool CanStackWith(MapObject other)
         {
             return false;
@@ -239,15 +251,30 @@ namespace OpenNefia.Core.Object
 
         public virtual void Expose(DataExposer data)
         {
-            data.ExposeDef(ref _Def, nameof(BaseDef));
+            data.ExposeDef(ref _Def, nameof(Def));
             data.ExposeValue(ref _Uid, nameof(Uid));
+            data.ExposeValue(ref Amount, nameof(Amount));
             data.ExposeValue(ref _X!, nameof(X));
             data.ExposeValue(ref _Y!, nameof(Y));
             data.ExposeValue(ref IsSolid, nameof(IsSolid));
             data.ExposeValue(ref IsOpaque, nameof(IsOpaque));
             data.ExposeValue(ref Color, nameof(Color));
             data.ExposeValue(ref _Destroyed, nameof(Destroyed));
-            data.ExposeWeak(ref _PoolContainingMe, nameof(_PoolContainingMe));
+
+            if (data.Stage == SerialStage.LoadingDeep)
+            {
+                MapObjectGen.InitializeAspects(this);
+            }
+
+            data.EnterCompound(nameof(_Aspects));
+            for (int i = 0; i < _Aspects.Count; i++)
+            {
+                var aspect = _Aspects[i];
+                data.EnterCompound(i.ToString());
+                aspect.AfterExposeData(data);
+                data.ExitCompound();
+            }
+            data.ExitCompound();
         }
 
         public string GetUniqueIndex() => $"MapObject_{Uid}";

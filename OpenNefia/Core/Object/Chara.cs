@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Object
 {
     public sealed class Chara : MapObject
     {
-        public CharaDef Def => (CharaDef)BaseDef;
+        public new CharaDef Def => (CharaDef)base.Def;
 
         public bool IsPlayer => this == Current.Player;
 
@@ -25,11 +25,18 @@ namespace OpenNefia.Core.Object
 
         public override bool IsInLiveState => true;
 
-        public Chara(CharaDef def) : base(def) 
+        internal Chara(CharaDef def) : base(def) 
         {
             this.IsSolid = true;
-            this.Chip = new DefStat<ChipDef>(def.Chip);
+            this.Chip = new DefStat<ChipDef>(ChipDefOf.Default);
             this.Inventory = new ItemInventory(this);
+        }
+
+        internal Chara() : this(null!) { }
+
+        public override void AfterCreate()
+        {
+            this.Chip.BaseValue = this.Def.Chip;
         }
 
         public override void Refresh()
@@ -63,8 +70,9 @@ namespace OpenNefia.Core.Object
         {
             base.Expose(data);
 
-            data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
+            data.ExposeDeep(ref Inventory, nameof(Inventory), this);
             data.ExposeValue(ref Direction, nameof(Direction), Direction.Center);
+            data.ExposeDeep(ref Chip, nameof(Chip), ChipDefOf.CharaBlank);
         }
 
         public override void ProduceMemory(MapObjectMemory memory)

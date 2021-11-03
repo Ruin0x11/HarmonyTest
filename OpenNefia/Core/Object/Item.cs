@@ -15,13 +15,20 @@ namespace OpenNefia.Core.Object
 {
     public sealed class Item : MapObject
     {
-        public ItemDef Def => (ItemDef)BaseDef;
+        public new ItemDef Def => (ItemDef)base.Def;
 
         public DefStat<ChipDef> Chip;
 
-        public Item(ItemDef def) : base(def)
+        internal Item(ItemDef def) : base(def)
         {
-            Chip = new DefStat<ChipDef>(def.Chip);
+            Chip = new DefStat<ChipDef>(ChipDefOf.Default);
+        }
+
+        internal Item() : this(null!) { }
+
+        public override void AfterCreate()
+        {
+            this.Chip.BaseValue = Def.Chip;
         }
 
         public override bool IsInLiveState => Amount > 0;
@@ -42,7 +49,7 @@ namespace OpenNefia.Core.Object
                 return false;
             }
 
-            return this.BaseDef == otherItem.BaseDef
+            return this.Def == otherItem.Def
                 && this.Chip == otherItem.Chip;
         }
 
@@ -50,12 +57,12 @@ namespace OpenNefia.Core.Object
 
         public bool CanDrink(Chara chara)
         {
-            return this.GetAspects<ICanDrinkAspect>().Any(a => a.CanDrink(chara));
+            return this.GetAspects<ICanDrinkAspect>().Any(a => a.Event_CanDrink(chara));
         }
 
         public bool CanThrow(Chara chara)
         {
-            return this.GetAspects<ICanThrowAspect>().Any(a => a.CanThrow(chara));
+            return this.GetAspects<ICanThrowAspect>().Any(a => a.Event_CanThrow(chara));
         }
 
         public override void Expose(DataExposer data)

@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Rendering
 {
     internal class MapObjectMemoryStore : IEnumerable<MapObjectMemory>, IDataExposable
     {
-        private InstancedMap Map;
+        internal InstancedMap Map;
         internal int CurrentIndex;
         internal Dictionary<int, MapObjectMemory> AllMemory;
         internal List<MapObjectMemory>?[] Positional;
@@ -30,7 +30,6 @@ namespace OpenNefia.Core.Rendering
 
         public void Expose(DataExposer data)
         {
-            data.ExposeWeak(ref Map!, nameof(Map));
             data.ExposeValue(ref CurrentIndex, nameof(CurrentIndex));
             data.ExposeCollection(ref AllMemory, nameof(AllMemory), ExposeMode.Deep, ExposeMode.Deep);
 

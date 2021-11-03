@@ -42,6 +42,8 @@ namespace OpenNefia.Game
 
         internal static void Run()
         {
+            InitGraphicsDefaults();
+
             Engine.ModLoader.Execute();
 
             if (VanillaAssetsDownloader.NeedsDownload())
@@ -52,8 +54,6 @@ namespace OpenNefia.Game
             I18N.Env.LoadAll(I18N.Language);
             I18N.LocalizeStaticFields();
             DefLoader.LoadAll();
-
-            InitGraphicsDefaults();
 
             RegenerateTileAtlases();
 

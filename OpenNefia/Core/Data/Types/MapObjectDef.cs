@@ -18,5 +18,8 @@ namespace OpenNefia.Core.Data.Types
         public Love.Color Color = Love.Color.White;
 
         public List<AspectProperties> Aspects = new List<AspectProperties>();
+
+        [Localize]
+        public string Name = string.Empty;
     }
 }

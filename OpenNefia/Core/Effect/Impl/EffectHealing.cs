@@ -14,6 +14,8 @@ namespace OpenNefia.Core.Effect.Impl
     {
         public override EffectResult Apply(Chara chara, EffectArguments args)
         {
+            Messages.Print($"{chara.Def.Name} is (supposed to be) healed.", ColorDefOf.MesGreen);
+
             var drawable = new ParticleMapDrawable(AssetDefOf.HealEffect, SoundDefOf.Heal1, 5f);
             FieldLayer.Instance!.MapDrawables.Enqueue(drawable, chara.GetTilePos());
 

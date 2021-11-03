@@ -44,6 +44,7 @@ namespace OpenNefia.Core.Data.Types
             }
         }
         public static implicit operator Love.Color(ColorDef c) => c.LoveObject;
+        public static implicit operator Love.Color?(ColorDef? c) => c?.LoveObject;
 
         public override void OnMerge()
         {

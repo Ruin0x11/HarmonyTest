@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+  <EffectDef Id="CureMinorWound">
+    <Effect Class="Core.EffectHealing"/>
+  </EffectDef>
   <ItemDef ElonaId="68" Id="PotionCureMinorWound">
     <Chip>Core.ItemPotion</Chip>
     <Color R="192" G="64" B="64" A="255"/>
     <Aspects>
-      <li Class="Core.PotionAspectProps">
+      <li Class="Core.Item_PotionAspectProps">
         <EffectArgs Power="100"/>
-        <Effect Class="Core.EffectHealing"/>
+        <Effect>Core.CureMinorWound</Effect>
       </li>
     </Aspects>
   </ItemDef>

@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Logic
         {
             foreach (var mef in chara.GetTilePos()!.Value.GetMapObjects<Mef>())
             {
-                mef.OnSteppedOn(chara);
+                mef.Event_OnSteppedOn(chara);
             }
         }
 
@@ -56,9 +56,9 @@ namespace OpenNefia.Core.Logic
             var result = TurnResult.RestartPlayerTurn;
             var shouldConsume = false;
 
-            foreach (var aspect in item.GetAspects<ICanDrinkAspect>().Where(a => a.CanDrink(chara)))
+            foreach (var aspect in item.GetAspects<ICanDrinkAspect>().Where(a => a.Event_CanDrink(chara)))
             {
-                var drinkResult = aspect.OnDrink(chara);
+                var drinkResult = aspect.Event_OnDrink(chara);
                 switch (drinkResult)
                 {
                     case TurnResult.TurnEnd:
@@ -67,6 +67,10 @@ namespace OpenNefia.Core.Logic
                         break;
                     default:
                         break;
+                }
+                if (!item.IsAlive)
+                {
+                    break;
                 }
             }
 
@@ -80,7 +84,7 @@ namespace OpenNefia.Core.Logic
 
         public static TurnResult Throw(Chara chara, Item item, TilePos targetPos)
         {
-            if (!chara.IsAlive || !item.IsAlive || !item.GetAspects<ICanThrowAspect>().Any(i => i.CanThrow(chara)))
+            if (!chara.IsAlive || !item.IsAlive || !item.GetAspects<ICanThrowAspect>().Any(i => i.Event_CanThrow(chara)))
             {
                 return TurnResult.TurnEnd;
             }
@@ -91,7 +95,11 @@ namespace OpenNefia.Core.Logic
 
             foreach (var aspect in item.GetAspects<ICanThrowAspect>())
             {
-                shouldConsume |= aspect.OnThrownImpact(targetPos);
+                shouldConsume |= aspect.Event_OnThrownImpact(targetPos);
+                if (!item.IsAlive)
+                {
+                    break;
+                }
             }
 
             if (shouldConsume)
@@ -112,8 +120,14 @@ namespace OpenNefia.Core.Logic
             return TurnResult.TurnEnd;
         }
 
-        public static bool TakeItem(Chara chara, Item item)
+        [Localize]
+        private static LocaleFunc<Chara, Item> TextPickUpItem = null!;
+        [Localize]
+        private static LocaleFunc<Chara, Item> TextDropItem = null!;
+
+        public static bool PickUpItem(Chara chara, Item item)
         {
+            Messages.Print(TextPickUpItem(chara, item));
             return chara.Inventory.TakeOrTransferItem(item);
         }
 
@@ -123,6 +137,7 @@ namespace OpenNefia.Core.Logic
             if (map == null)
                 return false;
 
+            Messages.Print(TextDropItem(chara, item));
             return map.TakeOrTransferObject(item, chara.X, chara.Y);
         }
     }

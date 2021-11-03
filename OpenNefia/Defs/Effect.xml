@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <EffectDef Id="Default">
+    <Effect Class="Core.EffectNull"/>
+  </EffectDef>
+</Defs>

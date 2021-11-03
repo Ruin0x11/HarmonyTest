@@ -7,6 +7,7 @@ using OpenNefia.Core.Map;
 using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Hud;
 using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace OpenNefia.Core.UI.Layer
         private MapRenderer MapRenderer;
         public MapDrawables MapDrawables { get; }
         private UiFpsCounter FpsCounter;
+        public HudLayer Hud { get; }
 
         private FontDef FontText;
 
@@ -60,6 +62,7 @@ namespace OpenNefia.Core.UI.Layer
             FpsCounter = new UiFpsCounter();
             MapRenderer = new MapRenderer(this.Map);
             MapDrawables = new MapDrawables();
+            Hud = new HudLayer();
 
             this.BindKeys();
 
@@ -131,7 +134,7 @@ namespace OpenNefia.Core.UI.Layer
                 var pos = player.GetTilePos()!.Value;
                 var item = pos.GetMapObjects<Item>().FirstOrDefault();
 
-                if (item != null && CharaAction.TakeItem(player, item))
+                if (item != null && CharaAction.PickUpItem(player, item))
                 {
                     Sounds.PlayOneShot(SoundDefOf.Get1, pos);
 
@@ -282,8 +285,17 @@ namespace OpenNefia.Core.UI.Layer
         public void Load()
         {
             Console.WriteLine("Loading...");
-            Map = InstancedMap.Load("TestMap.nbt", Current.Game);
+            var map = InstancedMap.Load("TestMap.nbt", Current.Game);
+            Current.Game.ActiveMap = map;
+            Map = map;
             MapRenderer.SetMap(Map);
+            foreach (MapObject obj in this.Map.InnerPool)
+            {
+                if (obj.Uid == Current.Player?.Uid)
+                {
+                    Current.Player = (Chara)obj;
+                }
+            }
             RefreshScreen();
         }
 
@@ -292,6 +304,7 @@ namespace OpenNefia.Core.UI.Layer
             base.SetSize(width, height);
             MapRenderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
+            Hud.SetSize(width, height);
 
             var player = Current.Player;
             if (player != null)
@@ -306,11 +319,16 @@ namespace OpenNefia.Core.UI.Layer
             MapRenderer.SetPosition(x, y);
             MapDrawables.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
+            Hud.SetPosition(0, 0);
         }
 
         public override void OnQuery()
         {
             Music.PlayMusic(MusicDefOf.Field1);
+        }
+
+        public override void OnQueryFinish()
+        {
         }
 
         private void QueryLayer()
@@ -352,6 +370,7 @@ namespace OpenNefia.Core.UI.Layer
                 }
             }
 
+            this.Hud.Update(dt);
             this.MapRenderer.Update(dt);
             this.MapDrawables.Update(dt);
             this.FpsCounter.Update(dt);
@@ -375,8 +394,16 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.Print($"Player: ({player.X}, {player.Y})", 5, 35);
 
             this.MapDrawables.Draw();
-
+            this.Hud.Draw();
             this.FpsCounter.Draw();
+        }
+
+        public override void Dispose()
+        {
+            this.Hud.Dispose();
+            this.MapDrawables.Dispose();
+            this.MapRenderer.Dispose();
+            this.FpsCounter.Dispose();
         }
     }
 }

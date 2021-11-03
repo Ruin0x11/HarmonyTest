@@ -30,7 +30,21 @@ namespace OpenNefia.Game
 
         private GameScene Scene;
         internal List<IUiLayer> Layers { get; private set; }
+        private List<IUiLayer> LayersByZOrder = new List<IUiLayer>();
+
         private Love.Canvas? TargetCanvas;
+
+        public IUiLayer? CurrentLayer
+        {
+            get
+            {
+                if (Layers.Count == 0)
+                {
+                    return null;
+                }
+                return Layers.Last();
+            }
+        }
 
         public Engine()
         {
@@ -92,9 +106,9 @@ namespace OpenNefia.Game
 
         private void DrawLayers()
         {
-            for (int i = 0; i < this.Layers.Count; i++)
+            for (int i = 0; i < this.LayersByZOrder.Count; i++)
             {
-                this.Layers[i].Draw();
+                this.LayersByZOrder[i].Draw();
             }
         }
 
@@ -128,7 +142,12 @@ namespace OpenNefia.Game
 
         internal bool IsQuerying(IUiLayer layer)
         {
-            return Layers.Count() != 0 && Layers.Last() == layer;
+            return Layers.Count() != 0 && CurrentLayer == layer;
+        }
+        
+        private void SortLayers()
+        {
+            this.LayersByZOrder = this.Layers.OrderBy(x => x.ZOrder).ToList();
         }
 
         internal void PushLayer(IUiLayer layer)
@@ -137,23 +156,13 @@ namespace OpenNefia.Game
             layer.SetSize(width, height);
             layer.SetPosition(x, y);
             Layers.Add(layer);
+            SortLayers();
         }
 
         internal void PopLayer(IUiLayer layer)
         {
             Layers.Remove(layer);
-        }
-
-        public IUiLayer? CurrentLayer 
-        {
-            get
-            {
-                if (Layers.Count == 0)
-                {
-                    return null;
-                }
-                return Layers.Last();
-            }
+            SortLayers();
         }
 
         internal static void InitStaticGlobals()

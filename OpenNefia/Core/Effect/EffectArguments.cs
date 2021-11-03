@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace OpenNefia.Core.Effect
 {
-    public class EffectArgumentsBase : IDefDeserializable
+    public class EffectArgumentsBase : IDefDeserializable, IDataExposable
     {
         public int Power = 1;
 
@@ -27,6 +27,13 @@ namespace OpenNefia.Core.Effect
         public void DeserializeDefField(IDefDeserializer deserializer, XElement element, Type containingModType)
         {
             deserializer.PopulateAllFields(element, this, containingModType);
+        }
+
+        public void Expose(DataExposer data)
+        {
+            data.ExposeValue(ref Power, nameof(Power));
+            data.ExposeValue(ref TileRange, nameof(TileRange));
+            data.ExposeValue(ref CurseState, nameof(CurseState));
         }
     }
 

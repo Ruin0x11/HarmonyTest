@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <MefDef ElonaId="6" Id="Potion">
-    <MefClass>OpenNefia.Core.Object.Mef_Potion</MefClass>
     <Chip>Core.MefPotion</Chip>
+    <Aspects>
+      <li Class="Core.Mef_PotionAspectProps"/>
+    </Aspects>
   </MefDef>
 </Defs>

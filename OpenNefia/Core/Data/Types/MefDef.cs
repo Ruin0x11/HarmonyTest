@@ -14,11 +14,8 @@ namespace OpenNefia.Core.Data.Types
         {
         }
 
-        public override Type MapObjectType => MefClass;
+        public override Type MapObjectType => typeof(Mef);
         
-        [DefRequired]
-        public Type MefClass = null!;
-
         [DefRequired]
         public ChipDef Chip = null!;
     }

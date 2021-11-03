@@ -74,7 +74,6 @@ namespace OpenNefia.Core
 
         public override void Expose(DataExposer data)
         {
-            data.ExposeWeak(ref _Owner!, nameof(_Owner));
             data.ExposeValue(ref this.ExposeMode, nameof(ExposeMode));
             data.ExposeCollection(ref _DeepObjects, nameof(_DeepObjects), this.ExposeMode);
             if (data.Stage == SerialStage.ResolvingRefs)

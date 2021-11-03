@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Object
 
             try
             {
-                return mapObjectType.GetConstructor(BindingFlags.Instance | BindingFlags.Public, 
+                return mapObjectType.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, 
                     null, CallingConventions.HasThis, ctorParamTypes, null);
             }
             catch
@@ -43,9 +43,9 @@ namespace OpenNefia.Core.Object
             return aspect;
         }
 
-        private static void InitializeAspects(MapObject mapObject, MapObjectGenOpts? opts)
+        internal static void InitializeAspects(MapObject mapObject)
         {
-            var aspectProps = mapObject.BaseDef.Aspects;
+            var aspectProps = mapObject.Def.Aspects;
             var aspects = new List<MapObjectAspect>();
 
             foreach (var props in aspectProps)
@@ -53,16 +53,6 @@ namespace OpenNefia.Core.Object
                 var aspect = CreateAspectFromProps(mapObject, props);
                 aspect.Initialize(props);
                 aspects.Add(aspect);
-            }
-
-            if (opts != null)
-            {
-                foreach (var props in opts.ExtraAspects)
-                {
-                    var aspect = CreateAspectFromProps(mapObject, props);
-                    aspect.Initialize(props);
-                    aspects.Add(aspect);
-                }
             }
 
             mapObject._Aspects.AddRange(aspects);
@@ -81,7 +71,9 @@ namespace OpenNefia.Core.Object
 
             mapObject.Color = def.Color;
 
-            InitializeAspects(mapObject, opts);
+            InitializeAspects(mapObject);
+
+            mapObject.AfterCreate();
 
             return Result.Ok(mapObject);
         }

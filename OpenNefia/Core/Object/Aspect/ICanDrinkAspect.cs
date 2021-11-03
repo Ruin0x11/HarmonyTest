@@ -6,7 +6,7 @@ namespace OpenNefia.Core.Object.Aspect
     {
         bool ShouldConsumeOnDrink { get; }
 
-        bool CanDrink(Chara chara);
-        TurnResult OnDrink(Chara chara);
+        bool Event_CanDrink(Chara chara);
+        TurnResult Event_OnDrink(Chara chara);
     }
 }

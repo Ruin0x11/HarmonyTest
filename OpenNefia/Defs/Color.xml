@@ -21,4 +21,23 @@
   <ColorDef Id="ReplTextError"       R="255" G="0"   B="0"   A="255" />
   <ColorDef Id="ReplCompletionBorder" R="240" G="240"   B="240"   A="255" />
   <ColorDef Id="ReplCompletionBackground" R="40" G="40"   B="40"   A="255" />
+  <ColorDef Id="MesWhite"       R="255" G="255" B="255" A="255" />
+  <ColorDef Id="MesGreen"       R="175" G="255" B="175" A="255" />
+  <ColorDef Id="MesRed"         R="255" G="155" B="155" A="255" />
+  <ColorDef Id="MesBlue"        R="175" G="175" B="255" A="255" />
+  <ColorDef Id="MesYellow"      R="255" G="215" B="175" A="255" />
+  <ColorDef Id="MesBrown"       R="255" G="255" B="175" A="255" />
+  <ColorDef Id="MesBlack"       R="155" G="154" B="153" A="255" />
+  <ColorDef Id="MesPurple"      R="185" G="155" B="215" A="255" />
+  <ColorDef Id="MesSkyBlue"     R="155" G="205" B="205" A="255" />
+  <ColorDef Id="MesPink"        R="255" G="195" B="185" A="255" />
+  <ColorDef Id="MesOrange"      R="235" G="215" B="155" A="255" />
+  <ColorDef Id="MesFresh"       R="225" G="215" B="185" A="255" />
+  <ColorDef Id="MesDarkGreen"   R="105" G="235" B="105" A="255" />
+  <ColorDef Id="MesGray"        R="205" G="205" B="205" A="255" />
+  <ColorDef Id="MesLightRed"    R="255" G="225" B="225" A="255" />
+  <ColorDef Id="MesLightBlue"   R="225" G="225" B="255" A="255" />
+  <ColorDef Id="MesLightPurple" R="225" G="195" B="255" A="255" />
+  <ColorDef Id="MesLightGreen"  R="215" G="255" B="215" A="255" />
+  <ColorDef Id="MesTalk"        R="210" G="250" B="160" A="255" />
 </Defs>

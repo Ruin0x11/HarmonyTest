@@ -36,7 +36,7 @@ namespace OpenNefia.Test.Core.Object
             var inv = new ItemInventory(container);
 
             inv.TakeItem(item);
-            CharaAction.TakeItem(chara, container);
+            CharaAction.PickUpItem(chara, container);
 
             Assert.AreEqual(chara, container.GetOwningChara());
             Assert.AreEqual(chara, item.GetOwningChara());

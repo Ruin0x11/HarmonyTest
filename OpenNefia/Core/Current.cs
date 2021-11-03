@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Object;
+using OpenNefia.Core.UI.Hud;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Game;
 using System;

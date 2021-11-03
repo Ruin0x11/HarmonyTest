@@ -27,8 +27,8 @@ namespace OpenNefia.Game
         
         public static bool NeedsDownload()
         {
-            return !Directory.Exists("Assets/Elona/Graphic") 
-                   || !Directory.Exists("Assets/Elona/Sound");
+            return !Directory.Exists(new ModLocalPath(typeof(CoreMod), "Assets/Elona/Graphic").Resolve()) 
+                   || !Directory.Exists(new ModLocalPath(typeof(CoreMod), "Assets/Elona/Sound").Resolve());
         }
 
         public uint NumberOfSteps => 2;
