@@ -238,12 +238,27 @@ namespace OpenNefia.Core.Object
 
             amount = Math.Min(this.Amount, amount);
 
-            var separated = this.Clone();
+            var result = MapObjectGen.Create(this.Def);
 
+            if (result.IsFailed)
+            {
+                return null;
+            }
+
+            var separated = result.Value;
             separated.Amount = amount;
             this.Amount -= amount;
+            this.AfterSplitOff(amount, separated);
 
             return separated;
+        }
+
+        protected virtual void AfterSplitOff(int amount, MapObject separated)
+        {
+            foreach (var aspect in _Aspects)
+            {
+                aspect.AfterSplitOff(amount, separated);
+            }
         }
 
         public InstancedMap? GetCurrentMap() => this.ParentHolder as InstancedMap;
@@ -285,17 +300,6 @@ namespace OpenNefia.Core.Object
             {
                 aspect.GetChildPoolOwners(outOwners);
             }
-        }
-
-        public virtual MapObject Clone()
-        {
-            // TODO: This doesn't even work. It won't handle Dictionaries or other complex data structures.
-            // There will have to be an ICloneable interface implemented on map objects
-            // and aspects that does the deep copying manually, but it shouldn't be too hard.
-            var newObject = (MapObject)this.MemberwiseClone();
-            newObject._PoolContainingMe = null;
-            newObject._Uid = Current.Game.Uids.GetNextAndIncrement();
-            return newObject;
         }
     }
 }

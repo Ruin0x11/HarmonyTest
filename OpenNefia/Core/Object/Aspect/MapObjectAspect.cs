@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Serial;
+using System;
 
 namespace OpenNefia.Core.Object.Aspect
 {
@@ -23,6 +24,11 @@ namespace OpenNefia.Core.Object.Aspect
         }
 
         public virtual void AfterExposeData(DataExposer data)
+        {
+
+        }
+
+        public virtual void AfterSplitOff(int amount, MapObject separated)
         {
 
         }
